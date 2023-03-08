@@ -15,6 +15,7 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
+    
     <link rel="stylesheet" href="homepage.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Document</title>
@@ -34,7 +35,101 @@
         <div class="col-lg-2 mt-2">
           <div style="color:white">
             <img src="../images/logo_login.svg">
-            Đăng nhập/ Đăng kí
+   Đăng nhập/    <!-- Button trigger modal -->
+   <a href="#" class="text-decoration-none text-white" data-bs-toggle="modal" data-bs-target="#ModalSignup">
+       Đăng ký
+     </a>
+     
+     <!-- Modal -->
+     <div class="modal fade " id="ModalSignup" tabindex="-1" aria-labelledby="ModalSignupLable" aria-hidden="true">
+       <div class="modal-dialog modal-dialog-centered modal-lg">
+         <div class="modal-content p-3">
+          
+        <div class="container-fluid">
+           <div class="modal-body text-dark" style="color:black ;">
+               <h2 class="modal-title text-center text-dark" id="ModalSignupLable">Đăng ký</h2>
+               <p class="text-center text-dark" style="font-size: 16px ;">Hãy điền thông tin để tạo tài khoản</p>
+               <div class="input-group flex-nowrap ">
+                   <div class="col-4 ">
+                   <input type="text" class="form-control "  placeholder="Họ" aria-label="Username" aria-describedby="addon-wrapping">
+   
+                   </div>
+                   <div class="col-1"></div>
+                   <div class="col-7 ">
+                       <input type="text" class="form-control "  placeholder="Tên" aria-label="Username" aria-describedby="addon-wrapping">
+       
+                       </div>
+                   
+   
+                 </div>
+                
+                 <div id="select-date" class="row mt-4">
+                   <div class="col-3">
+                       <p class="form-label fs-6  fw-bold">Ngày sinh:</p>
+                   </div>
+                     <div class="col-2 p-0">
+                         <select class="form-select shadow p-2" aria-label="Default select example">
+                             <option selected>Ngày</option>
+                             
+                           </select>
+                     </div>
+                     <div class="col-4">
+                         <select class="form-select shadow " aria-label="Default select example">
+                             <option selected>Tháng</option>
+                         
+                        
+                           </select>
+                     </div>
+                     <div class="col-2">
+                         <select class="form-select shadow " aria-label="Default select example">
+                             <option selected>Năm</option>
+                            
+                           </select>
+                     </div>
+                 </div>
+                 <div class="row mt-3">
+                   <div class="col-3"><p class="form-label fw-bold fs-6" >Giới Tính</p></div>
+                   <div class="col-3"><div class="form-check ">
+                       <input class="form-check-input" type="radio" name="radioGT" id="radioGT">
+                       <label class="form-check-label" for="radioGT">
+                         Nam   
+                       </label>
+                     </div></div>
+                     <div class="col-3"><div class="form-check ">
+                       <input class="form-check-input" type="radio" name="radioGT" id="radioGT">
+                       <label class="form-check-label" for="radioGT">
+                         Nữ
+                       </label>
+                     </div></div>
+                    
+                 </div>
+                   
+          <div class="input-group mt-3">
+           <input type="text" class="form-control "  placeholder="Số điện thoại" aria-label="Username" aria-describedby="addon-wrapping">
+       </div>      
+       <div class="input-group mt-3">
+           <input type="text" class="form-control "  placeholder="Password" aria-label="Username" aria-describedby="addon-wrapping">
+       </div>     <div class="input-group mt-3">
+           <input type="text" class="form-control "  placeholder="Confirm Password" aria-label="Username" aria-describedby="addon-wrapping">
+       </div>    
+   
+      <div class="row">
+       <div class="col-4"></div>
+   
+       <button type="button" class="btn mt-2 text-white btn-primary  " style="background-color:#09A5D7 ;border-radius: 10px; width: 200px;">Đăng ký</button>
+      </div>
+   
+     
+       
+           </div>
+        </div>
+           <div class="modal-footer">
+            <p class="form-label text-center text-dark">Nếu bạn đã có tài khoản</p>
+             <button type="button" class="btn btn-primary" style="border-radius: 10px;" >Đăng nhập</button>
+           </div>
+         </div>
+       </div>
+     </div>
           </div>
         </div>
       </div>

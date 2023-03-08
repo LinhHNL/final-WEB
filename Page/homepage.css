@@ -76,3 +76,6 @@ body, html {
     justify-content: center;
     flex-direction: column;
 }
+.form-control{
+    background-color: #E9EEEF ;
+}
