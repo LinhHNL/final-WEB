@@ -1,81 +1,323 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@700&display=swap');
+
 * {
     box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
 }
 
 body, html {
     height: 100%;
     margin: 0;
+    background-color: black;
+}   
+
+.btn-main {
+    color: white;
+    background-image: linear-gradient(90deg, #784BA0 0%, #FF3CAC 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0px;
 }
 
-.main-container {
-    background-image: url("../images/bg_homepage.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
-    height: 3093px;
-    margin: 0;
-    padding: 20px 0;
+.btn-outline {
+    border-image-slice: 1;
+    border-image-source: linear-gradient(90deg, #784BA0 0%, #FF3CAC 100%);
+    background-color: transparent;
+    color: white;
 }
 
 #movie-slide {
-    width: 70%;
-    margin: auto;
+    height: 820px;
+
 }
 
-.carousel-control-prev {
-    left: -15%;
+
+#movie-slide .movie-preview-img {
+    width: 85%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    mix-blend-mode: normal;
+    box-shadow: inset 250px 0px 250px #000000;
+    float: left;
 }
 
-.carousel-control-prev-icon, .carousel-control-next-icon {
-    width: 4rem;
-    height: 4rem;
-    font-weight: bold;
+#movie-slide .movie-preview-img:before {
+    content:'';
+    position:absolute;
+    width:100%;
+    height:100%;
+    left:0;
+    top:0;
+    box-shadow: inset 0px -150px 150px #000000;
 }
 
-.carousel-control-next {
-    right: -15%;
+#movie-slide .shadow-box {
+    background-color: black;
+    width: 15%;
+    height: 100%;
+    float: left;
 }
 
-.about-me, .event-container {
+#movie-slide .carousel-inner {
+    width: 100%;
+    height: 100%;
+}
+
+#movie-slide .carousel-item {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+#movie-slide .movie-content {
+    width: 32%;
+    position: absolute;
     color: white;
-    padding: 30px 150px;
-    margin: 40px 0;
-    background-color: rgba(255, 255, 255, 0.15);
+    z-index: 1;
+    padding-left: 3%;  
+    top: 50%;
+    transform: translateY(-50%);
+    padding-bottom: 100px;
 }
 
-
-.movies-nav {
-    margin: auto;
-    width: fit-content;
+#movie-slide .background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
 }
 
-.movies-nav > div {
-    color: white;
-    text-align: center;
-    display: inline-block;
-    margin: 0 10px;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.card {
-    border: none;
-}
-
-.event-container img {
-    margin: auto;
-    max-width: 100%;
-}
-
-.event-container img:first-child {
-    margin-bottom: 20px;
-}
-
-.row-centered > div {
+#movie-slide .rating {
+    font-size: 16px;
+    font-weight: 500;
     display: flex;
-    justify-content: center;
-    flex-direction: column;
+    flex-direction: row;
+    line-height: 20px;
+    align-items: center;
+    color: #FBC300;
+    margin-bottom: 16px;
 }
+
+#movie-slide .rating-imdb {
+    background-color: #FBC300;
+    border-radius: 50px;
+    width: fit-content;
+    padding: 4px 8px;
+    color: #000000;
+    margin-left: 10px;
+}
+
+#movie-slide .rating-star img {
+    margin-right: 8px;
+}
+
+#movie-slide .genre-list {
+    color: #FF3CAC;
+    text-transform: uppercase;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: row;
+    gap: 14px;
+}
+
+
+#movie-slide .dot {
+    margin: 0 16px;
+    color: #636363;
+}
+
+#movie-slide .movie-title {
+    font-family: 'Noto Serif Display', serif;
+    font-size: 40px;
+    font-weight: 700;
+    font-style: normal;
+    margin: 10px 0;
+}
+
+#movie-slide .actor-list, #movie-slide .movie-info, #movie-slide .sypnosis {
+    font-size: 15px;
+    margin: 6px 0;
+}
+
+#movie-slide .sypnosis {
+    color: #9E9E9E;
+}
+
+#movie-slide .movie-content button {
+    height: 40px;
+    width: 204px;
+    gap: 6px;
+    font-size: 16px;
+}
+
+#movie-slide .button-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 40px;
+    gap: 20px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 3%;
+}
+
+.carousel-indicators {
+    gap: 6px;
+    bottom: 80px;
+}
+
+.carousel-indicators > button {
+    border-radius: 50%;
+    width: 10px !important;
+    height: 10px !important;
+}
+
+.main-container {
+    padding: 0 3%;
+}
+
+.main-container .line {
+    background: linear-gradient(90deg, #784BA0 0%, #FF3CAC 39.9%, rgba(255, 60, 172, 0) 100%);
+    height: 4px;
+    margin: 6px 0;
+}
+
+.main-container .heading {
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.main-container .heading .more {
+    margin-left: auto;
+}
+
+
+.main-container .heading .more a {
+    color: #FF3CAC;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.main-container .genre-select {
+    display: flex;
+    gap: 12px;
+    margin: 16px 0;
+}
+
+.main-container .genre-select button {
+    background-color: #222222;
+    width: 126px;
+    padding: 4px;
+    border-radius: 10px;
+    font-size: 16px;
+    border: 0px;
+    color: white;
+}
+
+.main-container .movie-card {
+    height: auto;
+    border-radius: 10px;
+    position: relative;
+}
+
+.cards-container {
+    margin: 20px -10px;
+}
+
+
+.movie-card .card-img {
+    aspect-ratio: 2 / 3;   
+    position: relative; 
+}
+
+.movie-card .poster {
+    max-height: 100%;
+    max-width: 100%;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.movie-card .movie-genre {
+    color: #FF3CAC;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 8px 0 4px 0;
+    text-transform: uppercase;
+}
+
+.movie-card .vertical-line {
+    color: #FF3CAC;
+    margin: 0 4px;
+}
+
+.movie-title {
+    font-weight: bold;
+    font-size: large;
+    color: white;
+}
+
+.movie-card .card-info {
+    background: rgba(65, 65, 65, 0.4);
+    backdrop-filter: blur(7.5px);
+    position: absolute;
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 0;    
+    align-items: center;
+    color: white;
+    font-size: 16px;
+    transition: 0.1s ease-in-out;
+    opacity: 0;
+}
+
+.movie-card .card-info .rating {
+    color: #FBC300;
+    font-size: 24px;
+}
+
+.movie-card .card-info img {
+    margin: 0 4px;
+}
+
+.movie-card .card-img:hover .card-info {
+    opacity: 1;
+}
+
+.movie-card .card-info button {
+    width: 60%;
+    padding: 4px;
+}
+
+.event-title {
+    color: white;
+    margin: 10px 0;
+}
+
+
 .form-control{
     background-color: #E9EEEF ;
+}
+
+@media (pointer:coarse) {
+    .cards-container .row {
+        overflow-x: scroll;
+        white-space: nowrap;
+        display: block;
+    }
+    
+    .cards-container .row > div {
+        display: inline-block;
+        float: none;
+    }
 }
