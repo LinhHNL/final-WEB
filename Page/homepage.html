@@ -24,7 +24,12 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+      integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
 
     <title>Document</title>
   </head>
@@ -286,14 +291,16 @@
           </div>
         </div>
         <div class="line"></div>
-        <div class="genre-select">
-          <button class="btn-main">Tất cả phim</button>
-          <button>Hành động</button>
-          <button>Tâm lý</button>
-          <button>Kinh dị</button>
-          <button>Hoạt hình</button>
-          <button>Hài hước</button>
-          <button>Phiêu lưu</button>
+        <div class="genre-select container-fluid">
+          <div class="row g-2">
+            <button class="btn-main">Tất cả phim</button>
+            <button>Hành động</button>
+            <button>Tâm lý</button>
+            <button>Kinh dị</button>
+            <button>Hoạt hình</button>
+            <button>Hài hước</button>
+            <button>Phiêu lưu</button>
+          </div>
         </div>
         <div class="cards-container container-fluid">
           <div class="row g-3">
@@ -782,7 +789,7 @@
               <a href="#"> <p class="logo" style="font-size: 60px">5CT</p> </a>
               <p style="font-size: 12px; clear: left">
                 COPYRIGHT © 5CODERCUTE.COM
-                <br>
+                <br />
                 ALL RIGHTS RESERVED.
               </p>
             </div>
@@ -837,17 +844,16 @@
       </div>
     </div>
     <script>
-      $(document).ready(function(){
-          $('.navbar-toggler').click(function(){
-              var color = $('.navbar').css("background-color")
-              if (color == "rgba(0, 0, 0, 0.01)"){
-                  $('.navbar').css("background", "rgba(0, 0, 0, 0.85)")
-              }
-              else{
-                  $('.navbar').css("background", "rgba(0, 0, 0, 0.01)")
-              }
-          })     
-      })              
-  </script>
+      $(document).ready(function () {
+        $(".navbar-toggler").click(function () {
+          var color = $(".navbar").css("background-color");
+          if (color == "rgba(0, 0, 0, 0.01)") {
+            $(".navbar").css("background", "rgba(0, 0, 0, 0.85)");
+          } else {
+            $(".navbar").css("background", "rgba(0, 0, 0, 0.01)");
+          }
+        });
+      });
+    </script>
   </body>
 </html>

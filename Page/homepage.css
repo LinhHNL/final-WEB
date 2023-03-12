@@ -229,16 +229,13 @@ body, html {
     text-decoration: none;
 }
 
-.main-container .genre-select {
-    display: flex;
-    gap: 12px;
-    margin: 16px 0;
-}
+
 
 .main-container .genre-select button {
     background-color: #222222;
     width: 126px;
     padding: 4px;
+    margin-right: 6px;
     border-radius: 10px;
     font-size: 16px;
     border: 0px;
