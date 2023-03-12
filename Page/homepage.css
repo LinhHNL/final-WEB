@@ -8,10 +8,30 @@
 
 .nav-link {
     color: #CFCECE !important;
+    position: relative;
+    padding: 8px 0 !important;
+    margin: 0 8px;
+}
+
+.nav-link::after {
+    transition: 0.2s ease-in-out;
+    content: '';
+    position: absolute;
+    background-image: linear-gradient(90deg, #784BA0 0%, #FF3CAC 100%);
+    width: 100%;
+    height: 3px;
+    left: 0;
+    bottom: 0;
+    opacity: 0;
+}
+
+.nav-link:hover::after {
+    opacity: 1;
 }
 
 body, html {
     height: 100%;
+    width: 100vw;
     margin: 0;
     background-color: black;
 }   
@@ -39,13 +59,13 @@ body, html {
 
 
 #movie-slide .movie-preview-img {
-    width: 85%;
     height: 100%;
     background-size: cover;
     background-position: center;
     mix-blend-mode: normal;
     box-shadow: inset 250px 0px 250px #000000;
-    float: left;
+    float: none;
+    overflow: hidden;
 }
 
 #movie-slide .movie-preview-img:before {
@@ -77,8 +97,9 @@ body, html {
 }
 
 #movie-slide .movie-content {
-    width: 32%;
     position: absolute;
+    max-height: 80%;
+    width: 32%;
     color: white;
     z-index: 1;
     padding-left: 3%;  
@@ -153,7 +174,7 @@ body, html {
 #movie-slide .movie-content button {
     height: 40px;
     width: 204px;
-    gap: 6px;
+    gap: 10px;
     font-size: 16px;
 }
 
@@ -234,7 +255,6 @@ body, html {
     margin: 20px -10px;
 }
 
-
 .movie-card .card-img {
     aspect-ratio: 2 / 3;   
     position: relative; 
@@ -313,7 +333,7 @@ body, html {
 .form-control{
     background-color: #E9EEEF ;
 }
-
+/* 
 @media (pointer:coarse) {
     .cards-container .row {
         overflow-x: scroll;
@@ -325,7 +345,7 @@ body, html {
         display: inline-block;
         float: none;
     }
-}
+} */
 
 /* nav + footer */
 @font-face {
@@ -336,7 +356,11 @@ body, html {
 .navbar {
     padding: 0 10px;
     background-color: rgba(0, 0, 0, 0.01);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(8px);
+}
+
+.navbar-brand {
+    padding: 0;
 }
 
 .logo{
@@ -351,7 +375,7 @@ body, html {
 }
 
 .navbar-collapse{
-    margin-left: 50px;
+    margin-left: 2%;
 }
 
 .navbar-collapse ul{
@@ -431,7 +455,32 @@ body, html {
     width: 176px;
     height: 50px
 }
-@media only screen and (max-width: 575px) {
+
+
+/* large */
+@media only screen and (max-width: 1199px) {
+    .movie-content {
+        width: 40% !important;
+    }
+}
+
+/* large tablet */
+@media only screen and (max-width: 991px) {
+    .movie-content {
+        width: 60% !important;
+    }
+
+    .nav-link {
+        font-size: 14px !important;
+    }
+}
+
+/* tablet */
+@media only screen and (max-width: 767px) {
+    .navbar .logo {
+        font-size: 40px;
+    }
+
     .navbar-collapse ul {
         height: 100vh;
     }
@@ -448,6 +497,7 @@ body, html {
     .nav-link {
         float: right;
     }
+
 
     #create-accout,#login-accout {
         display: flex;
@@ -477,5 +527,85 @@ body, html {
     }
     #footer-first{
         order: 3;
+    }
+
+    #movie-slide {
+        height: 900px;
+        text-align: center;
+    }
+
+    #movie-slide .shadow-box{
+        width: 0;
+    }
+
+    #movie-slide .movie-preview-img {
+        box-shadow: none;
+        height: 56%;
+        box-shadow: inset 0px -60px 60px #000000;
+    }
+
+    #movie-slide .movie-content {
+        width: 100% !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 30px;
+        bottom: 0;
+        justify-content: flex-end;
+        height: 100% !important;
+    }
+    
+    #movie-slide .movie-title {
+        font-size: 26px;
+        margin: 0;
+    }
+
+    #movie-tile .movie-info {
+        margin: 0;
+    }
+
+    #movie-slide .rating {
+        margin: 5px;
+    }
+
+    #movie-slide .genre-list {
+        font-size: 12px;
+        margin: 0;
+        font-weight: 700;
+    }
+
+    #movie-slide .button-container {
+        flex-direction: column;
+        margin-top: 4px;
+    }
+
+    #movie-slide .movie-content button {
+        width: 100%;
+    }
+
+
+    #movie-slide .movie-content .btn-trailer {
+        background-color: transparent !important;
+        background-image: none;
+        border: white 2px solid !important;
+    }
+
+    .more span {
+        visibility: hidden;
+    }
+
+    .carousel-indicators {
+        bottom: 0;
+    }
+
+    .cards-container {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    #movie-slide .movie-preview-img {
+        height: 50%;
     }
 }
