@@ -6,6 +6,10 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+.nav-link {
+    color: #CFCECE !important;
+}
+
 body, html {
     height: 100%;
     margin: 0;
@@ -118,6 +122,7 @@ body, html {
     text-transform: uppercase;
     margin: 10px 0;
     display: flex;
+    font-weight: 500;
     flex-direction: row;
     gap: 14px;
 }
@@ -319,5 +324,158 @@ body, html {
     .cards-container .row > div {
         display: inline-block;
         float: none;
+    }
+}
+
+/* nav + footer */
+@font-face {
+    font-family: 'Modern No. 20';
+    src: url('https://fonts.cdnfonts.com/css/modern-no-20');
+}
+
+.navbar {
+    padding: 0 10px;
+    background-color: rgba(0, 0, 0, 0.01);
+    backdrop-filter: blur(5px);
+}
+
+.logo{
+    background-image: linear-gradient(to right, #784BA0 0%, #FF3CAC 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-family: 'Modern No. 20';
+    font-size: 48px;
+    margin: 0;
+    float: left;
+}
+
+.navbar-collapse{
+    margin-left: 50px;
+}
+
+.navbar-collapse ul{
+    gap: 20px;
+}
+.nav-item a {
+    padding-right: 0;
+    font-size: 16px;
+    color: #CFCECE;
+    transition: 0.2s ease-in-out;
+}
+
+.nav-item a:hover {
+    color: white !important;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler:focus {
+    text-decoration: none;
+    outline: 0;
+    box-shadow: none;
+}
+
+#login-accout {
+    margin-left: auto;
+}
+.footer{
+    border-top: 2px solid #2B2B2B;
+    background-color: black; 
+    color:#9E9E9E
+}
+.footer ul{
+    margin: 0;
+    padding: 0;
+}
+.footer ul li{
+    list-style: none;
+    margin-bottom: 20px;
+}
+.footer a{
+    text-decoration: none;
+    color:#9E9E9E;
+}
+.col-lg-3{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 30px;
+}
+.btn-footer{
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 13px;
+
+    width: 179px;
+    height: 44px;
+
+    border: 1px solid #9E9E9E;
+    border-radius: 10px
+}
+.footer-icon{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 29px;
+
+    width: 176px;
+    height: 50px
+}
+@media only screen and (max-width: 575px) {
+    .navbar-collapse ul {
+        height: 100vh;
+    }
+
+    .navbar-collapse{
+        margin-left: 0;
+    }
+
+    .nav-item {
+        margin-top: 20px;
+        margin-right: 20px;
+    }
+
+    .nav-link {
+        float: right;
+    }
+
+    #create-accout,#login-accout {
+        display: flex;
+        justify-content: center;
+        align-items:center;
+        clear: right;
+        margin: 0 auto;
+        width: 124px;
+        height: 46px;
+        border: 1px solid #9E9E9E;
+        border-radius: 10px;
+    }
+    #login-accout{
+        margin-top: 100px;
+    }
+    #create-accout a,#login-accout a{
+        text-transform: uppercase;
+    }
+    .footer ul , .footer-logo{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .footer-logo p{
+        text-align: center;
+    }
+    #footer-first{
+        order: 3;
     }
 }
