@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <link rel="stylesheet" href="detail.css"/>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+      integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <title>Document</title>
+  </head>
+  <body>
+    <!--  -->
+    <div class="main-container">
+      <div class="section about">
+        <div class="line"></div>
+          <div class="about">
+            <div class="about-content container-fluid">
+              <div class="row">
+                <div id="about-poster" class="col-lg-5 col-md-6 col-sm-12 pt-5">
+                  <img id="about-poster-img" src="/images/poster-about.jpg">
+                </div>
+                <div id="about-describe" class="col-lg-6 col-md-6 col-sm-12">
+                  <div class="about-kind">
+                    <ul>
+                      <li> PHIÊU LƯU </li>
+                      <li> GIẢ TƯỞNG </li>
+                      <li> HÀNH ĐỘNG </li>
+                    </ul>
+                  </div>
+                  <div class="about-line">
+                    <p> Mô tả </p>
+                    <p class="about-short"> Scott Lang và Hope Van Dyne trở lại tiếp tục cuộc phiêu lưu của họ với vai trò Người Kiến và Chiến binh Ong. Cùng với cha mẹ của Hope, họ sẽ có chuyến khám phá Lượng Tử Giới, gặp gỡ những sinh vật mới lạ và bắt đầu cuộc hành trình vào thế giới lượng tử. </p>
+                  </div>
+                  <div class="about-line">
+                    <p> Ngày khởi chiếu </p>
+                    <p> 17/02/2023 </p>
+                  </div> 
+                  <div class="about-line">
+                    <p> Diễn viên </p>
+                    <p class="about-short"> Paul Rudd, Kathryn Newton, Jonathan Majors, Evangeline Lilly, Tony McCarthy </p>
+                  </div>
+                  <div class="about-line">
+                    <p> Đạo diễn </p>
+                    <p> Peyton Reed </p>
+                  </div>
+                  <div class="about-line">
+                    <p> Giới hạn độ tuổi </p>
+                    <p> 16+ </p>
+                  </div>
+                </div>
+                <div class="about-background"></div>
+            </div>
+          </div>          
+        </div>
+      </div>
+      <div class="section ongoing">
+        <div class="heading">
+          <h4>Phim đang chiếu</h4>
+          <div class="more">
+            <a href="">
+              <span>Xem thêm</span>
+              <img src="/images/arrow_right.svg" alt="" />
+            </a>
+          </div>
+        </div>
+        <div class="line"></div>
+        <div class="genre-select container-fluid">
+          <div class="row g-2">
+            <button class="btn-main">Tất cả phim</button>
+            <button>Hành động</button>
+            <button>Tâm lý</button>
+            <button>Kinh dị</button>
+            <button>Hoạt hình</button>
+            <button>Hài hước</button>
+            <button>Phiêu lưu</button>
+          </div>
+        </div>
+        <div class="cards-container container-fluid">
+          <div class="row g-3">
+            <div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
+              <div class="card-img">
+                <div class="card-info">
+                  <img
+                    src="/images/Star.svg"
+                    alt=""
+                    width="22px"
+                    height="22px"
+                  />
+                  <div class="rating">7.8 / 10</div>
+                  <div class="age">13+</div>
+                  <div class="date">
+                    <img src="/images/date.svg" alt="" />
+                    18-02-2019
+                  </div>
+                  <div class="duration">
+                    <img src="/images/timer.svg" alt="" />
+                    1g 56p
+                  </div>
+                  <button class="btn-outline">Chi tiết</button>
+                  <button class="btn-main">Đặt vé</button>
+                </div>
+                <img class="poster" src="/images/poster-2.jpg" alt="" />
+              </div>
+
+              <div class="movie-genre">
+                Tâm lý
+                <span class="vertical-line">|</span>
+                Tình cảm
+              </div>
+              <div class="movie-title">Mắt biếc</div>
+            </div>
+            <div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
+              <div class="card-img">
+                <div class="card-info">
+                  <img
+                    src="/images/Star.svg"
+                    alt=""
+                    width="22px"
+                    height="22px"
+                  />
+                  <div class="rating">7.8 / 10</div>
+                  <div class="age">13+</div>
+                  <div class="date">
+                    <img src="/images/date.svg" alt="" />
+                    18-02-2019
+                  </div>
+                  <div class="duration">
+                    <img src="/images/timer.svg" alt="" />
+                    1g 56p
+                  </div>
+                  <button class="btn-outline">Chi tiết</button>
+                  <button class="btn-main">Đặt vé</button>
+                </div>
+                <img class="poster" src="/images/poster-2.jpg" alt="" />
+              </div>
+
+              <div class="movie-genre">
+                Tâm lý
+                <span class="vertical-line">|</span>
+                Tình cảm
+              </div>
+              <div class="movie-title">Mắt biếc</div>
+            </div>
+            <div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
+              <div class="card-img">
+                <div class="card-info">
+                  <img
+                    src="/images/Star.svg"
+                    alt=""
+                    width="22px"
+                    height="22px"
+                  />
+                  <div class="rating">7.8 / 10</div>
+                  <div class="age">13+</div>
+                  <div class="date">
+                    <img src="/images/date.svg" alt="" />
+                    18-02-2019
+                  </div>
+                  <div class="duration">
+                    <img src="/images/timer.svg" alt="" />
+                    1g 56p
+                  </div>
+                  <button class="btn-outline">Chi tiết</button>
+                  <button class="btn-main">Đặt vé</button>
+                </div>
+                <img class="poster" src="/images/poster-2.jpg" alt="" />
+              </div>
+
+              <div class="movie-genre">
+                Tâm lý
+                <span class="vertical-line">|</span>
+                Tình cảm
+              </div>
+              <div class="movie-title">Mắt biếc</div>
+            </div>
+            <div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
+              <div class="card-img">
+                <div class="card-info">
+                  <img
+                    src="/images/Star.svg"
+                    alt=""
+                    width="22px"
+                    height="22px"
+                  />
+                  <div class="rating">7.8 / 10</div>
+                  <div class="age">13+</div>
+                  <div class="date">
+                    <img src="/images/date.svg" alt="" />
+                    18-02-2019
+                  </div>
+                  <div class="duration">
+                    <img src="/images/timer.svg" alt="" />
+                    1g 56p
+                  </div>
+                  <button class="btn-outline">Chi tiết</button>
+                  <button class="btn-main">Đặt vé</button>
+                </div>
+                <img class="poster" src="/images/poster-2.jpg" alt="" />
+              </div>
+
+              <div class="movie-genre">
+                Tâm lý
+                <span class="vertical-line">|</span>
+                Tình cảm
+              </div>
+              <div class="movie-title">Mắt biếc</div>
+            </div>
+            <div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
+              <div class="card-img">
+                <div class="card-info">
+                  <img
+                    src="/images/Star.svg"
+                    alt=""
+                    width="22px"
+                    height="22px"
+                  />
+                  <div class="rating">7.8 / 10</div>
+                  <div class="age">13+</div>
+                  <div class="date">
+                    <img src="/images/date.svg" alt="" />
+                    18-02-2019
+                  </div>
+                  <div class="duration">
+                    <img src="/images/timer.svg" alt="" />
+                    1g 56p
+                  </div>
+                  <button class="btn-outline">Chi tiết</button>
+                  <button class="btn-main">Đặt vé</button>
+                </div>
+                <img class="poster" src="/images/poster-2.jpg" alt="" />
+              </div>
+
+              <div class="movie-genre">
+                Tâm lý
+                <span class="vertical-line">|</span>
+                Tình cảm
+              </div>
+              <div class="movie-title">Mắt biếc</div>
+            </div>
+            <div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
+              <div class="card-img">
+                <div class="card-info">
+                  <img
+                    src="/images/Star.svg"
+                    alt=""
+                    width="22px"
+                    height="22px"
+                  />
+                  <div class="rating">7.8 / 10</div>
+                  <div class="age">13+</div>
+                  <div class="date">
+                    <img src="/images/date.svg" alt="" />
+                    18-02-2019
+                  </div>
+                  <div class="duration">
+                    <img src="/images/timer.svg" alt="" />
+                    1g 56p
+                  </div>
+                  <button class="btn-outline">Chi tiết</button>
+                  <button class="btn-main">Đặt vé</button>
+                </div>
+                <img class="poster" src="/images/poster-2.jpg" alt="" />
+              </div>
+
+              <div class="movie-genre">
+                Tâm lý
+                <span class="vertical-line">|</span>
+                Tình cảm
+              </div>
+              <div class="movie-title">Mắt biếc</div>
+            </div> 
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div class="footer">
+      <div class="container-fluid">
+        <div class="row d-flex">
+          <div class="col-lg-3 col-md-3 col-sm-12" id="footer-first">
+            <div class="footer-logo" style="margin-top: 0">
+              <a href="#"> <p class="logo" style="font-size: 60px">5CT</p> </a>
+              <p style="font-size: 12px; clear: left">
+                COPYRIGHT © 5CODERCUTE.COM
+                <br />
+                ALL RIGHTS RESERVED.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-12">
+            <ul style="margin-top: 20px">
+              <li>
+                <a href="#" style="color: white; font-size: 18px">
+                  Về chúng tôi
+                </a>
+              </li>
+              <li><a href="#"> Liên hệ </a></li>
+              <li><a href="#"> Tuyển dụng </a></li>
+              <li><a href="#"> Blog </a></li>
+              <li><a href="#"> FAQ </a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-12">
+            <ul style="margin-top: 20px">
+              <li>
+                <a href="#" style="color: white; font-size: 18px">
+                  Điều khoản sử dụng
+                </a>
+              </li>
+              <li><a href="#"> Điều khoản chung </a></li>
+              <li><a href="#"> Điều khoản giao dịch </a></li>
+              <li><a href="#"> Điều khoản thanh toán </a></li>
+              <li><a href="#"> Chính sách bảo mật </a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-12">
+            <div style="margin-top: 20px">
+              <div>
+                <a href="#" class="btn-footer">
+                  <img src="/images/email-multiple-outline.png" />
+                  hoidap@5ct.vn
+                </a>
+              </div>
+              <div>
+                <a href="#" class="btn-footer">
+                  <img src="/images/phone.png" /> 1900 1008
+                </a>
+              </div>
+              <div class="footer-icon">
+                <a href="#"> <img src="/images/facebook.png" /> </a>
+                <a href="#"> <img src="/images/twitter.png" /> </a>
+                <a href="#"> <img src="/images/google-plus.png" /> </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      $(document).ready(function () {
+        $(".navbar-toggler").click(function () {
+          var color = $(".navbar").css("background-color");
+          if (color == "rgba(0, 0, 0, 0.01)") {
+            $(".navbar").css("background", "rgba(0, 0, 0, 0.85)");
+          } else {
+            $(".navbar").css("background", "rgba(0, 0, 0, 0.01)");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
