@@ -56,7 +56,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto d-flex w-100">
             <li class="nav-item">
-              <a class="nav-link" href="#">PHIM</a>
+              <a class="nav-link nav-current" href="#">PHIM</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">LỊCH CHIẾU</a>
@@ -77,9 +77,40 @@
         </div>
       </div>
     </nav>
+    <!-- Modal trailer -->
+    <div
+      class="modal fade"
+      id="modal-trailer"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="modal-trailer"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <!-- 16:9 aspect ratio -->
+            <div class="ratio ratio-16x9">
+              <video class="embed-responsive-item" controls>
+                <source src="/images/trailer.mp4" type="video/mp4" />
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Slide phim -->
-    <div id="movie-slide" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-indicators">
+    <div id="movie-slide" class="carousel slide" data-bs-ride="carousel container-sm">
+      <div class="carousel-indicators row">
+        
         <button
           type="button"
           data-bs-target="#movie-slide"
@@ -87,179 +118,82 @@
           class="active"
           aria-current="true"
           aria-label="Slide 1"
-        ></button>
+        >
+          <img
+            class="thumbnail-img trailer-thumbnail"
+            src="/images/trailer-thumbnail.jpg"
+            alt=""
+          />
+        </button>
         <button
           type="button"
           data-bs-target="#movie-slide"
           data-bs-slide-to="1"
           aria-label="Slide 2"
-        ></button>
+        >
+          <img class="thumbnail-img" src="/images/scene-1.jpg" alt="" />
+        </button>
         <button
           type="button"
           data-bs-target="#movie-slide"
           data-bs-slide-to="2"
           aria-label="Slide 3"
-        ></button>
+        >
+          <img class="thumbnail-img" src="/images/scene-2.jpg" alt="" />
+        </button>
+        <button
+          type="button"
+          data-bs-target="#movie-slide"
+          data-bs-slide-to="3"
+          aria-label="Slide 4"
+        >
+          <img class="thumbnail-img" src="/images/scene-3.jpg" alt="" />
+        </button>
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <div class="movie-content">
-            <div class="rating">
-              <div class="rating-star">
-                <img src="/images/Star.svg" alt="" />
-                7.8
-              </div>
-              <div class="rating-imdb">IMDB 7.2</div>
-            </div>
-            <div class="genre-list">
-              <span>Phiêu lưu</span>
-              <span>Giả tưởng</span>
-              <span>Hành động</span>
-            </div>
-            <div class="movie-title">
-              Người Kiến và Chiến binh Ong: Thế giới Lượng tử
-            </div>
-            <div class="actor-list">
-              Pual Rudd, Kathryn Newton, Tonathan Majors, Bill Murray
-            </div>
-            <div class="movie-info">
-              <span class="duration">2h 5m</span>
-              <span class="dot">●</span>
-              <span class="premier-date">17/02/2023</span>
-              <span class="dot">●</span>
-              <span class="country">USA</span>
-            </div>
-            <div class="sypnosis">
-              Scott Lang và Hope Van Dyne trở lại tiếp tục cuộc phiêu lưu của họ
-              với vai trò Người Kiến và Chiến binh Ong. Cùng với cha mẹ của
-              Hope, họ sẽ có chuyến khám phá Lượng Tử Giới, gặp gỡ những sinh
-              vật mới lạ và bắt đầu cuộc hành trình vào thế giới lượng tử.
-            </div>
-            <div class="button-container">
-              <button class="btn-main btn-trailer">
-                TRAILER
-                <img src="/images/play.svg" alt="" />
-              </button>
-              <button class="btn-main btn-book">
-                ĐẶT VÉ
-                <img src="/images/Arrow_right_long.svg" alt="" />
-              </button>
-            </div>
-          </div>
           <div class="background">
-            <div class="shadow-box"></div>
             <div
               class="movie-preview-img"
-              style="background-image: url('/images/bg-2.jpg')"
-            ></div>
+              style="background-image: url('/images/trailer-thumbnail.jpg')"
+            >
+              <button
+                class="play-btn"
+                data-toggle="modal"
+                data-target="#modal-trailer"
+                type="button"
+              ></button>
+            </div>
           </div>
         </div>
         <div class="carousel-item">
-          <div class="movie-content">
-            <div class="rating">
-              <div class="rating-star">
-                <img src="/images/Star.svg" alt="" />
-                7.8
-              </div>
-              <div class="rating-imdb">IMDB 7.2</div>
-            </div>
-            <div class="genre-list">
-              <span>Phiêu lưu</span>
-              <span>Giả tưởng</span>
-              <span>Hành động</span>
-            </div>
-            <div class="movie-title">
-              Người Kiến và Chiến binh Ong: Thế giới Lượng tử
-            </div>
-            <div class="actor-list">
-              Pual Rudd, Kathryn Newton, Tonathan Majors, Bill Murray
-            </div>
-            <div class="movie-info">
-              <span class="duration">2h 5m</span>
-              <span class="dot">●</span>
-              <span class="premier-date">17/02/2023</span>
-              <span class="dot">●</span>
-              <span class="country">USA</span>
-            </div>
-            <div class="sypnosis">
-              Scott Lang và Hope Van Dyne trở lại tiếp tục cuộc phiêu lưu của họ
-              với vai trò Người Kiến và Chiến binh Ong. Cùng với cha mẹ của
-              Hope, họ sẽ có chuyến khám phá Lượng Tử Giới, gặp gỡ những sinh
-              vật mới lạ và bắt đầu cuộc hành trình vào thế giới lượng tử.
-            </div>
-            <div class="button-container">
-              <button class="btn-main btn-trailer">
-                TRAILER
-                <img src="/images/play.svg" alt="" />
-              </button>
-              <button class="btn-main btn-book">
-                ĐẶT VÉ
-                <img src="/images/Arrow_right_long.svg" alt="" />
-              </button>
-            </div>
-          </div>
           <div class="background">
-            <div class="shadow-box"></div>
             <div
               class="movie-preview-img"
-              style="background-image: url('/images/bg-3.jpg')"
-            ></div>
+              style="background-image: url('/images/scene-1.jpg')"
+            >
+            </div>
           </div>
         </div>
         <div class="carousel-item">
-          <div class="movie-content">
-            <div class="rating">
-              <div class="rating-star">
-                <img src="/images/Star.svg" alt="" />
-                7.8
-              </div>
-              <div class="rating-imdb">IMDB 7.2</div>
-            </div>
-            <div class="genre-list">
-              <span>Phiêu lưu</span>
-              <span>Giả tưởng</span>
-              <span>Hành động</span>
-            </div>
-            <div class="movie-title">
-              Người Kiến và Chiến binh Ong: Thế giới Lượng tử
-            </div>
-            <div class="actor-list">
-              Pual Rudd, Kathryn Newton, Tonathan Majors, Bill Murray
-            </div>
-            <div class="movie-info">
-              <span class="duration">2h 5m</span>
-              <span class="dot">●</span>
-              <span class="premier-date">17/02/2023</span>
-              <span class="dot">●</span>
-              <span class="country">USA</span>
-            </div>
-            <div class="sypnosis">
-              Scott Lang và Hope Van Dyne trở lại tiếp tục cuộc phiêu lưu của họ
-              với vai trò Người Kiến và Chiến binh Ong. Cùng với cha mẹ của
-              Hope, họ sẽ có chuyến khám phá Lượng Tử Giới, gặp gỡ những sinh
-              vật mới lạ và bắt đầu cuộc hành trình vào thế giới lượng tử.
-            </div>
-            <div class="button-container">
-              <button class="btn-main btn-trailer">
-                TRAILER
-                <img src="/images/play.svg" alt="" />
-              </button>
-              <button class="btn-main btn-book">
-                ĐẶT VÉ
-                <img src="/images/Arrow_right_long.svg" alt="" />
-              </button>
-            </div>
-          </div>
           <div class="background">
-            <div class="shadow-box"></div>
             <div
               class="movie-preview-img"
-              style="background-image: url('/images/bg-1.jpg')"
-            ></div>
+              style="background-image: url('/images/scene-2.jpg')"
+            >
+            </div>
           </div>
         </div>
-      </div>
-      <button
+        <div class="carousel-item">
+          <div class="background">
+            <div
+              class="movie-preview-img"
+              style="background-image: url('/images/scene-3.jpg')"
+            >
+            </div>
+          </div>
+        </div>
+        <button
         class="carousel-control-prev"
         type="button"
         data-bs-target="#movie-slide"
@@ -277,6 +211,34 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
+      </div>
+      <div class="movie-content">
+        <div class="rating">
+          <div class="rating-star">
+            <img src="/images/Star.svg" alt="" />
+            7.8
+          </div>
+          <div class="rating-imdb">IMDB 7.2</div>
+        </div>
+        <div class="movie-title">
+          Người Kiến và Chiến binh Ong: Thế giới Lượng tử
+        </div>
+        <div class="movie-info">
+          <span class="duration">2h 5m</span>
+          <span class="dot">●</span>
+          <span class="premier-date">17/02/2023</span>
+          <span class="dot">●</span>
+          <span class="country">USA</span>
+        </div>
+
+        <div class="button-container">
+          <button class="btn-main btn-book">
+            ĐẶT VÉ
+            <img src="/images/Arrow_right_long.svg" alt="" />
+          </button>
+        </div>
+      </div>
+      
     </div>
     <!--  -->
     <div class="main-container">
@@ -824,19 +786,19 @@
             <div style="margin-top: 20px">
               <div>
                 <a href="#" class="btn-footer">
-                  <img src="../images/email-multiple-outline.png" />
+                  <img src="/images/email-multiple-outline.png" />
                   hoidap@5ct.vn
                 </a>
               </div>
               <div>
                 <a href="#" class="btn-footer">
-                  <img src="../images/phone.png" /> 1900 1008
+                  <img src="/images/phone.png" /> 1900 1008
                 </a>
               </div>
               <div class="footer-icon">
-                <a href="#"> <img src="../images/facebook.png" /> </a>
-                <a href="#"> <img src="../images/twitter.png" /> </a>
-                <a href="#"> <img src="../images/google-plus.png" /> </a>
+                <a href="#"> <img src="/images/facebook.png" /> </a>
+                <a href="#"> <img src="/images/twitter.png" /> </a>
+                <a href="#"> <img src="/images/google-plus.png" /> </a>
               </div>
             </div>
           </div>
@@ -853,6 +815,29 @@
             $(".navbar").css("background", "rgba(0, 0, 0, 0.01)");
           }
         });
+      });
+
+      // Modal trailer
+
+      let modalTrailer = $("#modal-trailer");
+
+      $(".play-btn").click(function () {
+        modalTrailer.modal("show");
+      });
+
+      $("#modal-trailer .close").click(function () {
+        modalTrailer.modal("hide");
+      });
+
+      let video = document.querySelector("#modal-trailer video");
+
+      modalTrailer.on("show.bs.modal", function (e) {
+        video.play();
+      });
+
+      modalTrailer.on("hide.bs.modal", function (e) {
+        video.pause();
+        video.currentTime = 0;
       });
     </script>
   </body>
