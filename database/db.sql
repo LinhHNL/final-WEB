@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th3 23, 2023 lúc 08:27 PM
+-- Thời gian đã tạo: Th3 23, 2023 lúc 11:39 PM
 -- Phiên bản máy phục vụ: 10.4.27-MariaDB
 -- Phiên bản PHP: 8.0.25
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `temp`
+-- Cơ sở dữ liệu: `db`
 --
 
 -- --------------------------------------------------------
@@ -29,8 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `actorof_movie` (
   `ActorID` char(11) NOT NULL,
-  `MovieID` char(11) NOT NULL,
-  `NameActor` varchar(50) NOT NULL
+  `NameActor` varchar(50) NOT NULL,
+  `MovieID` char(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -44,22 +44,7 @@ CREATE TABLE `booking` (
   `NumberOfTickets` int(11) NOT NULL,
   `TotalPrice` int(11) NOT NULL,
   `BookingTime` date NOT NULL,
-  `ShowtimeID` char(11) NOT NULL,
   `TransactionID` char(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `comment`
---
-
-CREATE TABLE `comment` (
-  `CommentID` char(11) NOT NULL,
-  `Content` varchar(50) NOT NULL,
-  `CommentTime` date NOT NULL,
-  `CustomerID` char(11) NOT NULL,
-  `MovieID` char(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -75,6 +60,28 @@ CREATE TABLE `customer` (
   `Email` varchar(50) NOT NULL,
   `Phone` char(10) NOT NULL,
   `Password` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `detailbooking`
+--
+
+CREATE TABLE `detailbooking` (
+  `TicketID` char(11) NOT NULL,
+  `BookingID` char(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `detailmoviegenre`
+--
+
+CREATE TABLE `detailmoviegenre` (
+  `MovieID` char(11) NOT NULL,
+  `GenreID` char(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -119,8 +126,6 @@ CREATE TABLE `movie` (
   `Year` int(11) NOT NULL,
   `Premiere` date NOT NULL,
   `URLTrailer` varchar(50) NOT NULL,
-  `ActorID` char(11) NOT NULL,
-  `GenreID` char(11) NOT NULL,
   `StudioID` char(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -133,7 +138,7 @@ CREATE TABLE `movie` (
 CREATE TABLE `moviegenre` (
   `GenreID` char(11) NOT NULL,
   `GenreName` varchar(50) NOT NULL,
-  `Description` text NOT NULL
+  `Description` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -145,7 +150,7 @@ CREATE TABLE `moviegenre` (
 CREATE TABLE `movieimage` (
   `ImageID` char(11) NOT NULL,
   `ImagePath` varchar(50) NOT NULL,
-  `Description` text NOT NULL,
+  `Description` varchar(50) NOT NULL,
   `MovieID` char(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -158,7 +163,7 @@ CREATE TABLE `movieimage` (
 CREATE TABLE `promotion` (
   `PromotionID` char(11) NOT NULL,
   `PromotionName` varchar(50) NOT NULL,
-  `Description` text NOT NULL,
+  `Description` varchar(50) NOT NULL,
   `StartTime` date NOT NULL,
   `EndTime` date NOT NULL,
   `Discount` float NOT NULL
@@ -256,7 +261,6 @@ CREATE TABLE `thearter` (
 
 CREATE TABLE `ticket` (
   `TicketID` char(11) NOT NULL,
-  `BookingID` char(11) NOT NULL,
   `ShowtimeID` char(11) NOT NULL,
   `SeatID` char(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -282,29 +286,35 @@ CREATE TABLE `transaction` (
 -- Chỉ mục cho bảng `actorof_movie`
 --
 ALTER TABLE `actorof_movie`
-  ADD PRIMARY KEY (`ActorID`);
+  ADD PRIMARY KEY (`ActorID`),
+  ADD KEY `MovieID` (`MovieID`);
 
 --
 -- Chỉ mục cho bảng `booking`
 --
 ALTER TABLE `booking`
   ADD PRIMARY KEY (`BookingID`),
-  ADD KEY `ShowtimeID` (`ShowtimeID`),
   ADD KEY `TransactionID` (`TransactionID`);
-
---
--- Chỉ mục cho bảng `comment`
---
-ALTER TABLE `comment`
-  ADD PRIMARY KEY (`CommentID`),
-  ADD KEY `CustomerID` (`CustomerID`),
-  ADD KEY `MovieID` (`MovieID`);
 
 --
 -- Chỉ mục cho bảng `customer`
 --
 ALTER TABLE `customer`
   ADD PRIMARY KEY (`CustomerID`);
+
+--
+-- Chỉ mục cho bảng `detailbooking`
+--
+ALTER TABLE `detailbooking`
+  ADD KEY `TicketID` (`TicketID`),
+  ADD KEY `BookingID` (`BookingID`);
+
+--
+-- Chỉ mục cho bảng `detailmoviegenre`
+--
+ALTER TABLE `detailmoviegenre`
+  ADD PRIMARY KEY (`MovieID`,`GenreID`),
+  ADD KEY `GenreID` (`GenreID`);
 
 --
 -- Chỉ mục cho bảng `errorreport`
@@ -324,8 +334,6 @@ ALTER TABLE `manager`
 --
 ALTER TABLE `movie`
   ADD PRIMARY KEY (`MovieID`),
-  ADD KEY `ActorID` (`ActorID`),
-  ADD KEY `GenreID` (`GenreID`),
   ADD KEY `StudioID` (`StudioID`);
 
 --
@@ -394,7 +402,6 @@ ALTER TABLE `thearter`
 --
 ALTER TABLE `ticket`
   ADD PRIMARY KEY (`TicketID`),
-  ADD KEY `BookingID` (`BookingID`),
   ADD KEY `ShowtimeID` (`ShowtimeID`),
   ADD KEY `SeatID` (`SeatID`);
 
@@ -410,18 +417,30 @@ ALTER TABLE `transaction`
 --
 
 --
+-- Các ràng buộc cho bảng `actorof_movie`
+--
+ALTER TABLE `actorof_movie`
+  ADD CONSTRAINT `actorof_movie_ibfk_1` FOREIGN KEY (`MovieID`) REFERENCES `movie` (`MovieID`);
+
+--
 -- Các ràng buộc cho bảng `booking`
 --
 ALTER TABLE `booking`
-  ADD CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`ShowtimeID`) REFERENCES `showtime` (`ShowtimeID`),
-  ADD CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`TransactionID`) REFERENCES `transaction` (`TransactionID`);
+  ADD CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`TransactionID`) REFERENCES `transaction` (`TransactionID`);
 
 --
--- Các ràng buộc cho bảng `comment`
+-- Các ràng buộc cho bảng `detailbooking`
 --
-ALTER TABLE `comment`
-  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`CustomerID`) REFERENCES `customer` (`CustomerID`),
-  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`MovieID`) REFERENCES `movie` (`MovieID`);
+ALTER TABLE `detailbooking`
+  ADD CONSTRAINT `detailbooking_ibfk_1` FOREIGN KEY (`TicketID`) REFERENCES `ticket` (`TicketID`),
+  ADD CONSTRAINT `detailbooking_ibfk_2` FOREIGN KEY (`BookingID`) REFERENCES `booking` (`BookingID`);
+
+--
+-- Các ràng buộc cho bảng `detailmoviegenre`
+--
+ALTER TABLE `detailmoviegenre`
+  ADD CONSTRAINT `detailmoviegenre_ibfk_1` FOREIGN KEY (`MovieID`) REFERENCES `movie` (`MovieID`),
+  ADD CONSTRAINT `detailmoviegenre_ibfk_2` FOREIGN KEY (`GenreID`) REFERENCES `moviegenre` (`GenreID`);
 
 --
 -- Các ràng buộc cho bảng `errorreport`
@@ -433,9 +452,7 @@ ALTER TABLE `errorreport`
 -- Các ràng buộc cho bảng `movie`
 --
 ALTER TABLE `movie`
-  ADD CONSTRAINT `movie_ibfk_1` FOREIGN KEY (`ActorID`) REFERENCES `actorof_movie` (`ActorID`),
-  ADD CONSTRAINT `movie_ibfk_2` FOREIGN KEY (`GenreID`) REFERENCES `moviegenre` (`GenreID`),
-  ADD CONSTRAINT `movie_ibfk_3` FOREIGN KEY (`StudioID`) REFERENCES `studio` (`StudioID`);
+  ADD CONSTRAINT `movie_ibfk_1` FOREIGN KEY (`StudioID`) REFERENCES `studio` (`StudioID`);
 
 --
 -- Các ràng buộc cho bảng `movieimage`
@@ -473,9 +490,8 @@ ALTER TABLE `showtime`
 -- Các ràng buộc cho bảng `ticket`
 --
 ALTER TABLE `ticket`
-  ADD CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`BookingID`) REFERENCES `booking` (`BookingID`),
-  ADD CONSTRAINT `ticket_ibfk_2` FOREIGN KEY (`ShowtimeID`) REFERENCES `showtime` (`ShowtimeID`),
-  ADD CONSTRAINT `ticket_ibfk_3` FOREIGN KEY (`SeatID`) REFERENCES `seat` (`SeatID`);
+  ADD CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`ShowtimeID`) REFERENCES `showtime` (`ShowtimeID`),
+  ADD CONSTRAINT `ticket_ibfk_2` FOREIGN KEY (`SeatID`) REFERENCES `seat` (`SeatID`);
 
 --
 -- Các ràng buộc cho bảng `transaction`
