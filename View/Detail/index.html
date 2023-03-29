@@ -100,7 +100,8 @@
             <!-- 16:9 aspect ratio -->
             <div class="ratio ratio-16x9">
               <video class="embed-responsive-item" controls>
-                <source src="/images/trailer.mp4" type="video/mp4" />
+                <source src="../..../../images/" type="" />
+                <source src="../../images/trailer.mp4" type="video/mp4" />
               </video>
             </div>
           </div>
@@ -108,9 +109,12 @@
       </div>
     </div>
     <!-- Slide phim -->
-    <div id="movie-slide" class="carousel slide" data-bs-ride="carousel container-sm">
+    <div
+      id="movie-slide"
+      class="carousel slide"
+      data-bs-ride="carousel container-sm"
+    >
       <div class="carousel-indicators row">
-        
         <button
           type="button"
           data-bs-target="#movie-slide"
@@ -121,7 +125,7 @@
         >
           <img
             class="thumbnail-img trailer-thumbnail"
-            src="/images/trailer-thumbnail.jpg"
+            src="../../images/trailer-thumbnail.jpg"
             alt=""
           />
         </button>
@@ -131,7 +135,7 @@
           data-bs-slide-to="1"
           aria-label="Slide 2"
         >
-          <img class="thumbnail-img" src="/images/scene-1.jpg" alt="" />
+          <img class="thumbnail-img" src="../../images/scene-1.jpg" alt="" />
         </button>
         <button
           type="button"
@@ -139,7 +143,7 @@
           data-bs-slide-to="2"
           aria-label="Slide 3"
         >
-          <img class="thumbnail-img" src="/images/scene-2.jpg" alt="" />
+          <img class="thumbnail-img" src="../../images/scene-2.jpg" alt="" />
         </button>
         <button
           type="button"
@@ -147,7 +151,7 @@
           data-bs-slide-to="3"
           aria-label="Slide 4"
         >
-          <img class="thumbnail-img" src="/images/scene-3.jpg" alt="" />
+          <img class="thumbnail-img" src="../../images/scene-3.jpg" alt="" />
         </button>
       </div>
       <div class="carousel-inner">
@@ -155,7 +159,9 @@
           <div class="background">
             <div
               class="movie-preview-img"
-              style="background-image: url('/images/trailer-thumbnail.jpg')"
+              style="
+                background-image: url('../../images/trailer-thumbnail.jpg');
+              "
             >
               <button
                 class="play-btn"
@@ -170,52 +176,49 @@
           <div class="background">
             <div
               class="movie-preview-img"
-              style="background-image: url('/images/scene-1.jpg')"
-            >
-            </div>
+              style="background-image: url('../../images/scene-1.jpg')"
+            ></div>
           </div>
         </div>
         <div class="carousel-item">
           <div class="background">
             <div
               class="movie-preview-img"
-              style="background-image: url('/images/scene-2.jpg')"
-            >
-            </div>
+              style="background-image: url('../../images/scene-2.jpg')"
+            ></div>
           </div>
         </div>
         <div class="carousel-item">
           <div class="background">
             <div
               class="movie-preview-img"
-              style="background-image: url('/images/scene-3.jpg')"
-            >
-            </div>
+              style="background-image: url('../../images/scene-3.jpg')"
+            ></div>
           </div>
         </div>
         <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#movie-slide"
-        data-bs-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#movie-slide"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#movie-slide"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#movie-slide"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
       <div class="movie-content">
         <div class="rating">
           <div class="rating-star">
-            <img src="/images/Star.svg" alt="" />
+            <img src="../../images/Star.svg" alt="" />
             7.8
           </div>
           <div class="rating-imdb">IMDB 7.2</div>
@@ -234,54 +237,65 @@
         <div class="button-container">
           <button class="btn-main btn-book">
             ĐẶT VÉ
-            <img src="/images/Arrow_right_long.svg" alt="" />
+            <img src="../../images/Arrow_right_long.svg" alt="" />
           </button>
         </div>
       </div>
-      
     </div>
     <!--  -->
     <div class="main-container">
       <div class="section about">
         <div class="line"></div>
-          <div class="about">
-            <div class="about-content container-fluid">
-              <div class="row mt-5">
-                <div id="about-poster" class="col-lg-5 col-md-6 col-sm-12 pt-5">
-                  <img id="about-poster-img" src="/images/poster-about.jpg">
+        <div class="about">
+          <div class="about-content container-fluid">
+            <div class="row mt-5">
+              <div id="about-poster" class="col-lg-5 col-md-6 col-sm-12 pt-5">
+                <img
+                  id="about-poster-img"
+                  src="../../images/poster-about.jpg"
+                />
+              </div>
+              <div id="about-describe" class="col-lg-6 col-md-6 col-sm-12">
+                <div class="about-kind">
+                  <ul>
+                    <li>PHIÊU LƯU</li>
+                    <li>GIẢ TƯỞNG</li>
+                    <li>HÀNH ĐỘNG</li>
+                  </ul>
                 </div>
-                <div id="about-describe" class="col-lg-6 col-md-6 col-sm-12">
-                  <div class="about-kind">
-                    <ul>
-                      <li> PHIÊU LƯU </li>
-                      <li> GIẢ TƯỞNG </li>
-                      <li> HÀNH ĐỘNG </li>
-                    </ul>
-                  </div>
-                  <div class="about-line">
-                    <p> Mô tả </p>
-                    <p class="about-short"> Scott Lang và Hope Van Dyne trở lại tiếp tục cuộc phiêu lưu của họ với vai trò Người Kiến và Chiến binh Ong. Cùng với cha mẹ của Hope, họ sẽ có chuyến khám phá Lượng Tử Giới, gặp gỡ những sinh vật mới lạ và bắt đầu cuộc hành trình vào thế giới lượng tử. </p>
-                  </div>
-                  <div class="about-line">
-                    <p> Ngày khởi chiếu </p>
-                    <p> 17/02/2023 </p>
-                  </div> 
-                  <div class="about-line">
-                    <p> Diễn viên </p>
-                    <p class="about-short"> Paul Rudd, Kathryn Newton, Jonathan Majors, Evangeline Lilly, Tony McCarthy </p>
-                  </div>
-                  <div class="about-line">
-                    <p> Đạo diễn </p>
-                    <p> Peyton Reed </p>
-                  </div>
-                  <div class="about-line">
-                    <p> Giới hạn độ tuổi </p>
-                    <p> 16+ </p>
-                  </div>
+                <div class="about-line">
+                  <p>Mô tả</p>
+                  <p class="about-short">
+                    Scott Lang và Hope Van Dyne trở lại tiếp tục cuộc phiêu lưu
+                    của họ với vai trò Người Kiến và Chiến binh Ong. Cùng với
+                    cha mẹ của Hope, họ sẽ có chuyến khám phá Lượng Tử Giới, gặp
+                    gỡ những sinh vật mới lạ và bắt đầu cuộc hành trình vào thế
+                    giới lượng tử.
+                  </p>
                 </div>
-                <div class="about-background"></div>
+                <div class="about-line">
+                  <p>Ngày khởi chiếu</p>
+                  <p>17/02/2023</p>
+                </div>
+                <div class="about-line">
+                  <p>Diễn viên</p>
+                  <p class="about-short">
+                    Paul Rudd, Kathryn Newton, Jonathan Majors, Evangeline
+                    Lilly, Tony McCarthy
+                  </p>
+                </div>
+                <div class="about-line">
+                  <p>Đạo diễn</p>
+                  <p>Peyton Reed</p>
+                </div>
+                <div class="about-line">
+                  <p>Giới hạn độ tuổi</p>
+                  <p>16+</p>
+                </div>
+              </div>
+              <div class="about-background"></div>
             </div>
-          </div>          
+          </div>
         </div>
       </div>
       <div class="section ongoing">
@@ -290,7 +304,7 @@
           <div class="more">
             <a href="">
               <span>Xem thêm</span>
-              <img src="/images/arrow_right.svg" alt="" />
+              <img src="../../images/arrow_right.svg" alt="" />
             </a>
           </div>
         </div>
@@ -312,7 +326,7 @@
               <div class="card-img">
                 <div class="card-info">
                   <img
-                    src="/images/Star.svg"
+                    src="../../images/Star.svg"
                     alt=""
                     width="22px"
                     height="22px"
@@ -320,17 +334,17 @@
                   <div class="rating">7.8 / 10</div>
                   <div class="age">13+</div>
                   <div class="date">
-                    <img src="/images/date.svg" alt="" />
+                    <img src="../../images/date.svg" alt="" />
                     18-02-2019
                   </div>
                   <div class="duration">
-                    <img src="/images/timer.svg" alt="" />
+                    <img src="../../images/timer.svg" alt="" />
                     1g 56p
                   </div>
                   <button class="btn-outline">Chi tiết</button>
                   <button class="btn-main">Đặt vé</button>
                 </div>
-                <img class="poster" src="/images/poster-2.jpg" alt="" />
+                <img class="poster" src="../../images/poster-2.jpg" alt="" />
               </div>
 
               <div class="movie-genre">
@@ -344,7 +358,7 @@
               <div class="card-img">
                 <div class="card-info">
                   <img
-                    src="/images/Star.svg"
+                    src="../../images/Star.svg"
                     alt=""
                     width="22px"
                     height="22px"
@@ -352,17 +366,17 @@
                   <div class="rating">7.8 / 10</div>
                   <div class="age">13+</div>
                   <div class="date">
-                    <img src="/images/date.svg" alt="" />
+                    <img src="../../images/date.svg" alt="" />
                     18-02-2019
                   </div>
                   <div class="duration">
-                    <img src="/images/timer.svg" alt="" />
+                    <img src="../../images/timer.svg" alt="" />
                     1g 56p
                   </div>
                   <button class="btn-outline">Chi tiết</button>
                   <button class="btn-main">Đặt vé</button>
                 </div>
-                <img class="poster" src="/images/poster-2.jpg" alt="" />
+                <img class="poster" src="../../images/poster-2.jpg" alt="" />
               </div>
 
               <div class="movie-genre">
@@ -376,7 +390,7 @@
               <div class="card-img">
                 <div class="card-info">
                   <img
-                    src="/images/Star.svg"
+                    src="../../images/Star.svg"
                     alt=""
                     width="22px"
                     height="22px"
@@ -384,17 +398,17 @@
                   <div class="rating">7.8 / 10</div>
                   <div class="age">13+</div>
                   <div class="date">
-                    <img src="/images/date.svg" alt="" />
+                    <img src="../../images/date.svg" alt="" />
                     18-02-2019
                   </div>
                   <div class="duration">
-                    <img src="/images/timer.svg" alt="" />
+                    <img src="../../images/timer.svg" alt="" />
                     1g 56p
                   </div>
                   <button class="btn-outline">Chi tiết</button>
                   <button class="btn-main">Đặt vé</button>
                 </div>
-                <img class="poster" src="/images/poster-2.jpg" alt="" />
+                <img class="poster" src="../../images/poster-2.jpg" alt="" />
               </div>
 
               <div class="movie-genre">
@@ -408,7 +422,7 @@
               <div class="card-img">
                 <div class="card-info">
                   <img
-                    src="/images/Star.svg"
+                    src="../../images/Star.svg"
                     alt=""
                     width="22px"
                     height="22px"
@@ -416,17 +430,17 @@
                   <div class="rating">7.8 / 10</div>
                   <div class="age">13+</div>
                   <div class="date">
-                    <img src="/images/date.svg" alt="" />
+                    <img src="../../images/date.svg" alt="" />
                     18-02-2019
                   </div>
                   <div class="duration">
-                    <img src="/images/timer.svg" alt="" />
+                    <img src="../../images/timer.svg" alt="" />
                     1g 56p
                   </div>
                   <button class="btn-outline">Chi tiết</button>
                   <button class="btn-main">Đặt vé</button>
                 </div>
-                <img class="poster" src="/images/poster-2.jpg" alt="" />
+                <img class="poster" src="../../images/poster-2.jpg" alt="" />
               </div>
 
               <div class="movie-genre">
@@ -440,7 +454,7 @@
               <div class="card-img">
                 <div class="card-info">
                   <img
-                    src="/images/Star.svg"
+                    src="../../images/Star.svg"
                     alt=""
                     width="22px"
                     height="22px"
@@ -448,17 +462,17 @@
                   <div class="rating">7.8 / 10</div>
                   <div class="age">13+</div>
                   <div class="date">
-                    <img src="/images/date.svg" alt="" />
+                    <img src="../../images/date.svg" alt="" />
                     18-02-2019
                   </div>
                   <div class="duration">
-                    <img src="/images/timer.svg" alt="" />
+                    <img src="../../images/timer.svg" alt="" />
                     1g 56p
                   </div>
                   <button class="btn-outline">Chi tiết</button>
                   <button class="btn-main">Đặt vé</button>
                 </div>
-                <img class="poster" src="/images/poster-2.jpg" alt="" />
+                <img class="poster" src="../../images/poster-2.jpg" alt="" />
               </div>
 
               <div class="movie-genre">
@@ -472,7 +486,7 @@
               <div class="card-img">
                 <div class="card-info">
                   <img
-                    src="/images/Star.svg"
+                    src="../../images/Star.svg"
                     alt=""
                     width="22px"
                     height="22px"
@@ -480,17 +494,17 @@
                   <div class="rating">7.8 / 10</div>
                   <div class="age">13+</div>
                   <div class="date">
-                    <img src="/images/date.svg" alt="" />
+                    <img src="../../images/date.svg" alt="" />
                     18-02-2019
                   </div>
                   <div class="duration">
-                    <img src="/images/timer.svg" alt="" />
+                    <img src="../../images/timer.svg" alt="" />
                     1g 56p
                   </div>
                   <button class="btn-outline">Chi tiết</button>
                   <button class="btn-main">Đặt vé</button>
                 </div>
-                <img class="poster" src="/images/poster-2.jpg" alt="" />
+                <img class="poster" src="../../images/poster-2.jpg" alt="" />
               </div>
 
               <div class="movie-genre">
@@ -504,7 +518,7 @@
               <div class="card-img">
                 <div class="card-info">
                   <img
-                    src="/images/Star.svg"
+                    src="../../images/Star.svg"
                     alt=""
                     width="22px"
                     height="22px"
@@ -512,17 +526,17 @@
                   <div class="rating">7.8 / 10</div>
                   <div class="age">13+</div>
                   <div class="date">
-                    <img src="/images/date.svg" alt="" />
+                    <img src="../../images/date.svg" alt="" />
                     18-02-2019
                   </div>
                   <div class="duration">
-                    <img src="/images/timer.svg" alt="" />
+                    <img src="../../images/timer.svg" alt="" />
                     1g 56p
                   </div>
                   <button class="btn-outline">Chi tiết</button>
                   <button class="btn-main">Đặt vé</button>
                 </div>
-                <img class="poster" src="/images/poster-2.jpg" alt="" />
+                <img class="poster" src="../../images/poster-2.jpg" alt="" />
               </div>
 
               <div class="movie-genre">
@@ -536,7 +550,7 @@
               <div class="card-img">
                 <div class="card-info">
                   <img
-                    src="/images/Star.svg"
+                    src="../../images/Star.svg"
                     alt=""
                     width="22px"
                     height="22px"
@@ -544,17 +558,17 @@
                   <div class="rating">7.8 / 10</div>
                   <div class="age">13+</div>
                   <div class="date">
-                    <img src="/images/date.svg" alt="" />
+                    <img src="../../images/date.svg" alt="" />
                     18-02-2019
                   </div>
                   <div class="duration">
-                    <img src="/images/timer.svg" alt="" />
+                    <img src="../../images/timer.svg" alt="" />
                     1g 56p
                   </div>
                   <button class="btn-outline">Chi tiết</button>
                   <button class="btn-main">Đặt vé</button>
                 </div>
-                <img class="poster" src="/images/poster-2.jpg" alt="" />
+                <img class="poster" src="../../images/poster-2.jpg" alt="" />
               </div>
 
               <div class="movie-genre">
@@ -568,7 +582,7 @@
               <div class="card-img">
                 <div class="card-info">
                   <img
-                    src="/images/Star.svg"
+                    src="../../images/Star.svg"
                     alt=""
                     width="22px"
                     height="22px"
@@ -576,17 +590,17 @@
                   <div class="rating">7.8 / 10</div>
                   <div class="age">13+</div>
                   <div class="date">
-                    <img src="/images/date.svg" alt="" />
+                    <img src="../../images/date.svg" alt="" />
                     18-02-2019
                   </div>
                   <div class="duration">
-                    <img src="/images/timer.svg" alt="" />
+                    <img src="../../images/timer.svg" alt="" />
                     1g 56p
                   </div>
                   <button class="btn-outline">Chi tiết</button>
                   <button class="btn-main">Đặt vé</button>
                 </div>
-                <img class="poster" src="/images/poster-2.jpg" alt="" />
+                <img class="poster" src="../../images/poster-2.jpg" alt="" />
               </div>
 
               <div class="movie-genre">
@@ -600,7 +614,7 @@
               <div class="card-img">
                 <div class="card-info">
                   <img
-                    src="/images/Star.svg"
+                    src="../../images/Star.svg"
                     alt=""
                     width="22px"
                     height="22px"
@@ -608,17 +622,17 @@
                   <div class="rating">7.8 / 10</div>
                   <div class="age">13+</div>
                   <div class="date">
-                    <img src="/images/date.svg" alt="" />
+                    <img src="../../images/date.svg" alt="" />
                     18-02-2019
                   </div>
                   <div class="duration">
-                    <img src="/images/timer.svg" alt="" />
+                    <img src="../../images/timer.svg" alt="" />
                     1g 56p
                   </div>
                   <button class="btn-outline">Chi tiết</button>
                   <button class="btn-main">Đặt vé</button>
                 </div>
-                <img class="poster" src="/images/poster-2.jpg" alt="" />
+                <img class="poster" src="../../images/poster-2.jpg" alt="" />
               </div>
 
               <div class="movie-genre">
@@ -632,7 +646,7 @@
               <div class="card-img">
                 <div class="card-info">
                   <img
-                    src="/images/Star.svg"
+                    src="../../images/Star.svg"
                     alt=""
                     width="22px"
                     height="22px"
@@ -640,17 +654,17 @@
                   <div class="rating">7.8 / 10</div>
                   <div class="age">13+</div>
                   <div class="date">
-                    <img src="/images/date.svg" alt="" />
+                    <img src="../../images/date.svg" alt="" />
                     18-02-2019
                   </div>
                   <div class="duration">
-                    <img src="/images/timer.svg" alt="" />
+                    <img src="../../images/timer.svg" alt="" />
                     1g 56p
                   </div>
                   <button class="btn-outline">Chi tiết</button>
                   <button class="btn-main">Đặt vé</button>
                 </div>
-                <img class="poster" src="/images/poster-2.jpg" alt="" />
+                <img class="poster" src="../../images/poster-2.jpg" alt="" />
               </div>
 
               <div class="movie-genre">
@@ -709,19 +723,19 @@
             <div style="margin-top: 20px">
               <div>
                 <a href="#" class="btn-footer">
-                  <img src="/images/email-multiple-outline.png" />
+                  <img src="../../images/email-multiple-outline.png" />
                   hoidap@5ct.vn
                 </a>
               </div>
               <div>
                 <a href="#" class="btn-footer">
-                  <img src="/images/phone.png" /> 1900 1008
+                  <img src="../../images/phone.png" /> 1900 1008
                 </a>
               </div>
               <div class="footer-icon">
-                <a href="#"> <img src="/images/facebook.png" /> </a>
-                <a href="#"> <img src="/images/twitter.png" /> </a>
-                <a href="#"> <img src="/images/google-plus.png" /> </a>
+                <a href="#"> <img src="../../images/facebook.png" /> </a>
+                <a href="#"> <img src="../../images/twitter.png" /> </a>
+                <a href="#"> <img src="../../images/google-plus.png" /> </a>
               </div>
             </div>
           </div>
