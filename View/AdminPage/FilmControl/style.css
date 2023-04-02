@@ -5,9 +5,9 @@
   font-family: "Montserrat", sans-serif;
 }
 .sidebar-container {
+  z-index: 99;
   position: absolute;
   width: 78px;
-  height: 934px;
   left: 0px;
   top: 0px;
   background-color: #303030;
@@ -18,6 +18,7 @@
   padding: 13px;
   overflow-x: hidden;
   transition: 0.1s ease;
+  height: 934px;
 }
 .logo-heading {
   font-family: "Modern No. 20";
@@ -60,8 +61,193 @@
   text-align: center;
 
   color: #9a9fae;
-} 
-
+}
+.item-container .logout-container {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  margin: 17.32px 0;
+}
+.active {
+  color: #ff3cac;
+}
+svg.active {
+  fill: url("#paint0_linear_258_515");
+}
 .item-container:hover svg {
-  fill: url('#paint0_linear_258_515')
+  fill: url("#paint0_linear_258_515");
+}
+.item-container:hover .item-description {
+  color: #ff3cac;
+}
+.logout-container {
+  position: absolute;
+  bottom: 0;
+  right: auto;
+  left: auto;
+}
+.body-container {
+  padding: 13px 40px 13px 101px;
+}
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.title-place {
+  justify-self: flex-start;
+}
+.function_place {
+  justify-self: flex-end;
+}
+.btn-main {
+  color: white;
+  background-image: linear-gradient(90deg, #784ba0 0%, #ff3cac 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0px;
+  margin: 0 12.5px;
+}
+.btn-main.content-type-normal {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  padding: 10px 47.5px;
+  border-radius: 10px;
+}
+.btn-outline.content-type-normal {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-size: 16px;
+  line-height: 20px;
+  padding: 10px;
+  border-radius: 10px;
+}
+.btn-outline {
+  border: 1px solid #303030;
+  background: #101521;
+  border: 1px solid #303030;
+  border-radius: 10px;
+  color: white;
+  padding: 10px;
+  margin: 0 12.5px;
+}
+.function_place {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.body-container {
+  background-color: #14181d;
+}
+.title-heading {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 37px;
+
+  color: #f8f8f8;
+}
+.search-place {
+  display: flex;
+  align-items: center;
+}
+.input-place {
+  max-width: 45%;
+  padding: 10px;
+}
+.input-place input {
+  background: #101521;
+  border: 1px solid #303030;
+  border-radius: 10px;
+  color: white;
+}
+.input-place input:focus {
+  background: #101521;
+  border: 1px solid #303030;
+  border-radius: 10px;
+  color: white;
+  outline: white;
+}
+.dropdown-choosing {
+  max-width: 157.75px;
+  margin: 0 8.56px;
+}
+.dropdown-choosing button {
+  background: #101521;
+  border: 1px solid #303030;
+  border-radius: 10px;
+}
+.divider-container {
+  width: 100%;
+  height: 0;
+  border: 1px solid #343434;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+  margin: 12.5px 0;
+}
+.transition-place {
+  display: flex;
+  align-items: center;
+}
+.item-choosing-block {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  height: 20px;
+  font-size: 16px;
+  line-height: 20px;
+  margin-left: 37.12px;
+  color: white;
+}
+.divider-mini {
+  width: 100%;
+  height: 3px;
+  margin-top: -10px;
+  background: linear-gradient(90deg, #784ba0 0%, #ff3cac 39.9%);
+}
+.hidden {
+  display: none;
+}
+.table-place {
+  color: rgba(246, 245, 246, 0.9) !important;
+  border-color: #343434 !important;
+}
+.table-place tr {
+  width: 120px;
+  height: 20px;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  border-color: #343434 !important;
+  color: rgba(246, 245, 246, 0.9) !important;
+}
+.table-place tr td:first-child {
+  color: #ff3cac !important;
+  border-color: #343434 !important;
+}
+.table-place tbody tr td {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rating {
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  flex-direction: row;
+  line-height: 20px;
+  align-items: center;
+  color: #fbc300;
+  margin-bottom: 16px;
+}
+.rating-star img {
+  margin-right: 8px;
 }
