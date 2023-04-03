@@ -219,7 +219,7 @@ svg.active {
 .table-place tr {
   width: 120px;
   height: 60px;
-
+  padding: 18px 0px !important;
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 400;
