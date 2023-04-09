@@ -330,3 +330,75 @@ p {
   color: white;
   width: 170px;
 }
+.form-control {
+  background-color: #e9eeef;
+}
+
+.modal-content {
+  background-color: #14181d !important;
+  border-radius: 10px !important;
+}
+
+#btn_EditUser {
+  background: linear-gradient(
+    90deg,
+    #784ba0 0.25%,
+    #784ba0 0.26%,
+    #ff3cac 100.12%
+  );
+  border: 1px solid #303030;
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  color: white;
+  background-image: url(/images/calendarSVG.svg);
+  cursor: pointer;
+}
+
+input[type="text"],
+input[type="datetime-local"] {
+  color: white;
+  background-color: black;
+  border: none;
+  box-sizing: border-box;
+  margin-top: 10px;
+  border-radius: 10px;
+  height: 36px;
+}
+
+input[type="text"]:focus,
+input[type="datetime-local"]:focus {
+  box-sizing: border-box !important;
+  color: white;
+  background: black;
+  border: solid 1px transparent;
+  border-radius: 10px;
+  background-image: linear-gradient(black, black),
+    linear-gradient(90deg, #784ba0 0.25%, #784ba0 0.26%, #ff3cac 100.12%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: none;
+}
+
+.form-title {
+  color: #9a9fae;
+}
+
+.icon i {
+  color: #808080;
+}
+
+.icon {
+  position: absolute;
+  right: 20px;
+  bottom: 8px;
+}
+
+.input-group {
+  margin-bottom: 30px;
+}
+a {
+  text-decoration: none !important;
+}

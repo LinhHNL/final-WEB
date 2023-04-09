@@ -44,7 +44,8 @@
         <div class="function_place">
           <button class="btn-outline content-type-normal">Thêm file</button>
           <button class="btn-outline content-type-normal">In danh sách</button>
-          <button class="btn-main content-type-normal">+ Thêm form</button>
+          <button class="btn-main content-type-normal" data-bs-toggle="modal"
+          data-bs-target="#ModalEditUser">+ Thêm form</button>
         </div>
       </div>
       <div class="divider-container"></div>
@@ -244,7 +245,7 @@
           </span>
           <p class="back-description"> Trang Trước</p>
         </p>
-        <input type="text" class="value-place" value="1" disabled>
+        <input type="text" class="value-place" value="1" disabled style="margin: 0;">
         <p class="text-place">/ &nbsp; 7</p>
         <p class="forward-place">
           <p class="forward-description"> Trang sau</p>
@@ -257,6 +258,7 @@
       <div class="logo-container">
         <p class="logo-heading">5CT</p>
       </div>
+      <a href="../UserControl/index.html">
       <div class="item-container">
         <span class="item-icon">
           <svg
@@ -287,35 +289,39 @@
         </span>
         <p class="item-description active">Người dùng</p>
       </div>
-      <div class="item-container">
-        <span class="item-icon">
-          <svg
-            width="28"
-            height="20"
-            viewBox="0 0 28 20"
-            fill="#474851"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M27.5938 0.625H27.125V1.60156C27.125 1.92383 26.8086 2.1875 26.4219 2.1875H24.0781C23.6914 2.1875 23.375 1.92383 23.375 1.60156V0.625H4.625V1.60156C4.625 1.92383 4.30859 2.1875 3.92188 2.1875H1.57812C1.19141 2.1875 0.875 1.92383 0.875 1.60156V0.625H0.40625C-0.373047 0.625 -1 1.14746 -1 1.79688V18.2031C-1 18.8525 -0.373047 19.375 0.40625 19.375H0.875V18.3984C0.875 18.0762 1.19141 17.8125 1.57812 17.8125H3.92188C4.30859 17.8125 4.625 18.0762 4.625 18.3984V19.375H23.375V18.3984C23.375 18.0762 23.6914 17.8125 24.0781 17.8125H26.4219C26.8086 17.8125 27.125 18.0762 27.125 18.3984V19.375H27.5938C28.373 19.375 29 18.8525 29 18.2031V1.79688C29 1.14746 28.373 0.625 27.5938 0.625ZM4.625 15.6641C4.625 15.9863 4.30859 16.25 3.92188 16.25H1.57812C1.19141 16.25 0.875 15.9863 0.875 15.6641V13.7109C0.875 13.3887 1.19141 13.125 1.57812 13.125H3.92188C4.30859 13.125 4.625 13.3887 4.625 13.7109V15.6641ZM4.625 10.9766C4.625 11.2988 4.30859 11.5625 3.92188 11.5625H1.57812C1.19141 11.5625 0.875 11.2988 0.875 10.9766V9.02344C0.875 8.70117 1.19141 8.4375 1.57812 8.4375H3.92188C4.30859 8.4375 4.625 8.70117 4.625 9.02344V10.9766ZM4.625 6.28906C4.625 6.61133 4.30859 6.875 3.92188 6.875H1.57812C1.19141 6.875 0.875 6.61133 0.875 6.28906V4.33594C0.875 4.01367 1.19141 3.75 1.57812 3.75H3.92188C4.30859 3.75 4.625 4.01367 4.625 4.33594V6.28906ZM20.5625 16.4453C20.5625 16.7676 20.2461 17.0312 19.8594 17.0312H8.14062C7.75391 17.0312 7.4375 16.7676 7.4375 16.4453V11.7578C7.4375 11.4355 7.75391 11.1719 8.14062 11.1719H19.8594C20.2461 11.1719 20.5625 11.4355 20.5625 11.7578V16.4453ZM20.5625 8.24219C20.5625 8.56445 20.2461 8.82812 19.8594 8.82812H8.14062C7.75391 8.82812 7.4375 8.56445 7.4375 8.24219V3.55469C7.4375 3.23242 7.75391 2.96875 8.14062 2.96875H19.8594C20.2461 2.96875 20.5625 3.23242 20.5625 3.55469V8.24219ZM27.125 15.6641C27.125 15.9863 26.8086 16.25 26.4219 16.25H24.0781C23.6914 16.25 23.375 15.9863 23.375 15.6641V13.7109C23.375 13.3887 23.6914 13.125 24.0781 13.125H26.4219C26.8086 13.125 27.125 13.3887 27.125 13.7109V15.6641ZM27.125 10.9766C27.125 11.2988 26.8086 11.5625 26.4219 11.5625H24.0781C23.6914 11.5625 23.375 11.2988 23.375 10.9766V9.02344C23.375 8.70117 23.6914 8.4375 24.0781 8.4375H26.4219C26.8086 8.4375 27.125 8.70117 27.125 9.02344V10.9766ZM27.125 6.28906C27.125 6.61133 26.8086 6.875 26.4219 6.875H24.0781C23.6914 6.875 23.375 6.61133 23.375 6.28906V4.33594C23.375 4.01367 23.6914 3.75 24.0781 3.75H26.4219C26.8086 3.75 27.125 4.01367 27.125 4.33594V6.28906Z"
-            />
-            <defs>
-              <linearGradient
-                id="paint0_linear_258_515"
-                x1="0"
-                y1="28"
-                x2="28"
-                y2="28"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stop-color="#784BA0" />
-                <stop offset="1" stop-color="#FF3CAC" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </span>
-        <p class="item-description">Danh sách phim</p>
-      </div>
+      </a>
+      <a href="../FilmControl/index.html">
+        <div class="item-container">
+          <span class="item-icon">
+            <svg
+              width="28"
+              height="20"
+              viewBox="0 0 28 20"
+              fill="#474851"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M27.5938 0.625H27.125V1.60156C27.125 1.92383 26.8086 2.1875 26.4219 2.1875H24.0781C23.6914 2.1875 23.375 1.92383 23.375 1.60156V0.625H4.625V1.60156C4.625 1.92383 4.30859 2.1875 3.92188 2.1875H1.57812C1.19141 2.1875 0.875 1.92383 0.875 1.60156V0.625H0.40625C-0.373047 0.625 -1 1.14746 -1 1.79688V18.2031C-1 18.8525 -0.373047 19.375 0.40625 19.375H0.875V18.3984C0.875 18.0762 1.19141 17.8125 1.57812 17.8125H3.92188C4.30859 17.8125 4.625 18.0762 4.625 18.3984V19.375H23.375V18.3984C23.375 18.0762 23.6914 17.8125 24.0781 17.8125H26.4219C26.8086 17.8125 27.125 18.0762 27.125 18.3984V19.375H27.5938C28.373 19.375 29 18.8525 29 18.2031V1.79688C29 1.14746 28.373 0.625 27.5938 0.625ZM4.625 15.6641C4.625 15.9863 4.30859 16.25 3.92188 16.25H1.57812C1.19141 16.25 0.875 15.9863 0.875 15.6641V13.7109C0.875 13.3887 1.19141 13.125 1.57812 13.125H3.92188C4.30859 13.125 4.625 13.3887 4.625 13.7109V15.6641ZM4.625 10.9766C4.625 11.2988 4.30859 11.5625 3.92188 11.5625H1.57812C1.19141 11.5625 0.875 11.2988 0.875 10.9766V9.02344C0.875 8.70117 1.19141 8.4375 1.57812 8.4375H3.92188C4.30859 8.4375 4.625 8.70117 4.625 9.02344V10.9766ZM4.625 6.28906C4.625 6.61133 4.30859 6.875 3.92188 6.875H1.57812C1.19141 6.875 0.875 6.61133 0.875 6.28906V4.33594C0.875 4.01367 1.19141 3.75 1.57812 3.75H3.92188C4.30859 3.75 4.625 4.01367 4.625 4.33594V6.28906ZM20.5625 16.4453C20.5625 16.7676 20.2461 17.0312 19.8594 17.0312H8.14062C7.75391 17.0312 7.4375 16.7676 7.4375 16.4453V11.7578C7.4375 11.4355 7.75391 11.1719 8.14062 11.1719H19.8594C20.2461 11.1719 20.5625 11.4355 20.5625 11.7578V16.4453ZM20.5625 8.24219C20.5625 8.56445 20.2461 8.82812 19.8594 8.82812H8.14062C7.75391 8.82812 7.4375 8.56445 7.4375 8.24219V3.55469C7.4375 3.23242 7.75391 2.96875 8.14062 2.96875H19.8594C20.2461 2.96875 20.5625 3.23242 20.5625 3.55469V8.24219ZM27.125 15.6641C27.125 15.9863 26.8086 16.25 26.4219 16.25H24.0781C23.6914 16.25 23.375 15.9863 23.375 15.6641V13.7109C23.375 13.3887 23.6914 13.125 24.0781 13.125H26.4219C26.8086 13.125 27.125 13.3887 27.125 13.7109V15.6641ZM27.125 10.9766C27.125 11.2988 26.8086 11.5625 26.4219 11.5625H24.0781C23.6914 11.5625 23.375 11.2988 23.375 10.9766V9.02344C23.375 8.70117 23.6914 8.4375 24.0781 8.4375H26.4219C26.8086 8.4375 27.125 8.70117 27.125 9.02344V10.9766ZM27.125 6.28906C27.125 6.61133 26.8086 6.875 26.4219 6.875H24.0781C23.6914 6.875 23.375 6.61133 23.375 6.28906V4.33594C23.375 4.01367 23.6914 3.75 24.0781 3.75H26.4219C26.8086 3.75 27.125 4.01367 27.125 4.33594V6.28906Z"
+              />
+              <defs>
+                <linearGradient
+                  id="paint0_linear_258_515"
+                  x1="0"
+                  y1="28"
+                  x2="28"
+                  y2="28"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#784BA0" />
+                  <stop offset="1" stop-color="#FF3CAC" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </span>
+          <p class="item-description">Danh sách phim</p>
+        </div>
+      </a>
+      <a  href="../HistoryPage/index.html">
       <div class="item-container">
         <span class="item-icon">
           <svg
@@ -336,6 +342,7 @@
                 x2="28"
                 y2="28"
                 gradientUnits="userSpaceOnUse"
+                
               >
                 <stop stop-color="#784BA0" />
                 <stop offset="1" stop-color="#FF3CAC" />
@@ -345,6 +352,8 @@
         </span>
         <p class="item-description">Lịch sử đặt vé</p>
       </div>
+      </a>
+      <a href="../TimeControlPage/index.html">
       <div class="item-container">
         <span class="item-icon">
           <svg
@@ -374,6 +383,7 @@
         </span>
         <p class="item-description">Lịch chiếu</p>
       </div>
+    </a>
       <div class="item-container">
         <span class="item-icon">
           <svg
@@ -408,6 +418,114 @@
           <img src="../../../images/userIcon.png" alt="" />
         </div>
         <p class="item-description">Sign out</p>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="ModalEditUser"
+      tabindex="-1"
+      aria-labelledby="ModalEditUserLable"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content p-3">
+          <div class="modal-body">
+            <div class="input-group flex-nowrap">
+              <div class="container-fluid">
+                <div class="row gy-4 gx-5">
+                  <div class="col-6">
+                    <span class="form-title"> Họ và tên </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Ngày sinh </span>
+                    <input
+                      type="date"
+                      class="form-control"
+                      aria-label="Birthday"
+                      aria-describedby="addon-wrapping"
+                      placeholder="dd/mm/yy"
+                      id="birthday"
+                    />
+                  </div>
+
+                  <div class="col-6">
+                    <span class="form-title"> Số điện thoại </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Khu vực </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Email </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Rạp yêu thích </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Mật khẩu </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                    />
+                  </div>
+                  <div class="col-6"></div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4"></div>
+              <div
+                class="col-4"
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <button
+                  type="button"
+                  class="btn mt-2 text-white btn-primary"
+                  id="btn_EditUser"
+                  style="border-radius: 10px"
+                >
+                  Sửa người dùng
+                </button>
+              </div>
+              <div class="col-4"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <script>
