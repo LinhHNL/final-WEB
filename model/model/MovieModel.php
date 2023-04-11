@@ -14,7 +14,7 @@ class MovieModel{
         $this->conn = Database::getConnection();
     }
     public function getMovieById($id) {
-        $sql = "SELECT MovieID, MovieName, Director, Year, Premiere, URLTrailer, Time, StudioID, LanguageID FROM movie WHERE MovieID = :id";
+        $sql = "SELECT MovieID, MovieName, Director, Year, Premiere, URLTrailer, Time, StudioID, LanguageID ,story FROM movie WHERE MovieID = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
@@ -29,6 +29,7 @@ class MovieModel{
                 $result['Time'],
                 $result['StudioID'],
                 $result['LanguageID'],
+                $result['story'],
                 $result['MovieID']
             );
             return array("success"=>true,"movie"=>$row);
@@ -51,6 +52,7 @@ class MovieModel{
             URLTrailer,
             Time,
             StudioID,
+            story,
             LanguageID 
         FROM `movie` 
         ORDER BY CAST(RIGHT(MovieID, LENGTH(MovieID) - 2) AS UNSIGNED) DESC 
@@ -69,6 +71,8 @@ class MovieModel{
                 $row['Time'],
                 $row['StudioID'],
                 $row['LanguageID'],
+                $row['story'],
+
                 $row['MovieID']
             );
           
@@ -103,6 +107,8 @@ class MovieModel{
             URLTrailer,
             Time,
             StudioID,
+            story,
+
             LanguageID 
         FROM `movie` 
         WHERE Premiere <= NOW() -- chỉ lấy những bộ phim đã được khởi chiếu
@@ -122,6 +128,8 @@ class MovieModel{
                 $row['Time'],
                 $row['StudioID'],
                 $row['LanguageID'],
+                $row['story'],
+
                 $row['MovieID']
             );
           
@@ -142,6 +150,8 @@ class MovieModel{
             URLTrailer,
             Time,
             StudioID,
+            story,
+
             LanguageID 
         FROM `movie` 
         WHERE Premiere > NOW() -- chỉ lấy những bộ phim đã được khởi chiếu
@@ -161,6 +171,8 @@ class MovieModel{
                 $row['Time'],
                 $row['StudioID'],
                 $row['LanguageID'],
+                $row['story'],
+
                 $row['MovieID']
             );
           
@@ -181,6 +193,8 @@ class MovieModel{
             m.URLTrailer,
             m.Time,
             s.StudioName,
+            m.story,
+
             l.LanguageName
         FROM `movie` m
         INNER JOIN `studio` s ON m.StudioID = s.StudioID
@@ -200,8 +214,10 @@ class MovieModel{
                 $row['Premiere'],
                 $row['URLTrailer'],
                 $row['Time'],
-                $row['StudioName'], // thêm thuộc tính tên của studio
-                $row['LanguageName'], // thêm thuộc tính tên của ngôn ngữ
+                $row['StudioName'], 
+                $row['LanguageName'],
+                $row['story'],
+               
                 $row['MovieID']
             );
     
@@ -222,7 +238,10 @@ class MovieModel{
                     m.URLTrailer,
                     m.Time,
                     m.StudioID,
-                    m.LanguageID 
+
+                    m.LanguageID ,
+                    m.story
+
                 FROM 
                     movie m
                     INNER JOIN moviegenre mg ON m.MovieID = mg.MovieID
@@ -251,6 +270,7 @@ class MovieModel{
                 $row['Time'],
                 $row['StudioID'],
                 $row['LanguageID'],
+                $row['story'],
                 $row['MovieID']
             );
             $listmovie[] = $temp;
@@ -271,6 +291,8 @@ class MovieModel{
             $time = $moive->get_Time();
             $studioid = $moive->get_StudioID(); 
             $languageid = $moive->get_LanguageID();
+            $story = $moive->get_story();
+            $stmt->bindParam(':story', $story);
             $stmt->bindParam(':MovieID', $id);
             $stmt->bindParam(':MovieName', $moiveName);
             $stmt->bindParam(':Director', $Diretor);
@@ -303,6 +325,7 @@ class MovieModel{
             URLTrailer,
             Time,
             StudioID,
+            story,
             LanguageID 
         FROM `movie`
         WHERE `MovieName` LIKE :search 
@@ -322,6 +345,8 @@ class MovieModel{
                 
                 $row['StudioID'],
                 $row['LanguageID'],
+                $row['story'],
+
                 $row['MovieID']
             );
         }
@@ -346,7 +371,7 @@ class MovieModel{
     }
     public function updateMovie(Movie $movie){
         try {
-            $stmt = $this->conn->prepare("UPDATE `movie` SET `MovieName`=:MovieName, `Director`=:Director, `Year`=:Year, `Premiere`=:Premiere, `URLTrailer`=:URLTrailer, `Time`=:Time, `StudioID`=:StudioID, `LanguageID`=:LanguageID WHERE `MovieID`=:MovieID");
+            $stmt = $this->conn->prepare("UPDATE `movie` SET `MovieName`=:MovieName, `Director`=:Director, , `Year`=:Year, `Premiere`=:Premiere, `URLTrailer`=:URLTrailer, `Time`=:Time, `StudioID`=:StudioID, `LanguageID`=:LanguageID ,story=:story WHERE `MovieID`=:MovieID");
             $id = $movie->get_MovieID();
             $movieName = $movie->get_MovieName();
             $director = $movie->get_Director();
@@ -356,6 +381,9 @@ class MovieModel{
             $time = $movie->get_Time();
             $studioid = $movie->get_StudioID(); 
             $languageid = $movie->get_LanguageID();
+            $story = $movie->get_story();
+            $stmt->bindParam(':story', $story);
+
             $stmt->bindParam(':MovieID', $id);
             $stmt->bindParam(':MovieName', $movieName);
             $stmt->bindParam(':Director', $director);

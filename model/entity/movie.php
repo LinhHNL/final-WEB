@@ -9,11 +9,12 @@
         public $Time;
         public $StudioID;
         public $LanguageID;
+        public $story;
         public $ListActor = array();
         public $ListGenre = array();
         public $listImage = array();
         public $rating ;
-        function __construct( $MovieName, $Year, $Director, $Premiere, $URLTrailer, $Time, $StudioID, $LanguageID,$MovieID) {
+        function __construct( $MovieName, $Year, $Director, $Premiere, $URLTrailer, $Time, $StudioID, $LanguageID,$story,$MovieID=null) {
             $this->MovieName = $MovieName;
             $this->Director = $Director;
             $this->Year = $Year;
@@ -22,11 +23,18 @@
             $this->Time = $Time;
             $this->StudioID = $StudioID;
             $this->LanguageID = $LanguageID;
+            $this->story = $story;
             if($MovieID!=null){
             $this->MovieID = $MovieID;
 
             }
 
+        }
+        function set_story($story){
+            $this->story = $story;
+        }   
+        function get_story(){
+            return $this->story;
         }
         function set_rating( $rating ) {
             $this->rating = $rating;
