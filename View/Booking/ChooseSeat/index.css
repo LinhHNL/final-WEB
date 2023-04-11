@@ -5,6 +5,7 @@
 * {
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
+
 }
 
 .nav-link {
@@ -206,6 +207,7 @@ html {
 
 .main-container {
   padding: 0 3%;
+  max-width: 100%;
 }
 
 .main-container .line {
@@ -456,6 +458,8 @@ html {
   height: 50px;
 }
 
+
+
 /* large */
 @media only screen and (max-width: 1199px) {
   .movie-content {
@@ -468,10 +472,17 @@ html {
   .movie-content {
     width: 60% !important;
   }
+  
 
   .nav-link {
     font-size: 14px !important;
   }
+  .seats-container {
+    padding-top: 50px;
+    margin-top: -50px;
+    overflow-x: auto;
+  }
+
 }
 
 /* tablet */
@@ -602,6 +613,16 @@ html {
     margin-left: 0;
     margin-right: 0;
   }
+
+  .bottom-bar {
+    position:relative !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
 }
 
 @media only screen and (max-width: 575px) {
@@ -698,11 +719,29 @@ html {
 .screen-container span {
   position: absolute;
   left: 50%;
-  bottom: 50%;
+  bottom: 30%;
   color: white;
   transform: translate(-50%, -50%);
   font-size: small;
 }
+
+
+
+.seats-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.seats-container::-webkit-scrollbar-thumb {
+  background-color: #716f6f;
+  border-radius: 100px;
+  
+}
+
+.seats-container::-webkit-scrollbar-track {
+  border-radius: 100px;
+  background-color: #474851;
+}
+
 
 .seat-row .empty {
   width: 25px;
@@ -741,6 +780,11 @@ html {
   position: relative;
 }
 
+.seat svg {
+  width: 25px;
+  max-width: 25px;
+}
+
 .seat:hover {
   cursor: pointer;
 }
@@ -752,6 +796,7 @@ html {
   position: absolute;
   pointer-events: none;
   width: fit-content;
+  max-width: fit-content;
   height: fit-content;
   background-color: #343434;
   opacity: 0;
@@ -783,6 +828,11 @@ html {
   visibility: visible;
 }
 
+.choose-seat-container * {
+  max-width: 100%;
+
+}
+
 .choose-seat-container .explanation div {
   margin: 20px;
   display: inline-flex;
@@ -794,9 +844,8 @@ html {
 .bottom-bar {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  gap: 38px;
 
   padding: 10px;
 
@@ -805,7 +854,7 @@ html {
   height: fit-content;
   left: 0px;
   bottom: 0px;
-
+  gap: 4px;
   background: rgba(0, 0, 0, 0.01);
   backdrop-filter: blur(50px);
 }
