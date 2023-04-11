@@ -1,15 +1,17 @@
 <?php
-    class menu {
+    class Menu {
         public $ItemID;
         public $Name;
         public $Price;
         public $ImageURL;
 
-        function __construct($ItemID, $Name, $ImageURL, $Price) {
-            $this->ItemID = $ItemID;
+        function __construct($Name, $ImageURL, $Price, $ItemID = null) {
             $this->Name = $Name;
             $this->Price = $Price;
             $this->ImageURL = $ImageURL;
+            if($ItemID!=null){
+                $this->ItemID = $ItemID;
+            }
         }
         function get_ItemID() {
             return $this->ItemID;

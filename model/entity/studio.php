@@ -1,33 +1,38 @@
 <?php
-    class studio {
+    class Studio {
         public $StudioID;
         public $StudioName;
         public $Address;
         public $Phone;
         public $Email;
-
-
-        function __construct($StudioName, $StudioID, $Address, $Phone, $Email) {
-            $this->StudioID = $StudioID;
+         function __construct($StudioName, $Address, $Phone, $Email,$StudioID=null ) {
+           
             $this->StudioName = $StudioName;
             $this->Address = $Address;
             $this->Phone = $Phone;
             $this->Email = $Email;
+            if($StudioID!==null) {
+                $this->StudioID = $StudioID;
+            }
+    
+           
         }
 
-        function get_StudioID() {
+        
+
+          function get_StudioID() {
             return $this->StudioID;
         }
-        function get_StudioName() {
+         function get_StudioName() {
             return $this->StudioName;
         }
-        function get_Address() {
+          function get_Address() {
             return $this->Address;
         }
-        function get_Phone() {
+          function get_Phone() {
             return $this->Phone;
         }
-        function get_Email() {
+           function get_Email() {
             return $this->Email;
         }
 

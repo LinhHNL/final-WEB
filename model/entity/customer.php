@@ -1,20 +1,25 @@
 <?php
-    class customer {
+require_once 'ActorOfMovie.php';
+    class Customer {
         public $CustomerID;
         public $FullName;
         public $Address;
         public $Email;
         public $Phone;
-        public $Password;
-
-        function __construct($CustomerID, $FullName, $Email, $Address, $Phone, $Password) {
-            $this->CustomerID = $CustomerID;
+        public $account_id;
+        
+       
+        function __construct($FullName, $Email, $Address, $Phone, $account_id, $customerID=null) {
             $this->FullName = $FullName;
             $this->Address = $Address;
             $this->Email = $Email;
             $this->Phone = $Phone;
-            $this->Password = $Password;
+            $this->account_id = $account_id;
+            if($customerID!=null){
+                $this->CustomerID =$customerID;
+            }
         }
+       
         function get_CustomerID() {
             return $this->CustomerID;
         }
@@ -30,9 +35,7 @@
         function get_Phone() {
             return $this->Phone;
         }
-        function get_Password() {
-            return $this->Password;
-        }
+   
 
         function set_CustomerID($CustomerID) {
              $this->CustomerID = $CustomerID;
@@ -49,8 +52,11 @@
         function set_Phone($Phone) {
              $this->Phone = $Phone;
         }
-        function set_Password($Password) {
-             $this->Password = $Password;
-        }
+      function get_Account_Id() {
+        return $this->account_id;
+      }
+      function set_Account_Id($account_id) {
+        $this->account_id = $account_id;
+      }
     }
 ?>

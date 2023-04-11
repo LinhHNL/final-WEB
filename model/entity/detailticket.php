@@ -1,5 +1,5 @@
 <?php
-    class detailticket {
+    class DetailTicket {
         public $TicketID;
         public $BookingID;
 

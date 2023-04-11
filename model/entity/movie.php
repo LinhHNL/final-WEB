@@ -1,5 +1,5 @@
 <?php
-    class movie {
+    class Movie {
         public $MovieID;
         public $MovieName;
         public $Director;
@@ -9,10 +9,11 @@
         public $Time;
         public $StudioID;
         public $LanguageID;
-
-
-        function __construct($MovieID, $MovieName, $Year, $Director, $Premiere, $URLTrailer, $Time, $StudioID, $LanguageID) {
-            $this->MovieID = $MovieID;
+        public $ListActor = array();
+        public $ListGenre = array();
+        public $listImage = array();
+        public $rating ;
+        function __construct( $MovieName, $Year, $Director, $Premiere, $URLTrailer, $Time, $StudioID, $LanguageID,$MovieID) {
             $this->MovieName = $MovieName;
             $this->Director = $Director;
             $this->Year = $Year;
@@ -21,7 +22,17 @@
             $this->Time = $Time;
             $this->StudioID = $StudioID;
             $this->LanguageID = $LanguageID;
+            if($MovieID!=null){
+            $this->MovieID = $MovieID;
 
+            }
+
+        }
+        function set_rating( $rating ) {
+            $this->rating = $rating;
+        }
+        function get_rating() {
+           return $this->rating;
         }
         function get_MovieID() {
             return $this->MovieID;
@@ -77,5 +88,21 @@
         function set_LanguageID($LanguageID) {
             $this->LanguageID = $LanguageID;
         }
+        function add_ListActor($ListActor) {
+            $this->ListActor[] = $ListActor;
+        }
+        function add_ListGenre($ListGenre) {
+            $this->ListGenre[] = $ListGenre;
+        }
+        function get_ListActor() {
+            return $this->ListActor;
+        }
+        function get_ListGenre() {
+            return $this->ListGenre;
+        }
+        function add_ListImage($ListImage) {
+            $this->listImage[] = $ListImage;
+        }
+       
     }
 ?>

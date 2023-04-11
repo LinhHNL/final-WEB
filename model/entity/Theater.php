@@ -3,17 +3,19 @@
         public $TheaterID;
         public $TheaterName;
         public $Address;
-        public $Phone;
+        public $Phone; 
         public $NumberOfRooms;
 
-
-        function __construct($TheaterName, $TheaterID, $Address, $Phone, $NumberOfRooms) {
-            $this->TheaterID = $TheaterID;
+        function __construct($TheaterName, $Address, $Phone, $NumberOfRooms, $TheaterID=null) {
             $this->TheaterName = $TheaterName;
             $this->Address = $Address;
             $this->Phone = $Phone;
             $this->NumberOfRooms = $NumberOfRooms;
+            if($TheaterID!=null){
+                $this->TheaterID = $TheaterID;
+            }
         }
+
 
         function get_TheaterID() {
             return $this->TheaterID;

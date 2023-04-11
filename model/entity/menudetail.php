@@ -1,5 +1,5 @@
 <?php
-    class menudetail {
+    class MenuDetail {
         public $Number;
         public $Total;
         public $ItemID;

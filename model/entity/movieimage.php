@@ -1,15 +1,18 @@
 <?php 
-    class movieimage {
+    class MovieImage {
         public $ImageID;
         public $ImagePath;
         public $Description;
         public $MovieID;
 
-        function __construct($ImageID, $ImagePath, $MovieID, $Description) {
-            $this->ImageID = $ImageID;
+        function __construct( $ImagePath, $MovieID, $Description,$ImageID) {
             $this->ImagePath = $ImagePath;
             $this->Description = $Description;
             $this->MovieID = $MovieID;
+            if($ImageID!=null){
+            $this->ImageID = $ImageID;
+
+            }
         }
         function get_ImageID() {
             return $this->ImageID;

@@ -1,19 +1,21 @@
 <?php
-    class booking {
+    class Booking {
         public $BookingID;
         public $NumberOfTickets;
         public $TotalPrice;
         public $BookingTime;
-        public $DateTime;
-        public $Voucher;
+               public $Voucher;
 
-        function __construct($BookingID, $NumberOfTickets, $BookingTime, $TotalPrice, $DateTime, $Voucher) {
-            $this->BookingID = $BookingID;
+        function __construct( $NumberOfTickets, $BookingTime, $TotalPrice,  $Voucher ,$BookingID=null) {
             $this->NumberOfTickets = $NumberOfTickets;
             $this->TotalPrice = $TotalPrice;
             $this->BookingTime = $BookingTime;
-            $this->DateTime = $DateTime;
+
             $this->Voucher = $Voucher;
+            if($BookingID!=null){
+            $this->BookingID = $BookingID;
+
+            }
         }
         function get_BookingID() {
             return $this->BookingID;
@@ -27,9 +29,7 @@
         function get_BookingTime() {
             return $this->BookingTime;
         }
-        function get_DateTime() {
-            return $this->DateTime;
-        }
+      
         function get_Voucher() {
             return $this->Voucher;
         }
@@ -46,9 +46,7 @@
         function set_BookingTime($BookingTime) {
             $this->BookingTime = $BookingTime;
         }
-        function set_DateTime($DateTime) {
-            $this->DateTime = $DateTime;
-        }
+       
         function set_Voucher($Voucher) {
             $this->Voucher = $Voucher;
         }

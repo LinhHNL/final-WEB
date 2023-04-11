@@ -1,15 +1,18 @@
 <?php
-    class room {
+    class Room {
         public $RoomID;
         public $RoomName;
         public $NumberOfSeats;
         public $TheaterID;
 
-        function __construct($RoomID, $RoomName, $TheaterID, $NumberOfSeats) {
-            $this->RoomID = $RoomID;
+        function __construct($RoomName, $TheaterID, $NumberOfSeats, $RoomID=null) {
+
             $this->RoomName = $RoomName;
             $this->NumberOfSeats = $NumberOfSeats;
             $this->TheaterID = $TheaterID;
+            if($RoomID!=null){
+                $this->RoomID = $RoomID;
+            }
         }
         function get_RoomID() {
             return $this->RoomID;
@@ -23,6 +26,7 @@
         function get_TheaterID() {
             return $this->TheaterID;
         }
+      
 
         function set_RoomID($RoomID) {
             $this->RoomID = $RoomID;

@@ -1,17 +1,20 @@
 <?php 
-    class errorreport {
+    class ErrorReport {
         public $ReportID;
         public $ErrorMessage;
         public $ReportTime;
         public $Status;
         public $CustomerID;
 
-        function __construct($ReportID, $ErrorMessage, $Status, $ReportTime, $CustomerID) {
-            $this->ReportID = $ReportID;
+        function __construct( $ErrorMessage, $Status, $ReportTime, $CustomerID,$ReportID=null )  {
+            
             $this->ErrorMessage = $ErrorMessage;
             $this->ReportTime = $ReportTime;
             $this->Status = $Status;
             $this->CustomerID = $CustomerID;
+            if($ReportID!=null) {
+                $this->ReportID = $ReportID;
+            }
         }
         function get_ReportID() {
             return $this->ReportID;

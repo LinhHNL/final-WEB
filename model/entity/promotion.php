@@ -1,5 +1,5 @@
 <?php 
-    class promotion {
+    class Promotion {
         public $PromotionID;
         public $PromotionName;
         public $Description;
@@ -9,14 +9,16 @@
         public $Code;
 
 
-        function __construct($PromotionID, $PromotionName, $StartTime, $Description, $EndTime, $Discount, $Code) {
-            $this->PromotionID = $PromotionID;
+        function __construct($PromotionName, $StartTime, $Description, $EndTime, $Discount, $Code, $PromotionID=null) {
             $this->PromotionName = $PromotionName;
             $this->Description = $Description;
             $this->StartTime = $StartTime;
             $this->EndTime = $EndTime;
             $this->Discount = $Discount;
             $this->Code = $Code;
+            if($PromotionID!=null){
+                $this->PromotionID = $PromotionID;
+            }
         }
         function get_PromotionID() {
             return $this->PromotionID;

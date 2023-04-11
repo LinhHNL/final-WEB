@@ -1,5 +1,5 @@
 <?php
-     class detailmoviegenre {
+     class DetailMovieGenre {
         public $MovieID;
         public $GenreID;
 

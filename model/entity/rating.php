@@ -10,13 +10,15 @@
         public $MovieID;
         public $CustomerID;
 
-        function __construct($RatingID, $Score, $Day, $Comment, $MovieID, $CustomerID) {
-            $this->RatingID = $RatingID;
+        function __construct( $Score, $Day, $Comment, $MovieID, $CustomerID,$RatingID=null ) {
             $this->Score = $Score;
             $this->Comment = $Comment;
             $this->Day = $Day;
             $this->MovieID = $MovieID;
             $this->CustomerID = $CustomerID;
+            if($RatingID!=null){
+                $this->RatingID = $RatingID;
+            }
         }
         function get_RatingID() {
             return $this->RatingID;
@@ -36,6 +38,7 @@
         function get_CustomerID() {
             return $this->CustomerID;
         }
+
 
         function set_RatingID($RatingID) {
             $this->RatingID = $RatingID;

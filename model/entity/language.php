@@ -1,12 +1,13 @@
 <?php
-    class language {
+    class Language {
         public $LanguageID;
         public $LanguageName;
 
-        function __construct($LanguageID, $LanguageName) {
-            $this->LanguageID = $LanguageID;
+        public function __construct($LanguageName, $LanguageID = null) {
             $this->LanguageName = $LanguageName;
-
+            if($LanguageID!=null){
+                $this->LanguageID = $LanguageID;
+            }
         }
         function get_LanguageID() {
             return $this->LanguageID;

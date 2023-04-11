@@ -1,5 +1,5 @@
 <?php
-    class showtime {
+    class Showtime {
         public $ShowtimeID;
         public $Price;
         public $MovieID;
@@ -9,14 +9,16 @@
         public $FormatID;
 
 
-        function __construct($ShowtimeID, $Price, $StartTime, $MovieID, $EndTime, $RoomID, $FormatID) {
-            $this->ShowtimeID = $ShowtimeID;
+        function __construct($Price, $StartTime, $MovieID, $EndTime, $RoomID, $FormatID, $ShowtimeID=null) {
             $this->Price = $Price;
             $this->MovieID = $MovieID;
             $this->StartTime = $StartTime;
             $this->EndTime = $EndTime;
             $this->RoomID = $RoomID;
             $this->FormatID = $FormatID;
+            if($ShowtimeID!=null){
+                $this->ShowtimeID = $ShowtimeID;
+            }
         }
         function get_ShowtimeID() {
             return $this->ShowtimeID;
@@ -35,10 +37,11 @@
         }
         function get_RoomID() {
             return $this->RoomID;
-        }
+        }   
         function get_FormatID() {
             return $this->FormatID;
         }
+
 
         function set_ShowtimeID($ShowtimeID) {
             $this->ShowtimeID = $ShowtimeID;

@@ -1,14 +1,17 @@
 <?php
-    class moviegenre {
+    class MovieGenre {
         public $GenreID;
         public $GenreName;
         public $Description;
 
-        function __construct($GenreID, $GenreName, $Description) {
-            $this->GenreID = $GenreID;
+        function __construct( $GenreName, $Description,$GenreID=null) {
             $this->GenreName = $GenreName;
             $this->Description = $Description;
+            if($GenreID!=null)
+    {
+        $this->GenreID = $GenreID;
 
+    }
         }
         function get_GenreID() {
             return $this->GenreID;
