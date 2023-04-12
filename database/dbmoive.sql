@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 11, 2023 lúc 09:00 PM
+-- Thời gian đã tạo: Th4 12, 2023 lúc 06:18 AM
 -- Phiên bản máy phục vụ: 10.4.27-MariaDB
 -- Phiên bản PHP: 8.0.25
 
@@ -364,7 +364,7 @@ CREATE TABLE `menu` (
   `ItemID` char(11) NOT NULL,
   `Name` varchar(50) NOT NULL,
   `Price` float NOT NULL,
-  `ImageURL` varchar(50) NOT NULL
+  `ImageURL` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -408,19 +408,20 @@ CREATE TABLE `movie` (
   `Director` varchar(50) NOT NULL,
   `Year` year(4) NOT NULL,
   `Premiere` date NOT NULL,
-  `URLTrailer` varchar(50) NOT NULL,
+  `URLTrailer` text NOT NULL,
   `Time` float NOT NULL,
   `StudioID` char(11) NOT NULL,
-  `LanguageID` char(11) NOT NULL
+  `LanguageID` char(11) NOT NULL,
+  `story` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `movie`
 --
 
-INSERT INTO `movie` (`MovieID`, `MovieName`, `Director`, `Year`, `Premiere`, `URLTrailer`, `Time`, `StudioID`, `LanguageID`) VALUES
-('M001', 'Name movie 1', 'Director 1', 2022, '2022-10-10', 'URLTrailer1', 20221000, 'ST001', 'L001'),
-('M002', 'Name movie 2', 'Director 2', 2022, '2022-10-10', 'URLTrailer2', 0, 'ST002', 'L002');
+INSERT INTO `movie` (`MovieID`, `MovieName`, `Director`, `Year`, `Premiere`, `URLTrailer`, `Time`, `StudioID`, `LanguageID`, `story`) VALUES
+('M001', 'Name movie 1', 'Director 1', 2022, '2022-10-10', 'URLTrailer1', 20221000, 'ST001', 'L001', '24234'),
+('M002', 'Name movie 2', 'Director 2', 2022, '2022-10-10', 'URLTrailer2', 0, 'ST002', 'L002', '24234');
 
 -- --------------------------------------------------------
 
@@ -451,7 +452,7 @@ INSERT INTO `moviegenre` (`GenreID`, `GenreName`, `Description`) VALUES
 
 CREATE TABLE `movieimage` (
   `ImageID` char(11) NOT NULL,
-  `ImagePath` varchar(50) NOT NULL,
+  `ImagePath` text NOT NULL,
   `Description` varchar(50) NOT NULL,
   `MovieID` char(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
