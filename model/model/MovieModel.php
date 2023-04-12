@@ -238,17 +238,16 @@ class MovieModel{
                     m.URLTrailer,
                     m.Time,
                     m.StudioID,
-
                     m.LanguageID ,
                     m.story
 
                 FROM 
                     movie m
-                    INNER JOIN moviegenre mg ON m.MovieID = mg.MovieID
-                    INNER JOIN genre g ON mg.GenreID = g.GenreID
+                    INNER JOIN detailmoviegenre mg ON m.MovieID = mg.MovieID
+                    INNER JOIN moviegenre g ON mg.GenreID = g.GenreID
                 WHERE 
                     m.Premiere <= NOW() AND
-                    g.GenreName = :genre
+                    g.GenreID = :genre
                 ORDER BY 
                     m.Premiere DESC
                 LIMIT :limit OFFSET :offset";
