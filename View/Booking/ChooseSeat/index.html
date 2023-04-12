@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+      integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- Nav -->
+    <nav class="navbar navbar-expand-md fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <div class="logo">5CT</div>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon">
+            <i class="fas fa-bars" style="color: #cfcece; font-size: 28px"></i>
+          </span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto d-flex w-100">
+            <li class="nav-item">
+              <a class="nav-link" href="#">PHIM</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">LỊCH CHIẾU</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">ƯU ĐÃI</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">THÔNG TIN</a>
+            </li>
+            <li class="nav-item" id="login-accout">
+              <a class="nav-link" href="#">Đăng nhập</a>
+            </li>
+            <li class="nav-item" id="create-accout">
+              <a class="nav-link" href="#">Đăng ký</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Slide phim -->
+    <div id="movie-slide" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="movie-content">
+            <div class="rating">
+              <div class="rating-star">
+                <img src="/images/Star.svg" alt="" />
+                7.8
+              </div>
+              <div class="rating-imdb">IMDB 7.2</div>
+            </div>
+            <div class="genre-list">
+              <span>Phiêu lưu</span>
+              <span>Giả tưởng</span>
+              <span>Hành động</span>
+            </div>
+            <div class="movie-title">
+              Người Kiến và Chiến binh Ong: Thế giới Lượng tử
+            </div>
+            <div class="actor-list">
+              Pual Rudd, Kathryn Newton, Tonathan Majors, Bill Murray
+            </div>
+            <div class="movie-info">
+              <span class="duration">2h 5m</span>
+              <span class="dot">●</span>
+              <span class="premier-date">17/02/2023</span>
+              <span class="dot">●</span>
+              <span class="country">USA</span>
+            </div>
+            <div class="sypnosis">
+              Scott Lang và Hope Van Dyne trở lại tiếp tục cuộc phiêu lưu của họ
+              với vai trò Người Kiến và Chiến binh Ong. Cùng với cha mẹ của
+              Hope, họ sẽ có chuyến khám phá Lượng Tử Giới, gặp gỡ những sinh
+              vật mới lạ và bắt đầu cuộc hành trình vào thế giới lượng tử.
+            </div>
+          </div>
+          <div class="background">
+            <div class="shadow-box"></div>
+            <div
+              class="movie-preview-img"
+              style="background-image: url('/images/bg-2.jpg')"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+    <div class="main-container">
+      <div class="Choosing_day_Container">
+        <img src="/images/ArrowChangingDayBefore.png" alt="" />
+
+        <div class="item-day-holder active-thing">
+          <div class="container-icon">
+            <img src="/images/ActiveIcon.png" alt="" />
+          </div>
+
+          <div class="day-text active">Thứ hai</div>
+          <div class="day-number active">17</div>
+          <div class="month-text active">Feb</div>
+        </div>
+        <div class="item-day-holder">
+          <div class="day-text">Thứ ba</div>
+          <div class="day-number">18</div>
+          <div class="month-text">Feb</div>
+        </div>
+        <div class="item-day-holder">
+          <div class="day-text">Thứ tư</div>
+          <div class="day-number">19</div>
+          <div class="month-text">Feb</div>
+        </div>
+        <div class="item-day-holder">
+          <div class="day-text">Thứ năm</div>
+          <div class="day-number">20</div>
+          <div class="month-text">Feb</div>
+        </div>
+        <div class="item-day-holder">
+          <div class="day-text">Thứ sáu</div>
+          <div class="day-number">21</div>
+          <div class="month-text">Feb</div>
+        </div>
+        <img src="	/images/ChangingTheDayAfterArrow.png" alt="" />
+      </div>
+      <div>
+        <div class="select-container">
+          <div class="select-label">RẠP PHIM</div>
+          <select class="form-select">
+            <option selected>Chọn rạp phim</option>
+            <option value="1">Nam Sài Gòn</option>
+            <option value="2">Gò Vấp</option>
+            <option value="3">Thủ Đức</option>
+          </select>
+        </div>
+        <div class="select-container">
+          <div class="select-label">THỜI GIAN</div>
+          <select class="form-select">
+            <option selected>Chọn thời gian</option>
+            <option value="1">10:00</option>
+            <option value="2">19:30</option>
+            <option value="3">23:00</option>
+          </select>
+        </div>
+        <div class="select-container">
+          <div class="select-label">SỐ GHẾ</div>
+          <select class="form-select">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+      </div>
+      <!-- Choose seat -->
+      <div
+        class="choose-seat-container justify-content-center align-items-center d-flex flex-column"
+      >
+        <div class="screen-container position-relative">
+          <img src="/images/screen.png" alt="" />
+          <span>SCREEN</span>
+        </div>
+        <div class="seats-container"></div>
+        <div class="explanation my-4">
+          <div>
+            <svg width="25" height="18" viewBox="0 0 25 18" fill="#FF3CAC" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.75 4.66875V2.25C3.75 1.0125 4.875 0 6.25 0H18.75C20.125 0 21.25 1.0125 21.25 2.25V4.68C19.8 5.14125 18.75 6.37875 18.75 7.84125V10.125H6.25V7.83C6.25 6.37875 5.2 5.13 3.75 4.66875ZM22.5 5.625C21.125 5.625 20 6.6375 20 7.875V11.25H5V7.875C5 6.6375 3.8875 5.625 2.5 5.625C1.1125 5.625 0 6.6375 0 7.875V13.5C0 14.7375 1.125 15.75 2.5 15.75V18H5V15.75H20V18H22.5V15.75C23.875 15.75 25 14.7375 25 13.5V7.875C25 6.6375 23.875 5.625 22.5 5.625Z" />
+              </svg>
+            Couple              
+          </div>
+          <div>
+            <svg width="25" height="18" viewBox="0 0 25 18" fill="#FFB160" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.75 4.66875V2.25C3.75 1.0125 4.875 0 6.25 0H18.75C20.125 0 21.25 1.0125 21.25 2.25V4.68C19.8 5.14125 18.75 6.37875 18.75 7.84125V10.125H6.25V7.83C6.25 6.37875 5.2 5.13 3.75 4.66875ZM22.5 5.625C21.125 5.625 20 6.6375 20 7.875V11.25H5V7.875C5 6.6375 3.8875 5.625 2.5 5.625C1.1125 5.625 0 6.6375 0 7.875V13.5C0 14.7375 1.125 15.75 2.5 15.75V18H5V15.75H20V18H22.5V15.75C23.875 15.75 25 14.7375 25 13.5V7.875C25 6.6375 23.875 5.625 22.5 5.625Z" />
+              </svg>
+            Có thể đặt              
+          </div>
+          <div>
+            <svg width="25" height="18" viewBox="0 0 25 18" fill="#303030" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.75 4.66875V2.25C3.75 1.0125 4.875 0 6.25 0H18.75C20.125 0 21.25 1.0125 21.25 2.25V4.68C19.8 5.14125 18.75 6.37875 18.75 7.84125V10.125H6.25V7.83C6.25 6.37875 5.2 5.13 3.75 4.66875ZM22.5 5.625C21.125 5.625 20 6.6375 20 7.875V11.25H5V7.875C5 6.6375 3.8875 5.625 2.5 5.625C1.1125 5.625 0 6.6375 0 7.875V13.5C0 14.7375 1.125 15.75 2.5 15.75V18H5V15.75H20V18H22.5V15.75C23.875 15.75 25 14.7375 25 13.5V7.875C25 6.6375 23.875 5.625 22.5 5.625Z" />
+              </svg>
+            Đã đặt              
+          </div>
+          <div>
+            <svg width="25" height="18" viewBox="0 0 25 18" fill="#29A1F9" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.75 4.66875V2.25C3.75 1.0125 4.875 0 6.25 0H18.75C20.125 0 21.25 1.0125 21.25 2.25V4.68C19.8 5.14125 18.75 6.37875 18.75 7.84125V10.125H6.25V7.83C6.25 6.37875 5.2 5.13 3.75 4.66875ZM22.5 5.625C21.125 5.625 20 6.6375 20 7.875V11.25H5V7.875C5 6.6375 3.8875 5.625 2.5 5.625C1.1125 5.625 0 6.6375 0 7.875V13.5C0 14.7375 1.125 15.75 2.5 15.75V18H5V15.75H20V18H22.5V15.75C23.875 15.75 25 14.7375 25 13.5V7.875C25 6.6375 23.875 5.625 22.5 5.625Z" />
+              </svg>
+            Đang chọn              
+          </div>
+          <div>
+            <svg width="25" height="18" viewBox="0 0 25 18" fill="#F32F50" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.75 4.66875V2.25C3.75 1.0125 4.875 0 6.25 0H18.75C20.125 0 21.25 1.0125 21.25 2.25V4.68C19.8 5.14125 18.75 6.37875 18.75 7.84125V10.125H6.25V7.83C6.25 6.37875 5.2 5.13 3.75 4.66875ZM22.5 5.625C21.125 5.625 20 6.6375 20 7.875V11.25H5V7.875C5 6.6375 3.8875 5.625 2.5 5.625C1.1125 5.625 0 6.6375 0 7.875V13.5C0 14.7375 1.125 15.75 2.5 15.75V18H5V15.75H20V18H22.5V15.75C23.875 15.75 25 14.7375 25 13.5V7.875C25 6.6375 23.875 5.625 22.5 5.625Z" />
+              </svg>
+            Đã chọn              
+          </div>
+        </div>
+      </div>
+      <!--  -->
+      <!-- Bottom bar -->
+      <div class="bottom-bar">
+        <div class="bottom-bar-item">
+          <div class="title">NGÀY</div>
+          <div class="content">20.4</div>
+        </div>
+        <div class="bottom-bar-item">
+          <div class="title">GIỜ</div>
+          <div class="content">22:30</div>
+        </div>
+        <div class="bottom-bar-item">
+          <div class="title">RẠP</div>
+          <div class="content">Nam Sài Gòn</div>
+        </div>
+        <div class="bottom-bar-item">
+          <div class="title">PHÒNG</div>
+          <div class="content">Screen 2</div>
+        </div>
+        <div class="bottom-bar-item">
+          <div class="title">GHẾ</div>
+          <div class="content">I2, K3</div>
+        </div>
+        <div class="bottom-bar-item">
+          <div class="title">GIÁ VÉ</div>
+          <div class="content">120,000 ₫</div>
+        </div>
+        <div class="bottom-bar-item">
+          <div class="title">COMBO</div>
+          <div class="content">0 ₫</div>
+        </div>
+        <button class="btn-main">
+          CHỌN COMBO
+        </button>
+        <div class="total">
+          120,000 ₫
+        </div>
+      </div>
+      <!--  -->
+    </div>
+    <!-- Footer -->
+    <div class="footer">
+      <div class="container-fluid">
+        <div class="row d-flex">
+          <div class="col-lg-3 col-md-3 col-sm-12" id="footer-first">
+            <div class="footer-logo" style="margin-top: 0">
+              <a href="#"> <p class="logo" style="font-size: 60px">5CT</p> </a>
+              <p style="font-size: 12px; clear: left">
+                COPYRIGHT © 5CODERCUTE.COM
+                <br />
+                ALL RIGHTS RESERVED.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-12">
+            <ul style="margin-top: 20px">
+              <li>
+                <a href="#" style="color: white; font-size: 18px">
+                  Về chúng tôi
+                </a>
+              </li>
+              <li><a href="#"> Liên hệ </a></li>
+              <li><a href="#"> Tuyển dụng </a></li>
+              <li><a href="#"> Blog </a></li>
+              <li><a href="#"> FAQ </a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-12">
+            <ul style="margin-top: 20px">
+              <li>
+                <a href="#" style="color: white; font-size: 18px">
+                  Điều khoản sử dụng
+                </a>
+              </li>
+              <li><a href="#"> Điều khoản chung </a></li>
+              <li><a href="#"> Điều khoản giao dịch </a></li>
+              <li><a href="#"> Điều khoản thanh toán </a></li>
+              <li><a href="#"> Chính sách bảo mật </a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-12">
+            <div style="margin-top: 20px">
+              <div>
+                <a href="#" class="btn-footer">
+                  <img src="/images/email-multiple-outline.png" />
+                  hoidap@5ct.vn
+                </a>
+              </div>
+              <div>
+                <a href="#" class="btn-footer">
+                  <img src="/images/phone.png" /> 1900 1008
+                </a>
+              </div>
+              <div class="footer-icon">
+                <a href="#"> <img src="/images/facebook.png" /> </a>
+                <a href="#"> <img src="/images/twitter.png" /> </a>
+                <a href="#"> <img src="/images/google-plus.png" /> </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      $(document).ready(function () {
+        $(".navbar-toggler").click(function () {
+          var color = $(".navbar").css("background-color");
+          if (color == "rgba(0, 0, 0, 0.01)") {
+            $(".navbar").css("background", "rgba(0, 0, 0, 0.85)");
+          } else {
+            $(".navbar").css("background", "rgba(0, 0, 0, 0.01)");
+          }
+        });
+        let row_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        let numRow = 10;
+        let numCol = 20;
+
+        for (let i = 0; i < numRow; i++) {
+          let row = document.createElement("div");
+          row.className = "seat-row";
+          $(row).append('<div class="letter">' + row_chars[i] + "</div>");
+          $(row).append('<div class="empty"></div>');
+          for (let j = 1; j <= numCol; j++) {
+            if (j == 3 || j == numCol - 1)
+              $(row).append('<div class="empty"></div>');
+            if (i == numRow - 1) {
+              //couple row
+              $(row).append(new Seat(i, j, 3).getHTML());
+              continue;
+            }
+            $(row).append(
+              new Seat(i, j, Math.floor(Math.random() * 2) - 1).getHTML()
+            );
+          }
+
+          $(".seats-container").append(row);
+        }
+
+        $(".seat").click(function () {
+          let row = $(this).attr("row");
+          let col = $(this).attr("col");
+          selectSeat(row, col);
+        });
+      });
+
+      function selectSeat(row, col) {
+        let seat = $(`.seat[row=${row}][col=${col}]`);
+        if (seat.hasClass('booked') || seat.hasClass('selected'))
+          return;
+        seat.addClass('selecting');
+      }
+
+      class Seat {
+        constructor(row, col, state) {
+          this.row = row;
+          this.col = col;
+          this.state = state;
+        }
+
+        getHTML() {
+          let stateName;
+          let row_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+          switch (this.state) {
+            case -1:
+              stateName = "booked";
+              break;
+            case 0:
+              stateName = "available";
+              break;
+            case 1:
+              stateName = "selecting";
+              break;
+            case 2:
+              stateName = "selected";
+              break;
+            case 3:
+              stateName = "couple";
+              break;
+          }
+          return (
+            `<div class="seat ${stateName}" row=${this.row} col=${this.col}><svg class="width="25" height="18" viewBox="0 0 25 18" fill="#343434" xmlns="http://www.w3.org/2000/svg">` +
+            '<path d="M3.75 4.66875V2.25C3.75 1.0125 4.875 0 6.25 0H18.75C20.125 0 21.25 1.0125 21.25 2.25V4.68C19.8 5.14125 18.75 6.37875 18.75 7.84125V10.125H6.25V7.83C6.25 6.37875 5.2 5.13 3.75 4.66875ZM22.5 5.625C21.125 5.625 20 6.6375 20 7.875V11.25H5V7.875C5 6.6375 3.8875 5.625 2.5 5.625C1.1125 5.625 0 6.6375 0 7.875V13.5C0 14.7375 1.125 15.75 2.5 15.75V18H5V15.75H20V18H22.5V15.75C23.875 15.75 25 14.7375 25 13.5V7.875C25 6.6375 23.875 5.625 22.5 5.625Z" />' +
+            '</svg>'+
+            '<div class="seat-tooltip">'+
+            `<div>HÀNG<b>${row_chars[this.row]}</b></div>` +
+            `<div>GHẾ<b>${this.col}</b></div>` +
+            '</div>' +
+            '</div>');
+        }
+      }
+    </script>
+  </body>
+</html>
