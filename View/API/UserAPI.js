@@ -6,7 +6,7 @@ const getHotMovieAPI = async () => {
     }
   );
   const datatorender = await data.json();
-  console.log(datatorender);
+  return datatorender;
 };
 const getPremierMovie = async (page) => {
   page = 1;
@@ -17,7 +17,7 @@ const getPremierMovie = async (page) => {
     }
   );
   const datatorender = await data.json();
-  console.log(datatorender);
+  return datatorender;
 };
 const getUpcomingMovie = async (page) => {
   page = 1;
@@ -28,7 +28,7 @@ const getUpcomingMovie = async (page) => {
     }
   );
   const datatorender = await data.json();
-  console.log(datatorender);
+  return datatorender;
 };
 const getGenreID = async (page, genreid) => {
   page = 1;
@@ -40,6 +40,6 @@ const getGenreID = async (page, genreid) => {
     }
   );
   const datatorender = await data.json();
-  console.log(datatorender);
+  return datatorender;
 };
-getGenreID();
+getHotMovieAPI();

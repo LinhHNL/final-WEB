@@ -31,7 +31,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo json_encode($register);
             }
             
-        case 'addManger':
+        case 'addManger':{
             $addManger = (new UserController())->addManager($data);
             if($addManger['success']){
                 $_SESSION['user'] = $addManger; 
@@ -40,8 +40,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo json_encode($addManger);
             }
             break;
+           
+            }
+            case 'getAllUser':{
+                $listAllUser=(new UserController)->getAllUser($page);
+                echo json_encode($listAllUser);
+                break;
+            }
         }
-            
+
+
         
         }
     

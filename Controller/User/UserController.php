@@ -67,7 +67,7 @@ class UserController {
         $phone = $data ['phone'];
         $role = $data ['role'];
 
-        $account =     (new AccountModel())->addAcount(new Account($email,$password,$role));
+        $account = (new AccountModel())->addAcount(new Account($email,$password,$role));
         $result = json_decode($account, true);
         if($result['success']){
             $acc = (new AccountModel())->getAcount($email,$password);
@@ -87,9 +87,19 @@ class UserController {
         }
         return array("success" => false,"message"=>"Đăng ký thất bại"); // xoá dòng => ở đây và thêm giá trị false vào mảng này
 }
+
+
+    public function getAllUser($page){
+        $accounts=json_decode( (new AccountModel())->getAllAccounts());
+        foreach($accounts as $Account ){
+            $AccountID=$Account->getId();
+            //$AccountName=$Account->getName();
+            //$AcountPhone=$Account->getPhone();
+            $AccountPassword=$Account->getPassword();
+            //$AccountBirth=$Account->getBirth();
+        }
+        return $accounts;
+    }   
+
 }
-
-    
-
-
 ?>
