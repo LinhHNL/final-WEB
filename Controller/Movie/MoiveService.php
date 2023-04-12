@@ -3,9 +3,8 @@ require_once 'MovieController.php';
 if($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     
-    $jsonData = file_get_contents("php://input");
-    $data = json_decode($jsonData, true);
-    $action = $data['action'];
+  
+    $action = $_GET['action'];
     
     switch($action) {
         case 'getMoiveHot':
@@ -13,18 +12,18 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
         echo json_encode($list);
          break; 
         case 'getPremieredMovies':
-            $page = $data['page'];
+            $page = $_GET['page'];
             $list =    (new MovieController)->getPremieredMovies($page);
             echo json_encode($list);
             break;
         case 'getUpcomingMovies':
-            $page = $data['page'];
+            $page = $_GET['page'];
             $list =    (new MovieController)->getUpcomingMovies($page);
             echo json_encode($list);
             break;
         case 'getMoiveByGenres':
-            $page = $data['page'];
-            $genreid = $data['genreid'];
+            $page = $_GET['page'];
+            $genreid = $_GET['genreid'];
             $list =    (new MovieController)->getMovieByGenreID(  $genreid,$page);
             echo json_encode($list);
             break;
