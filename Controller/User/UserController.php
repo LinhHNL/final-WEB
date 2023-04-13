@@ -19,14 +19,13 @@ class UserController {
                 if($data['account']['role_id']==1){ // thiếu dấu bằng ở đây
                     $customer  = (new CustomerModel())->getCustomerByEmail($email);
                     return array( "success" => true,"role"=>$data['account']['role_id'],"user"=>$customer);
-
-                    
                 } else {
                     $admin  = (new ManagerModel())->getManagerByEmail($email);
                     return array("success" => true,"role"=>$data['account']['role_id'],"user"=>$admin);
                 }
             } else {
                 header('Content-Type: application/json');
+
                 return array("success" => false,"message"=>"Đăng nhập thất bại"); // xoá dòng => ở đây và thêm giá trị false vào mảng này
             }
     

@@ -13,6 +13,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $password = $data['password'];
             $userController = new UserController();
             $temp = $userController->login($email,$password);
+            header('Content-Type: application/json');     
             if($temp['success']){
                 $_SESSION['user'] = $temp; 
                 echo json_encode($temp);
@@ -30,6 +31,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             }else{
                 echo json_encode($register);
             }
+            break;
             
         case 'addManger':{
             $addManger = (new UserController())->addManager($data);

@@ -43,7 +43,8 @@ class MovieController{
             $Movie->add_ListActor($actors);
             $genres = (new MovieGenreModel())->getGenreAllByMoiveID($movieID);
             $Movie->add_ListGenre($genres);
-        }   return $moives;
+        }   
+        return $moives;
     }
        
     public function getMovieByGenreID($id,$page){
@@ -88,6 +89,7 @@ class MovieController{
         }
         return $hotMovies;
     }
+   
     
 }
 

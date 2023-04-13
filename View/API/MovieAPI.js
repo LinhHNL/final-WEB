@@ -29,9 +29,7 @@ const getUpcomingMovie = async (url, page = 1) => {
   const datatorender = await data.json();
   return datatorender;
 };
-const getGenreID = async (page, genreid) => {
-  page = 1;
-  genreid = 1;
+const getByGenreID = async (url, genreid = 1, page = 1) => {
   const data = await fetch(
     `${url}/Controller/Movie/MoiveService.php?action=getMoiveByGenres&page=${page}&genreid=${genreid}`,
     {
@@ -41,4 +39,4 @@ const getGenreID = async (page, genreid) => {
   const datatorender = await data.json();
   return datatorender;
 };
-export { getHotMovieAPI, getPremierMovie, getUpcomingMovie, getGenreID };
+export { getHotMovieAPI, getPremierMovie, getUpcomingMovie, getByGenreID };

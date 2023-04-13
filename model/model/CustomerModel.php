@@ -15,6 +15,8 @@ class CustomerModel {
         $stmt->setFetchMode(PDO::FETCH_CLASS,'Customer');
         $stmt->execute();
         $customer = $stmt->fetchObject();
+        header('Content-Type: application/json');
+
         if($customer!=null){
             return json_encode(array("success"=>true,"customer"=>$customer));
         }else{
@@ -29,9 +31,12 @@ class CustomerModel {
         $stmt->setFetchMode(PDO::FETCH_CLASS,'Customer');
         $stmt->execute();
         $customer = $stmt->fetchObject();
+         header('Content-Type: application/json');
+
         if($customer!=null){
             return json_encode(array("success"=>true,"customer"=>$customer));
         }else{
+            header('Content-Type: application/json');
             return json_encode(array("success"=>false,"error"=>"Khách hàng không tồn tại"));
         }
 
@@ -53,6 +58,8 @@ class CustomerModel {
        $stmt->bindParam(':phone', $phone);
        $stmt->bindParam(':account_id', $account_id);
        $stmt->execute();
+       header('Content-Type: application/json');
+
        if ($stmt->rowCount() > 0) {
         return json_encode(array("success" => true));
     } else {
@@ -114,6 +121,7 @@ class CustomerModel {
             $countStmt->bindParam(':customer_id', $customer_id);
             $countStmt->execute();
             $count = $countStmt->fetchColumn();
+            header('Content-Type: application/json');
     
             if ($count == 0) {
                 return json_encode(array("success"=>false,"error"=>"Customer does not exist."));

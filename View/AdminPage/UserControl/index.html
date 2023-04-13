@@ -31,6 +31,9 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <link rel="stylesheet" href="homepage.css" />
   </head>
   <body>
@@ -50,7 +53,7 @@
       </div>
       <div class="divider-container"></div>
       <div class="search-place">
-        <div class="input-group rounded input-place">
+        <div class="input-group rounded input-place" style="margin-bottom: 0;">
           <input
             type="search"
             class="form-control rounded"
@@ -137,7 +140,7 @@
 
             </tr>
             <tr>
-                <td>KH1</td>
+                <td>KH2</td>
                 <td>Nguyễn Văn A</td>
                 <td>0987654321</td>
                 <td>5coder@gmail.com</td>
@@ -529,7 +532,12 @@
       </div>
     </div>
     <script>
-      
+      $(document).ready(function () {
+      $('#table-content').DataTable();
+      $(".dataTables_length").hide();
+      $("#table-content_filter").hide();
+      $(".pagination").hide();
+});
     </script>
   </body>
 </html>

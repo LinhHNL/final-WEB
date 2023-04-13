@@ -10,6 +10,7 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -135,15 +136,7 @@
         </div>
         <div class="line"></div>
         <div class="genre-select container-fluid">
-          <div class="row g-2">
-            <button class="btn-main">Tất cả phim</button>
-            <button>Hành động</button>
-            <button>Tâm lý</button>
-            <button>Kinh dị</button>
-            <button>Hoạt hình</button>
-            <button>Hài hước</button>
-            <button>Phiêu lưu</button>
-          </div>
+          <div class="row g-2 genre-container"></div>
         </div>
         <div class="cards-container container-fluid">
           <div class="row g-3 movie-premier-container"></div>
@@ -277,7 +270,9 @@
         getHotMovieAPI,
         getPremierMovie,
         getUpcomingMovie,
+        getByGenreID,
       } from "./View/API/MovieAPI.js";
+      import { getAllGenre } from "./View/API/GenreAPI.js";
       $(document).ready(function () {
         $(".navbar-toggler").click(function () {
           var color = $(".navbar").css("background-color");
@@ -287,7 +282,7 @@
             $(".navbar").css("background", "rgba(0, 0, 0, 0.01)");
           }
         });
-        // Gọi Hot API
+        // Gọi phim Hot
         getHotMovieAPI(".").then((datas) => {
           const cuttingGenre = (data) => {
             let storehtml = "";
@@ -383,7 +378,6 @@
             return storehtml;
           };
           datas.forEach(async (data, index) => {
-            console.log(data);
             let genrehtml = await cuttingGenre(data);
             let htmls = "";
             htmls +=
@@ -421,8 +415,8 @@
             $(".row.g-3.movie-premier-container").append(htmls);
           });
         });
+        // Gọi phim chuẩn bị chiếu
         getUpcomingMovie(".").then((datas) => {
-          console.log(datas);
           const cuttingGenre = (data) => {
             let storehtml = "";
 
@@ -473,6 +467,156 @@
               <div class="movie-title">${data.MovieName}</div>
             </div>`;
             $(".row.g-3.movie-upcoming-container").append(htmls);
+          });
+        });
+        // Lấy toàn bộ Genre
+        function changingBtnOnClickGetAll(GenreID) {
+          const movieContainer = $(".row.g-3.movie-premier-container");
+          const GenreContainer = $(".row.g-2.genre-container");
+          movieContainer.html("");
+          const removeBtnColor = GenreContainer.find("button.btn-main");
+          removeBtnColor.removeClass("btn-main");
+          const AddingBtnColor = GenreContainer.find(`#${GenreID}`);
+          AddingBtnColor.addClass("btn-main");
+          getPremierMovie(".").then((datas) => {
+            const cuttingGenre = (data) => {
+              let storehtml = "";
+
+              data["ListGenre"].flat().forEach((element, index) => {
+                if (index == 0) {
+                  storehtml += `${element.GenreName}`;
+                } else {
+                  storehtml +=
+                    '<span class="vertical-line">|</span>' +
+                    `${element.GenreName}`;
+                }
+              });
+              return storehtml;
+            };
+            datas.forEach(async (data, index) => {
+              let genrehtml = await cuttingGenre(data);
+              let htmls = "";
+              htmls +=
+                `<div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
+              <div class="card-img">
+                <div class="card-info">
+                  <img
+                    src="./images/Star.svg"
+                    alt=""
+                    width="22px"
+                    height="22px"
+                  />
+                  <div class="rating">${data.rating} / 10</div>
+                  <div class="age">13+</div>
+                  <div class="date">
+                    <img src="./images/date.svg" alt="" />
+                    ${data.Premiere}
+                  </div>
+                  <div class="duration">
+                    <img src="./images/timer.svg" alt="" />
+                    ${data.Time}
+                  </div>
+                  <button class="btn-outline">Chi tiết</button>
+                  <button class="btn-main">Đặt vé</button>
+                </div>
+                <img class="poster" src="./images/poster-2.jpg" alt="" />
+              </div>
+
+              <div class="movie-genre">
+               ` +
+                genrehtml +
+                `</div>
+              <div class="movie-title">${data.MovieName}</div>
+            </div>`;
+              $(".row.g-3.movie-premier-container").append(htmls);
+            });
+          });
+        }
+        function changingBtnOnClick(GenreID) {
+          const movieContainer = $(".row.g-3.movie-premier-container");
+          const GenreContainer = $(".row.g-2.genre-container");
+          movieContainer.html("");
+          const removeBtnColor = GenreContainer.find("button.btn-main");
+          console.log(removeBtnColor);
+          removeBtnColor.removeClass("btn-main");
+          const AddingBtnColor = GenreContainer.find(`#${GenreID}`);
+          AddingBtnColor.addClass("btn-main");
+          getByGenreID(".", GenreID).then((datas) => {
+            const cuttingGenre = (data) => {
+              let storehtml = "";
+
+              data["ListGenre"].flat().forEach((element, index) => {
+                if (index == 0) {
+                  storehtml += `${element.GenreName}`;
+                } else {
+                  storehtml +=
+                    '<span class="vertical-line">|</span>' +
+                    `${element.GenreName}`;
+                }
+              });
+              return storehtml;
+            };
+            datas.forEach(async (data, index) => {
+              let genrehtml = await cuttingGenre(data);
+              let htmls = "";
+              htmls +=
+                `<div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
+              <div class="card-img">
+                <div class="card-info">
+                  <img
+                    src="./images/Star.svg"
+                    alt=""
+                    width="22px"
+                    height="22px"
+                  />
+                  <div class="rating">${data.rating} / 10</div>
+                  <div class="age">13+</div>
+                  <div class="date">
+                    <img src="./images/date.svg" alt="" />
+                    ${data.Premiere}
+                  </div>
+                  <div class="duration">
+                    <img src="./images/timer.svg" alt="" />
+                    ${data.Time}
+                  </div>
+                  <button class="btn-outline">Chi tiết</button>
+                  <button class="btn-main">Đặt vé</button>
+                </div>
+                <img class="poster" src="./images/poster-2.jpg" alt="" />
+              </div>
+
+              <div class="movie-genre">
+               ` +
+                genrehtml +
+                `</div>
+              <div class="movie-title">${data.MovieName}</div>
+            </div>`;
+              $(".row.g-3.movie-premier-container").append(htmls);
+            });
+          });
+        }
+
+        getAllGenre(".").then((datas) => {
+          /* <button
+              onclick="()=>changingBtnOnClickGetAll()"
+              class="btn-main all-select"
+            >
+              Tất cả phim
+            </button>*/
+          const genreContainer = $(".row.g-2.genre-container");
+          const button = $("<button>")
+            .attr("id", "MBTN00001")
+            .addClass("btn-main all-select")
+            .text("Tất cả Phim");
+          button.on("click", () => changingBtnOnClickGetAll("MBTN00001"));
+          genreContainer.append(button);
+          datas.forEach((data) => {
+            const button = $("<button>")
+              .addClass("genre-btn-click")
+              .attr("id", data.GenreID)
+              .text(data.GenreName);
+            button.on("click", () => changingBtnOnClick(data.GenreID));
+            genreContainer.append(button);
           });
         });
       });
