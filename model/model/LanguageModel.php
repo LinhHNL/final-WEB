@@ -76,15 +76,15 @@ public function updateLanguage(Language $Language) {
 
 
     // Phương thức getAll cho Language
-    public function getAllLanguage(){
+    public function getAllLanguages(){
         $stmt = $this->conn->prepare("SELECT LanguageID, LanguageName FROM language");
         $stmt->execute();
         $Languages = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $Language = new Language($row['LanguageID'], $row['LanguageName']);
+            $Language = new Language( $row['LanguageName'],$row['LanguageID']);
             $Languages[] = $Language;
         }
-        return array("success" => true, "list" => $Languages);
+        return  array("success" => true, "Language" => $Languages);
     }
     
         // Phương thức sinh mã ID mới cho Language

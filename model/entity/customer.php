@@ -7,6 +7,7 @@ require_once 'ActorOfMovie.php';
         public $Email;
         public $Phone;
         public $account_id;
+        public $password;
         
        
         function __construct($FullName, $Email, $Address, $Phone, $account_id, $customerID=null) {
@@ -19,7 +20,12 @@ require_once 'ActorOfMovie.php';
                 $this->CustomerID =$customerID;
             }
         }
-       
+        function getPassword() {
+            return $this->password;
+        }
+        function setPassword( $password ) {
+            $this -> password = $password;
+        }
         function get_CustomerID() {
             return $this->CustomerID;
         }

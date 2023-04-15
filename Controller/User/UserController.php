@@ -59,6 +59,64 @@ class UserController {
         return array("success" => false,"message"=>"Đăng ký thất bại"); // xoá dòng => ở đây và thêm giá trị false vào mảng này
 
     }
+    public function getAllCustomer($page){
+        return (new CustomerModel())->getAllCustomer($page);
+    }
+    public function getAllManager($page){
+        return (new ManagerModel())->getAllManager($page);
+    }
+    public function changePassword($id ,$newPassword,$oldPassword){
+        return (new AccountModel())->changePassword($id,$newPassword,$oldPassword);
+    }
+    public function updateInformationForCustomer($data){
+        $email = $data['email'];
+        $password = $data['password'];
+        $fullname = $data['fullname'];
+        $address = $data['address'];
+        $phone = $data ['phone'];
+        $id = $data['id'];
+        $acc = (new AccountModel())->getAcount($email,$password);
+        $account = json_decode($acc,true);
+        if($account['success']){
+            $customer = new Customer($fullname, $email, $address, $phone, "", $id);
+            return (new CustomerModel)->updateCustomer($customer);
+        }else{
+            return json_encode(array("success" => true,"error" => "Sai tài khoản hoặc mật khẩu"));
+        }
+         
+        
+    }
+    public function deteleManager($email){
+        $manager = (new ManagerModel())->deleteManager($email);
+        if(!$manager['success']){
+            return array("success" =>false,"message"=>"Xóa tài khoản thất bại");
+
+        }
+        $acc = (new AccountModel())->deleteAccount($email);
+        if(!$acc['success']){
+            return array("success" =>false,"message"=>"Xóa tài khoản thất bại");
+            
+        }
+        return array("success" =>true,"message"=>"Xóa tài khoản thành công ");
+
+    }
+    public function updateInformationForManager($data){
+        $email = $data['email'];
+        $password = $data['password'];
+        $fullname = $data['fullname'];
+        $phone = $data ['phone'];
+        $id = $data['id'];
+        $acc = (new AccountModel())->getAcount($email,$password);
+        $account = json_decode($acc,true);
+        if($account['success']){
+            $Manager = new Manager($fullname, $email, $phone, "", $id);
+            return (new ManagerModel)->updateManager($Manager);
+        }else{
+            return json_encode(array("success" => true,"error" => "Sai tài khoản hoặc mật khẩu"));
+        }
+         
+        
+    }
     public function addManager($data)
 {
     $email = $data['email'];

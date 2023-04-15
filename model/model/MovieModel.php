@@ -30,6 +30,7 @@ class MovieModel{
                 $result['StudioID'],
                 $result['LanguageID'],
                 $result['story'],
+                $result['age'],
                 $result['MovieID']
             );
             return array("success"=>true,"movie"=>$row);
@@ -53,6 +54,8 @@ class MovieModel{
             Time,
             StudioID,
             story,
+            age,
+
             LanguageID 
         FROM `movie` 
         ORDER BY CAST(RIGHT(MovieID, LENGTH(MovieID) - 2) AS UNSIGNED) DESC 
@@ -72,6 +75,7 @@ class MovieModel{
                 $row['StudioID'],
                 $row['LanguageID'],
                 $row['story'],
+                $row['age'],
 
                 $row['MovieID']
             );
@@ -108,6 +112,7 @@ class MovieModel{
             Time,
             StudioID,
             story,
+            age,
 
             LanguageID 
         FROM `movie` 
@@ -129,6 +134,7 @@ class MovieModel{
                 $row['StudioID'],
                 $row['LanguageID'],
                 $row['story'],
+                $row['age'],
 
                 $row['MovieID']
             );
@@ -151,6 +157,7 @@ class MovieModel{
             Time,
             StudioID,
             story,
+            age,
 
             LanguageID 
         FROM `movie` 
@@ -172,6 +179,7 @@ class MovieModel{
                 $row['StudioID'],
                 $row['LanguageID'],
                 $row['story'],
+                $row['age'],
 
                 $row['MovieID']
             );
@@ -194,6 +202,7 @@ class MovieModel{
             m.Time,
             s.StudioName,
             m.story,
+            m.age,
 
             l.LanguageName
         FROM `movie` m
@@ -217,6 +226,7 @@ class MovieModel{
                 $row['StudioName'], 
                 $row['LanguageName'],
                 $row['story'],
+                $row['age'],
                
                 $row['MovieID']
             );
@@ -240,6 +250,7 @@ class MovieModel{
                     m.StudioID,
                     m.LanguageID ,
                     m.story
+                    m.age
 
                 FROM 
                     movie m
@@ -270,6 +281,7 @@ class MovieModel{
                 $row['StudioID'],
                 $row['LanguageID'],
                 $row['story'],
+                $row['age'],
                 $row['MovieID']
             );
             $listmovie[] = $temp;
@@ -279,8 +291,8 @@ class MovieModel{
     }
     public function addMoive(Movie $moive){
         try {
-            $stmt = $this->conn->prepare("INSERT INTO `movie`(`MovieID`, `MovieName`, `Director`, `Year`, `Premiere`, `URLTrailer`, `Time`, `StudioID`, `LanguageID`) 
-            VALUES (:MovieID, :MovieName, :Director, :Year, :Premiere, :URLTrailer, :Time, :StudioID, :LanguageID)");
+            $stmt = $this->conn->prepare("INSERT INTO `movie`(`MovieID`, `MovieName`, `Director`, `Year`, `Premiere`, `URLTrailer`, `Time`, `StudioID`, `LanguageID`,`age`) 
+            VALUES (:MovieID, :MovieName, :Director, :Year, :Premiere, :URLTrailer, :Time, :StudioID, :LanguageID,:age)");
             $id = $this->createNewID();
             $moiveName = $moive->get_MovieName();
             $Diretor = $moive->get_Director();
@@ -291,6 +303,7 @@ class MovieModel{
             $studioid = $moive->get_StudioID(); 
             $languageid = $moive->get_LanguageID();
             $story = $moive->get_story();
+            $age = $moive->getAge();
             $stmt->bindParam(':story', $story);
             $stmt->bindParam(':MovieID', $id);
             $stmt->bindParam(':MovieName', $moiveName);
@@ -301,6 +314,7 @@ class MovieModel{
             $stmt->bindParam(':Time', $time);
             $stmt->bindParam(':StudioID', $studioid);
             $stmt->bindParam(':LanguageID', $languageid);
+            $stmt->bindParam(':age', $age);
     
             $stmt->execute();
             if($stmt ->rowCount()>0){
@@ -324,6 +338,7 @@ class MovieModel{
             URLTrailer,
             Time,
             StudioID,
+            age,
             story,
             LanguageID 
         FROM `movie`
@@ -345,6 +360,7 @@ class MovieModel{
                 $row['StudioID'],
                 $row['LanguageID'],
                 $row['story'],
+                $row['age'],
 
                 $row['MovieID']
             );
@@ -352,25 +368,31 @@ class MovieModel{
         return (array("listmoive" => $listmoive));
     }
     
-    public function deleteMovie($id){
-        try {
-            $stmt = $this->conn->prepare("DELETE FROM `movie` WHERE `MovieID` = :MovieID");
-            $stmt->bindParam(':MovieID', $id);
-            $stmt->execute();
-            if($stmt->rowCount()>0){
-                return (array("success" => true));
-            }else{
-                return (array("success" => false,"message" => "Xóa thất bại"));
-            }
-            
+    public function deleteMovie($movieId){
+     try{  $this->conn->beginTransaction();
+    
+        // Thực hiện các truy vấn DELETE trên 3 bảng trong transaction
+        $stmt1 = $this->conn->prepare("DELETE FROM detailmoviegenre WHERE MovieID = ?");
+        $stmt1->execute([$movieId]);
+        
+        $stmt2 = $this->conn->prepare("DELETE FROM movieimage WHERE MovieID = ?");
+        $stmt2->execute([$movieId]);
+        
+        $stmt3 = $this->conn->prepare("DELETE FROM showtime WHERE MovieID = ?");
+        $stmt3->execute([$movieId]);
+    
+        // Nếu không có lỗi xảy ra, commit transaction
+        $this->conn->commit();
+        return (array("success" => true));      
         }catch(Exception $e){
+            $this->conn->rollBack();
             return (array("success" => false,"error" => $e->getMessage()));
             
         }
     }
     public function updateMovie(Movie $movie){
         try {
-            $stmt = $this->conn->prepare("UPDATE `movie` SET `MovieName`=:MovieName, `Director`=:Director, , `Year`=:Year, `Premiere`=:Premiere, `URLTrailer`=:URLTrailer, `Time`=:Time, `StudioID`=:StudioID, `LanguageID`=:LanguageID ,story=:story WHERE `MovieID`=:MovieID");
+            $stmt = $this->conn->prepare("UPDATE `movie` SET `MovieName`=:MovieName, `Director`=:Director, , `Year`=:Year, `Premiere`=:Premiere, `URLTrailer`=:URLTrailer, `Time`=:Time, `StudioID`=:StudioID, `LanguageID`=:LanguageID ,story=:story,age=:age WHERE `MovieID`=:MovieID");
             $id = $movie->get_MovieID();
             $movieName = $movie->get_MovieName();
             $director = $movie->get_Director();
@@ -381,6 +403,7 @@ class MovieModel{
             $studioid = $movie->get_StudioID(); 
             $languageid = $movie->get_LanguageID();
             $story = $movie->get_story();
+            $age = $movie->getAge();
             $stmt->bindParam(':story', $story);
 
             $stmt->bindParam(':MovieID', $id);
@@ -391,6 +414,7 @@ class MovieModel{
             $stmt->bindParam(':URLTrailer', $urltrailer);
             $stmt->bindParam(':Time', $time);
             $stmt->bindParam(':StudioID', $studioid);
+            $stmt->bindParam(':story', $story);
             $stmt->bindParam(':LanguageID', $languageid);
     
             $stmt->execute();

@@ -11,22 +11,22 @@ class MenuModel {
 
     // Phương thức lấy thông tin Menu theo ID
     public function getMenuByID($id) {
-        $stmt = $this->conn->prepare("SELECT ItemID, Name,  Price, ImageURL FROM menu WHERE ItemID=:ItemID");
+        $stmt = $this->conn->prepare("SELECT Name,  ImageURL ,Price,status ,ItemID FROM menu WHERE ItemID=:ItemID");
         $stmt->bindParam(':ItemID', $id);
         $stmt->setFetchMode(PDO::FETCH_CLASS,'Menu');
         $stmt->execute();
         $menu = $stmt->fetchObject();
         if($menu!=null){
-            echo json_encode(array("success"=>true,"menu"=>$menu));
+            return (array("success"=>true,"menu"=>$menu));
         }else{
-            echo json_encode(array("success"=>false,"error"=>"Menu không tồn tại"));
+            return (array("success"=>false,"error"=>"Menu không tồn tại"));
         }
     }
   
     // Phương thức thêm mới một Menu
     public function addMenu(Menu $Menu){
         try{
-            $stmt =$this->conn->prepare("INSERT INTO menu (ItemID, Name,  Price, ImageURL) VALUES (:ItemID, :Name, :Price, :ImageURL)");
+            $stmt =$this->conn->prepare("INSERT INTO menu (ItemID, Name,  Price, ImageURL,status) VALUES (:ItemID, :Name, :Price, :ImageURL:status)");
             $ItemID = $this->createNewID();
             $Name = $Menu->get_Name();
             $Price = $Menu->get_Price();
@@ -36,10 +36,11 @@ class MenuModel {
             $stmt->bindParam(':Name', $Name);
             $stmt->bindParam(':Price', $Price);
             $stmt->bindParam(':ImageURL', $ImageURL);
+            $stmt->bindParam(':status', $status);
             $stmt ->execute();
-            echo json_encode(array("success"=>true));
+            return (array("success"=>true));
         }catch(Exception $e){
-            echo json_encode(array("success"=>false,"error"=>$e->getMessage()));
+            return (array("success"=>false,"error"=>$e->getMessage()));
         }
     }
     // Phương thức xóa một Menu theo ID
@@ -49,53 +50,83 @@ public function deleteMenu($id) {
         $stmt->bindParam(':ItemID', $id);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
-            echo json_encode(array("success" => true));
+            return (array("success" => true));
         } else {
-            echo json_encode(array("success" => false, "error" => "Menu không tồn tại"));
+            return (array("success" => false, "error" => "Menu không tồn tại"));
         }
     } catch (Exception $e) {
-        echo json_encode(array("success" => false, "error" => $e->getMessage()));
+        return (array("success" => false, "error" => $e->getMessage()));
     }
 }
 // Phương thức cập nhật thông tin một Menu
 public function updateMenu(Menu $Menu) {
     try {
-        $stmt = $this->conn->prepare("UPDATE menu SET Name = :Name, Price = :Price, ImageURL = :ImageURL WHERE ItemID = :ItemID");
+        $stmt = $this->conn->prepare("UPDATE menu SET Name = :Name, Price = :Price, ImageURL = :ImageURL,:status = status WHERE ItemID = :ItemID");
         $id = $Menu->get_ItemID();
         $Name = $Menu->get_Name();
         $Price = $Menu->get_Price();
         $ImageURL = $Menu->get_ImageURL();
+        $status = $Menu->getStatus();
 
         $stmt->bindParam(':ItemID', $id);
         $stmt->bindParam(':Name', $Name);
         $stmt->bindParam(':Price', $Price);    
         $stmt->bindParam(':ImageURL', $ImageURL);
+        $stmt->bindParam(':status', $status);
         
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
-            echo json_encode(array("success" => true));
+            return (array("success" => true));
         } else {
-            echo json_encode(array("success" => false, "error" => "Menu không tồn tại"));
+            return (array("success" => false, "error" => "Menu không tồn tại"));
         }
     } catch (Exception $e) {
-        echo json_encode(array("success" => false, "error" => $e->getMessage()));
+        return (array("success" => false, "error" => $e->getMessage()));
     }
 }
-
+    
     // Phương thức getAll cho Menu
-    public function getAllMenu(){
-        $stmt = $this->conn->prepare("SELECT ItemID, Name,  Price, ImageURL FROM menu");
+    public function getAllMenu($page) {
+        $limit = 15; 
+        $offset = ($page - 1) * $limit; 
+    
+    
+        $query = "SELECT Name, ImageURL, Price,status ,ItemID FROM menu LIMIT :limit OFFSET :offset";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
-        $Menus = array();
+    
+        $menus = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $Menu = new Menu($row['ItemID'], $row['Name'], $row['Price'], $row['ImageURL']);
-            $Menus[] = $Menu;
+            $menu = new Menu($row['Name'], $row['Price'], $row['ImageURL'], $row['status'], $row['ItemID']);
+            $menus[] = $menu;
         }
-        echo json_encode(array("success" => true, "list" => $Menus));
+    
+        return array('menus' => $menus);
+    }
+    public function getAllMenuByStatus($page,$status) {
+        $limit = 15; 
+        $offset = ($page - 1) * $limit; 
+    
+    
+        $query = "SELECT Name, ImageURL, Price,status, ItemID FROM menu where status = $status LIMIT :limit OFFSET :offset";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+    
+        $menus = array();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $menu = new Menu($row['Name'], $row['Price'], $row['ImageURL'], $row['status'], $row['ItemID']);
+            $menus[] = $menu;
+        }
+    
+        return array('menus' => $menus);
     }
     
         // Phương thức sinh mã ID mới cho Menu
-        public function createNewID() {
+        private function createNewID() {
             $query = "SELECT ItemID FROM Menu ORDER BY CAST(RIGHT(ItemID, LENGTH(ItemID) - 2) AS UNSIGNED) DESC LIMIT 1";
             $result = $this->conn->query($query);
             $lastId = 0;
@@ -109,8 +140,5 @@ public function updateMenu(Menu $Menu) {
         }
 
 }
-$temp = new Menu('Name item 3', 'ImageURL3', 40000, 'I001');
 
-
-echo (new MenuModel())->getAllMenu();
 ?>

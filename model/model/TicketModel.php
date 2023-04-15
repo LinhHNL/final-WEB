@@ -30,7 +30,7 @@ class TicketModel{
             $stmt->execute();
             
         }catch(Exception $e){
-        echo json_encode(array('success' => false, 'message' => $e->getMessage()));
+        return (array('success' => false, 'message' => $e->getMessage()));
         }
     }
     public function deleteTicket(Ticket $ticket){
@@ -39,13 +39,13 @@ class TicketModel{
             $stmt->bindParam(':TicketID',$ticket->get_TicketID());
             $stmt->execute();
             if($stmt ->RowCount()>0){
-                echo json_encode(array('success' => true ));
+                return (array('success' => true ));
 
             }else {
-                echo json_encode(array('success' => false ,"message"=>"Ticket does not exist"));
+                return (array('success' => false ,"message"=>"Ticket does not exist"));
             }
         }catch(Exception $e){
-            echo json_encode(array('success' => false,'message' => $e->getMessage()));
+            return (array('success' => false,'message' => $e->getMessage()));
         }
     }
     public function getAllTicket($page){
@@ -58,7 +58,7 @@ class TicketModel{
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             $listTicket[] = new Ticket($row['ShowTimeID'],$row['SeatID'],$row['Status'],$row['TicketID']);
         }
-        echo json_encode(array('success' => true, 'listTicket' => $listTicket));
+        return (array('success' => true, 'listTicket' => $listTicket));
     }
     public function updateTicket(Ticket $ticket){
         try {
@@ -73,13 +73,13 @@ class TicketModel{
             $stmt->bindParam(':Status',$Status);
             $stmt->execute();
             if($stmt ->rowCount()>0){
-                echo json_encode(array('success' => true ));
+                return (array('success' => true ));
 
             }else {
-                echo json_encode(array('success' => false ,"message"=>"Ticket does not exist"));
+                return (array('success' => false ,"message"=>"Ticket does not exist"));
             }
         }catch(Exception $e){
-            echo json_encode(array('success' => false,'message' => $e->getMessage()));
+            return (array('success' => false,'message' => $e->getMessage()));
         }
     }
 }

@@ -33,14 +33,14 @@ class MovieImageModel{
 
     public function getMoiveImageID($id){
    
-        $stmt = $this->conn->prepare("SELECT ImageID, MovieID,Description , ImagePath FROM movieimage WHERE MovieID = :id");
+        $stmt = $this->conn->prepare("SELECT ImageID, MovieID , ImagePath,type FROM movieimage WHERE MovieID = :id");
         $stmt->bindParam(":id", $id);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         $stmt->execute();
         $images  = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-            $image = new MovieImage($row['ImagePath'], $row['MovieID'], $row['Description'],$row['ImageID']);
+            $image = new MovieImage($row['ImagePath'], $row['MovieID'],$row['type'], $row['ImageID']);
             $images[] = $image;
         }
         return json_encode(array("listImages" => $images));
@@ -48,14 +48,14 @@ class MovieImageModel{
     }
     public function uppdateImageMoive(MovieImage $moiveimage){
         try {   
-        $stmt = $this->conn ->prepare("UPDATE movieimage SET ImagePath = :imagePath, MovieID = :movie , Description = :description where MovieID = :movieID");
+        $stmt = $this->conn ->prepare("UPDATE movieimage SET ImagePath = :imagePath, MovieID = :movieID where MovieID = :movieID");
         $id = $moiveimage->get_ImageID();
         $ImagePath = $moiveimage->get_ImagePath(); 
         $movie = $moiveimage->get_MovieID(); 
-        $description = $moiveimage->get_Description();
+     
         $stmt->bindParam(":imagePath", $ImagePath);
         $stmt->bindParam(":movie", $movie);
-        $stmt -> bindParam(":description", $description);
+
         $stmt -> bindParam(":movieID", $id);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
@@ -69,13 +69,13 @@ class MovieImageModel{
     
     public function addMoiveImage(MovieImage $movieImage){
         try {
-            $stmt = $this->conn->prepare("INSERT INTO movieimage (MovieID, Description, ImagePath,ImageID) VALUES(:movieID, :description,:ImagePath, :ImageID)");
+            $stmt = $this->conn->prepare("INSERT INTO movieimage (MovieID, ImagePath,ImageID) VALUES(:movieID,:ImagePath, :ImageID)");
             $id = $this ->createNewImageID();
             $moiveid = $movieImage ->get_MovieID();
-            $description = $movieImage ->get_Description();
+          
             $image = $movieImage->get_ImageID();
             $stmt->bindParam(":movieID", $moiveid);
-            $stmt->bindParam(":description", $description);
+        
             $stmt -> bindParam(":ImagePath", $image );
             $stmt -> bindParam(":ImageID", $id );
             $stmt ->execute();

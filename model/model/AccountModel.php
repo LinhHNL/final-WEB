@@ -9,8 +9,36 @@ class AccountModel {
         $this->conn = Database::getConnection();
        
     }
+    public function changePassword($id,$newPassword,$oldPassword){
+     
+            $account = $this->getAcountByID($id);
+            $acco = json_decode($account,true);
+            if($acco['success']){
+                if(strcmp($acco['account']['password'] ,$oldPassword)==0){
+                    $acc = new Account($acco['account']['email'],$newPassword,$acco['account']['role_id'],$acco['account']['id']);
+                    return $this->updateAccount($acc);
+                }
+            }
+            return json_encode(array("success" =>false, "message" =>"Sai mật khẩu vui lòng thử lại"));
+      
+    }
+    public function getAcountByID($id) {
+        $stmt = $this->conn->prepare("SELECT  email, password,role_id,id  FROM account WHERE id=:id");
+        $stmt->bindParam(':id',$id);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Account');
+        $stmt->execute();
+    
+        $account = $stmt->fetchObject();
+
+        header('Content-Type: application/json');
+        if($account == null) {
+            return json_encode(array("success" => false, "error" => "Đăng nhập thất bại"));
+        } else {
+            return json_encode(array("success" => true, "account" => $account));
+        }
+    }
     public function getAcount($email, $pas) {
-        $stmt = $this->conn->prepare("SELECT  email, password,id, role_id FROM account WHERE email=:email AND password=:password");
+        $stmt = $this->conn->prepare("SELECT  email, password,role_id ,id FROM account WHERE email=:email AND password=:password");
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':password', $pas);
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Account');
@@ -77,29 +105,20 @@ class AccountModel {
         }
       
     }
-    public function deleteAccount($id){
+    public function deleteAccount($email){
         try{
-            $stmt = $this->conn->prepare("SELECT * FROM account WHERE id=:id");
-$stmt->bindParam(':id', $id);
-$stmt->setFetchMode(PDO::FETCH_CLASS, 'Account');
-$stmt->execute();
-$account = $stmt->fetch();
-if (!$account) {
-    header('Content-Type: application/json');
-    return json_encode(array("success"=>false,"error"=>"Account not found"));
-    return;
-}
+        
 
-        $stmt = $this->conn->prepare("DELETE FROM account WHERE id=:id");
-        $stmt ->bindParam(':id',$id);
+        $stmt = $this->conn->prepare("DELETE FROM account WHERE email=:email");
+        $stmt ->bindParam(':email',$email);
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Account');
 
         $stmt->execute();
         header('Content-Type: application/json');
-        return json_encode(array("success"=>true));
+        return (array("success"=>true));
         }catch(Exception $e){
             header('Content-Type: application/json');
-            return json_encode(array("success"=>false,"error"=>$e->getMessage()));
+            return (array("success"=>false,"error"=>$e->getMessage()));
         }
     }
     public function getAllAccounts() {

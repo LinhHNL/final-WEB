@@ -39,7 +39,7 @@ class CustomerModel {
     }
     public function updateCustomer(Customer $customer){
         try{
-           $stmt =$this->conn->prepare("UPDATE Customer set FullName=:name,Address=:address,Email=:email,Phone=:phone ,account_id=:account_id where CustomerID=:id");
+           $stmt =$this->conn->prepare("UPDATE Customer set FullName=:name,Address=:address,Email=:email,Phone=:phone where CustomerID=:id");
            $id = $customer->get_CustomerID();
        $name = $customer->get_FullName();
        $address = $customer->get_Address();
@@ -51,7 +51,6 @@ class CustomerModel {
        $stmt->bindParam(':address', $address);
        $stmt->bindParam(':email', $email);
        $stmt->bindParam(':phone', $phone);
-       $stmt->bindParam(':account_id', $account_id);
        $stmt->execute();
        if ($stmt->rowCount() > 0) {
         return json_encode(array("success" => true));
@@ -98,16 +97,25 @@ class CustomerModel {
         return $newId;
     }
     
-    public function getAllCustomer(){
-        $stmt = $this->conn->prepare("SELECT FullName, Address	, Email	, Phone,account_id, CustomerID	 FROM customer");
+    public function getAllCustomer($page = 1 ){
+        $limit = 10;
+        $offset = ($page - 1) * $limit;
+        $stmt = $this->conn->prepare("SELECT c.FullName, c.Address, c.Email, c.Phone, c.CustomerID, a.password 
+                                      FROM customer c 
+                                      INNER JOIN account a ON c.account_id = a.id
+                                      LIMIT :limit OFFSET :offset");
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
         $customers = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $customer = new Customer($row['FullName'], $row['Email'], $row['Address'], $row['Phone'], $row['account_id'], $row['CustomerID']);
+            $customer = new Customer($row['FullName'], $row['Email'], $row['Address'], $row['Phone'], $row['CustomerID']);
+            $customer->setPassword( $row['password']);
             $customers[] = $customer;
         }
         return json_encode(array("success" => true, "list" => $customers));
     }
+    
     public function deleteCustomer($customer_id){
         try{
             $countStmt = $this->conn->prepare("SELECT COUNT(*) FROM customer WHERE customerid=:customer_id");
