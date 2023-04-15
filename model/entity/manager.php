@@ -6,7 +6,7 @@
         public $Email;
         public $Phone;
         public $account_id;
-
+        public $password;
       public  function __construct( $FullName, $Email, $Phone, $account_id,$managerID=null )  {
             $this->FullName = $FullName;
           
@@ -17,6 +17,12 @@
             $this->ManagerID = $managerID;
 
             }
+        }
+        function getPassword() {
+            return $this->password;
+        }
+        function setPassword( $password ) {
+            $this -> password = $password;
         }
         function get_ManagerID() {
             return $this->ManagerID;

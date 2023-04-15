@@ -7,18 +7,32 @@
         public $EndTime;
         public $Discount;
         public $Code;
+        public $type;
+        public $url_image;
 
-
-        function __construct($PromotionName, $StartTime, $Description, $EndTime, $Discount, $Code, $PromotionID=null) {
+        function __construct($PromotionName, $StartTime, $Description, $EndTime, $Discount, $Code, $type,$url_image,$PromotionID=null) {
             $this->PromotionName = $PromotionName;
             $this->Description = $Description;
             $this->StartTime = $StartTime;
             $this->EndTime = $EndTime;
             $this->Discount = $Discount;
             $this->Code = $Code;
+            $this->type = $type;
+            $this->url_image = $url_image;
             if($PromotionID!=null){
                 $this->PromotionID = $PromotionID;
             }
+        }
+        function getUrlImage(){
+           return $this ->url_image ;
+        }
+        function setUrlImage($url_image){
+            $this->url_image = $url_image;
+        }
+        function GetType(){
+            return $this->type;}
+        function setType($type){
+               $this->type = $type; 
         }
         function get_PromotionID() {
             return $this->PromotionID;

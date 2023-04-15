@@ -4,14 +4,19 @@
         public $Name;
         public $Price;
         public $ImageURL;
-
-        function __construct($Name, $ImageURL, $Price, $ItemID = null) {
+        public $status;
+        function __construct($Name, $ImageURL, $Price,$status ,$ItemID = null) {
             $this->Name = $Name;
             $this->Price = $Price;
             $this->ImageURL = $ImageURL;
+            $this->status = $status;
             if($ItemID!=null){
                 $this->ItemID = $ItemID;
             }
+        }
+        function getStatus() { return $this->status;}
+        function setStatus($status) { 
+            $this->status = $status;
         }
         function get_ItemID() {
             return $this->ItemID;

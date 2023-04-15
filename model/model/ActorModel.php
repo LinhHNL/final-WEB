@@ -15,7 +15,7 @@ class ActorModel{
             $actor = new ActorOfMovie($row['NameActor'], $row['MovieID'], $row['ActorID']);
             $actors[] = $actor;
         }
-        return (array("listactors" => $actors));
+        return ( $actors);
     }
     private function createNewID(){
         $query = "SELECT ActorID FROM actorof_movie ORDER BY CAST(RIGHT(ActorID, LENGTH(ActorID) - 1) AS UNSIGNED) DESC LIMIT 1";
@@ -32,10 +32,7 @@ class ActorModel{
     
     public function updateActorOfMovie(ActorOfMovie $actor){
         try {
-            $stmt = $this->conn->prepare("UPDATE actorof_movie SET 
-            NameActor = :name
-            WHERE ActorID =:id
-            ");
+            $stmt = $this->conn->prepare("UPDATE actorof_movie SET NameActor = :name WHERE ActorID =:id ");
        $id = $actor->get_ActorID();
        $name = $actor->get_NameActor();
        

@@ -28,13 +28,13 @@ class StudioModel{
           return array("success"=>true, "studios"=>$studios);
 
      }
-     private function createNewIDStudio(){
-          $query = "SELECT StudioID FROM Studio ORDER BY CAST(RIGHT(StudioID, LENGTH(StudioID) - 1) AS UNSIGNED) DESC LIMIT 1";
+     public function createNewIDStudio(){
+          $query = "SELECT StudioID FROM Studio ORDER BY CAST(RIGHT(StudioID, LENGTH(StudioID) - 2) AS UNSIGNED) DESC LIMIT 1";
           $result = $this->conn->query($query);
           $lastId = 0;
       
           if ($result->rowCount() > 0) {
-              $lastId = intval(substr($result->fetchColumn(), 1));
+              $lastId = intval(substr($result->fetchColumn(), 2));
           }
       
           $newId = "ST" . ($lastId + 1);
@@ -128,6 +128,7 @@ class StudioModel{
           }
 
      }
-     $stuido = new Studio('[value-1]','[24-2]','234234]','[vfafsa]','ST2');
-(new StudioModel)->updateStudio($stuido);
+  
+
+ 
 ?>

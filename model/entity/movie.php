@@ -10,11 +10,13 @@
         public $StudioID;
         public $LanguageID;
         public $story;
-        public $ListActor = array();
-        public $ListGenre = array();
-        public $listImage = array();
+        public $age;
+
+        public $ListActor ;
+        public $ListGenre ;
+        public $listImage ;
         public $rating ;
-        function __construct( $MovieName, $Year, $Director, $Premiere, $URLTrailer, $Time, $StudioID, $LanguageID,$story,$MovieID=null) {
+        function __construct( $MovieName, $Year, $Director, $Premiere, $URLTrailer, $Time, $StudioID, $LanguageID,$story,$age,$MovieID=null) {
             $this->MovieName = $MovieName;
             $this->Director = $Director;
             $this->Year = $Year;
@@ -24,11 +26,18 @@
             $this->StudioID = $StudioID;
             $this->LanguageID = $LanguageID;
             $this->story = $story;
+            $this->age = $age;
             if($MovieID!=null){
             $this->MovieID = $MovieID;
 
             }
 
+        }
+        function getAge(){
+           return $this->age;
+        }
+        function setAge($age){
+            $this ->age = $age;
         }
         function set_story($story){
             $this->story = $story;
@@ -97,10 +106,10 @@
             $this->LanguageID = $LanguageID;
         }
         function add_ListActor($ListActor) {
-            $this->ListActor[] = $ListActor;
+            $this->ListActor = $ListActor;
         }
         function add_ListGenre($ListGenre) {
-            $this->ListGenre[] = $ListGenre;
+            $this->ListGenre= $ListGenre;
         }
         function get_ListActor() {
             return $this->ListActor;
@@ -109,7 +118,7 @@
             return $this->ListGenre;
         }
         function add_ListImage($ListImage) {
-            $this->listImage[] = $ListImage;
+            $this->listImage = $ListImage;
         }
        
     }

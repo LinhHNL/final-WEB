@@ -17,9 +17,9 @@ class RatingModel {
         $stmt->execute();
         $Rating = $stmt->fetchObject();
         if($Rating!=null){
-            echo json_encode(array("success"=>true,"Rating"=>$Rating));
+            return (array("success"=>true,"Rating"=>$Rating));
         }else{
-            echo json_encode(array("success"=>false,"error"=>"Rating không tồn tại"));
+            return (array("success"=>false,"error"=>"Rating không tồn tại"));
         }
     }
     
@@ -42,9 +42,9 @@ class RatingModel {
             $stmt->bindParam(':CustomerID', $CustomerID);
 
             $stmt ->execute();
-            echo json_encode(array("success"=>true));
+            return (array("success"=>true));
         }catch(Exception $e){
-            echo json_encode(array("success"=>false,"error"=>$e->getMessage()));
+            return (array("success"=>false,"error"=>$e->getMessage()));
         }
     }
     // Phương thức xóa một Rating theo ID
@@ -54,12 +54,12 @@ public function deleteRating($id) {
         $stmt->bindParam(':RatingID', $id);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
-            echo json_encode(array("success" => true));
+            return (array("success" => true));
         } else {
-            echo json_encode(array("success" => false, "error" => "Rating không tồn tại"));
+            return (array("success" => false, "error" => "Rating không tồn tại"));
         }
     } catch (Exception $e) {
-        echo json_encode(array("success" => false, "error" => $e->getMessage()));
+        return (array("success" => false, "error" => $e->getMessage()));
     }
 }
 // Phương thức cập nhật thông tin một Rating
@@ -81,27 +81,43 @@ public function updateRating(Rating $Rating) {
         $stmt->bindParam(':CustomerID', $CustomerID);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
-            echo json_encode(array("success" => true));
+            return (array("success" => true));
         } else {
-            echo json_encode(array("success" => false, "error" => "Rating không tồn tại"));
+            return (array("success" => false, "error" => "Rating không tồn tại"));
         }
     } catch (Exception $e) {
-        echo json_encode(array("success" => false, "error" => $e->getMessage()));
+        return (array("success" => false, "error" => $e->getMessage()));
     }
 }
 
     // Phương thức getAll cho Rating
-public function getAllRating(){
-    $stmt = $this->conn->prepare("SELECT RatingID, Score,  Comment, Day,  MovieID, CustomerID FROM rating");
+public function getAllRating($page){
+    $page = intval($page); 
+    $number = 12;
+    $offset = ($page - 1) * $number;
+    $stmt = $this->conn->prepare("SELECT RatingID, Score,  Comment, Day,  MovieID, CustomerID FROM rating  ORDer by Day desc limit $offset , $number");
     $stmt->execute();
     $Ratings = array();
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $Rating = new Rating($row['RatingID'], $row['Score'], $row['Comment'], $row['Day'], $row['MovieID'], $row['CustomerID']);
+        $Rating = new Rating($row['Score'], $row['Day'], $row['Comment'], $row['MovieID'], $row['CustomerID'],$row['RatingID']);
         $Ratings[] = $Rating;
     }
-    echo json_encode(array("success" => true, "list" => $Ratings));
+    return (array("success" => true, "list" => $Ratings));
 }
-
+public function getAllRatingByMovie($id,$page){
+    $page = intval($page); 
+    $number = 12;
+    $offset = ($page - 1) * $number;
+    $stmt = $this->conn->prepare("SELECT RatingID, Score,  Comment, Day,  MovieID, CustomerID FROM rating where MovieID = :id  ORDer by Day desc limit $offset , $number");
+    $stmt ->bindParam(":id", $id);
+    $stmt->execute();
+    $Ratings = array();
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $Rating = new Rating($row['Score'], $row['Day'], $row['Comment'], $row['MovieID'], $row['CustomerID'],$row['RatingID']);
+        $Ratings[] = $Rating;
+    }
+    return (array("success" => true, "list" => $Ratings));
+}
     // Phương thức sinh mã ID mới cho Rating
     public function createNewID() {
         $query = "SELECT RatingID FROM rating ORDER BY CAST(RIGHT(RatingID, LENGTH(RatingID) - 2) AS UNSIGNED) DESC LIMIT 1";
@@ -118,8 +134,7 @@ public function getAllRating(){
 
 }
 
-$temp = new Rating(9, '3033-10-10 10:10:10','Comment rating 3',  'M001', 'C001', 'RT001');
 
 
-echo (new RatingModel())->getAllRating();
+
 ?>

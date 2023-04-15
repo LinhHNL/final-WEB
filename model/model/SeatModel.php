@@ -17,9 +17,9 @@ class SeatModel {
         $stmt->execute();
         $Seat = $stmt->fetchObject();
         if($Seat!=null){
-            echo json_encode(array("success"=>true,"Seat"=>$Seat));
+            return (array("success"=>true,"Seat"=>$Seat));
         }else{
-            echo json_encode(array("success"=>false,"error"=>"Seat không tồn tại"));
+            return (array("success"=>false,"error"=>"Seat không tồn tại"));
         }
     }
   
@@ -37,9 +37,9 @@ class SeatModel {
             $stmt->bindParam(':Type', $Type);
             $stmt->bindParam(':RoomID', $RoomID);
             $stmt ->execute();
-            echo json_encode(array("success"=>true));
+            return (array("success"=>true));
         }catch(Exception $e){
-            echo json_encode(array("success"=>false,"error"=>$e->getMessage()));
+            return (array("success"=>false,"error"=>$e->getMessage()));
         }
     }
     // Phương thức xóa một Seat theo ID
@@ -49,12 +49,12 @@ public function deleteSeat($id) {
         $stmt->bindParam(':SeatID', $id);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
-            echo json_encode(array("success" => true));
+            return (array("success" => true));
         } else {
-            echo json_encode(array("success" => false, "error" => "Seat không tồn tại"));
+            return (array("success" => false, "error" => "Seat không tồn tại"));
         }
     } catch (Exception $e) {
-        echo json_encode(array("success" => false, "error" => $e->getMessage()));
+        return (array("success" => false, "error" => $e->getMessage()));
     }
 }
 // Phương thức cập nhật thông tin một Seat
@@ -71,28 +71,42 @@ public function updateSeat(Seat $Seat) {
         $stmt->bindParam(':Type', $Type);    
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
-            echo json_encode(array("success" => true));
+            return (array("success" => true));
         } else {
-            echo json_encode(array("success" => false, "error" => "Seat không tồn tại"));
+            return (array("success" => false, "error" => "Seat không tồn tại"));
         }
     } catch (Exception $e) {
-        echo json_encode(array("success" => false, "error" => $e->getMessage()));
+        return (array("success" => false, "error" => $e->getMessage()));
     }
 }
 
 
     // Phương thức getAll cho Seat
-public function getAllSeat(){
-    $stmt = $this->conn->prepare("SELECT SeatID, SeatName,  Type, RoomID FROM seat");
+public function getAllSeat($page){
+    $page = intval($page);
+    $number =  20;
+    $offset = ($page - 1) * $number;
+    $stmt = $this->conn->prepare("SELECT SeatID, SeatName,  Type, RoomID FROM seat limit $offset,$number ");
     $stmt->execute();
     $Seats = array();
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $Seat = new Seat($row['SeatID'], $row['SeatName'], $row['Type'], $row['RoomID']);
         $Seats[] = $Seat;
     }
-    echo json_encode(array("success" => true, "list" => $Seats));
+    return (array("success" => true, "list" => $Seats));
 }
-
+public function getAllSeatByRoom($RoomID){
+ 
+    $stmt = $this->conn->prepare("SELECT SeatID, SeatName,  Type, RoomID FROM seat where RoomID = :RoomID ");
+    $stmt ->bindParam(":RoomID",$RoomID);
+    $stmt->execute();
+    $Seats = array();
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $Seat = new Seat($row['SeatID'], $row['SeatName'], $row['Type'], $row['RoomID']);
+        $Seats[] = $Seat;
+    }
+    return (array("success" => true, "list" => $Seats));
+}
     // Phương thức sinh mã ID mới cho Seat
     public function createNewID() {
         $query = "SELECT SeatID FROM Seat ORDER BY CAST(RIGHT(SeatID, LENGTH(SeatID) - 2) AS UNSIGNED) DESC LIMIT 1";
@@ -109,7 +123,5 @@ public function getAllSeat(){
 
 }
 
-$temp = new Seat('SeatName 3 neeeee', 'RO001', '3d', 'ST001');
 
-echo (new SeatModel())->getAllSeat();
 ?>

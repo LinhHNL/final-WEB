@@ -11,22 +11,71 @@ class PromotionModel {
 
     // Phương thức lấy thông tin Promotion theo ID
     public function getPromotionByID($id) {
-        $stmt = $this->conn->prepare("SELECT PromotionID, PromotionName, Description, StartTime, EndTime, Discount, Code FROM promotion WHERE PromotionID=:PromotionID");
+        $stmt = $this->conn->prepare("SELECT  PromotionName, Description, StartTime, EndTime, Discount, Code,type,PromotionID,url_Image FROM promotion WHERE PromotionID=:PromotionID");
         $stmt->bindParam(':PromotionID', $id);
         $stmt->setFetchMode(PDO::FETCH_CLASS,'Promotion');
         $stmt->execute();
         $Promotion = $stmt->fetchObject();
         if($Promotion!=null){
-            echo json_encode(array("success"=>true,"Promotion"=>$Promotion));
+            return (array("success"=>true,"Promotion"=>$Promotion));
         }else{
-            echo json_encode(array("success"=>false,"error"=>"Promotion không tồn tại"));
+            return (array("success"=>false,"error"=>"Promotion không tồn tại"));
         }
     }
-    
+    public function getPromotionsVorcher($page){
+        $page = intval($page); 
+        $number = 12;
+        $offset = ($page - 1) * $number;
+        $query = "SELECT 	
+        PromotionID	,
+        PromotionName,	
+        Description	,
+        StartTime,
+        EndTime,
+        Discount,
+        Code,
+        type,
+        url_Image 
+        from promotion WHERE type = 1 and endtime >= NOW()  limit $offset,$number";
+        $stmt = $this->conn->prepare($query);
+       
+        $stmt->execute();
+        $Promotions = array();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $Promotion = new Promotion($row['PromotionName'], $row['StartTime'], $row['Description'], $row['EndTime'], $row['Discount'], $row['Code'], $row['type'], $row['url_image'], $row['PromotionID']);
+            $Promotions[] = $Promotion;
+        }
+        return (array("success" => true, "list" => $Promotions));
+    }
+    public function getPromotionsEvent($page){
+        $page = intval($page); 
+        $number = 12;
+        $offset = ($page - 1) * $number;
+    $query = "SELECT 	
+        PromotionID	,
+        PromotionName,	
+        Description	,
+        StartTime,
+        EndTime,
+        Discount,
+        Code,
+        type,
+        url_Image 
+        from promotion WHERE type = 2 and endtime >= NOW()  limit $offset,$number";
+        $stmt = $this->conn->prepare($query);
+       
+        $stmt->execute();
+        $Promotions = array();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $Promotion = new Promotion($row['PromotionName'], $row['StartTime'], $row['Description'], $row['EndTime'], $row['Discount'], $row['Code'], $row['type'], $row['url_image'], $row['PromotionID']);
+            $Promotions[] = $Promotion;
+        }
+        return (array("success" => true, "list" => $Promotions));
+    }
     // Phương thức thêm mới một Promotion
     public function addPromotion(Promotion $Promotion){
         try{
-            $stmt =$this->conn->prepare("INSERT INTO promotion (PromotionID, PromotionName, Description, StartTime, EndTime, Discount, Code) VALUES (:PromotionID, :Description, :StartTime, :PromotionName,:EndTime, :Discount, :Code)");
+            $stmt =$this->conn->prepare("INSERT INTO promotion (PromotionID, PromotionName, Description, StartTime, EndTime, Discount, Code,type,url_image) VALUES (:PromotionID, :Description, :StartTime, :PromotionName,:EndTime, :Discount, :Code,:type,:url_image)");
             $PromotionID = $this->createNewID();
             $PromotionName = $Promotion->get_PromotionName();
             $Description = $Promotion->get_Description();
@@ -34,8 +83,6 @@ class PromotionModel {
             $EndTime = $Promotion->get_EndTime();
             $Discount = $Promotion->get_Discount();
             $Code = $Promotion->get_Code();
-
-
             $stmt->bindParam(':PromotionID', $PromotionID);
             $stmt->bindParam(':PromotionName', $PromotionName);
             $stmt->bindParam(':Description', $Description);
@@ -43,11 +90,13 @@ class PromotionModel {
             $stmt->bindParam(':EndTime', $EndTime);
             $stmt->bindParam(':Discount', $Discount);
             $stmt->bindParam(':Code', $Code);
+            $stmt->bindParam(':type', $type);
+            $stmt->bindParam(':url_image', $url_image);
 
             $stmt ->execute();
-            echo json_encode(array("success"=>true));
+            return (array("success"=>true));
         }catch(Exception $e){
-            echo json_encode(array("success"=>false,"error"=>$e->getMessage()));
+            return (array("success"=>false,"error"=>$e->getMessage()));
         }
     }
     // Phương thức xóa một Promotion theo ID
@@ -57,18 +106,18 @@ public function deletePromotion($id) {
         $stmt->bindParam(':PromotionID', $id);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
-            echo json_encode(array("success" => true));
+            return (array("success" => true));
         } else {
-            echo json_encode(array("success" => false, "error" => "Promotion không tồn tại"));
+            return (array("success" => false, "error" => "Promotion không tồn tại"));
         }
     } catch (Exception $e) {
-        echo json_encode(array("success" => false, "error" => $e->getMessage()));
+        return (array("success" => false, "error" => $e->getMessage()));
     }
 }
 // Phương thức cập nhật thông tin một Promotion
 public function updatePromotion(Promotion $Promotion) {
     try {
-        $stmt =$this->conn->prepare("UPDATE promotion SET PromotionName = :PromotionName, Description = :Description, StartTime = :StartTime, EndTime = :EndTime, Discount = :Discount, Code = :Code WHERE PromotionID=:PromotionID");
+        $stmt =$this->conn->prepare("UPDATE promotion SET PromotionName = :PromotionName, Description = :Description, StartTime = :StartTime, EndTime = :EndTime, Discount = :Discount, Code = :Code, type = :type, url_image = :url_image WHERE PromotionID=:PromotionID");
         $PromotionID = $Promotion->get_PromotionID();
         $PromotionName = $Promotion->get_PromotionName();
         $Description = $Promotion->get_Description();
@@ -76,36 +125,40 @@ public function updatePromotion(Promotion $Promotion) {
         $EndTime = $Promotion->get_EndTime();
         $Discount = $Promotion->get_Discount();
         $Code = $Promotion->get_Code();
-
-
+        $url_image = $Promotion->getUrlImage();
         $stmt->bindParam(':PromotionID', $PromotionID);
         $stmt->bindParam(':PromotionName', $PromotionName);
         $stmt->bindParam(':Description', $Description);
         $stmt->bindParam(':StartTime', $StartTime);
         $stmt->bindParam(':EndTime', $EndTime);
         $stmt->bindParam(':Discount', $Discount);
+        $stmt->bindParam(':type', $type);
         $stmt->bindParam(':Code', $Code);
+        $stmt->bindParam(':url_image', $url_image);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
-            echo json_encode(array("success" => true));
+            return (array("success" => true));
         } else {
-            echo json_encode(array("success" => false, "error" => "Promotion không tồn tại"));
+            return (array("success" => false, "error" => "Promotion không tồn tại"));
         }
     } catch (Exception $e) {
-        echo json_encode(array("success" => false, "error" => $e->getMessage()));
+        return (array("success" => false, "error" => $e->getMessage()));
     }
 }
 
     // Phương thức getAll cho Promotion
-    public function getAllPromotion(){
-        $stmt = $this->conn->prepare("SELECT PromotionID, PromotionName,  Description, StartTime, EndTime,  Discount, Code FROM promotion");
+    public function getAllPromotion($page){
+        $page = intval($page); 
+        $number = 12;
+        $offset = ($page - 1) * $number;
+        $stmt = $this->conn->prepare("SELECT PromotionID, PromotionName,  Description, StartTime, EndTime,  Discount, Code,url_image FROM promotion limit $offset,$number ");
         $stmt->execute();
         $Promotions = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $Promotion = new Promotion($row['PromotionID'], $row['PromotionName'], $row['Description'], $row['StartTime'], $row['EndTime'], $row['Discount'], $row['Code']);
+            $Promotion = new Promotion($row['PromotionName'], $row['StartTime'], $row['Description'], $row['EndTime'], $row['Discount'], $row['Code'], $row['type'], $row['url_image'], $row['PromotionID']);
             $Promotions[] = $Promotion;
         }
-        echo json_encode(array("success" => true, "list" => $Promotions));
+        return (array("success" => true, "list" => $Promotions));
     }
     
         // Phương thức sinh mã ID mới cho Promotion
@@ -122,8 +175,7 @@ public function updatePromotion(Promotion $Promotion) {
             return $newId;
         }
     }
-$temp = new Promotion('PromotionName 3', 'Description promotion 3', '2022-10-10 10:10:10', '2022-10-10 11:11:11', 40, 1,'P001');
 
 
-echo (new PromotionModel())->getAllPromotion();
+
 ?>

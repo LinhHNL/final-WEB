@@ -63,7 +63,7 @@ class FormatModel {
             $lastId = intval(substr($result->fetchColumn(), 2));
         }
     
-        $newId = "BK" . sprintf('%03d', $lastId + 1);
+        $newId = "FM" . sprintf('%03d', $lastId + 1);
         return $newId;
     }
     

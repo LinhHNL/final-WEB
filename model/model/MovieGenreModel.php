@@ -36,16 +36,42 @@ require_once(__DIR__.'/../System/Database.php');
 
         }
         }
-    public function getGenreAll(){
-        $query = "SELECT GenreID, GenreName, Description FROM moviegenre ";
-        $result = $this->conn->query($query);
-        $genres = array();
-        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            $genre = new MovieGenre($row['GenreName'], $row['Description'], $row['GenreID']);
-            $genres[] = $genre;
+        public function getGenreAll($page) {
+            $limit = 10; 
+            $offset = ($page - 1) * $limit; 
+        
+           
+            $stmt = $this->conn->prepare("SELECT COUNT(*) FROM moviegenre");
+            $stmt->execute();
+            $total = $stmt->fetchColumn();
+        
+           
+            $num_pages = ceil($total / $limit);
+        
+            
+            $query = "SELECT GenreID, GenreName, Description FROM moviegenre LIMIT :limit OFFSET :offset";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+            $stmt->execute();
+        
+            $genres = array();
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $genre = new MovieGenre($row['GenreName'], $row['Description'], $row['GenreID']);
+                $genres[] = $genre;
+            }
+        
+            return array(
+                'genres' => $genres,
+                'pagination' => array(
+                    'total' => $total,
+                    'limit' => $limit,
+                    'num_pages' => $num_pages,
+                    'current_page' => $page,
+                ),
+            );
         }
-        return (($genres));
-    }
+        
     
     public function getGenreByID($id) {
      try{

@@ -2,7 +2,7 @@
     /**
      * Summary of rating
      */
-    class rating {
+    class Rating {
         public $RatingID;
         public $Score;
         public $Comment;

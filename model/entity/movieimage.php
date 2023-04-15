@@ -2,17 +2,26 @@
     class MovieImage {
         public $ImageID;
         public $ImagePath;
-        public $Description;
+     
         public $MovieID;
+        public $type;
 
-        function __construct( $ImagePath, $MovieID, $Description,$ImageID) {
+
+        function __construct( $ImagePath, $MovieID,$type,$ImageID=null) {
             $this->ImagePath = $ImagePath;
-            $this->Description = $Description;
+      
             $this->MovieID = $MovieID;
+            $this->type = $type;
             if($ImageID!=null){
             $this->ImageID = $ImageID;
 
             }
+        }
+        function getType() {
+            return $this->type;
+        }
+        function setType($type) {
+            $this->type = $type;
         }
         function get_ImageID() {
             return $this->ImageID;
@@ -20,9 +29,7 @@
         function get_ImagePath() {
             return $this->ImagePath;
         }
-        function get_Description() {
-            return $this->Description;
-        }
+      
         function get_MovieID() {
             return $this->MovieID;
         }
@@ -33,9 +40,7 @@
         function set_ImagePath($ImagePath) {
             $this->ImagePath = $ImagePath;
         }
-        function set_Description($Description) {
-            $this->Description = $Description;
-        }
+       
         function set_MovieID($MovieID) {
             $this->MovieID = $MovieID;
         }

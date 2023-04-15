@@ -11,15 +11,15 @@ class RoomModel {
 
     // Phương thức lấy thông tin room theo ID
     public function getRoomByID($id) {
-        $stmt = $this->conn->prepare("SELECT RoomID, RoomName,  NumberOfSeats, TheaterID FROM room WHERE RoomID=:RoomID");
+        $stmt = $this->conn->prepare("SELECT  RoomName,  NumberOfSeats, TheaterID ,RoomID FROM room WHERE RoomID=:RoomID");
         $stmt->bindParam(':RoomID', $id);
         $stmt->setFetchMode(PDO::FETCH_CLASS,'Room');
         $stmt->execute();
         $room = $stmt->fetchObject();
         if($room!=null){
-            echo json_encode(array("success"=>true,"room"=>$room));
+            return (array("success"=>true,"room"=>$room));
         }else{
-            echo json_encode(array("success"=>false,"error"=>"Room không tồn tại"));
+            return (array("success"=>false,"error"=>"Room không tồn tại"));
         }
     }
   
@@ -37,9 +37,9 @@ class RoomModel {
             $stmt->bindParam(':NumberOfSeats', $NumberOfSeats);
             $stmt->bindParam(':TheaterID', $TheaterID);
             $stmt ->execute();
-            echo json_encode(array("success"=>true));
+            return (array("success"=>true));
         }catch(Exception $e){
-            echo json_encode(array("success"=>false,"error"=>$e->getMessage()));
+            return (array("success"=>false,"error"=>$e->getMessage()));
         }
     }
     // Phương thức xóa một Room theo ID
@@ -49,12 +49,12 @@ public function deleteRoom($id) {
         $stmt->bindParam(':RoomID', $id);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
-            echo json_encode(array("success" => true));
+            return (array("success" => true));
         } else {
-            echo json_encode(array("success" => false, "error" => "Room không tồn tại"));
+            return (array("success" => false, "error" => "Room không tồn tại"));
         }
     } catch (Exception $e) {
-        echo json_encode(array("success" => false, "error" => $e->getMessage()));
+        return (array("success" => false, "error" => $e->getMessage()));
     }
 }
 // Phương thức cập nhật thông tin một Room
@@ -71,12 +71,12 @@ public function updateRoom(Room $Room) {
         $stmt->bindParam(':NumberOfSeats', $NumberOfSeats);    
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
-            echo json_encode(array("success" => true));
+            return (array("success" => true));
         } else {
-            echo json_encode(array("success" => false, "error" => "Room không tồn tại"));
+            return (array("success" => false, "error" => "Room không tồn tại"));
         }
     } catch (Exception $e) {
-        echo json_encode(array("success" => false, "error" => $e->getMessage()));
+        return (array("success" => false, "error" => $e->getMessage()));
     }
 }
 
@@ -87,10 +87,10 @@ public function getAllRoom(){
     $stmt->execute();
     $Rooms = array();
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $Room = new Room($row['RoomID'], $row['RoomName'], $row['NumberOfSeats'], $row['TheaterID']);
+        $Room = new Room( $row['RoomName'], $row['NumberOfSeats'], $row['TheaterID'],$row['RoomID']);
         $Rooms[] = $Room;
     }
-    echo json_encode(array("success" => true, "list" => $Rooms));
+    return (array("success" => true, "list" => $Rooms));
 }
 
     // Phương thức sinh mã ID mới cho Room
@@ -111,5 +111,5 @@ public function getAllRoom(){
 
 //$temp = new Room('RoomName 3', 'TH001', 3);
 
-echo (new RoomModel())->getAllRoom();
+return (new RoomModel())->getAllRoom();
 ?>

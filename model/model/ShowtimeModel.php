@@ -10,18 +10,31 @@ class ShowtimeModel {
     }
 
     // Phương thức lấy thông tin Showtime theo ID
-    public function getShowtimeByID($id) {
-        $stmt = $this->conn->prepare("SELECT ShowtimeID, Price, StartTime, EndTime, MovieID, RoomID, FormatID FROM showtime WHERE ShowtimeID=:ShowtimeID");
-        $stmt->bindParam(':ShowtimeID', $id);
-        $stmt->setFetchMode(PDO::FETCH_CLASS,'Showtime');
-        $stmt->execute();
-        $Showtime = $stmt->fetchObject();
-        if($Showtime!=null){
-            echo json_encode(array("success"=>true,"Showtime"=>$Showtime));
-        }else{
-            echo json_encode(array("success"=>false,"error"=>"Showtime không tồn tại"));
+    public function getShowtimeByID($ShowtimeID) {
+        try {
+            $query = "SELECT Price, StartTime, MovieID, EndTime, RoomID, FormatID, ShowtimeID FROM showtime WHERE ShowtimeID = :ShowtimeID";
+    
+           
+    
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':ShowtimeID', $ShowtimeID);
+    
+         
+    
+            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Showtime');
+            $stmt->execute();
+            $Showtime = $stmt->fetchObject();
+    
+            if ($Showtime !== null) {
+                return array("success"=>true,"Showtime"=>$Showtime);
+            } else {
+                return array("success"=>false,"error"=>"Showtime không tồn tại");
+            }
+        } catch (PDOException $e) {
+            return array("success"=>false,"error"=>"Lỗi truy vấn: ".$e->getMessage());
         }
     }
+    
     
     // Phương thức thêm mới một Showtime
     public function addShowtime(Showtime $Showtime){
@@ -45,9 +58,9 @@ class ShowtimeModel {
             $stmt->bindParam(':FormatID', $FormatID);
 
             $stmt ->execute();
-            echo json_encode(array("success"=>true));
+            return (array("success"=>true));
         }catch(Exception $e){
-            echo json_encode(array("success"=>false,"error"=>$e->getMessage()));
+            return (array("success"=>false,"error"=>$e->getMessage()));
         }
     }
     // Phương thức xóa một Showtime theo ID
@@ -57,12 +70,12 @@ public function deleteShowtime($id) {
         $stmt->bindParam(':ShowtimeID', $id);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
-            echo json_encode(array("success" => true));
+            return (array("success" => true));
         } else {
-            echo json_encode(array("success" => false, "error" => "Showtime không tồn tại"));
+            return (array("success" => false, "error" => "Showtime không tồn tại"));
         }
     } catch (Exception $e) {
-        echo json_encode(array("success" => false, "error" => $e->getMessage()));
+        return (array("success" => false, "error" => $e->getMessage()));
     }
 }
 // Phương thức cập nhật thông tin một Showtime
@@ -87,27 +100,87 @@ public function updateShowtime(Showtime $Showtime) {
         $stmt->bindParam(':FormatID', $FormatID);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
-            echo json_encode(array("success" => true));
+            return (array("success" => true));
         } else {
-            echo json_encode(array("success" => false, "error" => "Showtime không tồn tại"));
+            return (array("success" => false, "error" => "Showtime không tồn tại"));
         }
     } catch (Exception $e) {
-        echo json_encode(array("success" => false, "error" => $e->getMessage()));
+        return (array("success" => false, "error" => $e->getMessage()));
     }
 }
 
 
     // Phương thức getAll cho Showtime
-    public function getAllShowtime(){
-        $stmt = $this->conn->prepare("SELECT ShowtimeID, Price,  MovieID, StartTime, EndTime,  RoomID, FormatID FROM showtime");
+    public function getAllShowtime($page) {
+        try {
+            $page = intval($page); 
+            $number = 12;
+            $offset = ($page - 1) * $number;
+            $query = "SELECT Price, MovieID, StartTime, EndTime, RoomID, FormatID, ShowtimeID FROM showtime ORDER By STARTTIME DESC LIMIT $offset , $number ";
+            $stmt = $this->conn->prepare($query);
+            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Showtime');
+            $stmt->execute();
+            $ShowtimeList = $stmt->fetchAll();
+    
+            if ($ShowtimeList !== null) {
+                return array("success"=>true,"ShowtimeList"=>$ShowtimeList);
+            } else {
+                return array("success"=>false,"error"=>"Không tìm thấy Showtime");
+            }
+        } catch (PDOException $e) {
+            return array("success"=>false,"error"=>"Lỗi truy vấn: ".$e->getMessage());
+        }
+    }
+    
+    public function getShowtimesByMovieIDandTheater($movieID, $theater, $date){
+        $query = "SELECT s.ShowtimeID, s.Price, s.StartTime, s.EndTime, r.RoomID, s.FormatID
+            FROM Showtime s
+            JOIN Room r ON s.RoomID = r.RoomID
+            WHERE s.MovieID = :MovieID AND r.TheaterID = :TheaterID";
+    
+        if ($date !== null) {
+            $query .= " AND DATE(s.StartTime) = :date";
+        }
+    
+        $stmt = $this->conn->prepare($query);
+        $stmt ->bindParam(":MovieID",$movieID);
+        $stmt ->bindParam(":TheaterID",$theater);
+        
+        if ($date !== null) {
+            $stmt->bindParam(':date', $date);
+        }
+        
         $stmt->execute();
         $Showtimes = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $Showtime = new Showtime($row['ShowtimeID'], $row['Price'], $row['MovieID'], $row['StartTime'], $row['EndTime'], $row['RoomID'], $row['FormatID']);
+            $Showtime = new Showtime( $row['Price'], $row['StartTime'], $movieID, $row['EndTime'], $row['RoomID'], $row['FormatID'], $row['ShowtimeID']);
+    
             $Showtimes[] = $Showtime;
         }
-        echo json_encode(array("success" => true, "list" => $Showtimes));
+        
+        return (array("success" => true, "list" => $Showtimes));
     }
+    
+    
+     public function getAllShowtimeByMovieID($moiveid, $date = null){
+        $query = "SELECT ShowtimeID, Price, MovieID, StartTime, EndTime, RoomID, FormatID FROM showtime WHERE MovieID = :MovieID";
+        if ($date !== null) {
+            $query .= " AND DATE(StartTime) = :date";
+        }
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":MovieID", $moiveid);
+        if ($date !== null) {
+            $stmt->bindParam(':date', $date);
+        }
+        $stmt->execute();
+        $Showtimes = array();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $Showtime = new Showtime($row['Price'], $row['StartTime'], $row['MovieID'], $row['EndTime'], $row['RoomID'], $row['FormatID'], $row['ShowtimeID']);
+            $Showtimes[] = $Showtime;
+        }
+        return array("success" => true, "list" => $Showtimes);
+    }
+    
     
         // Phương thức sinh mã ID mới cho Showtime
         public function createNewID() {
@@ -126,5 +199,5 @@ public function updateShowtime(Showtime $Showtime) {
 $temp = new Showtime(10000, '2022-10-10 10:10:10','M001', '2022-10-10 11:11:11', 'RO001', 'F001', 'SH001');
 
 
-echo (new ShowtimeModel())->getAllShowtime();
+
 ?>

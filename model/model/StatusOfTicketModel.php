@@ -100,8 +100,5 @@ public function updateStatusOfTicket(StatusOfTicket $StatusOfTicket) {
         }
 
 }
-$temp = new StatusOfTicket('ghe trong ne', 'ST2');
 
-
-echo (new StatusOfTicketModel())->getAllStatusOfTicket();
 ?>
