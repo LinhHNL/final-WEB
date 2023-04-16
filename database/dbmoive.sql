@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 12, 2023 lúc 06:18 AM
+-- Thời gian đã tạo: Th4 16, 2023 lúc 08:43 AM
 -- Phiên bản máy phục vụ: 10.4.27-MariaDB
 -- Phiên bản PHP: 8.0.25
 
@@ -40,8 +40,7 @@ CREATE TABLE `account` (
 
 INSERT INTO `account` (`id`, `email`, `password`, `role_id`) VALUES
 ('23', 'lingdeptrai', '123134', '1'),
-('24', 'C2@gmail.com', 'P002', '2'),
-('AC25', 'M2@gmail.com', 'P001', '2'),
+('24', 'C2@gmail.com', 'Ling', '2'),
 ('AC26', 'C1423423@gmail.com', 'P001', '1'),
 ('AC27', 'C1@gma2il.com', '1234', '1'),
 ('AC28', 'C1@gm122il.com', '1234', '1'),
@@ -138,7 +137,7 @@ CREATE TABLE `customer` (
 
 INSERT INTO `customer` (`CustomerID`, `FullName`, `Address`, `Email`, `Phone`, `account_id`) VALUES
 ('C001', 'ling', 'Việt nam Trái Đất', 'ling@gmail.com', '04234', 'AC27'),
-('C002', 'NameC 2 ', 'HN', 'C2@gmail.com', 'P002', '24'),
+('C002', 'Linh HuynH Nhat', 'Linh HuynH Nhat', 'C2@gmail.com', 'ff', '24'),
 ('KH001', 'NameC 1', 'HCM', 'C42342341@gmail.com', 'P001', 'AC29'),
 ('KH002', 'NameC 1', 'HCM', 'C422342341@gmail.com', 'P001', 'AC28'),
 ('KH3', 'Huỳnh Nhật Linh', 'Việt nam, Trái đất', 'M3212@gmail.com', '423432342', 'AC37'),
@@ -160,7 +159,6 @@ CREATE TABLE `detailmoviegenre` (
 --
 
 INSERT INTO `detailmoviegenre` (`MovieID`, `GenreID`) VALUES
-('M001', 'G001'),
 ('M002', 'G002');
 
 -- --------------------------------------------------------
@@ -307,8 +305,11 @@ CREATE TABLE `format` (
 --
 
 INSERT INTO `format` (`FormatID`, `NameFormat`) VALUES
+('BK003', 'FIlm 4D'),
 ('F001', '2D'),
-('F002', '3D');
+('F002', '3D'),
+('FM004', 'FIlm 5D'),
+('FM005', 'FIlm 4D');
 
 -- --------------------------------------------------------
 
@@ -326,7 +327,7 @@ CREATE TABLE `language` (
 --
 
 INSERT INTO `language` (`LanguageID`, `LanguageName`) VALUES
-('L001', 'Name language 1'),
+('L001', 'Tiếng em'),
 ('L002', 'Name language 2');
 
 -- --------------------------------------------------------
@@ -348,10 +349,7 @@ CREATE TABLE `manager` (
 --
 
 INSERT INTO `manager` (`ManagerID`, `FullName`, `Email`, `Phone`, `account_id`) VALUES
-('M001', 'HUỳnH nhậ121t Lin3424234h', 'l4223423inhđẹptrai', '04234', '24'),
-('M002', 'Name manager 2', 'M2@gmail.com', 'P002', 'AC25'),
 ('MG1', 'Huỳnh Nhật Linh', 'M321212@gmail.com', '423432342', 'AC38'),
-('MG2', 'HUỳnH nhậ121t Lin3424234h', 'linhuhynh', '04234', 'AC26'),
 ('MG3', 'Huỳnh Nhật Linh', 'M97822@gmail.com', '423432342', 'AC49');
 
 -- --------------------------------------------------------
@@ -364,16 +362,17 @@ CREATE TABLE `menu` (
   `ItemID` char(11) NOT NULL,
   `Name` varchar(50) NOT NULL,
   `Price` float NOT NULL,
-  `ImageURL` text NOT NULL
+  `ImageURL` text NOT NULL,
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `menu`
 --
 
-INSERT INTO `menu` (`ItemID`, `Name`, `Price`, `ImageURL`) VALUES
-('I001', 'Name item 1', 40000, 'ImageURL1'),
-('I002', 'Name item 2', 40000, 'ImageURL2');
+INSERT INTO `menu` (`ItemID`, `Name`, `Price`, `ImageURL`, `status`) VALUES
+('I001', 'Namtểt e item 1', 40000, 'ImageURL1', 0),
+('I002', 'Name item 2', 40000, 'ImageURL2', 0);
 
 -- --------------------------------------------------------
 
@@ -412,16 +411,17 @@ CREATE TABLE `movie` (
   `Time` float NOT NULL,
   `StudioID` char(11) NOT NULL,
   `LanguageID` char(11) NOT NULL,
-  `story` text NOT NULL
+  `story` text NOT NULL,
+  `age` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `movie`
 --
 
-INSERT INTO `movie` (`MovieID`, `MovieName`, `Director`, `Year`, `Premiere`, `URLTrailer`, `Time`, `StudioID`, `LanguageID`, `story`) VALUES
-('M001', 'Name movie 1', 'Director 1', 2022, '2022-10-10', 'URLTrailer1', 20221000, 'ST001', 'L001', '24234'),
-('M002', 'Name movie 2', 'Director 2', 2022, '2022-10-10', 'URLTrailer2', 0, 'ST002', 'L002', '24234');
+INSERT INTO `movie` (`MovieID`, `MovieName`, `Director`, `Year`, `Premiere`, `URLTrailer`, `Time`, `StudioID`, `LanguageID`, `story`, `age`) VALUES
+('M001', 'Name movie 1', 'Director 1', 2022, '2022-10-10', 'URLTrailer1', 20221000, 'ST001', 'L001', '24234', 'P'),
+('M002', 'Name movie 2', 'Director 2', 2022, '2022-10-10', 'URLTrailer2', 0, 'ST002', 'L002', '24234', 'P');
 
 -- --------------------------------------------------------
 
@@ -453,17 +453,16 @@ INSERT INTO `moviegenre` (`GenreID`, `GenreName`, `Description`) VALUES
 CREATE TABLE `movieimage` (
   `ImageID` char(11) NOT NULL,
   `ImagePath` text NOT NULL,
-  `Description` varchar(50) NOT NULL,
-  `MovieID` char(11) NOT NULL
+  `MovieID` char(11) NOT NULL,
+  `type` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `movieimage`
 --
 
-INSERT INTO `movieimage` (`ImageID`, `ImagePath`, `Description`, `MovieID`) VALUES
-('IM001', 'ImagePath 1', 'Description movie 1', 'M001'),
-('IM002', 'ImagePath 2', 'Description movie 2', 'M002');
+INSERT INTO `movieimage` (`ImageID`, `ImagePath`, `MovieID`, `type`) VALUES
+('IM002', 'ImagePath 2', 'M002', 1);
 
 -- --------------------------------------------------------
 
@@ -478,16 +477,18 @@ CREATE TABLE `promotion` (
   `StartTime` datetime NOT NULL,
   `EndTime` datetime NOT NULL,
   `Discount` float NOT NULL,
-  `Code` int(11) NOT NULL
+  `Code` varchar(11) NOT NULL,
+  `type` int(11) NOT NULL,
+  `url_Image` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `promotion`
 --
 
-INSERT INTO `promotion` (`PromotionID`, `PromotionName`, `Description`, `StartTime`, `EndTime`, `Discount`, `Code`) VALUES
-('P001', 'PromotionName 1', 'Description promotion 1', '2022-10-10 10:10:10', '2022-10-10 11:11:11', 40, 1),
-('P002', 'PromotionName 2', 'Description promotion 2', '2022-10-10 10:10:10', '2022-10-10 11:11:11', 40, 2);
+INSERT INTO `promotion` (`PromotionID`, `PromotionName`, `Description`, `StartTime`, `EndTime`, `Discount`, `Code`, `type`, `url_Image`) VALUES
+('P001', 'PromotionName 1', 'Description promotion 1', '2022-10-10 10:10:10', '2022-10-10 11:11:11', 40, '1', 1, '0'),
+('P002', 'PromotionName 2', 'Description promotion 2', '2022-10-10 10:10:10', '2022-10-10 11:11:11', 40, '2', 2, '0');
 
 -- --------------------------------------------------------
 
@@ -510,7 +511,8 @@ CREATE TABLE `rating` (
 
 INSERT INTO `rating` (`RatingID`, `Score`, `Comment`, `Day`, `MovieID`, `CustomerID`) VALUES
 ('RT001', 9, 'Comment rating 1', '2022-10-10 10:10:10', 'M001', 'C001'),
-('RT002', 9, 'Comment rating 2', '2022-10-10 10:10:10', 'M002', 'C002');
+('RT002', 9, 'Commefadfdfadadfafadfadsdfsdfsdfsdfsdfsdfsdfsdfsdf', '2022-10-10 10:10:10', 'M002', 'C002'),
+('RT3', 0, '2022-10-10 10:10:10', '0000-00-00 00:00:00', 'M002', 'C002');
 
 -- --------------------------------------------------------
 
@@ -570,6 +572,26 @@ CREATE TABLE `seat` (
 --
 
 INSERT INTO `seat` (`SeatID`, `SeatName`, `type`, `RoomID`) VALUES
+('SE10', 'A8', '1', 'RO001'),
+('SE11', 'A9', '1', 'RO001'),
+('SE12', 'A10', '1', 'RO001'),
+('SE13', 'B1', '2', 'RO001'),
+('SE14', 'B2', '2', 'RO001'),
+('SE15', 'B3', '2', 'RO001'),
+('SE16', 'B4', '2', 'RO001'),
+('SE17', 'B5', '2', 'RO001'),
+('SE18', 'B6', '2', 'RO001'),
+('SE19', 'B7', '2', 'RO001'),
+('SE20', 'B8', '2', 'RO001'),
+('SE21', 'B9', '2', 'RO001'),
+('SE22', 'B10', '2', 'RO001'),
+('SE3', 'A1', '1', 'RO001'),
+('SE4', 'A2', '1', 'RO001'),
+('SE5', 'A3', '1', 'RO001'),
+('SE6', 'A4', '1', 'RO001'),
+('SE7', 'A5', '1', 'RO001'),
+('SE8', 'A6', '1', 'RO001'),
+('SE9', 'A7', '1', 'RO001'),
 ('ST001', 'SeatName 1', '1', 'RO001'),
 ('ST002', 'SeatName 2', '2', 'RO002');
 
@@ -594,8 +616,9 @@ CREATE TABLE `showtime` (
 --
 
 INSERT INTO `showtime` (`ShowtimeID`, `StartTime`, `EndTime`, `Price`, `MovieID`, `RoomID`, `FormatID`) VALUES
-('SH001', '2022-10-10 10:10:10', '2022-10-10 11:11:11', 40000, 'M001', 'RO001', 'F001'),
-('SH002', '2022-10-10 10:10:10', '2022-10-10 11:11:11', 40000, 'M002', 'RO002', 'F002');
+('SH001', '2022-10-10 10:10:10', '2022-10-10 11:11:11', 40000000000000, 'M002', 'RO001', 'F001'),
+('SH002', '2022-10-10 10:10:10', '2022-10-10 11:11:11', 40000, 'M002', 'RO002', 'F002'),
+('SH4', '2022-10-10 11:11:11', '0000-00-00 00:00:00', 2022, 'M002', 'RO001', 'F001');
 
 -- --------------------------------------------------------
 
@@ -615,7 +638,7 @@ CREATE TABLE `status_of_ticket` (
 INSERT INTO `status_of_ticket` (`id`, `name`) VALUES
 ('S1', 'Đang thanh toán'),
 ('S2', 'Đã bán'),
-('S3', 'Ghế trống');
+('S3', 'Ghế đôi');
 
 -- --------------------------------------------------------
 
@@ -637,9 +660,10 @@ CREATE TABLE `studio` (
 
 INSERT INTO `studio` (`StudioID`, `StudioName`, `Address`, `Phone`, `Email`) VALUES
 ('ST001', 'StudioName 1', 'Address studio 1', 'P001', 'studio1@gmail.com'),
-('ST002', 'StudioName 2', 'Address studio 2', 'P002', 'studio2@gmail.com'),
+('ST002', 'StudioName 2', 'Address ffffffffstudio 2', 'P002', 'studiầdfadfo2@gmail.com'),
 ('ST1', '[value-1]', '[value-2]', '[value-3]', '[value-4]'),
-('ST2', '[value-1]', '[24-2]', '234234]', '[vfafsa]');
+('ST2', '[value-1]', '[24-2]', '234234]', '[vfafsa]'),
+('ST3', 'StudioName 2', 'Address ffffffffstudio 2', 'P002', 'studio2@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -660,7 +684,7 @@ CREATE TABLE `theater` (
 --
 
 INSERT INTO `theater` (`TheaterID`, `TheaterName`, `Address`, `Phone`, `NumberOfRooms`) VALUES
-('TH001', 'TheaterName 1', 'Address thearter 1', 'P001', 1),
+('TH001', 'TheaterName 1', 'Address thearter 1', 'P00ffffff1', 1),
 ('TH002', 'TheaterName 2', 'Address thearter 2', 'P002', 2);
 
 -- --------------------------------------------------------
@@ -797,7 +821,8 @@ ALTER TABLE `movieimage`
 -- Chỉ mục cho bảng `promotion`
 --
 ALTER TABLE `promotion`
-  ADD PRIMARY KEY (`PromotionID`);
+  ADD PRIMARY KEY (`PromotionID`),
+  ADD UNIQUE KEY `Code` (`Code`);
 
 --
 -- Chỉ mục cho bảng `rating`
