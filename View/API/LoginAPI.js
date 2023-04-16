@@ -5,7 +5,7 @@ const LoginAPI = async (url, username, password) => {
     password: password,
   };
   const bodytoadd = JSON.stringify(bodyinput);
-  const data = await fetch(`${url}/Controller/User/UserService.php?`, {
+  const data = await fetch(`${url}/Controller/User/ajax.php`, {
     method: "POST",
     body: bodytoadd,
   });
@@ -23,7 +23,7 @@ const RegisterAPI = async (url, email, password, fullname, address, phone) => {
     phone: phone,
   };
   const bodytoadd = JSON.stringify(bodyinput);
-  const data = await fetch(`${url}/Controller/User/UserService.php?`, {
+  const data = await fetch(`${url}/Controller/User/ajax.php`, {
     method: "POST",
     body: bodytoadd,
   });

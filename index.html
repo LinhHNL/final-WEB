@@ -310,54 +310,54 @@
             }
             htmls +=
               `
-          <div class="movie-content">
-            <div class="rating">
-              <div class="rating-star">
-                <img src="./images/Star.svg" alt="" />
-                ${data.rating}
+            <div class="movie-content">
+              <div class="rating">
+                <div class="rating-star">
+                  <img src="./images/Star.svg" alt="" />
+                  ${data.rating}
+                </div>
+                <div class="rating-imdb">IMDB 7.2</div>
               </div>
-              <div class="rating-imdb">IMDB 7.2</div>
-            </div>
-            <div class="genre-list">` +
+              <div class="genre-list">` +
               genrehtml +
               `</div>
-            <div class="movie-title">
-              ${data.MovieName}
-            </div>
-            <div class="actor-list">
-              ` +
+              <div class="movie-title">
+                ${data.MovieName}
+              </div>
+              <div class="actor-list">
+                ` +
               actorhtml +
               `
+              </div>
+              <div class="movie-info">
+                <span class="duration">${data.Time}</span>
+                <span class="dot">●</span>
+                <span class="premier-date">${data.Premiere}</span>
+                <span class="dot">●</span>
+                <span class="country">${data.StudioID}</span>
+              </div>
+              <div class="sypnosis">
+               ${data.story}
+              </div>
+              <div class="button-container">
+                <button class="btn-main btn-trailer">
+                  TRAILER
+                  <img src="./images/play.svg" alt="" />
+                </button>
+                <button class="btn-main btn-book">
+                  ĐẶT VÉ
+                  <img src="./images/Arrow_right_long.svg" alt="" />
+                </button>
+              </div>
             </div>
-            <div class="movie-info">
-              <span class="duration">${data.Time}</span>
-              <span class="dot">●</span>
-              <span class="premier-date">${data.Premiere}</span>
-              <span class="dot">●</span>
-              <span class="country">${data.StudioID}</span>
+            <div class="background">
+              <div class="shadow-box"></div>
+              <div
+                class="movie-preview-img"
+                style="background-image: url('${data.listImage[0]}')"
+              ></div>
             </div>
-            <div class="sypnosis">
-             ${data.story}
-            </div>
-            <div class="button-container">
-              <button class="btn-main btn-trailer">
-                TRAILER
-                <img src="./images/play.svg" alt="" />
-              </button>
-              <button class="btn-main btn-book">
-                ĐẶT VÉ
-                <img src="./images/Arrow_right_long.svg" alt="" />
-              </button>
-            </div>
-          </div>
-          <div class="background">
-            <div class="shadow-box"></div>
-            <div
-              class="movie-preview-img"
-              style="background-image: url('${data.listImage[0]}')"
-            ></div>
-          </div>
-        </div>`;
+          </div>`;
             $(".carousel-inner").append(htmls);
           });
         });
@@ -382,36 +382,36 @@
             let htmls = "";
             htmls +=
               `<div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
-              <div class="card-img">
-                <div class="card-info">
-                  <img
-                    src="./images/Star.svg"
-                    alt=""
-                    width="22px"
-                    height="22px"
-                  />
-                  <div class="rating">${data.rating} / 10</div>
-                  <div class="age">13+</div>
-                  <div class="date">
-                    <img src="./images/date.svg" alt="" />
-                    ${data.Premiere}
+                <div class="card-img">
+                  <div class="card-info">
+                    <img
+                      src="./images/Star.svg"
+                      alt=""
+                      width="22px"
+                      height="22px"
+                    />
+                    <div class="rating">${data.rating} / 10</div>
+                    <div class="age">13+</div>
+                    <div class="date">
+                      <img src="./images/date.svg" alt="" />
+                      ${data.Premiere}
+                    </div>
+                    <div class="duration">
+                      <img src="./images/timer.svg" alt="" />
+                      ${data.Time}
+                    </div>
+                    <button class="btn-outline">Chi tiết</button>
+                    <button class="btn-main">Đặt vé</button>
                   </div>
-                  <div class="duration">
-                    <img src="./images/timer.svg" alt="" />
-                    ${data.Time}
-                  </div>
-                  <button class="btn-outline">Chi tiết</button>
-                  <button class="btn-main">Đặt vé</button>
+                  <img class="poster" src="./images/poster-2.jpg" alt="" />
                 </div>
-                <img class="poster" src="./images/poster-2.jpg" alt="" />
-              </div>
 
-              <div class="movie-genre">
-               ` +
+                <div class="movie-genre">
+                 ` +
               genrehtml +
               `</div>
-              <div class="movie-title">${data.MovieName}</div>
-            </div>`;
+                <div class="movie-title">${data.MovieName}</div>
+              </div>`;
             $(".row.g-3.movie-premier-container").append(htmls);
           });
         });
@@ -436,36 +436,36 @@
             let htmls = "";
             htmls +=
               `<div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
-              <div class="card-img">
-                <div class="card-info">
-                  <img
-                    src="./images/Star.svg"
-                    alt=""
-                    width="22px"
-                    height="22px"
-                  />
-                  <div class="rating">${data.rating} / 10</div>
-                  <div class="age">13+</div>
-                  <div class="date">
-                    <img src="./images/date.svg" alt="" />
-                    ${data.Premiere}
+                <div class="card-img">
+                  <div class="card-info">
+                    <img
+                      src="./images/Star.svg"
+                      alt=""
+                      width="22px"
+                      height="22px"
+                    />
+                    <div class="rating">${data.rating} / 10</div>
+                    <div class="age">13+</div>
+                    <div class="date">
+                      <img src="./images/date.svg" alt="" />
+                      ${data.Premiere}
+                    </div>
+                    <div class="duration">
+                      <img src="./images/timer.svg" alt="" />
+                      ${data.Time}
+                    </div>
+                    <button class="btn-outline">Chi tiết</button>
+                    <button class="btn-main">Đặt vé</button>
                   </div>
-                  <div class="duration">
-                    <img src="./images/timer.svg" alt="" />
-                    ${data.Time}
-                  </div>
-                  <button class="btn-outline">Chi tiết</button>
-                  <button class="btn-main">Đặt vé</button>
+                  <img class="poster" src="./images/poster-2.jpg" alt="" />
                 </div>
-                <img class="poster" src="./images/poster-2.jpg" alt="" />
-              </div>
 
-              <div class="movie-genre">
-               ` +
+                <div class="movie-genre">
+                 ` +
               genrehtml +
               `</div>
-              <div class="movie-title">${data.MovieName}</div>
-            </div>`;
+                <div class="movie-title">${data.MovieName}</div>
+              </div>`;
             $(".row.g-3.movie-upcoming-container").append(htmls);
           });
         });
@@ -478,6 +478,7 @@
           removeBtnColor.removeClass("btn-main");
           const AddingBtnColor = GenreContainer.find(`#${GenreID}`);
           AddingBtnColor.addClass("btn-main");
+
           getPremierMovie(".").then((datas) => {
             const cuttingGenre = (data) => {
               let storehtml = "";
@@ -494,40 +495,41 @@
               return storehtml;
             };
             datas.forEach(async (data, index) => {
+              console.log(data);
               let genrehtml = await cuttingGenre(data);
               let htmls = "";
               htmls +=
                 `<div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
-              <div class="card-img">
-                <div class="card-info">
-                  <img
-                    src="./images/Star.svg"
-                    alt=""
-                    width="22px"
-                    height="22px"
-                  />
-                  <div class="rating">${data.rating} / 10</div>
-                  <div class="age">13+</div>
-                  <div class="date">
-                    <img src="./images/date.svg" alt="" />
-                    ${data.Premiere}
+                <div class="card-img">
+                  <div class="card-info">
+                    <img
+                      src="./images/Star.svg"
+                      alt=""
+                      width="22px"
+                      height="22px"
+                    />
+                    <div class="rating">${data.rating} / 10</div>
+                    <div class="age">13+</div>
+                    <div class="date">
+                      <img src="./images/date.svg" alt="" />
+                      ${data.Premiere}
+                    </div>
+                    <div class="duration">
+                      <img src="./images/timer.svg" alt="" />
+                      ${data.Time}
+                    </div>
+                    <button class="btn-outline">Chi tiết</button>
+                    <button class="btn-main">Đặt vé</button>
                   </div>
-                  <div class="duration">
-                    <img src="./images/timer.svg" alt="" />
-                    ${data.Time}
-                  </div>
-                  <button class="btn-outline">Chi tiết</button>
-                  <button class="btn-main">Đặt vé</button>
+                  <img class="poster" src="./images/poster-2.jpg" alt="" />
                 </div>
-                <img class="poster" src="./images/poster-2.jpg" alt="" />
-              </div>
 
-              <div class="movie-genre">
-               ` +
+                <div class="movie-genre">
+                 ` +
                 genrehtml +
                 `</div>
-              <div class="movie-title">${data.MovieName}</div>
-            </div>`;
+                <div class="movie-title">${data.MovieName}</div>
+              </div>`;
               $(".row.g-3.movie-premier-container").append(htmls);
             });
           });
@@ -561,48 +563,48 @@
               let htmls = "";
               htmls +=
                 `<div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
-              <div class="card-img">
-                <div class="card-info">
-                  <img
-                    src="./images/Star.svg"
-                    alt=""
-                    width="22px"
-                    height="22px"
-                  />
-                  <div class="rating">${data.rating} / 10</div>
-                  <div class="age">13+</div>
-                  <div class="date">
-                    <img src="./images/date.svg" alt="" />
-                    ${data.Premiere}
+                <div class="card-img">
+                  <div class="card-info">
+                    <img
+                      src="./images/Star.svg"
+                      alt=""
+                      width="22px"
+                      height="22px"
+                    />
+                    <div class="rating">${data.rating} / 10</div>
+                    <div class="age">13+</div>
+                    <div class="date">
+                      <img src="./images/date.svg" alt="" />
+                      ${data.Premiere}
+                    </div>
+                    <div class="duration">
+                      <img src="./images/timer.svg" alt="" />
+                      ${data.Time}
+                    </div>
+                    <button class="btn-outline">Chi tiết</button>
+                    <button class="btn-main">Đặt vé</button>
                   </div>
-                  <div class="duration">
-                    <img src="./images/timer.svg" alt="" />
-                    ${data.Time}
-                  </div>
-                  <button class="btn-outline">Chi tiết</button>
-                  <button class="btn-main">Đặt vé</button>
+                  <img class="poster" src="./images/poster-2.jpg" alt="" />
                 </div>
-                <img class="poster" src="./images/poster-2.jpg" alt="" />
-              </div>
 
-              <div class="movie-genre">
-               ` +
+                <div class="movie-genre">
+                 ` +
                 genrehtml +
                 `</div>
-              <div class="movie-title">${data.MovieName}</div>
-            </div>`;
+                <div class="movie-title">${data.MovieName}</div>
+              </div>`;
               $(".row.g-3.movie-premier-container").append(htmls);
             });
           });
         }
 
-        getAllGenre(".").then((datas) => {
-          /* <button
-              onclick="()=>changingBtnOnClickGetAll()"
-              class="btn-main all-select"
-            >
-              Tất cả phim
-            </button>*/
+        /* <button
+                onclick="()=>changingBtnOnClickGetAll()"
+                class="btn-main all-select"
+              >
+                Tất cả phim
+              </button>*/
+        const takeAllGenre = () => {
           const genreContainer = $(".row.g-2.genre-container");
           const button = $("<button>")
             .attr("id", "MBTN00001")
@@ -610,15 +612,26 @@
             .text("Tất cả Phim");
           button.on("click", () => changingBtnOnClickGetAll("MBTN00001"));
           genreContainer.append(button);
-          datas.forEach((data) => {
-            const button = $("<button>")
-              .addClass("genre-btn-click")
-              .attr("id", data.GenreID)
-              .text(data.GenreName);
-            button.on("click", () => changingBtnOnClick(data.GenreID));
-            genreContainer.append(button);
+          let page = 1;
+
+          getAllGenre(".", 1).then((datas) => {
+            const datastorender = datas["genres"];
+            if (datastorender.length == 0) {
+              console.log(datastorender.length);
+              page = -1;
+              throw new Error("Đi ra khỏi then");
+            }
+            datastorender.forEach((data) => {
+              const button = $("<button>")
+                .addClass("genre-btn-click")
+                .attr("id", data.GenreID)
+                .text(data.GenreName);
+              button.on("click", () => changingBtnOnClick(data.GenreID));
+              genreContainer.append(button);
+            });
           });
-        });
+        };
+        takeAllGenre();
       });
     </script>
   </body>

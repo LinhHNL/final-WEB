@@ -9,9 +9,9 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
     
     switch($action) {
         case 'getMoiveHot':
-        $list =    (new MovieController)->getHotMovies();
-        echo json_encode($list);
-         break; 
+            $list =    (new MovieController)->getHotMovies();
+            echo json_encode($list);
+            break; 
         case 'getPremieredMovies':
             $page = $_GET['page'];
             $list =   (new MovieController)->getPremieredMovies($page);

@@ -1,6 +1,6 @@
 const getHotMovieAPI = async (url) => {
   const data = await fetch(
-    `${url}/Controller/Movie/MoiveService.php?action=getMoiveHot`,
+    `${url}/Controller/Movie/ajax.php?action=getMoiveHot`,
     {
       method: "GET",
     }
@@ -11,7 +11,7 @@ const getHotMovieAPI = async (url) => {
 };
 const getPremierMovie = async (url, page = 1) => {
   const data = await fetch(
-    `${url}/Controller/Movie/MoiveService.php?action=getPremieredMovies&page=${page}`,
+    `${url}/Controller/Movie/ajax.php?action=getPremieredMovies&page=${page}`,
     {
       method: "GET",
     }
@@ -21,7 +21,7 @@ const getPremierMovie = async (url, page = 1) => {
 };
 const getUpcomingMovie = async (url, page = 1) => {
   const data = await fetch(
-    `${url}/Controller/Movie/MoiveService.php?action=getUpcomingMovies&page=${page}`,
+    `${url}/Controller/Movie/ajax.php?action=getUpcomingMovies&page=${page}`,
     {
       method: "GET",
     }
@@ -31,7 +31,7 @@ const getUpcomingMovie = async (url, page = 1) => {
 };
 const getByGenreID = async (url, genreid = 1, page = 1) => {
   const data = await fetch(
-    `${url}/Controller/Movie/MoiveService.php?action=getMoiveByGenres&page=${page}&genreid=${genreid}`,
+    `${url}/Controller/Movie/ajax.php?action=getMoiveByGenres&page=${page}&genreid=${genreid}`,
     {
       method: "GET",
     }
