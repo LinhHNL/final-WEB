@@ -539,11 +539,11 @@
           const GenreContainer = $(".row.g-2.genre-container");
           movieContainer.html("");
           const removeBtnColor = GenreContainer.find("button.btn-main");
-          console.log(removeBtnColor);
           removeBtnColor.removeClass("btn-main");
           const AddingBtnColor = GenreContainer.find(`#${GenreID}`);
           AddingBtnColor.addClass("btn-main");
           getByGenreID(".", GenreID).then((datas) => {
+            console.log(datas);
             const cuttingGenre = (data) => {
               let storehtml = "";
 
@@ -604,7 +604,7 @@
               >
                 Tất cả phim
               </button>*/
-        const takeAllGenre = () => {
+        const takeAllGenre = async () => {
           const genreContainer = $(".row.g-2.genre-container");
           const button = $("<button>")
             .attr("id", "MBTN00001")
@@ -612,24 +612,31 @@
             .text("Tất cả Phim");
           button.on("click", () => changingBtnOnClickGetAll("MBTN00001"));
           genreContainer.append(button);
-          let page = 1;
+          const setPageNum = async () => {
+            const datas = await getAllGenre(".", 1);
+            return datas["pagination"]["num_pages"];
+          };
 
-          getAllGenre(".", 1).then((datas) => {
-            const datastorender = datas["genres"];
-            if (datastorender.length == 0) {
-              console.log(datastorender.length);
-              page = -1;
-              throw new Error("Đi ra khỏi then");
-            }
-            datastorender.forEach((data) => {
-              const button = $("<button>")
-                .addClass("genre-btn-click")
-                .attr("id", data.GenreID)
-                .text(data.GenreName);
-              button.on("click", () => changingBtnOnClick(data.GenreID));
-              genreContainer.append(button);
+          const updatePageNum = async () => {
+            const newPageNum = await setPageNum();
+            pagenum = newPageNum;
+            return pagenum;
+          };
+
+          var pagenum = await updatePageNum();
+          for (let page = 1; page <= pagenum; page++) {
+            getAllGenre(".", page).then((datas) => {
+              const datastorender = datas["genres"];
+              datastorender.forEach((data) => {
+                const button = $("<button>")
+                  .addClass("genre-btn-click")
+                  .attr("id", data.GenreID)
+                  .text(data.GenreName);
+                button.on("click", () => changingBtnOnClick(data.GenreID));
+                genreContainer.append(button);
+              });
             });
-          });
+          }
         };
         takeAllGenre();
       });
