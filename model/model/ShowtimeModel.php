@@ -161,6 +161,31 @@ public function updateShowtime(Showtime $Showtime) {
         return (array("success" => true, "list" => $Showtimes));
     }
     
+    public function getShowtimesByDate( $date){
+        $query = "SELECT s.ShowtimeID, s.Price, s.StartTime, s.EndTime, r.RoomID, s.FormatID,s.MovieID
+            FROM Showtime s
+            JOIN Room r ON s.RoomID = r.RoomID
+            WHERE AND DATE(s.StartTime) = :date";
+    
+     
+    
+        $stmt = $this->conn->prepare($query);
+       
+        
+       
+            $stmt->bindParam(':date', $date);
+     
+        
+        $stmt->execute();
+        $Showtimes = array();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $Showtime = new Showtime( $row['Price'], $row['StartTime'], $row['MovieID'], $row['EndTime'], $row['RoomID'], $row['FormatID'], $row['ShowtimeID']);
+    
+            $Showtimes[] = $Showtime;
+        }
+        
+        return (array("success" => true, "list" => $Showtimes));
+    }
     
      public function getAllShowtimeByMovieID($moiveid, $date = null){
         $query = "SELECT ShowtimeID, Price, MovieID, StartTime, EndTime, RoomID, FormatID FROM showtime WHERE MovieID = :MovieID";

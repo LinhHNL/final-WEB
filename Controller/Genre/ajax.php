@@ -18,12 +18,13 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
     switch($action) {
         case 'getAll':
             $page = $_GET['page'];
-    echo json_encode((new GenreController)->getAllMovieGenres($page));
+            echo json_encode((new GenreController)->getAllMovieGenres($page));
             break;
         case 'getGenreById':
-    $id = $_GET['id'];
-    echo json_encode((new GenreController)->getMovieGenreById($id));
-        case 'getGenresByMovieId':
+            $id = $_GET['id'];
+            echo json_encode((new GenreController)->getMovieGenreById($id));
+            break;
+            case 'getGenresByMovieId':
             $movieid = $_GET['movieid'];
             $list = (new GenreController)->getAllGenresByMovie($movieid);
             echo $list;
