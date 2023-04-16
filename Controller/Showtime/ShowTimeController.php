@@ -22,6 +22,9 @@ class ShowTimeController {
         return (new ShowTimeModel())->deleteShowtime($id);
 
     }
+    function getShowTimeByDateAndGenre($date,$genre){
+        return (new ShowTimeModel())->getShowtimesByDateandGenre($date,$genre);
+    }
     function getShowTimeByDate($date){
         return (new ShowTimeModel())->getShowtimesByDate($date);
     }

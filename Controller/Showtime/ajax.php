@@ -40,8 +40,15 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
             
                         break;
             case 'getShowTimeByDate':
-                
-            
+                $date = $_GET['date'];
+                echo json_encode((new ShowTimeController)->getShowTimeByDate($date));
+                break;
+            case 'getShowTimeByDateAndGenre':
+                $date = $_GET['date'];
+                $genre = $_GET['genre'];
+                echo json_encode((new ShowTimeController)->getShowTimeByDateAndGenre($date,$genre));
+               
+                break;
 
     }
 }

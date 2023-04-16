@@ -203,7 +203,6 @@ class MovieModel{
             s.StudioName,
             m.story,
             m.age,
-
             l.LanguageName
         FROM `movie` m
         INNER JOIN `studio` s ON m.StudioID = s.StudioID
@@ -249,7 +248,7 @@ class MovieModel{
                     m.Time,
                     m.StudioID,
                     m.LanguageID ,
-                    m.story
+                    m.story,
                     m.age
 
                 FROM 
