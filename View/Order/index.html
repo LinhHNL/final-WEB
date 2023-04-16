@@ -37,7 +37,7 @@
     <!-- Nav -->
     <nav class="navbar navbar-expand-md fixed-top">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="../../index.html">
           <div class="logo">5CT</div>
         </a>
         <button
@@ -56,10 +56,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto d-flex w-100">
             <li class="nav-item">
-              <a class="nav-link nav-current" href="#">PHIM</a>
+              <a class="nav-link" href="#">PHIM</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">LỊCH CHIẾU</a>
+              <a class="nav-link nav-current" href="#">LỊCH CHIẾU</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">ƯU ĐÃI</a>
@@ -80,50 +80,14 @@
 
     <div class="Main_Container">
       <div class="Choosing_day_Container">
-        <img src="../../images/ArrowChangingDayBefore.png" alt="" />
-
-        <div class="item-day-holder active-thing">
-          <div class="container-icon">
-            <img src="../../images/ActiveIcon.png" alt="" />
-          </div>
-
-          <div class="day-text active">Thứ hai</div>
-          <div class="day-number active">17</div>
-          <div class="month-text active">Feb</div>
-        </div>
-        <div class="item-day-holder">
-          <div class="day-text">Thứ ba</div>
-          <div class="day-number">18</div>
-          <div class="month-text">Feb</div>
-        </div>
-        <div class="item-day-holder">
-          <div class="day-text">Thứ tư</div>
-          <div class="day-number">19</div>
-          <div class="month-text">Feb</div>
-        </div>
-        <div class="item-day-holder">
-          <div class="day-text">Thứ năm</div>
-          <div class="day-number">20</div>
-          <div class="month-text">Feb</div>
-        </div>
-        <div class="item-day-holder">
-          <div class="day-text">Thứ sáu</div>
-          <div class="day-number">21</div>
-          <div class="month-text">Feb</div>
-        </div>
-        <img src="../../images/ChangingTheDayAfterArrow.png" alt="" />
+        <img src="../../images/ArrowChangingDayBefore.png" alt="" id="prev-day"/>
+        <div class="date-Container"></div>
+        <img src="../../images/ChangingTheDayAfterArrow.png" alt="" id="next-day"/>
       </div>
+      
       <div class="divider-container"></div>
       <div class="genre-select container-fluid">
-        <div class="row btn-container">
-          <button class="btn-main">Tất cả phim</button>
-          <button>Hành động</button>
-          <button>Tâm lý</button>
-          <button>Kinh dị</button>
-          <button>Hoạt hình</button>
-          <button>Hài hước</button>
-          <button>Phiêu lưu</button>
-        </div>
+        <div class="row g-2 genre-container"></div>
       </div>
 
       <div class="card-film-item-container container-fluid">
@@ -440,8 +404,43 @@
         </div>
       </div>
     </div>
-    <script>
+    <script type="module">
+      import { getAllGenre } from "../API/GenreAPI.js";
+      import {getShowTimeByID} from "../API/ShowTimeAPI.js"
       $(document).ready(function () {
+        const date=new Date()
+        // <div class="item-day-holder active-thing">
+        //   <div class="container-icon">
+        //     <img src="../../images/ActiveIcon.png" alt="" />
+        //   </div>
+
+        //   <div class="day-text active">Thứ hai</div>
+        //   <div class="day-number active">17</div>
+        //   <div class="month-text active">Feb</div>
+        // </div>
+        // <div class="item-day-holder">
+        //   <div class="day-text">Thứ ba</div>
+        //   <div class="day-number">18</div>
+        //   <div class="month-text">Feb</div>
+        // </div>
+        // <div class="item-day-holder">
+        //   <div class="day-text">Thứ tư</div>
+        //   <div class="day-number">19</div>
+        //   <div class="month-text">Feb</div>
+        // </div>
+        // <div class="item-day-holder">
+        //   <div class="day-text">Thứ năm</div>
+        //   <div class="day-number">20</div>
+        //   <div class="month-text">Feb</div>
+        // </div>
+        // <div class="item-day-holder">
+        //   <div class="day-text">Thứ sáu</div>
+        //   <div class="day-number">21</div>
+        //   <div class="month-text">Feb</div>
+        // </div>
+        const AddingDay=(date=date.getDate())=>{
+
+        }
         $(".navbar-toggler").click(function () {
           var color = $(".navbar").css("background-color");
           if (color == "rgba(0, 0, 0, 0.01)") {
@@ -450,8 +449,152 @@
             $(".navbar").css("background", "rgba(0, 0, 0, 0.01)");
           }
         });
-      });
+        function ChangingDate(){
+        const daysOfWeek = ['Chủ nhật', 'Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy'];
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
+        // Get the date container and arrow buttons
+        const previousDateBtn = document.getElementById('prev-day');
+        const nextDateBtn = document.getElementById('next-day');
+
+        // Initialize the current date to the first day in the HTML code
+        let currentDate = new Date('April 22, 2023');
+
+        // Initialize the date container with the first five days
+        
+
+        // Update the date container with the current date
+            function updateDateContainer() {
+              $(".date-Container").html("")
+              let dateHtml = '';
+              for (let i = 0; i < 5; i++) {
+                const dayOfWeek = daysOfWeek[currentDate.getDay()];
+                const dayOfMonth = currentDate.getDate();
+                const month = months[currentDate.getMonth()];
+                const year = currentDate.getFullYear();
+                
+                const isActive = (i === 0) ? 'active' : '';
+                dateHtml += `
+                  <div class="item-day-holder ${isActive}">
+                    <div class="day-text ${isActive}">${dayOfWeek}</div>
+                    <div class="day-number ${isActive}">${dayOfMonth}</div>
+                    <div class="month-text ${isActive}">${month}</div>
+                  </div>
+                `;
+                currentDate.setDate(currentDate.getDate() + 1);
+              }
+              $(".date-Container").append(dateHtml);
+              currentDate.setDate(currentDate.getDate() - 5); // Reset the current date
+            }
+            updateDateContainer();
+            // Add click event listeners to the arrow buttons
+            previousDateBtn.addEventListener('click', () => {
+              currentDate.setDate(currentDate.getDate() - 1);
+              updateDateContainer();
+            });
+
+            nextDateBtn.addEventListener('click', () => {
+              currentDate.setDate(currentDate.getDate() + 1);
+              updateDateContainer();
+            });
+      }
+      ChangingDate();
+        function changingBtnOnClickGetAll(GenreID) {
+          const movieContainer = $(".row.g-3.movie-premier-container");
+          const GenreContainer = $(".row.g-2.genre-container");
+          movieContainer.html("");
+          const removeBtnColor = GenreContainer.find("button.btn-main");
+          removeBtnColor.removeClass("btn-main");
+          const AddingBtnColor = GenreContainer.find(`#${GenreID}`);
+          AddingBtnColor.addClass("btn-main");
+
+          getPremierMovie("../../.").then((datas) => {
+            const cuttingGenre = (data) => {
+              let storehtml = "";
+
+              data["ListGenre"].flat().forEach((element, index) => {
+                if (index == 0) {
+                  storehtml += `${element.GenreName}`;
+                } else {
+                  storehtml +=
+                    '<span class="vertical-line">|</span>' +
+                    `${element.GenreName}`;
+                }
+              });
+              return storehtml;
+            };
+            
+          });
+        }
+        function changingBtnOnClick(GenreID) {
+          const movieContainer = $(".row.g-3.movie-premier-container");
+          const GenreContainer = $(".row.g-2.genre-container");
+          movieContainer.html("");
+          const removeBtnColor = GenreContainer.find("button.btn-main");
+          removeBtnColor.removeClass("btn-main");
+          const AddingBtnColor = GenreContainer.find(`#${GenreID}`);
+          AddingBtnColor.addClass("btn-main");
+          getByGenreID("../../.", GenreID).then((datas) => {
+            console.log(datas);
+            const cuttingGenre = (data) => {
+              let storehtml = "";
+
+              data["ListGenre"].flat().forEach((element, index) => {
+                if (index == 0) {
+                  storehtml += `${element.GenreName}`;
+                } else {
+                  storehtml +=
+                    '<span class="vertical-line">|</span>' +
+                    `${element.GenreName}`;
+                }
+              });
+              return storehtml;
+            };
+            
+          });
+        }
+
+        const takeAllGenre = async () => {
+          const genreContainer = $(".row.g-2.genre-container");
+          const button = $("<button>")
+            .attr("id", "MBTN00001")
+            .addClass("btn-main all-select")
+            .text("Tất cả Phim");
+          //button.on("click", () => changingBtnOnClickGetAll("MBTN00001"));
+          genreContainer.append(button);
+          const setPageNum = async () => {
+            const datas = await getAllGenre("../../.", 1);
+            return datas["pagination"]["num_pages"];
+          };
+
+          const updatePageNum = async () => {
+            const newPageNum = await setPageNum();
+            pagenum = newPageNum;
+            return pagenum;
+          };
+
+          var pagenum = await updatePageNum();
+          for (let page = 1; page <= pagenum; page++) {
+            getAllGenre("../../.", page).then((datas) => {
+              const datastorender = datas["genres"];
+              datastorender.forEach((data) => {
+                const button = $("<button>")
+                  .addClass("genre-btn-click")
+                  .attr("id", data.GenreID)
+                  .text(data.GenreName);
+                //button.on("click", () => changingBtnOnClick(data.GenreID));
+                genreContainer.append(button);
+              });
+            });
+          }
+        };
+        takeAllGenre();
+        const getShowTimeByIDFunc = async ()=>{
+          const datas=await getShowTimeByID("../..","M002","10");
+          console.log(datas);
+        }
+        getShowTimeByIDFunc();
+      });
       // Modal trailer
 
       let modalTrailer = $("#modal-trailer");

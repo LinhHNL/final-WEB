@@ -606,3 +606,8 @@ html {
 .item-container {
   justify-content: center;
 }
+.date-Container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
