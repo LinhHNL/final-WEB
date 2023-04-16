@@ -39,4 +39,20 @@ const getByGenreID = async (url, genreid = 1, page = 1) => {
   const datatorender = await data.json();
   return datatorender;
 };
-export { getHotMovieAPI, getPremierMovie, getUpcomingMovie, getByGenreID };
+const getMovieByID = async (url, IDMovie = 1) => {
+  const data = await fetch(
+    `${url}/Controller/Movie/ajax.php?action=getMovieByID&movieid=${IDMovie}`,
+    {
+      method: "GET",
+    }
+  );
+  const datatorender = await data.json();
+  return datatorender;
+};
+export {
+  getHotMovieAPI,
+  getPremierMovie,
+  getUpcomingMovie,
+  getByGenreID,
+  getMovieByID,
+};
