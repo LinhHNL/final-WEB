@@ -39,6 +39,9 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
                 echo json_encode((new ShowTimeController)->getShowTimeByMovieIDandTheater($movieid,$Theaterid,$date));
             
                         break;
+            case 'getShowTimeByDate':
+                
+            
 
     }
 }
