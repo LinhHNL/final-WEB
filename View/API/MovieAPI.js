@@ -49,6 +49,19 @@ const getMovieByID = async (url, IDMovie = 1) => {
   const datatorender = await data.json();
   return datatorender;
 };
+
+const deleteMovie = async (url, id) => {
+  const data = await fetch(
+    `${url}/Controller/Movie/ajax.php?id=${id}`,
+    {
+      method: "DELETE",
+    }
+  );
+  const datatorender = await data.json();
+  return datatorender;
+};
+
+
 export {
   getHotMovieAPI,
   getPremierMovie,
