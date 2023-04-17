@@ -611,3 +611,9 @@ html {
   width: 100%;
   justify-content: center;
 }
+#next-day:hover {
+  cursor: pointer;
+}
+#prev-day:hover {
+  cursor: pointer;
+}

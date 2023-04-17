@@ -93,7 +93,6 @@ const deleteManager = async (url = "../..", email) => {
 };
 
 export {
-  getAllGenre,
   getAllCustomer,
   getAllManager,
   changePassword,

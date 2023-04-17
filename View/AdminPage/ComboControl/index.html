@@ -30,12 +30,8 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <link rel="stylesheet" href="homepage.css" />
     <link rel="stylesheet" href="./style.css" />
-
   </head>
   <body>
     <!-- SideBar -->
@@ -43,18 +39,23 @@
     <div class="body-container">
       <div class="header-container">
         <div class="title-place">
-          <h1 class="title-heading">Danh sách người dùng</h1>
+          <h1 class="title-heading">Danh sách phim</h1>
         </div>
         <div class="function_place">
           <button class="btn-outline content-type-normal">Thêm file</button>
           <button class="btn-outline content-type-normal">In danh sách</button>
-          <button class="btn-main content-type-normal" data-bs-toggle="modal"
-          data-bs-target="#ModalEditUser">+ Thêm form</button>
+          <button
+            class="btn-main content-type-normal"
+            data-bs-toggle="modal"
+            data-bs-target="#ModalEditUser"
+          >
+            + Thêm form
+          </button>
         </div>
       </div>
       <div class="divider-container"></div>
       <div class="search-place">
-        <div class="input-group rounded input-place" style="margin-bottom: 0;">
+        <div class="input-group rounded input-place" style="margin-bottom: 0">
           <input
             type="search"
             class="form-control rounded"
@@ -68,31 +69,97 @@
             class="btn btn-secondary dropdown-toggle"
             type="button"
             id="dropdownMenuButton"
-            data-toggle="dropdown"
+            data-bs-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
           >
-            Khu vực
+            Ngôn ngữ
           </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="#">Action</a>
             <a class="dropdown-item" href="#">Another action</a>
             <a class="dropdown-item" href="#">Something else here</a>
           </div>
         </div>
-        
-       
-        
+        <div class="dropdown dropdown-choosing">
+          <button
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-bs-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Thể loại
+          </button>
+          <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </div>
+        <div class="dropdown dropdown-choosing">
+          <button
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-bs-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Thời lượng
+          </button>
+          <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
+
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </div>
+        <div class="dropdown dropdown-choosing">
+          <button
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-bs-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Đánh giá
+          </button>
+          <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
+
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </div>
         <button class="btn-main content-type-normal">Tìm kiếm</button>
       </div>
       <div class="divider-container"></div>
       <div class="transition-place">
         <div class="item-choosing-block">
-          <p class="all-user" style="margin-bottom: 12px!important">Tất cả người dùng</p>
+          <p class="all-film" style="margin-bottom: 12px !important">
+            Tất cả phim
+          </p>
           <div class="divider-mini"></div>
         </div>
         <div class="item-choosing-block">
-          <p class="user-favor">Khách hàng thân thiết</p>
+          <p class="hot-film" style="margin-bottom: 12px !important">
+            Phim hot
+          </p>
+          <div class="divider-mini hidden"></div>
+        </div>
+        <div class="item-choosing-block">
+          <p class="premiere-film" style="margin-bottom: 12px !important">
+            Phim đang chiếu
+          </p>
+          <div class="divider-mini hidden"></div>
+        </div>
+        <div class="item-choosing-block">
+          <p class="upcoming-film" style="margin-bottom: 12px !important">
+            Phim sắp chiếu
+          </p>
           <div class="divider-mini hidden"></div>
         </div>
       </div>
@@ -112,7 +179,7 @@
           </select>
         </div>
       </div>
-    
+
       <div class="datagrid-place">
         <table
           id="table-content"
@@ -121,129 +188,21 @@
         >
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Họ và Tên</th>
-              <th>SĐT</th>
-              <th>Email</th>
-              <th>Mật Khẩu</th>
-              <th>Ngày sinh</th>
-              <th>Khu vực</th>
-              <th>Rạp yêu thích</th>
+              <th>Mã phim</th>
+              <th>Poster</th>
+              <th>Tên phim</th>
+              <th>Diễn viên</th>
+              <th>Thể loại</th>
+              <th>Khởi chiếu</th>
+              <th>Thời lượng</th>
+              <th>Ngôn ngữ</th>
+              <th>Đạo diễn</th>
+              <th>Đánh giá</th>
+              <th>Mô tả</th>
+              <th>Trailer</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>KH1</td>
-              <td>Nguyễn Văn A</td>
-              <td>0987654321</td>
-              <td>5coder@gmail.com</td>
-              <td>*************</td>
-              <td>01/01/2003</td>
-              <td>TP Hồ Chí Minhh</td>
-              <td>Nam Sài Gòn</td>
-
-            </tr>
-            <tr>
-                <td>KH2</td>
-                <td>Nguyễn Văn A</td>
-                <td>0987654321</td>
-                <td>5coder@gmail.com</td>
-                <td>*************</td>
-                <td>01/01/2003</td>
-                <td>TP Hồ Chí Minhh</td>
-                <td>Nam Sài Gòn</td>>
-            </tr>
-            <tr>
-                <td>KH1</td>
-                <td>Nguyễn Văn A</td>
-                <td>0987654321</td>
-                <td>5coder@gmail.com</td>
-                <td>*************</td>
-                <td>01/01/2003</td>
-                <td>TP Hồ Chí Minhh</td>
-                <td>Nam Sài Gòn</td>
-            </tr>
-            <tr>
-                <td>KH1</td>
-                <td>Nguyễn Văn A</td>
-                <td>0987654321</td>
-                <td>5coder@gmail.com</td>
-                <td>*************</td>
-                <td>01/01/2003</td>
-                <td>TP Hồ Chí Minhh</td>
-                <td>Nam Sài Gòn</td>
-            </tr>
-            <tr>
-                <td>KH1</td>
-                <td>Nguyễn Văn A</td>
-                <td>0987654321</td>
-                <td>5coder@gmail.com</td>
-                <td>*************</td>
-                <td>01/01/2003</td>
-                <td>TP Hồ Chí Minhh</td>
-                <td>Nam Sài Gòn</td>
-            </tr>
-            <tr>
-                <td>KH1</td>
-                <td>Nguyễn Văn A</td>
-                <td>0987654321</td>
-                <td>5coder@gmail.com</td>
-                <td>*************</td>
-                <td>01/01/2003</td>
-                <td>TP Hồ Chí Minhh</td>
-                <td>Nam Sài Gòn</td>
-            </tr>
-            <tr>
-                <td>KH1</td>
-                <td>Nguyễn Văn A</td>
-                <td>0987654321</td>
-                <td>5coder@gmail.com</td>
-                <td>*************</td>
-                <td>01/01/2003</td>
-                <td>TP Hồ Chí Minhh</td>
-                <td>Nam Sài Gòn</td>
-            </tr>
-            <tr>
-                <td>KH1</td>
-                <td>Nguyễn Văn A</td>
-                <td>0987654321</td>
-                <td>5coder@gmail.com</td>
-                <td>*************</td>
-                <td>01/01/2003</td>
-                <td>TP Hồ Chí Minhh</td>
-                <td>Nam Sài Gòn</td>
-            </tr>
-            <tr>
-                <td>KH1</td>
-                <td>Nguyễn Văn A</td>
-                <td>0987654321</td>
-                <td>5coder@gmail.com</td>
-                <td>*************</td>
-                <td>01/01/2003</td>
-                <td>TP Hồ Chí Minhh</td>
-                <td>Nam Sài Gòn</td>
-            </tr>
-            <tr>
-                <td>KH1</td>
-                <td>Nguyễn Văn A</td>
-                <td>0987654321</td>
-                <td>5coder@gmail.com</td>
-                <td>*************</td>
-                <td>01/01/2003</td>
-                <td>TP Hồ Chí Minhh</td>
-                <td>Nam Sài Gòn</td>
-            </tr>
-            <tr>
-                <td>KH1</td>
-                <td>Nguyễn Văn A</td>
-                <td>0987654321</td>
-                <td>5coder@gmail.com</td>
-                <td>*************</td>
-                <td>01/01/2003</td>
-                <td>TP Hồ Chí Minhh</td>
-                <td>Nam Sài Gòn</td>
-            </tr>
-          </tbody>
+          <tbody></tbody>
         </table>
       </div>
       <div class="change-table-place">
@@ -275,7 +234,6 @@
               viewBox="0 0 25 24"
               fill="#474851"
               xmlns="http://www.w3.org/2000/svg"
-              class="active"
             >
               <path
                 d="M12.5 0C14.0913 0 15.6174 0.632141 16.7426 1.75736C17.8679 2.88258 18.5 4.4087 18.5 6C18.5 7.5913 17.8679 9.11742 16.7426 10.2426C15.6174 11.3679 14.0913 12 12.5 12C10.9087 12 9.38258 11.3679 8.25736 10.2426C7.13214 9.11742 6.5 7.5913 6.5 6C6.5 4.4087 7.13214 2.88258 8.25736 1.75736C9.38258 0.632141 10.9087 0 12.5 0ZM12.5 3C11.7044 3 10.9413 3.31607 10.3787 3.87868C9.81607 4.44129 9.5 5.20435 9.5 6C9.5 6.79565 9.81607 7.55871 10.3787 8.12132C10.9413 8.68393 11.7044 9 12.5 9C13.2956 9 14.0587 8.68393 14.6213 8.12132C15.1839 7.55871 15.5 6.79565 15.5 6C15.5 5.20435 15.1839 4.44129 14.6213 3.87868C14.0587 3.31607 13.2956 3 12.5 3ZM12.5 13.5C16.505 13.5 24.5 15.495 24.5 19.5V24H0.5V19.5C0.5 15.495 8.495 13.5 12.5 13.5ZM12.5 16.35C8.045 16.35 3.35 18.54 3.35 19.5V21.15H21.65V19.5C21.65 18.54 16.955 16.35 12.5 16.35Z"
@@ -295,7 +253,7 @@
               </defs>
             </svg>
           </span>
-          <p class="item-description active">Người dùng</p>
+          <p class="item-description">Người dùng</p>
         </div>
       </a>
       <a href="../FilmControl/index.html">
@@ -393,7 +351,7 @@
         </div>
       </a>
 
-      <a href="../ComboControl/index.html">
+      <a href="#">
         <div class="item-container">
           <span class="item-icon">
             <svg
@@ -402,6 +360,7 @@
               viewBox="0 0 22 22"
               fill="#474851"
               xmlns="http://www.w3.org/2000/svg"
+              class="active"
             >
               <path
                 d="M17.06 22H18.72C19.56 22 20.25 21.35 20.35 20.53L22 4.05H17V0H15.03V4.05H10.06L10.36 6.39C12.07 6.86 13.67 7.71 14.63 8.65C16.07 10.07 17.06 11.54 17.06 13.94V22ZM0 21V20H15.03V21C15.03 21.54 14.58 22 14 22H1C0.45 22 0 21.54 0 21ZM15.03 14C15.03 6 0 6 0 14H15.03ZM0 16H15V18H0V16Z"
@@ -421,7 +380,7 @@
               </defs>
             </svg>
           </span>
-          <p class="item-description">Combo</p>
+          <p class="item-description active">Combo</p>
         </div>
       </a>
 
@@ -486,6 +445,7 @@
         <p class="item-description">Đăng xuất</p>
       </div>
     </div>
+    <!-- Modal -->
     <div
       class="modal fade"
       id="ModalEditUser"
@@ -500,71 +460,116 @@
               <div class="container-fluid">
                 <div class="row gy-4 gx-5">
                   <div class="col-6">
-                    <span class="form-title"> Họ và tên </span>
+                    <span class="form-title"> Mã phim </span>
                     <input
                       type="text"
                       class="form-control"
-                      aria-label="Username"
+                      aria-label="IDPhim"
                       aria-describedby="addon-wrapping"
                     />
                   </div>
                   <div class="col-6">
-                    <span class="form-title"> Ngày sinh </span>
+                    <span class="form-title"> Thời lượng </span>
                     <input
-                      type="date"
+                      type="text"
                       class="form-control"
-                      aria-label="Birthday"
+                      aria-label="Time"
                       aria-describedby="addon-wrapping"
-                      placeholder="dd/mm/yy"
-                      id="birthday"
+                      id="time"
                     />
                   </div>
 
                   <div class="col-6">
-                    <span class="form-title"> Số điện thoại </span>
+                    <span class="form-title"> Tên phim </span>
                     <input
                       type="text"
                       class="form-control"
-                      aria-label="Username"
+                      aria-label="ID_Film"
                       aria-describedby="addon-wrapping"
                     />
                   </div>
                   <div class="col-6">
-                    <span class="form-title"> Khu vực </span>
+                    <span class="form-title"> Ngôn ngữ </span>
                     <input
                       type="text"
                       class="form-control"
-                      aria-label="Username"
+                      aria-label="Language"
                       aria-describedby="addon-wrapping"
                     />
                   </div>
                   <div class="col-6">
-                    <span class="form-title"> Email </span>
+                    <span class="form-title"> Link Poster </span>
                     <input
                       type="text"
                       class="form-control"
-                      aria-label="Username"
+                      aria-label="Poster Link"
                       aria-describedby="addon-wrapping"
                     />
                   </div>
                   <div class="col-6">
-                    <span class="form-title"> Rạp yêu thích </span>
+                    <span class="form-title"> Đạo Diễn </span>
                     <input
                       type="text"
                       class="form-control"
-                      aria-label="Username"
+                      aria-label="Producer_name"
                       aria-describedby="addon-wrapping"
                     />
                   </div>
                   <div class="col-6">
-                    <span class="form-title"> Mật khẩu </span>
+                    <span class="form-title"> Diễn viên </span>
                     <input
                       type="text"
                       class="form-control"
-                      aria-label="Username"
+                      aria-label="Actor_Name"
                       aria-describedby="addon-wrapping"
                     />
                   </div>
+                  <div class="col-6">
+                    <span class="form-title"> Rated </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Rating"
+                      aria-describedby="addon-wrapping"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Thể loại </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Type_Film"
+                      aria-describedby="addon-wrapping"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Mô tả </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Description"
+                      aria-describedby="addon-wrapping"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Khởi chiếu </span>
+                    <input
+                      type="date"
+                      class="form-control"
+                      aria-label="datefilm"
+                      aria-describedby="addon-wrapping"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Link Trailer </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Trailer_Link"
+                      aria-describedby="addon-wrapping"
+                    />
+                  </div>
+
                   <div class="col-6"></div>
                 </div>
               </div>
@@ -585,7 +590,7 @@
                   id="btn_EditUser"
                   style="border-radius: 10px"
                 >
-                  Sửa người dùng
+                  Thêm phim
                 </button>
               </div>
               <div class="col-4"></div>
@@ -594,13 +599,87 @@
         </div>
       </div>
     </div>
-    <script>
-      $(document).ready(function () {
-      $('#table-content').DataTable();
-      $(".dataTables_length").hide();
-      $("#table-content_filter").hide();
-      $(".pagination").hide();
-});
+    <script type="module">
+      import {
+        getHotMovieAPI,
+        getPremierMovie,
+        getUpcomingMovie,
+        getByGenreID,
+        getMovieByID,
+      } from "../../API/MovieAPI.js";
+      let currentData;
+
+      $(document).ready(() => {
+        $(".item-choosing-block").click(function () {
+          $(".item-choosing-block .divider-mini").remove();
+          $(this).append("<div class=divider-mini></div>");
+        });
+
+        $(".hot-film").click(showHotMovie);
+        $(".premiere-film").click(showPremiereMovie);
+        $(".upcoming-film").click(showUpcomingMovie);
+        $(".value-place").change(function (e) {
+          let numPage = $(".text-place").text();
+          if ($(this) > numPage) $(this).val(numPage);
+          showData(currentData);  
+        });
+      });
+
+      function showData(data) {
+        currentData = data;
+        $("#table-content tbody").empty();
+        let rowLimit = $(".select-place").val();
+        let numRow = data.length;
+        let numPage = numRow < rowLimit ? 1 : Math.floor(numRow / rowLimit);
+        let currentPage = $(".value-place").val();
+        let startIndex = rowLimit * (currentPage - 1);
+
+        $(".text-place").text(numPage);
+        $(".heading-result").text(
+          `Hiển thị ${startIndex + 1} - ${
+            startIndex + rowLimit < numRow ? startIndex + rowLimit : numRow
+          } của ${numRow} kết quả tìm kiểm`
+        );
+        for (let i = startIndex; i < startIndex + rowLimit && i < numRow; i++) {
+          let actorList = [];
+          data[i].ListActor.forEach((actor) => {
+            actorList.push(actor.NameActor);
+          });
+
+          let genreList = [];
+          data[i].ListGenre.forEach((genre) => {
+            genreList.push(genre.NameGenre);
+          });
+          let html = `<tr>
+              <td>${data[i].MovieID}</td>
+              <td>${data[i].listImage[0]}</td>
+              <td>${data[i].MovieName}</td>
+              <td>${actorList.join(", ")}</td>
+              <td>${genreList.join(", ")}g</td>
+              <td>${data[i].Premiere}</td>
+              <td>${data[i].Time}</td>
+              <td>${data[i].LanguageID}</td>
+              <td>${data[i].Director}</td>
+              <td style="color: #fbc300; font-weight: 500;">
+                  ${data[i].rating}
+              </td>
+              <td>${data[i].story}</td>
+              <td>${data[i].URLTrailer}</td>
+            </tr>`;
+          $("#table-content tbody").append(html);
+        }
+      }
+
+      function showHotMovie() {
+        getHotMovieAPI("../../..").then((data) => showData(data));
+      }
+
+      function showPremiereMovie() {
+        getPremierMovie("../../..").then((data) => showData(data));
+      }
+      function showUpcomingMovie() {
+        getUpcomingMovie("../../..").then((data) => showData(data));
+      }
     </script>
   </body>
 </html>
