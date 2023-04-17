@@ -31,7 +31,7 @@ class MenuModel {
             $Name = $Menu->get_Name();
             $Price = $Menu->get_Price();
             $ImageURL = $Menu->get_ImageURL();
-
+            $status = $Menu->getStatus();
             $stmt->bindParam(':ItemID', $ItemID);
             $stmt->bindParam(':Name', $Name);
             $stmt->bindParam(':Price', $Price);
@@ -99,7 +99,7 @@ public function updateMenu(Menu $Menu) {
     
         $menus = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $menu = new Menu($row['Name'], $row['Price'], $row['ImageURL'], $row['status'], $row['ItemID']);
+            $menu = new Menu($row['Name'], $row['ImageURL'],$row['Price'], $row['status'], $row['ItemID']);
             $menus[] = $menu;
         }
     

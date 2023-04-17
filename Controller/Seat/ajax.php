@@ -23,14 +23,11 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
         case 'getSeatById':
     $id = $_GET['id'];
     echo json_encode((new SeatController)->getSeatById($id));
-
             break;
             case 'getSeatByRoomID':
                 $roomID = $_GET['room_id'];
                 echo json_encode((new SeatController)->getAllSeatsByRoomID($roomID));
                 break;
-
-
     }
 }
 if($_SERVER['REQUEST_METHOD'] == 'PUT') {
