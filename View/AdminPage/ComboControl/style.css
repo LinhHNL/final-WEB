@@ -4,6 +4,7 @@
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
 }
+
 html {
   height: 100%;
   background-color: #14181D;
@@ -43,7 +44,7 @@ html {
 }
 .sidebar-container:hover {
   width: 300px;
-  cursor: pointer;
+  cursor: pointer;  
 }
 
 .sidebar-container:hover .item-description   {
@@ -135,7 +136,6 @@ svg.active {
   white-space: nowrap;
   margin: 0;
 }
-
 .btn-outline.content-type-normal {
   font-family: "Montserrat";
   font-style: normal;
@@ -261,12 +261,12 @@ svg.active {
 .table-place th {
   text-align: center  ;
 }
+
 .rating {
   font-size: 16px;
   font-weight: 500;
   display: flex;
   flex-direction: row;
-  line-height: 20px;
   align-items: center;
   color: #fbc300;
   margin-bottom: 16px;
@@ -330,7 +330,8 @@ p {
   font-weight: 400;
   font-size: 16px;
   color: white;
-}
+}   
+
 .select-place {
   max-width: 85px;
   max-height: 40px;
@@ -380,15 +381,14 @@ p {
   box-shadow: none;
 }
 
-input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+input[type="date"]::-webkit-calendar-picker-indicator {
   color: white;
   background-image: url(/images/calendarSVG.svg);
   cursor: pointer;
 }
 
 input[type="text"],
-input[type="datetime-local"],
-input[type="number"] {
+input[type="date"] {
   color: white;
   background-color: black;
   border: none;
@@ -399,8 +399,7 @@ input[type="number"] {
 }
 
 input[type="text"]:focus,
-input[type="datetime-local"]:focus,
-input[type="number"]:focus {
+input[type="date"]:focus {
   box-sizing: border-box !important;
   color: white;
   background: black;
