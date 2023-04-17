@@ -304,9 +304,9 @@
             let actorhtml = await cuttingActor(data);
             let htmls = "";
             if (index == 0) {
-              htmls = `<div class="carousel-item active">`;
+              htmls = `<div id=${data.MovieID} class="carousel-item active">`;
             } else {
-              htmls = `<div class="carousel-item">`;
+              htmls = `<div id=${data.MovieID} class="carousel-item">`;
             }
             htmls +=
               `
@@ -344,10 +344,12 @@
                   TRAILER
                   <img src="./images/play.svg" alt="" />
                 </button>
+                <a href="./View/Detail/index.html" style="text-decoration:None">
                 <button class="btn-main btn-book">
                   ĐẶT VÉ
                   <img src="./images/Arrow_right_long.svg" alt="" />
                 </button>
+              </a>
               </div>
             </div>
             <div class="background">
@@ -358,7 +360,13 @@
               ></div>
             </div>
           </div>`;
-            $(".carousel-inner").append(htmls);
+            await $(".carousel-inner").append(htmls);
+            $(".btn-main.btn-book").on("click", () => {
+              const dataIdNeededToChoose = $(".carousel-item.active").attr(
+                "id"
+              );
+              sessionStorage.setItem("MovieIDSelected", dataIdNeededToChoose);
+            });
           });
         });
         // Gọi phim đang chiếu
@@ -400,7 +408,9 @@
                       <img src="./images/timer.svg" alt="" />
                       ${data.Time}
                     </div>
-                    <button class="btn-outline">Chi tiết</button>
+                    <a href="./View/Detail/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
+                    <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
+                    </a>
                     <button class="btn-main">Đặt vé</button>
                   </div>
                   <img class="poster" src="./images/poster-2.jpg" alt="" />
@@ -413,6 +423,9 @@
                 <div class="movie-title">${data.MovieName}</div>
               </div>`;
             $(".row.g-3.movie-premier-container").append(htmls);
+            $(".btn-outline").bind("click", (e) => {
+              sessionStorage.setItem("MovieIDSelected", e.target.id);
+            });
           });
         });
         // Gọi phim chuẩn bị chiếu
@@ -495,7 +508,6 @@
               return storehtml;
             };
             datas.forEach(async (data, index) => {
-              console.log(data);
               let genrehtml = await cuttingGenre(data);
               let htmls = "";
               htmls +=
@@ -518,7 +530,9 @@
                       <img src="./images/timer.svg" alt="" />
                       ${data.Time}
                     </div>
-                    <button class="btn-outline">Chi tiết</button>
+                    <a href="./View/Detail/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
+                    <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
+                    </a>
                     <button class="btn-main">Đặt vé</button>
                   </div>
                   <img class="poster" src="./images/poster-2.jpg" alt="" />
@@ -531,6 +545,9 @@
                 <div class="movie-title">${data.MovieName}</div>
               </div>`;
               $(".row.g-3.movie-premier-container").append(htmls);
+              $(".btn-outline").bind("click", (e) => {
+                sessionStorage.setItem("MovieIDSelected", e.target.id);
+              });
             });
           });
         }
@@ -581,7 +598,9 @@
                       <img src="./images/timer.svg" alt="" />
                       ${data.Time}
                     </div>
-                    <button class="btn-outline">Chi tiết</button>
+                    <a href="./View/Detail/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
+                    <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
+                    </a>
                     <button class="btn-main">Đặt vé</button>
                   </div>
                   <img class="poster" src="./images/poster-2.jpg" alt="" />
@@ -594,16 +613,12 @@
                 <div class="movie-title">${data.MovieName}</div>
               </div>`;
               $(".row.g-3.movie-premier-container").append(htmls);
+              $(".btn-outline").bind("click", (e) => {
+                sessionStorage.setItem("MovieIDSelected", e.target.id);
+              });
             });
           });
         }
-
-        /* <button
-                onclick="()=>changingBtnOnClickGetAll()"
-                class="btn-main all-select"
-              >
-                Tất cả phim
-              </button>*/
         const takeAllGenre = async () => {
           const genreContainer = $(".row.g-2.genre-container");
           const button = $("<button>")
