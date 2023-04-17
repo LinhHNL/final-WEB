@@ -193,6 +193,7 @@
           return data;
         };
         const TakingShowTime = async () => {
+          await changingBtnOnClickGetAll("MBTN00001", false);
           await $(".card-film-item-container").html("");
           const IdMovieContainerCheck = [];
           const IdRoomContainerCheck = [];
@@ -369,13 +370,15 @@
           updateDateContainer();
         }
         ChangingDate();
-        function changingBtnOnClickGetAll(GenreID) {
+        function changingBtnOnClickGetAll(GenreID, callingagain = true) {
           const GenreContainer = $(".row.g-2.genre-container");
           const removeBtnColor = GenreContainer.find("button.btn-main");
           removeBtnColor.removeClass("btn-main");
           const AddingBtnColor = GenreContainer.find(`#${GenreID}`);
           AddingBtnColor.addClass("btn-main");
-          TakingShowTime();
+          if (callingagain) {
+            TakingShowTime();
+          }
         }
         function changingBtnOnClick(GenreID) {
           const GenreContainer = $(".row.g-2.genre-container");
@@ -386,7 +389,7 @@
           const IdMovieContainerCheck = [];
           const IdRoomContainerCheck = [];
           const datetoFetch = sessionStorage.getItem("DayChoosing");
-          // UpWorking
+          // Lấy phim Dựa Vào Ngày và Thể Loại
           getShowTimeByDateAndGenre("../../.", "2022-10-10", GenreID).then(
             async (datas) => {
               await $(".card-film-item-container").html("");
@@ -466,10 +469,7 @@
                         <p class="seat-info"><b>${RoomData.NumberOfSeats}</b>/100 chỗ ngồi</p>
                       </div>
                       `;
-                  let count = 0;
-                  $(window).load(() => {
-                    $(".item-container.row").append(timehtmls);
-                  });
+                  $(".item-container.row").append(timehtmls);
                 }
               });
             }

@@ -114,102 +114,9 @@
       class="carousel slide"
       data-bs-ride="carousel container-sm"
     >
-      <div class="carousel-indicators row">
-        <button
-          type="button"
-          data-bs-target="#movie-slide"
-          data-bs-slide-to="0"
-          class="active"
-          aria-current="true"
-          aria-label="Slide 1"
-        >
-          <img
-            class="thumbnail-img trailer-thumbnail"
-            src="../../images/trailer-thumbnail.jpg"
-            alt=""
-          />
-        </button>
-        <button
-          type="button"
-          data-bs-target="#movie-slide"
-          data-bs-slide-to="1"
-          aria-label="Slide 2"
-        >
-          <img class="thumbnail-img" src="../../images/scene-1.jpg" alt="" />
-        </button>
-      </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <div class="background">
-            <div
-              class="movie-preview-img"
-              style="
-                background-image: url('../../images/trailer-thumbnail.jpg');
-              "
-            >
-              <button
-                class="play-btn"
-                data-toggle="modal"
-                data-target="#modal-trailer"
-                type="button"
-              ></button>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="background">
-            <div
-              class="movie-preview-img"
-              style="background-image: url('../../images/scene-1.jpg')"
-            ></div>
-          </div>
-        </div>
-
-        <button
-          class="carousel-control-prev"
-          type="button"
-          data-bs-target="#movie-slide"
-          data-bs-slide="prev"
-        >
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button
-          class="carousel-control-next"
-          type="button"
-          data-bs-target="#movie-slide"
-          data-bs-slide="next"
-        >
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-      <div class="movie-content">
-        <div class="rating">
-          <div class="rating-star">
-            <img src="../../images/Star.svg" alt="" />
-            7.8
-          </div>
-          <div class="rating-imdb">IMDB 7.2</div>
-        </div>
-        <div class="movie-title">
-          Người Kiến và Chiến binh Ong: Thế giới Lượng tử
-        </div>
-        <div class="movie-info">
-          <span class="duration">2h 5m</span>
-          <span class="dot">●</span>
-          <span class="premier-date">17/02/2023</span>
-          <span class="dot">●</span>
-          <span class="country">USA</span>
-        </div>
-
-        <div class="button-container">
-          <button class="btn-main btn-book">
-            ĐẶT VÉ
-            <img src="../../images/Arrow_right_long.svg" alt="" />
-          </button>
-        </div>
-      </div>
+      <div class="carousel-indicators row"></div>
+      <div class="carousel-inner"></div>
+      <div class="movie-content"></div>
     </div>
     <!--  -->
     <div class="main-container">
@@ -218,50 +125,14 @@
         <div class="about">
           <div class="about-content container-fluid">
             <div class="row mt-5">
-              <div id="about-poster" class="col-lg-5 col-md-6 col-sm-12 pt-5">
-                <img
-                  id="about-poster-img"
-                  src="../../images/poster-about.jpg"
-                />
-              </div>
-              <div id="about-describe" class="col-lg-6 col-md-6 col-sm-12">
-                <div class="about-kind">
-                  <ul>
-                    <li>PHIÊU LƯU</li>
-                    <li>GIẢ TƯỞNG</li>
-                    <li>HÀNH ĐỘNG</li>
-                  </ul>
-                </div>
-                <div class="about-line">
-                  <p>Mô tả</p>
-                  <p class="about-short">
-                    Scott Lang và Hope Van Dyne trở lại tiếp tục cuộc phiêu lưu
-                    của họ với vai trò Người Kiến và Chiến binh Ong. Cùng với
-                    cha mẹ của Hope, họ sẽ có chuyến khám phá Lượng Tử Giới, gặp
-                    gỡ những sinh vật mới lạ và bắt đầu cuộc hành trình vào thế
-                    giới lượng tử.
-                  </p>
-                </div>
-                <div class="about-line">
-                  <p>Ngày khởi chiếu</p>
-                  <p>17/02/2023</p>
-                </div>
-                <div class="about-line">
-                  <p>Diễn viên</p>
-                  <p class="about-short">
-                    Paul Rudd, Kathryn Newton, Jonathan Majors, Evangeline
-                    Lilly, Tony McCarthy
-                  </p>
-                </div>
-                <div class="about-line">
-                  <p>Đạo diễn</p>
-                  <p>Peyton Reed</p>
-                </div>
-                <div class="about-line">
-                  <p>Giới hạn độ tuổi</p>
-                  <p>16+</p>
-                </div>
-              </div>
+              <div
+                id="about-poster"
+                class="col-lg-5 col-md-6 col-sm-12 pt-5"
+              ></div>
+              <div
+                id="about-describe"
+                class="col-lg-6 col-md-6 col-sm-12"
+              ></div>
               <div class="about-background"></div>
             </div>
           </div>
@@ -279,51 +150,10 @@
         </div>
         <div class="line"></div>
         <div class="genre-select container-fluid">
-          <div class="row g-2">
-            <button class="btn-main">Tất cả phim</button>
-            <button>Hành động</button>
-            <button>Tâm lý</button>
-            <button>Kinh dị</button>
-            <button>Hoạt hình</button>
-            <button>Hài hước</button>
-            <button>Phiêu lưu</button>
-          </div>
+          <div class="row g-2 genre-container"></div>
         </div>
         <div class="cards-container container-fluid">
-          <div class="row g-3">
-            <div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
-              <div class="card-img">
-                <div class="card-info">
-                  <img
-                    src="../../images/Star.svg"
-                    alt=""
-                    width="22px"
-                    height="22px"
-                  />
-                  <div class="rating">7.8 / 10</div>
-                  <div class="age">13+</div>
-                  <div class="date">
-                    <img src="../../images/date.svg" alt="" />
-                    18-02-2019
-                  </div>
-                  <div class="duration">
-                    <img src="../../images/timer.svg" alt="" />
-                    1g 56p
-                  </div>
-                  <button class="btn-outline">Chi tiết</button>
-                  <button class="btn-main">Đặt vé</button>
-                </div>
-                <img class="poster" src="../../images/poster-2.jpg" alt="" />
-              </div>
-
-              <div class="movie-genre">
-                Tâm lý
-                <span class="vertical-line">|</span>
-                Tình cảm
-              </div>
-              <div class="movie-title">Mắt biếc</div>
-            </div>
-          </div>
+          <div class="row g-3 movie-premier-container"></div>
         </div>
       </div>
       <br />
@@ -392,7 +222,13 @@
       </div>
     </div>
     <script type="module">
-      import { getMovieByID } from "../API/MovieAPI.js";
+      import {
+        getMovieByID,
+        getPremierMovie,
+        getByGenreID,
+      } from "../API/MovieAPI.js";
+      import { getAllGenre } from "../API/GenreAPI.js";
+
       $(document).ready(function () {
         $(".navbar-toggler").click(function () {
           var color = $(".navbar").css("background-color");
@@ -403,16 +239,433 @@
           }
         });
       });
-      const renderMovie = async () => {
+      getPremierMovie("../../.").then((datas) => {
+        const cuttingGenre = (data) => {
+          let storehtml = "";
+
+          data["ListGenre"].flat().forEach((element, index) => {
+            if (index == 0) {
+              storehtml += `${element.GenreName}`;
+            } else {
+              storehtml +=
+                '<span class="vertical-line">|</span>' + `${element.GenreName}`;
+            }
+          });
+          return storehtml;
+        };
+        datas.forEach(async (data, index) => {
+          let genrehtml = await cuttingGenre(data);
+          let htmls = "";
+          htmls +=
+            `<div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
+                <div class="card-img">
+                  <div class="card-info">
+                    <img
+                      src="../../images/Star.svg"
+                      alt=""
+                      width="22px"
+                      height="22px"
+                    />
+                    <div class="rating">${data.rating} / 10</div>
+                    <div class="age">${data.age}</div>
+                    <div class="date">
+                      <img src="../../images/date.svg" alt="" />
+                      ${data.Premiere}
+                    </div>
+                    <div class="duration">
+                      <img src="../../images/timer.svg" alt="" />
+                      ${data.Time}
+                    </div>
+                    <a href="./index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
+                    <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
+                    </a>
+                    <button class="btn-main">Đặt vé</button>
+                  </div>
+                  <img class="poster" src="${data.listImage[0]}" alt="" />
+                </div>
+
+                <div class="movie-genre">
+                 ` +
+            genrehtml +
+            `</div>
+                <div class="movie-title">${data.MovieName}</div>
+              </div>`;
+          $(".row.g-3.movie-premier-container").append(htmls);
+          $(".btn-outline").bind("click", (e) => {
+            sessionStorage.setItem("MovieIDSelected", e.target.id);
+          });
+        });
+      });
+      // Fetch API tổng
+      (async function renderMovie() {
         const MovieIDTaking = sessionStorage.getItem("MovieIDSelected")
           ? sessionStorage.getItem("MovieIDSelected")
           : "M0001";
         let data = await getMovieByID("../../.", MovieIDTaking);
-        console.log(data);
+        addCarouselInner(data);
+        addIntoMovieInfo(data);
+        addIntoCasourelIndicator(data);
+        addMovieContent(data);
+      })();
+      const takeAllGenre = async () => {
+        const genreContainer = $(".row.g-2.genre-container");
+        const button = $("<button>")
+          .attr("id", "MBTN00001")
+          .addClass("btn-main all-select")
+          .text("Tất cả Phim");
+        button.on("click", () => changingBtnOnClickGetAll("MBTN00001"));
+        genreContainer.append(button);
+        const setPageNum = async () => {
+          const datas = await getAllGenre("../../.", 1);
+          return datas["pagination"]["num_pages"];
+        };
+
+        const updatePageNum = async () => {
+          const newPageNum = await setPageNum();
+          pagenum = newPageNum;
+          return pagenum;
+        };
+
+        var pagenum = await updatePageNum();
+        for (let page = 1; page <= pagenum; page++) {
+          getAllGenre("../../.", page).then((datas) => {
+            const datastorender = datas["genres"];
+            datastorender.forEach((data) => {
+              const button = $("<button>")
+                .addClass("genre-btn-click")
+                .attr("id", data.GenreID)
+                .text(data.GenreName);
+              button.on("click", () => changingBtnOnClick(data.GenreID));
+              genreContainer.append(button);
+            });
+          });
+        }
       };
-      renderMovie();
+      // Render Genre
+      (async function renderGenre() {
+        takeAllGenre();
+      })();
       // Modal trailer
 
+      // Thêm dữ liệu vào Carousel
+      async function addCarouselInner(data) {
+        const datatoadd = data["movie"];
+        let flag = 0;
+        let htmls = ``;
+        for (const element of datatoadd["listImage"]) {
+          if (flag == 0) {
+            flag = 1;
+            htmls += `<div class="background">
+            <div
+              class="movie-preview-img"
+              style="
+                background-image: url('${element}');
+              "
+            >
+              <button
+                class="play-btn"
+                data-toggle="modal"
+                data-target="#modal-trailer"
+                type="button"
+              ></button>
+            </div>
+          </div>`;
+          } else {
+            htmls += ` <div class="carousel-item active">
+          </div>
+          <div class="carousel-item">
+            <div class="background">
+              <div
+                class="movie-preview-img"
+                style="background-image: url('${element}')"
+              ></div>
+            </div>
+          </div>`;
+          }
+          htmls += `  <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#movie-slide"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#movie-slide"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>`;
+          $(".carousel-inner").append(htmls);
+        }
+      }
+      // Thêm dữ liệu vào Movie
+      async function addIntoMovieInfo(data) {
+        const datatoadd = data["movie"];
+        const htmls = `<div class="rating">
+          <div class="rating-star">
+            <img src="../../images/Star.svg" alt="" />
+           ${datatoadd.rating}
+          </div>
+          <div class="rating-imdb">IMDB 7.2</div>
+        </div>
+        <div class="movie-title">
+          ${datatoadd.MovieName}
+        </div>
+        <div class="movie-info">
+          <span class="duration">${datatoadd.Time}</span>
+          <span class="dot">●</span>
+          <span class="premier-date">${datatoadd.Premiere}</span>
+          <span class="dot">●</span>
+        </div>
+
+        <div class="button-container">
+          <button class="btn-main btn-book">
+            ĐẶT VÉ
+            <img src="../../images/Arrow_right_long.svg" alt="" />
+          </button>
+        </div>`;
+        $(".movie-content").append(htmls);
+      }
+      // Thêm dữ liệu vào Casourel-Indicator
+      async function addIntoCasourelIndicator(data) {
+        const datatoadd = data["movie"];
+        let flag = 0;
+        let htmls = ``;
+        for (const element of datatoadd["listImage"]) {
+          console.log(element);
+          if (flag == 0) {
+            flag = 1;
+            htmls += `<button
+          type="button"
+          data-bs-target="#movie-slide"
+          data-bs-slide-to="0"
+          class="active"
+          aria-current="true"
+          aria-label="Slide 1"
+        >
+          <img
+            class="thumbnail-img trailer-thumbnail"
+            src="${element}"
+            alt=""
+          />
+        </button>`;
+          } else {
+            htmls += `    <button
+          type="button"
+          data-bs-target="#movie-slide"
+          data-bs-slide-to="1"
+          aria-label="Slide 2"
+        >
+          <img class="thumbnail-img" src="${element}" alt="" />
+        </button>`;
+          }
+        }
+        $(".Casourel-Indicator").append(htmls);
+      }
+      //  Thêm dữ liệu Poster Body(about-poster)
+      async function addPosterBody(data) {
+        const datatoadd = data["movie"];
+        const htmls = `<img
+                   id="about-poster-img"
+                   src="../../images/poster-about.jpg"
+                 />`;
+        $("#about-poster").append(htmls);
+      }
+      //  Thêm dữ liệu vào about-describe
+      async function addMovieContent(data) {
+        const datatoadd = data["movie"];
+        console.log(datatoadd);
+        const cuttingGenre = (data) => {
+          let storehtml = "";
+          data["ListGenre"].flat().forEach((element) => {
+            storehtml += `<li>${element.GenreName}</li>`;
+          });
+          return storehtml;
+        };
+        const cuttingActor = (data) => {
+          let storehtml = "";
+          data["ListActor"].flat().forEach((element) => {
+            storehtml += `${element.NameActor}`;
+          });
+          return storehtml;
+        };
+        const htmls =
+          `<div class="about-kind">
+                  <ul>
+                    ` +
+          cuttingGenre(datatoadd) +
+          `
+                  </ul>
+                </div>
+                <div class="about-line">
+                  <p>Mô tả</p>
+                  <p class="about-short">
+                    ${datatoadd["story"]}
+                  </p>
+                </div>
+                <div class="about-line">
+                  <p>Ngày khởi chiếu</p>
+                  <p>${datatoadd.Premiere}</p>
+                </div>
+                <div class="about-line">
+                  <p>Diễn viên</p>
+                  <p class="about-short">
+                    ` +
+          cuttingActor(datatoadd) +
+          `
+                  </p>
+                </div>
+                <div class="about-line">
+                  <p>Đạo diễn</p>
+                  <p>${datatoadd.Director}</p>
+                </div>
+                <div class="about-line">
+                  <p>Giới hạn độ tuổi</p>
+                  <p> ${datatoadd.age}</p>
+                </div>`;
+        $("#about-describe").append(htmls);
+      }
+      function changingBtnOnClickGetAll(GenreID) {
+        const movieContainer = $(".row.g-3.movie-premier-container");
+        const GenreContainer = $(".row.g-2.genre-container");
+        movieContainer.html("");
+        const removeBtnColor = GenreContainer.find("button.btn-main");
+        removeBtnColor.removeClass("btn-main");
+        const AddingBtnColor = GenreContainer.find(`#${GenreID}`);
+        AddingBtnColor.addClass("btn-main");
+
+        getPremierMovie("../../.").then((datas) => {
+          const cuttingGenre = (data) => {
+            let storehtml = "";
+
+            data["ListGenre"].flat().forEach((element, index) => {
+              if (index == 0) {
+                storehtml += `${element.GenreName}`;
+              } else {
+                storehtml +=
+                  '<span class="vertical-line">|</span>' +
+                  `${element.GenreName}`;
+              }
+            });
+            return storehtml;
+          };
+          datas.forEach(async (data, index) => {
+            let genrehtml = await cuttingGenre(data);
+            let htmls = "";
+            htmls +=
+              `<div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
+                <div class="card-img">
+                  <div class="card-info">
+                    <img
+                      src="../../images/Star.svg"
+                      alt=""
+                      width="22px"
+                      height="22px"
+                    />
+                    <div class="rating">${data.rating} / 10</div>
+                    <div class="age">${data.age}</div>
+                    <div class="date">
+                      <img src="../../images/date.svg" alt="" />
+                      ${data.Premiere}
+                    </div>
+                    <div class="duration">
+                      <img src="../../images/timer.svg" alt="" />
+                      ${data.Time}
+                    </div>
+                    <a href="./View/Detail/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
+                    <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
+                    </a>
+                    <button class="btn-main">Đặt vé</button>
+                  </div>
+                  <img class="poster" src="${data.listImage[0]}" alt="" />
+                </div>
+
+                <div class="movie-genre">
+                 ` +
+              genrehtml +
+              `</div>
+                <div class="movie-title">${data.MovieName}</div>
+              </div>`;
+            $(".row.g-3.movie-premier-container").append(htmls);
+            $(".btn-outline").bind("click", (e) => {
+              sessionStorage.setItem("MovieIDSelected", e.target.id);
+            });
+          });
+        });
+      }
+      function changingBtnOnClick(GenreID) {
+        const movieContainer = $(".row.g-3.movie-premier-container");
+        const GenreContainer = $(".row.g-2.genre-container");
+        movieContainer.html("");
+        const removeBtnColor = GenreContainer.find("button.btn-main");
+        removeBtnColor.removeClass("btn-main");
+        const AddingBtnColor = GenreContainer.find(`#${GenreID}`);
+        AddingBtnColor.addClass("btn-main");
+        getByGenreID("../../.", GenreID).then((datas) => {
+          console.log(datas);
+          const cuttingGenre = (data) => {
+            let storehtml = "";
+
+            data["ListGenre"].flat().forEach((element, index) => {
+              if (index == 0) {
+                storehtml += `${element.GenreName}`;
+              } else {
+                storehtml +=
+                  '<span class="vertical-line">|</span>' +
+                  `${element.GenreName}`;
+              }
+            });
+            return storehtml;
+          };
+          datas.forEach(async (data, index) => {
+            let genrehtml = await cuttingGenre(data);
+            let htmls = "";
+            htmls +=
+              `<div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
+                <div class="card-img">
+                  <div class="card-info">
+                    <img
+                      src="../../images/Star.svg"
+                      alt=""
+                      width="22px"
+                      height="22px"
+                    />
+                    <div class="rating">${data.rating} / 10</div>
+                    <div class="age">${data.age}</div>
+                    <div class="date">
+                      <img src="../../images/date.svg" alt="" />
+                      ${data.Premiere}
+                    </div>
+                    <div class="duration">
+                      <img src="../../images/timer.svg" alt="" />
+                      ${data.Time}
+                    </div>
+                    <a href="./View/Detail/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
+                    <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
+                    </a>
+                    <button class="btn-main">Đặt vé</button>
+                  </div>
+                  <img class="poster" src="${data.listImage[0]}" alt="" />
+                </div>
+
+                <div class="movie-genre">
+                 ` +
+              genrehtml +
+              `</div>
+                <div class="movie-title">${data.MovieName}</div>
+              </div>`;
+            $(".row.g-3.movie-premier-container").append(htmls);
+            $(".btn-outline").bind("click", (e) => {
+              sessionStorage.setItem("MovieIDSelected", e.target.id);
+            });
+          });
+        });
+      }
       let modalTrailer = $("#modal-trailer");
 
       $(".play-btn").click(function () {
