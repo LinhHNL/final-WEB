@@ -32,6 +32,92 @@ const getShowTimeByDateAndGenre = async (
   const datatorender = await data.json();
   return datatorender;
 };
-export { getShowTimeByID, getAllShowTimesByDate, getShowTimeByDateAndGenre };
+const getShowTimeByMovieandTheater = async (url, movieid = 1, Theaterid = 1, date = "2022-10-10") => {
+  const data = await fetch(
+    `${url}/Controller/Showtime/ajax.php?action=getShowTimeByMovieandTheater&movieid=${movieid}&Theaterid=${Theaterid}&date=${date}`,
+    {
+      method: "GET",
+    }
+  );
+  const datatorender = await data.json();
+  return datatorender;
+};
+const getAllShowtimeByMovieID = async (url, movieid = 1, date = "2022-10-10") => {
+  const data = await fetch(
+    `${url}/Controller/Showtime/ajax.php?action=getAllShowtimeByMovieID&movieid=${movieid}&date=${date}`,
+    {
+      method: "GET",
+    }
+  );
+  const datatorender = await data.json();
+  return datatorender;
+};
+
+const updateShowTime = async (
+  url = "../..",
+  Price,
+  StartTime,
+  MovieID,
+  EndTime,
+  RoomID,
+  FormatID,
+  ShowtimeID
+) => {
+  const urls = `${url}/Controller/Showtime/ajax.php`;
+  const data = await fetch(urls, {
+    method: "PUT",
+    body: JSON.stringify({
+      Price: Price,
+      StartTime: StartTime,
+      MovieID: MovieID,
+      EndTime: EndTime,
+      RoomID: RoomID,
+      FormatID: FormatID,
+      ShowtimeID: ShowtimeID
+    }),
+  });
+  const datatorender = await data.json();
+  return datatorender;
+};
+
+const removeShowTime = async (url = "../..", movieid) => {
+  const urls = `${url}/Controller/Showtime/ajax?movieid=${movieid}.php`;
+  const data = await fetch(urls, {
+    method: "DELETE",
+  });
+  const datatorender = await data.json();
+  return datatorender;
+};
+
+const addShowTime = async (
+  url = "../..",
+  Price, StartTime, MovieID, EndTime, RoomID, FormatID
+) => {
+  const urls = `${url}/Controller/Showtime/ajax.php`;
+  const data = await fetch(urls, {
+    method: "POST",
+    body: JSON.stringify({
+      Price: Price,
+      StartTime: StartTime,
+      MovieID: MovieID,
+      EndTime: EndTime,
+      RoomID: RoomID,
+      FormatID: FormatID,
+    }),
+  });
+  const datatorender = await data.json();
+  return datatorender;
+};
+
+export { 
+  getShowTimeByID, 
+  getAllShowTimesByDate, 
+  getShowTimeByDateAndGenre, 
+  getShowTimeByMovieandTheater, 
+  getAllShowtimeByMovieID,
+  updateShowTime,
+  addShowTime,
+  removeShowTime
+};
 //   $movieid = $_GET['movieid'];
 //   $date = $_GET['date'];
