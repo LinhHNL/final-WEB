@@ -31,7 +31,5 @@ const RegisterAPI = async (url, email, password, fullname, address, phone) => {
   return datatorender;
 };
 RegisterAPI("../..", "aaa@gmail.com", "212", "Oh", "1212", "32323").then(
-  (datas) => {
-    console.log(datas);
-  }
+  (datas) => {}
 );
