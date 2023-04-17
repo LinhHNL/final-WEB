@@ -96,7 +96,6 @@
       <div class="section coming">
         <div class="heading">
           <h4>Phim sắp chiếu</h4>
-
         </div>
         <div class="line"></div>
         <div class="cards-container container-fluid">
@@ -176,6 +175,11 @@
       } from "../API/MovieAPI.js";
       import { getAllGenre } from "../API/GenreAPI.js";
       $(document).ready(function () {
+        function toHHMM(minutes) {
+          var hours = Math.floor(minutes / 60);
+          var mins = minutes % 60;
+          return hours + "h " + (mins < 10 ? "0" + mins : mins) + "m";
+        }
         $(".navbar-toggler").click(function () {
           var color = $(".navbar").css("background-color");
           if (color == "rgba(0, 0, 0, 0.01)") {
@@ -184,95 +188,8 @@
             $(".navbar").css("background", "rgba(0, 0, 0, 0.01)");
           }
         });
-        // Gọi phim Hot
-        getHotMovieAPI("../..").then((datas) => {
-          const cuttingGenre = (data) => {
-            let storehtml = "";
-            data["ListGenre"].flat().forEach((element) => {
-              storehtml += `<span>${element.GenreName}</span>`;
-            });
-            return storehtml;
-          };
-          const cuttingActor = (data) => {
-            let storehtml = "";
-
-            data["ListActor"].flat().forEach((element) => {
-              storehtml += `<span>${element.NameActor}</span>`;
-            });
-            return storehtml;
-          };
-          datas.forEach(async (data, index) => {
-            let genrehtml = await cuttingGenre(data);
-            let actorhtml = await cuttingActor(data);
-            let htmls = "";
-            if (index == 0) {
-              htmls = `<div id=${data.MovieID} class="carousel-item active">`;
-            } else {
-              htmls = `<div id=${data.MovieID} class="carousel-item">`;
-            }
-            htmls +=
-              `
-            <div class="movie-content">
-              <div class="rating">
-                <div class="rating-star">
-                  <img src="./images/Star.svg" alt="" />
-                  ${data.rating}
-                </div>
-                <div class="rating-imdb">IMDB 7.2</div>
-              </div>
-              <div class="genre-list">` +
-              genrehtml +
-              `</div>
-              <div class="movie-title">
-                ${data.MovieName}
-              </div>
-              <div class="actor-list">
-                ` +
-              actorhtml +
-              `
-              </div>
-              <div class="movie-info">
-                <span class="duration">${data.Time}</span>
-                <span class="dot">●</span>
-                <span class="premier-date">${data.Premiere}</span>
-                <span class="dot">●</span>
-                <span class="country">${data.StudioID}</span>
-              </div>
-              <div class="sypnosis">
-               ${data.story}
-              </div>
-              <div class="button-container">
-                <button class="btn-main btn-trailer">
-                  TRAILER
-                  <img src="../../images/play.svg" alt="" />
-                </button>
-                <a href="./View/Detail/index.html" style="text-decoration:None">
-                <button class="btn-main btn-book">
-                  Chi tiết
-                  <img src="../../images/Arrow_right_long.svg" alt="" />
-                </button>
-              </a>
-              </div>
-            </div>
-            <div class="background">
-              <div class="shadow-box"></div>
-              <div
-                class="movie-preview-img"
-                style="background-image: url('${data.listImage[0]}')"
-              ></div>
-            </div>
-          </div>`;
-            await $(".carousel-inner").append(htmls);
-            $(".btn-main.btn-book").on("click", () => {
-              const dataIdNeededToChoose = $(".carousel-item.active").attr(
-                "id"
-              );
-              sessionStorage.setItem("MovieIDSelected", dataIdNeededToChoose);
-            });
-          });
-        });
         // Gọi phim đang chiếu
-        getPremierMovie("../..").then((datas) => {
+        getPremierMovie("../..").then(async (datas) => {
           const cuttingGenre = (data) => {
             let storehtml = "";
 
@@ -288,6 +205,7 @@
             return storehtml;
           };
           datas.forEach(async (data, index) => {
+            let time = await toHHMM(data.Time);
             let genrehtml = await cuttingGenre(data);
             let htmls = "";
             htmls +=
@@ -308,9 +226,9 @@
                     </div>
                     <div class="duration">
                       <img src="../../images/timer.svg" alt="" />
-                      ${data.Time}
+                      ${time}
                     </div>
-                    <a href="./View/Detail/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
+                    <a href="../Detail/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
                     <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
                     </a>
                     <button class="btn-main">Đặt vé</button>
@@ -331,7 +249,7 @@
           });
         });
         // Gọi phim chuẩn bị chiếu
-        getUpcomingMovie(".").then((datas) => {
+        getUpcomingMovie("../../.").then(async (datas) => {
           const cuttingGenre = (data) => {
             let storehtml = "";
 
@@ -348,6 +266,8 @@
           };
           datas.forEach(async (data, index) => {
             let genrehtml = await cuttingGenre(data);
+            let time = await toHHMM(data.Time);
+
             let htmls = "";
             htmls +=
               `<div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
@@ -367,7 +287,7 @@
                     </div>
                     <div class="duration">
                       <img src="../../images/timer.svg" alt="" />
-                      ${data.Time}
+                      ${time}
                     </div>
                     <button class="btn-outline">Chi tiết</button>
                     <button class="btn-main">Đặt vé</button>
@@ -394,7 +314,7 @@
           const AddingBtnColor = GenreContainer.find(`#${GenreID}`);
           AddingBtnColor.addClass("btn-main");
 
-          getPremierMovie(".").then((datas) => {
+          getPremierMovie("../../.").then((datas) => {
             const cuttingGenre = (data) => {
               let storehtml = "";
 
@@ -411,6 +331,7 @@
             };
             datas.forEach(async (data, index) => {
               let genrehtml = await cuttingGenre(data);
+              let time = await toHHMM(data.Time);
               let htmls = "";
               htmls +=
                 `<div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
@@ -430,9 +351,9 @@
                     </div>
                     <div class="duration">
                       <img src="./images/timer.svg" alt="" />
-                      ${data.Time}
+                      ${time}
                     </div>
-                    <a href="./View/Detail/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
+                    <a href="../Detail/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
                     <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
                     </a>
                     <button class="btn-main">Đặt vé</button>
@@ -461,7 +382,7 @@
           removeBtnColor.removeClass("btn-main");
           const AddingBtnColor = GenreContainer.find(`#${GenreID}`);
           AddingBtnColor.addClass("btn-main");
-          getByGenreID(".", GenreID).then((datas) => {
+          getByGenreID("../../.", GenreID).then((datas) => {
             console.log(datas);
             const cuttingGenre = (data) => {
               let storehtml = "";
@@ -479,6 +400,7 @@
             };
             datas.forEach(async (data, index) => {
               let genrehtml = await cuttingGenre(data);
+              let timerender = await toHHMM(data.Time);
               let htmls = "";
               htmls +=
                 `<div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
@@ -498,9 +420,9 @@
                     </div>
                     <div class="duration">
                       <img src="../../images/timer.svg" alt="" />
-                      ${data.Time}
+                      ${timerender}
                     </div>
-                    <a href="./View/Detail/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
+                    <a href="../Detail/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
                     <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
                     </a>
                     <button class="btn-main">Đặt vé</button>
@@ -530,7 +452,7 @@
           button.on("click", () => changingBtnOnClickGetAll("MBTN00001"));
           genreContainer.append(button);
           const setPageNum = async () => {
-            const datas = await getAllGenre(".", 1);
+            const datas = await getAllGenre("../../.", 1);
             return datas["pagination"]["num_pages"];
           };
 
@@ -542,7 +464,7 @@
 
           var pagenum = await updatePageNum();
           for (let page = 1; page <= pagenum; page++) {
-            getAllGenre(".", page).then((datas) => {
+            getAllGenre("../../.", page).then((datas) => {
               const datastorender = datas["genres"];
               datastorender.forEach((data) => {
                 const button = $("<button>")
