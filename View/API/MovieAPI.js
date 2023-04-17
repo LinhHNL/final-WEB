@@ -68,5 +68,5 @@ export {
   getUpcomingMovie,
   getByGenreID,
   getMovieByID,
-  deleteMovie
+  deleteMovie,
 };
