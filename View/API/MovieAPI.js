@@ -61,7 +61,6 @@ const deleteMovie = async (url, id) => {
   return datatorender;
 };
 
-
 export {
   getHotMovieAPI,
   getPremierMovie,
