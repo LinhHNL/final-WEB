@@ -30,11 +30,27 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <link href='https://fonts.googleapis.com/css?family=Montagu Slab' rel='stylesheet'>
-    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>     
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Montagu Slab"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+    ></script>
     <title>Document</title>
   </head>
   <body>
@@ -90,58 +106,50 @@
               <div class="row justify-content-center mb-5">
                 <div class="col-12 d-flex justify-content-center">
                   THÔNG TIN TÀI KHOẢN
-                </div>  
-              </div>
-              <div class="row justify-content-center mb-3">
-                <div class="col-6 account-title">
-                  TÊN
-                </div>
-                <div class="col-6 account-content">
-                  ABC
                 </div>
               </div>
               <div class="row justify-content-center mb-3">
-                <div class="col-6 account-title">
-                  EMAIL
-                </div>
-                <div class="col-6 account-content">
-                  ABC@gmail.com
-                </div>
+                <div class="col-6 account-title">TÊN</div>
+                <div class="col-6 account-content">ABC</div>
               </div>
               <div class="row justify-content-center mb-3">
-                <div class="col-6 account-title">
-                  TÊN ĐĂNG NHẬP
-                </div>
-                <div class="col-6 account-content">
-                  ABCD  
-                </div>
+                <div class="col-6 account-title">EMAIL</div>
+                <div class="col-6 account-content">ABC@gmail.com</div>
               </div>
               <div class="row justify-content-center mb-3">
-                <div class="col-6 account-title">
-                  SỐ ĐIỆN THOẠI
-                </div>
-                <div class="col-6 account-content">
-                  01021002131  
-                </div>
+                <div class="col-6 account-title">TÊN ĐĂNG NHẬP</div>
+                <div class="col-6 account-content">ABCD</div>
+              </div>
+              <div class="row justify-content-center mb-3">
+                <div class="col-6 account-title">SỐ ĐIỆN THOẠI</div>
+                <div class="col-6 account-content">01021002131</div>
               </div>
               <div class="row justify-content-center mb-3">
                 <div class="col-6">
-                  <a href="/View/Account/LichSuDatVe/index.html" class="history-ticket">
-                    <button class="btn-grad"> Xem lịch sử đặt vé </button>
+                  <a
+                    href="/View/Account/LichSuDatVe/index.html"
+                    class="history-ticket"
+                  >
+                    <button class="btn-grad">Xem lịch sử đặt vé</button>
                   </a>
                 </div>
               </div>
               <div class="row justify-content-center mb-3">
                 <div class="col-6">
-                  <button class="btn-grad" data-bs-toggle="modal"
-                  data-bs-target="#ModalChangePassword"> Đổi mật khẩu </button>
+                  <button
+                    class="btn-grad"
+                    data-bs-toggle="modal"
+                    data-bs-target="#ModalChangePassword"
+                  >
+                    Đổi mật khẩu
+                  </button>
                 </div>
               </div>
-            </div> 
+            </div>
           </div>
           <div class="col-lg-4 col-md-2"></div>
         </div>
-      </div>  
+      </div>
     </div>
     <!-- Footer -->
     <div class="footer">
@@ -228,7 +236,7 @@
                       aria-label="Producer_name"
                       aria-describedby="addon-wrapping"
                     />
-                  </div>  
+                  </div>
                 </div>
                 <div class="row mb-2">
                   <div class="col-12">
@@ -239,7 +247,7 @@
                       aria-label="Producer_name"
                       aria-describedby="addon-wrapping"
                     />
-                  </div>  
+                  </div>
                 </div>
                 <div class="row mb-2">
                   <div class="col-12">
@@ -250,7 +258,7 @@
                       aria-label="Producer_name"
                       aria-describedby="addon-wrapping"
                     />
-                  </div>  
+                  </div>
                 </div>
                 <div class="row mb-2">
                   <div class="col-12">
@@ -261,7 +269,7 @@
                       aria-label="Producer_name"
                       aria-describedby="addon-wrapping"
                     />
-                  </div>  
+                  </div>
                 </div>
               </div>
             </div>
@@ -279,7 +287,7 @@
                   type="button"
                   class="btn mt-2 text-white btn-primary"
                   id="btn_EditUser"
-                  style="border-radius: 10px;"
+                  style="border-radius: 10px"
                 >
                   Đổi mật khẩu
                 </button>
@@ -290,5 +298,22 @@
         </div>
       </div>
     </div>
+    <script type="module">
+      import { getAllCustomer } from "../../API/UserAPI.js";
+      (async function TakeUserInformation() {
+        let i = 1;
+        let arrTemp = [];
+        while (true) {
+          let UserData = await getAllCustomer("../../../.", i);
+          arrTemp = [...arrTemp, ...UserData["list"]];
+          console.log(UserData);
+          if (UserData["list"].length == 0) {
+            break;
+          }
+          i++;
+        }
+        console.log(arrTemp);
+      })();
+    </script>
   </body>
 </html>

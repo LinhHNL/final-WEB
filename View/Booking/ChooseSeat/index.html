@@ -372,6 +372,11 @@
       </div>
     </div>
     <script type="module">
+      import { XOREncrypt, XORDecrypt } from "../../Util/EncryptXOR.js";
+      import {
+        postLocalStorage,
+        setLocalStorage,
+      } from "../../Util/LocalstorageInterFace.js";
       $(document).ready(function () {
         $(".navbar-toggler").click(function () {
           var color = $(".navbar").css("background-color");

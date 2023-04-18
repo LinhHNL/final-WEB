@@ -157,6 +157,8 @@
       </div>
     </div>
     <script type="module">
+      import { SessionCodeValue } from "../../SessionFile/SessionCodeValue.js";
+      console.log(SessionCodeValue.UserID);
       import { getAllMenu, getDetailMenuByID } from "../../API/MenuAPI.js";
       $(document).ready(function () {
         async function getDescription(id) {
