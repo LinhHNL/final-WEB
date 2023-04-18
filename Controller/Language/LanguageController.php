@@ -15,7 +15,6 @@ class LanguageController {
     }
     function removeLanguage($id){
         return (new LanguageModel())->deleteLanguage($id);
-
     }
     function updateLanguage($data){
        $name =  $data['name'];
