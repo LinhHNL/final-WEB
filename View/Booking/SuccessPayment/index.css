@@ -271,138 +271,24 @@ body{
   }
 }
 .main-container{
-    padding: 1% 5%;
-    padding-top: 100px;
-    color:white;
+    padding: 150px 0 150px 0;
+    width: 100%;
 }
-.main-container .line {
-    background: linear-gradient(
-      90deg,
-      #784ba0 0%,
-      #ff3cac 39.9%,
-      rgba(255, 60, 172, 0) 100%
-    );
-    height: 4px;
-    margin: 6px 0;
-}
-.main-container .back{
-  display: flex;
-  align-items: center;
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-  color: white;
-  background-image: url(/images/calendarSVG.svg);
-  cursor: pointer;
-}
-
-input[type="text"],
-input[type="date"] {
-  color: white;
-  background-color: black;
-  border: none;
-  box-sizing: border-box;
-  border-radius: 10px;
-  height: 40px;
-  width: 83%;
-}
-
-input[type="text"]:focus,
-input[type="date"]:focus {
-  box-sizing: border-box !important;
-  color: white;
-  background: black;
-  border: solid 1px transparent;
-  border-radius: 10px;
-  background-image: linear-gradient(black, black),
-    linear-gradient(90deg, #784ba0 0.25%, #784ba0 0.26%, #ff3cac 100.12%);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
-  box-shadow: none;
-}        
 .main-container .btn-grad {
-  width: 130px;
-  margin-left: 20px;
-  background-image: linear-gradient(90deg, #784ba0 0.25%, #784ba0 0.26%, #ff3cac 100.12%);
-  text-align: center;
-  background-size: 200% auto;
-  color: white;            
-  border-radius: 10px;
-  display: block;
+    width: 300px;
+    height: 50px;
+    background-image: linear-gradient(90deg, #784ba0 0.25%, #784ba0 0.26%, #ff3cac 100.12%);
+    text-align: center;
+    background-size: 200% auto;
+    color: white;            
+    display: block;
+    font-weight: bold;
 }
-.main-container .input-tag{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.main-container i{
+    font-size: 50px;
+    color: #FF3CAC;
 }
-.main-title{
-  margin-top: 30px;
-}
-.main-container .payment-method{
-  margin-bottom: 30px;
-}
-.payment-method p{
-  max-width: 150px;
-  text-align: center;
-}
-.main-container .payment-method .method-group .row{
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-.main-container .payment-method .method{
-  border-radius: 10px;
-  width: 260px;
-  height: 200px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #9A9FAE;
-  cursor: pointer;
-}
-.main-container .payment-method .method img{
-  width: 100px;
-  height: 100px;
-}
-.main-container .payment-method .form-check input{
-  background-color:#ff3cac;
-  cursor: pointer;
-}
-.main-container .bill-row, .main-container .bill-line{
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-.main-container .bill-row .bill-row-left{
-  color: #9E9E9E;
-  font-size: 12px;
-}
-.main-container .bill-row .bill-row-right{
-  color: white;
-  font-size: 18px;
-  text-align: right;
-}
-.main-container .bill-line{
-  background: #303030;
-  height: 1px;
-  margin: 20px 0;
-}
-.main-container .bill .bill-money {
-  background-image: linear-gradient(to right, #784ba0 0%, #ff3cac 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  font-family: 'Montagu Slab';
-  font-size: 30px;
-  margin: 0;
-  float: left;
-}
-.main-container .bill #bill-btn {
-  width: 100%;
-  border-radius: 0;
-  font-size: 20px;
-  height: 50px;
+.main-container .info{
+    color:white;
+    text-align: center;
 }
