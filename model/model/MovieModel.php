@@ -14,7 +14,7 @@ class MovieModel{
         $this->conn = Database::getConnection();
     }
     public function getMovieById($id) {
-        $sql = "SELECT MovieID, MovieName, Director, Year, Premiere, URLTrailer, Time, StudioID, LanguageID ,story FROM movie WHERE MovieID = :id";
+        $sql = "SELECT MovieID, MovieName, Director, Year, Premiere, URLTrailer, Time, StudioID, LanguageID ,story,age FROM movie WHERE MovieID = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();

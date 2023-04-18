@@ -37,7 +37,7 @@
     <!-- Nav -->
     <nav class="navbar navbar-expand-md fixed-top">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="../../index.html">
           <div class="logo">5CT</div>
         </a>
         <button
@@ -56,10 +56,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto d-flex w-100">
             <li class="nav-item">
-              <a class="nav-link nav-current" href="#">PHIM</a>
+              <a class="nav-link" href="#">PHIM</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">LỊCH CHIẾU</a>
+              <a class="nav-link nav-current" href="#">LỊCH CHIẾU</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">ƯU ĐÃI</a>
@@ -80,302 +80,25 @@
 
     <div class="Main_Container">
       <div class="Choosing_day_Container">
-        <img src="../../images/ArrowChangingDayBefore.png" alt="" />
-
-        <div class="item-day-holder active-thing">
-          <div class="container-icon">
-            <img src="../../images/ActiveIcon.png" alt="" />
-          </div>
-
-          <div class="day-text active">Thứ hai</div>
-          <div class="day-number active">17</div>
-          <div class="month-text active">Feb</div>
-        </div>
-        <div class="item-day-holder">
-          <div class="day-text">Thứ ba</div>
-          <div class="day-number">18</div>
-          <div class="month-text">Feb</div>
-        </div>
-        <div class="item-day-holder">
-          <div class="day-text">Thứ tư</div>
-          <div class="day-number">19</div>
-          <div class="month-text">Feb</div>
-        </div>
-        <div class="item-day-holder">
-          <div class="day-text">Thứ năm</div>
-          <div class="day-number">20</div>
-          <div class="month-text">Feb</div>
-        </div>
-        <div class="item-day-holder">
-          <div class="day-text">Thứ sáu</div>
-          <div class="day-number">21</div>
-          <div class="month-text">Feb</div>
-        </div>
-        <img src="../../images/ChangingTheDayAfterArrow.png" alt="" />
+        <img
+          src="../../images/ArrowChangingDayBefore.png"
+          alt=""
+          id="prev-day"
+        />
+        <div class="date-Container"></div>
+        <img
+          src="../../images/ChangingTheDayAfterArrow.png"
+          alt=""
+          id="next-day"
+        />
       </div>
+
       <div class="divider-container"></div>
       <div class="genre-select container-fluid">
-        <div class="row btn-container">
-          <button class="btn-main">Tất cả phim</button>
-          <button>Hành động</button>
-          <button>Tâm lý</button>
-          <button>Kinh dị</button>
-          <button>Hoạt hình</button>
-          <button>Hài hước</button>
-          <button>Phiêu lưu</button>
-        </div>
+        <div class="row g-2 genre-container"></div>
       </div>
 
-      <div class="card-film-item-container container-fluid">
-        <div class="row card-film-cotainer">
-          <div class="col-lg-3 item-img-container col-md-12 col-sm-12">
-            <img
-              src="../../images/poster.jpg"
-              alt=""
-              style="border-radius: 10px"
-            />
-          </div>
-          <div class="col-lg-8 item-info col-md-12 col-sm-12">
-            <div class="info-container-about-film">
-              <div class="heading-info-container">
-                <h2 class="heading-text">Mắt biếc</h2>
-                <div class="rating">
-                  <div class="rating-star">
-                    <img src="/images/Star.svg" alt="" />
-                    7.8
-                  </div>
-                  <div class="rating-imdb">IMDB 7.2</div>
-                </div>
-              </div>
-              <p class="genre-text">TÂM LÝ | TÌNH CẢM</p>
-              <p class="type-text">2D | Phụ đề</p>
-            </div>
-
-            <div class="time-choosing-container container-fluid">
-              <div class="item-container row">
-                <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                  <p class="place-to-choose">Screen 1</p>
-                  <p class="time-to-choose">09:00</p>
-                  <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                </div>
-                <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                  <p class="place-to-choose">Screen 1</p>
-                  <p class="time-to-choose">09:00</p>
-                  <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                </div>
-                <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                  <p class="place-to-choose">Screen 1</p>
-                  <p class="time-to-choose">09:00</p>
-                  <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                </div>
-                <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                  <p class="place-to-choose">Screen 1</p>
-                  <p class="time-to-choose">09:00</p>
-                  <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                </div>
-                <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                  <p class="place-to-choose">Screen 1</p>
-                  <p class="time-to-choose">09:00</p>
-                  <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                </div>
-                <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                  <p class="place-to-choose">Screen 1</p>
-                  <p class="time-to-choose">09:00</p>
-                  <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                </div>
-                <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                  <p class="place-to-choose">Screen 1</p>
-                  <p class="time-to-choose">09:00</p>
-                  <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                </div>
-                <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                  <p class="place-to-choose">Screen 1</p>
-                  <p class="time-to-choose">09:00</p>
-                  <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                </div>
-                <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                  <p class="place-to-choose">Screen 1</p>
-                  <p class="time-to-choose">09:00</p>
-                  <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                </div>
-                <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                  <p class="place-to-choose">Screen 1</p>
-                  <p class="time-to-choose">09:00</p>
-                  <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                </div>
-              </div>
-              
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-film-item-container container-fluid">
-          <div class="row card-film-cotainer">
-            <div class="col-lg-3 item-img-container col-md-12 col-sm-12">
-              <img
-                src="../../images/poster.jpg"
-                alt=""
-                style="border-radius: 10px"
-              />
-            </div>
-            <div class="col-lg-8 item-info col-md-12 col-sm-12">
-              <div class="info-container-about-film">
-                <div class="heading-info-container">
-                  <h2 class="heading-text">Mắt biếc</h2>
-                  <div class="rating">
-                    <div class="rating-star">
-                      <img src="/images/Star.svg" alt="" />
-                      7.8
-                    </div>
-                    <div class="rating-imdb">IMDB 7.2</div>
-                  </div>
-                </div>
-                <p class="genre-text">TÂM LÝ | TÌNH CẢM</p>
-                <p class="type-text">2D | Phụ đề</p>
-              </div>
-  
-              <div class="time-choosing-container container-fluid">
-                <div class="item-container row">
-                  <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                    <p class="place-to-choose">Screen 1</p>
-                    <p class="time-to-choose">09:00</p>
-                    <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                  </div>
-                  <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                    <p class="place-to-choose">Screen 1</p>
-                    <p class="time-to-choose">09:00</p>
-                    <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                  </div>
-                  <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                    <p class="place-to-choose">Screen 1</p>
-                    <p class="time-to-choose">09:00</p>
-                    <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                  </div>
-                  <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                    <p class="place-to-choose">Screen 1</p>
-                    <p class="time-to-choose">09:00</p>
-                    <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                  </div>
-                  <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                    <p class="place-to-choose">Screen 1</p>
-                    <p class="time-to-choose">09:00</p>
-                    <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                  </div>
-                  <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                    <p class="place-to-choose">Screen 1</p>
-                    <p class="time-to-choose">09:00</p>
-                    <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                  </div>
-                  <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                    <p class="place-to-choose">Screen 1</p>
-                    <p class="time-to-choose">09:00</p>
-                    <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                  </div>
-                  <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                    <p class="place-to-choose">Screen 1</p>
-                    <p class="time-to-choose">09:00</p>
-                    <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                  </div>
-                  <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                    <p class="place-to-choose">Screen 1</p>
-                    <p class="time-to-choose">09:00</p>
-                    <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                  </div>
-                  <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                    <p class="place-to-choose">Screen 1</p>
-                    <p class="time-to-choose">09:00</p>
-                    <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                  </div>
-                </div>
-                
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card-film-item-container container-fluid">
-            <div class="row card-film-cotainer">
-              <div class="col-lg-3 item-img-container col-md-12 col-sm-12">
-                <img
-                  src="../../images/poster.jpg"
-                  alt=""
-                  style="border-radius: 10px"
-                />
-              </div>
-              <div class="col-lg-8 item-info col-md-12 col-sm-12">
-                <div class="info-container-about-film">
-                  <div class="heading-info-container">
-                    <h2 class="heading-text">Mắt biếc</h2>
-                    <div class="rating">
-                      <div class="rating-star">
-                        <img src="/images/Star.svg" alt="" />
-                        7.8
-                      </div>
-                      <div class="rating-imdb">IMDB 7.2</div>
-                    </div>
-                  </div>
-                  <p class="genre-text">TÂM LÝ | TÌNH CẢM</p>
-                  <p class="type-text">2D | Phụ đề</p>
-                </div>
-    
-                <div class="time-choosing-container container-fluid">
-                  <div class="item-container row">
-                    <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                      <p class="place-to-choose">Screen 1</p>
-                      <p class="time-to-choose">09:00</p>
-                      <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                    </div>
-                    <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                      <p class="place-to-choose">Screen 1</p>
-                      <p class="time-to-choose">09:00</p>
-                      <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                    </div>
-                    <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                      <p class="place-to-choose">Screen 1</p>
-                      <p class="time-to-choose">09:00</p>
-                      <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                    </div>
-                    <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                      <p class="place-to-choose">Screen 1</p>
-                      <p class="time-to-choose">09:00</p>
-                      <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                    </div>
-                    <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                      <p class="place-to-choose">Screen 1</p>
-                      <p class="time-to-choose">09:00</p>
-                      <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                    </div>
-                    <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                      <p class="place-to-choose">Screen 1</p>
-                      <p class="time-to-choose">09:00</p>
-                      <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                    </div>
-                    <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                      <p class="place-to-choose">Screen 1</p>
-                      <p class="time-to-choose">09:00</p>
-                      <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                    </div>
-                    <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                      <p class="place-to-choose">Screen 1</p>
-                      <p class="time-to-choose">09:00</p>
-                      <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                    </div>
-                    <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                      <p class="place-to-choose">Screen 1</p>
-                      <p class="time-to-choose">09:00</p>
-                      <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                    </div>
-                    <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                      <p class="place-to-choose">Screen 1</p>
-                      <p class="time-to-choose">09:00</p>
-                      <p class="seat-info"><b>330</b>/330 chỗ ngồi</p>
-                    </div>
-                  </div>
-                  
-                  </div>
-                </div>
-              </div>
-            </div>
-      </div>
+      <div class="card-film-item-container container-fluid"></div>
     </div>
     <!-- Footer -->
     <div class="footer">
@@ -440,8 +163,18 @@
         </div>
       </div>
     </div>
-    <script>
+    <script type="module">
+      import { getAllGenre } from "../API/GenreAPI.js";
+      import {
+        getShowTimeByID,
+        getAllShowTimesByDate,
+        getShowTimeByDateAndGenre,
+      } from "../API/ShowTimeAPI.js";
+      import { getMovieByID } from "../API/MovieAPI.js";
+      import { getRoomById } from "../API/RoomAPI.js";
       $(document).ready(function () {
+        const date = new Date();
+
         $(".navbar-toggler").click(function () {
           var color = $(".navbar").css("background-color");
           if (color == "rgba(0, 0, 0, 0.01)") {
@@ -450,68 +183,392 @@
             $(".navbar").css("background", "rgba(0, 0, 0, 0.01)");
           }
         });
-      });
 
+        const TakingMovieByID = async (ID) => {
+          let data = await getMovieByID("../../.", ID);
+          return data;
+        };
+        const TakingRoomByID = async (ID) => {
+          let data = await getRoomById("../../.", ID);
+          return data;
+        };
+        const TakingShowTime = async () => {
+          await changingBtnOnClickGetAll("MBTN00001", false);
+          await $(".card-film-item-container").html("");
+          const IdMovieContainerCheck = [];
+          const IdRoomContainerCheck = [];
+          const datetoFetch = sessionStorage.getItem("DayChoosing");
+
+          const datas = await getAllShowTimesByDate("../../.", "2022-10-10");
+
+          const cuttingGenre = (data) => {
+            let storehtml = "";
+            data["ListGenre"].flat().forEach((element) => {
+              storehtml += `<span>${element.GenreName}</span>`;
+            });
+            return storehtml;
+          };
+
+          for (const data of datas.list) {
+            if (!IdMovieContainerCheck.includes(data.MovieID)) {
+              IdMovieContainerCheck.push(data.MovieID);
+              IdRoomContainerCheck.push(data.RoomID);
+
+              let dataMovie = await TakingMovieByID(data.MovieID);
+              let RoomData = await TakingRoomByID(data.RoomID);
+
+              dataMovie = dataMovie["movie"];
+              RoomData = RoomData["room"];
+
+              const datatoCut = data.StartTime;
+              const GenreList = await cuttingGenre(dataMovie);
+              const takingTime = await datatoCut.split(" ")[1];
+              const renderTime = await takingTime.split(":");
+
+              const htmls = `
+              <div class="row card-film-cotainer">
+                <div class="col-lg-3 item-img-container col-md-12 col-sm-12">
+                  <img
+                    src="../../images/poster.jpg"
+                    alt=""
+                    style="border-radius: 10px"
+                  />
+                </div>
+                <div class="col-lg-8 item-info col-md-12 col-sm-12">
+                  <div class="info-container-about-film">
+                    <div class="heading-info-container">
+                      <h2 class="heading-text">${dataMovie.MovieName}</h2>
+                      <div class="rating">
+                        <div class="rating-star">
+                          <img src="../../images/Star.svg" alt="" />
+                          ${dataMovie.rating}
+                        </div>
+                        <div class="rating-imdb">IMDB 7.2</div>
+                      </div>
+                    </div>
+                    <p class="genre-text">${GenreList}</p>
+                    <p class="type-text">2D | Phụ đề</p>
+                  </div>
+                  <div class="time-choosing-container container-fluid">
+                    <div class="item-container row"></div>
+                  </div>
+                </div>
+              </div>
+            `;
+              await $(".card-film-item-container").append(htmls);
+              let timehtmls = "";
+              timehtmls += `
+              <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
+                <p class="place-to-choose">${RoomData.RoomName}</p>
+                <p class="time-to-choose">${renderTime[0]}:${renderTime[1]}</p>
+                <p class="seat-info"><b>${RoomData.NumberOfSeats}</b>/100 chỗ ngồi</p>
+              </div>
+            `;
+              await $(".item-container.row").append(timehtmls);
+            } else {
+              let dataMovie = await TakingMovieByID(data.MovieID);
+              let RoomData = await TakingRoomByID(data.RoomID);
+              dataMovie = dataMovie["movie"];
+              RoomData = RoomData["room"];
+              const datatoCut = data.StartTime;
+              const GenreList = await cuttingGenre(dataMovie);
+              const takingTime = await datatoCut.split(" ")[1];
+              const renderTime = await takingTime.split(":");
+
+              let timehtmls = "";
+              timehtmls += `
+        <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
+          <p class="place-to-choose">${RoomData.RoomName}</p>
+          <p class="time-to-choose">${renderTime[0]}:${renderTime[1]}</p>
+          <p class="seat-info"><b>${RoomData.NumberOfSeats}</b>/100 chỗ ngồi</p>
+        </div>
+      `;
+              $(".item-container.row").append(timehtmls);
+            }
+          }
+        };
+        function ChangingDate() {
+          const daysOfWeek = [
+            "Chủ nhật",
+            "Thứ hai",
+            "Thứ ba",
+            "Thứ tư",
+            "Thứ năm",
+            "Thứ sáu",
+            "Thứ bảy",
+          ];
+          const months = [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
+          ];
+
+          // Get the date container and arrow buttons
+          const previousDateBtn = $("#prev-day");
+          const nextDateBtn = $("#next-day");
+          const AddingDay = (date) => {
+            const dayOfMonth = date.getDate();
+            const month = date.getMonth();
+            const year = date.getFullYear();
+            sessionStorage.setItem(
+              "DayChoosing",
+              `${year}-${month}-${dayOfMonth}`
+            );
+            $(document).ready(() => {
+              TakingShowTime();
+            });
+          };
+          // Initialize the current date to the first day in the HTML code
+          let currentDate = new Date("April 22, 2023");
+          // Initialize the date container with the first five days
+
+          // Update the date container with the current date
+          async function updateDateContainer() {
+            previousDateBtn.off("click");
+            nextDateBtn.off("click");
+            setTimeout(() => {
+              previousDateBtn.on("click", () => {
+                currentDate.setDate(currentDate.getDate() - 1);
+                updateDateContainer();
+              });
+
+              nextDateBtn.on("click", () => {
+                currentDate.setDate(currentDate.getDate() + 1);
+                updateDateContainer();
+              });
+            }, 1000);
+            $(".date-Container").html("");
+            AddingDay(currentDate);
+            let dateHtml = "";
+            for (let i = 0; i < 5; i++) {
+              const dayOfWeek = daysOfWeek[currentDate.getDay()];
+              const dayOfMonth = currentDate.getDate();
+              const month = months[currentDate.getMonth()];
+
+              const isActive = i === 0 ? "active" : "";
+              dateHtml += `
+                        <div class="item-day-holder ${isActive}">
+                          <div class="day-text ${isActive}">${dayOfWeek}</div>
+                          <div class="day-number ${isActive}">${dayOfMonth}</div>
+                          <div class="month-text ${isActive}">${month}</div>
+                        </div>
+                      `;
+              currentDate.setDate(currentDate.getDate() + 1);
+            }
+            $(".date-Container").append(dateHtml);
+            currentDate.setDate(currentDate.getDate() - 5); // Reset the current date
+          }
+          updateDateContainer();
+        }
+        ChangingDate();
+        function changingBtnOnClickGetAll(GenreID, callingagain = true) {
+          const GenreContainer = $(".row.g-2.genre-container");
+          const removeBtnColor = GenreContainer.find("button.btn-main");
+          removeBtnColor.removeClass("btn-main");
+          const AddingBtnColor = GenreContainer.find(`#${GenreID}`);
+          AddingBtnColor.addClass("btn-main");
+          if (callingagain) {
+            TakingShowTime();
+          }
+        }
+        function changingBtnOnClick(GenreID) {
+          const GenreContainer = $(".row.g-2.genre-container");
+          const removeBtnColor = GenreContainer.find("button.btn-main");
+          removeBtnColor.removeClass("btn-main");
+          const AddingBtnColor = GenreContainer.find(`#${GenreID}`);
+          AddingBtnColor.addClass("btn-main");
+          const IdMovieContainerCheck = [];
+          const IdRoomContainerCheck = [];
+          const datetoFetch = sessionStorage.getItem("DayChoosing");
+          // Lấy phim Dựa Vào Ngày và Thể Loại
+          getShowTimeByDateAndGenre("../../.", "2022-10-10", GenreID).then(
+            async (datas) => {
+              await $(".card-film-item-container").html("");
+              const cuttingGenre = (data) => {
+                let storehtml = "";
+                data["ListGenre"].flat().forEach((element) => {
+                  storehtml += `<span>${element.GenreName}</span>`;
+                });
+                return storehtml;
+              };
+              datas["list"].forEach(async (data) => {
+                if (!IdMovieContainerCheck.includes(data.MovieID)) {
+                  IdMovieContainerCheck.push(data.MovieID);
+                  IdRoomContainerCheck.push(data.RoomID);
+                  let dataMovie = await TakingMovieByID(data.MovieID);
+                  let RoomData = await TakingRoomByID(data.RoomID);
+                  dataMovie = dataMovie["movie"];
+                  RoomData = RoomData["room"];
+                  const datatoCut = data.StartTime;
+                  const GenreList = await cuttingGenre(dataMovie);
+                  const takingTime = await datatoCut.split(" ")[1];
+                  const renderTime = await takingTime.split(":");
+                  const htmls = `
+
+                   <div class="row card-film-cotainer">
+                     <div class="col-lg-3 item-img-container col-md-12 col-sm-12">
+                       <img
+                         src="../../images/poster.jpg"
+                         alt=""
+                         style="border-radius: 10px"
+                       />
+                     </div>
+                     <div class="col-lg-8 item-info col-md-12 col-sm-12">
+                       <div class="info-container-about-film">
+                         <div class="heading-info-container">
+                           <h2 class="heading-text">${dataMovie.MovieName}</h2>
+                           <div class="rating">
+                             <div class="rating-star">
+                               <img src="../../images/Star.svg" alt="" />
+                               ${dataMovie.rating}
+                             </div>
+                             <div class="rating-imdb">IMDB 7.2</div>
+                           </div>
+                         </div>
+                         <p class="genre-text">${GenreList}</p>
+                         <p class="type-text">2D | Phụ đề</p>
+                      </div>
+                      <div class="time-choosing-container container-fluid">
+                        <div class="item-container row"></div>
+                        </div>
+                      `;
+                  await $(".card-film-item-container").append(htmls);
+                  let timehtmls = "";
+                  timehtmls += `
+                      <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
+                        <p class="place-to-choose">${RoomData.RoomName}</p>
+                        <p class="time-to-choose">${renderTime[0]}:${renderTime[1]}</p>
+                        <p class="seat-info"><b>${RoomData.NumberOfSeats}</b>/100 chỗ ngồi</p>
+                      </div>
+                      `;
+                  await $(".item-container.row").append(timehtmls);
+                } else {
+                  let dataMovie = await TakingMovieByID(data.MovieID);
+                  let RoomData = await TakingRoomByID(data.RoomID);
+                  dataMovie = dataMovie["movie"];
+                  RoomData = RoomData["room"];
+                  const datatoCut = data.StartTime;
+                  const GenreList = await cuttingGenre(dataMovie);
+                  const takingTime = await datatoCut.split(" ")[1];
+
+                  const renderTime = await takingTime.split(":");
+                  let timehtmls = "";
+                  timehtmls += await `
+                      <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
+                        <p class="place-to-choose">${RoomData.RoomName}</p>
+                        <p class="time-to-choose">${renderTime[0]}:${renderTime[1]}</p>
+                        <p class="seat-info"><b>${RoomData.NumberOfSeats}</b>/100 chỗ ngồi</p>
+                      </div>
+                      `;
+                  $(".item-container.row").append(timehtmls);
+                }
+              });
+            }
+          );
+        }
+
+        const takeAllGenre = async () => {
+          const genreContainer = $(".row.g-2.genre-container");
+          const button = $("<button>")
+            .attr("id", "MBTN00001")
+            .addClass("btn-main all-select")
+            .text("Tất cả Phim");
+          button.on("click", () => changingBtnOnClickGetAll("MBTN00001"));
+          genreContainer.append(button);
+          const setPageNum = async () => {
+            const datas = await getAllGenre("../../.", 1);
+            return datas["pagination"]["num_pages"];
+          };
+
+          const updatePageNum = async () => {
+            const newPageNum = await setPageNum();
+            pagenum = newPageNum;
+            return pagenum;
+          };
+
+          var pagenum = await updatePageNum();
+          for (let page = 1; page <= pagenum; page++) {
+            getAllGenre("../../.", page).then((datas) => {
+              const datastorender = datas["genres"];
+              datastorender.forEach((data) => {
+                const button = $("<button>")
+                  .addClass("genre-btn-click")
+                  .attr("id", data.GenreID)
+                  .text(data.GenreName);
+                button.on("click", () => changingBtnOnClick(data.GenreID));
+                genreContainer.append(button);
+              });
+            });
+          }
+        };
+        takeAllGenre();
+        const getShowTimeByIDFunc = async () => {
+          const datas = await getShowTimeByID("../..", "M002", "10");
+        };
+        getShowTimeByIDFunc();
+      });
       // Modal trailer
-
-      let modalTrailer = $("#modal-trailer");
-
-      $(".play-btn").click(function () {
-        modalTrailer.modal("show");
-      });
-
-      $("#modal-trailer .close").click(function () {
-        modalTrailer.modal("hide");
-      });
-
-      let video = document.querySelector("#modal-trailer video");
-
-      modalTrailer.on("show.bs.modal", function (e) {
-        video.play();
-      });
-
-      modalTrailer.on("hide.bs.modal", function (e) {
-        video.pause();
-        video.currentTime = 0;
-      });
     </script>
-  <!-- Code injected by live-server -->
-<script>
-	// <![CDATA[  <-- For SVG support
-	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}
-	// ]]>
-</script>
-</body>
+    <!-- Code injected by live-server -->
+    <script>
+      // <![CDATA[  <-- For SVG support
+      if ("WebSocket" in window) {
+        (function () {
+          function refreshCSS() {
+            var sheets = [].slice.call(document.getElementsByTagName("link"));
+            var head = document.getElementsByTagName("head")[0];
+            for (var i = 0; i < sheets.length; ++i) {
+              var elem = sheets[i];
+              var parent = elem.parentElement || head;
+              parent.removeChild(elem);
+              var rel = elem.rel;
+              if (
+                (elem.href && typeof rel != "string") ||
+                rel.length == 0 ||
+                rel.toLowerCase() == "stylesheet"
+              ) {
+                var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, "");
+                elem.href =
+                  url +
+                  (url.indexOf("?") >= 0 ? "&" : "?") +
+                  "_cacheOverride=" +
+                  new Date().valueOf();
+              }
+              parent.appendChild(elem);
+            }
+          }
+          var protocol =
+            window.location.protocol === "http:" ? "ws://" : "wss://";
+          var address =
+            protocol + window.location.host + window.location.pathname + "/ws";
+          var socket = new WebSocket(address);
+          socket.onmessage = function (msg) {
+            if (msg.data == "reload") window.location.reload();
+            else if (msg.data == "refreshcss") refreshCSS();
+          };
+          if (
+            sessionStorage &&
+            !sessionStorage.getItem("IsThisFirstTime_Log_From_LiveServer")
+          ) {
+            console.log("Live reload enabled.");
+            sessionStorage.setItem("IsThisFirstTime_Log_From_LiveServer", true);
+          }
+        })();
+      } else {
+        console.error(
+          "Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading."
+        );
+      }
+      // ]]>
+    </script>
+  </body>
 </html>
