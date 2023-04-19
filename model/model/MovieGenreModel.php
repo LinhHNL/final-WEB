@@ -133,7 +133,6 @@ require_once(__DIR__.'/../System/Database.php');
              }
             }
 }
-$temp = new MovieGenre("Linh","Linh sđẹp trai","GE3");
- (new MovieGenreModel())->updateGenre($temp);
+
  
 ?>

@@ -94,6 +94,16 @@
       </div>
 
       <div class="divider-container"></div>
+      <div class="choosing-theater-container">
+        <p class="Theater-Choosing-Heading">Rạp phim</p>
+        <select
+          class="Select_Theater_Container form-select"
+          aria-label="Default select example"
+        >
+          <option selected disabled>Rạp Phim</option>
+        </select>
+        <button class="btn-main search-by-theater">Tìm kiếm</button>
+      </div>
       <div class="genre-select container-fluid">
         <div class="row g-2 genre-container"></div>
       </div>
@@ -169,12 +179,20 @@
         getShowTimeByID,
         getAllShowTimesByDate,
         getShowTimeByDateAndGenre,
+        getShowTimeByMovieandTheater,
       } from "../API/ShowTimeAPI.js";
+      import { getAllTheater } from "../API/TheaterAPI.js";
       import { getMovieByID } from "../API/MovieAPI.js";
       import { getRoomById } from "../API/RoomAPI.js";
       $(document).ready(function () {
+        let previousOption = "";
         const date = new Date();
-
+        // Mai làm tiếp thằng này
+        sessionStorage.setItem("MovieChoosing", "");
+        sessionStorage.setItem("RoomIDChoosing", "");
+        sessionStorage.setItem("TimeChoosing", "");
+        sessionStorage.setItem("TheaterName", "");
+        sessionStorage.setItem("Seat", "");
         $(".navbar-toggler").click(function () {
           var color = $(".navbar").css("background-color");
           if (color == "rgba(0, 0, 0, 0.01)") {
@@ -183,193 +201,30 @@
             $(".navbar").css("background", "rgba(0, 0, 0, 0.01)");
           }
         });
-
-        const TakingMovieByID = async (ID) => {
-          let data = await getMovieByID("../../.", ID);
-          return data;
-        };
-        const TakingRoomByID = async (ID) => {
-          let data = await getRoomById("../../.", ID);
-          return data;
-        };
-        const TakingShowTime = async () => {
-          await changingBtnOnClickGetAll("MBTN00001", false);
-          await $(".card-film-item-container").html("");
-          const IdMovieContainerCheck = [];
-          const IdRoomContainerCheck = [];
+        // Select_Theater_Container
+        (async function getAllTheaterFunc() {
+          let datas = await getAllTheater();
+          let htmls = "";
+          for (const data of datas["list"]) {
+            htmls += `<option value=${data.TheaterID}>${data.TheaterName}</option>`;
+          }
+          $(".Select_Theater_Container").append(htmls);
+        })();
+        // Search by Theater
+        $(".search-by-theater").click(() => {
           const datetoFetch = sessionStorage.getItem("DayChoosing");
-
-          const datas = await getAllShowTimesByDate("../../.", "2022-10-10");
-
-          const cuttingGenre = (data) => {
-            let storehtml = "";
-            data["ListGenre"].flat().forEach((element) => {
-              storehtml += `<span>${element.GenreName}</span>`;
-            });
-            return storehtml;
-          };
-
-          for (const data of datas.list) {
-            if (!IdMovieContainerCheck.includes(data.MovieID)) {
-              IdMovieContainerCheck.push(data.MovieID);
-              IdRoomContainerCheck.push(data.RoomID);
-
-              let dataMovie = await TakingMovieByID(data.MovieID);
-              let RoomData = await TakingRoomByID(data.RoomID);
-
-              dataMovie = dataMovie["movie"];
-              RoomData = RoomData["room"];
-
-              const datatoCut = data.StartTime;
-              const GenreList = await cuttingGenre(dataMovie);
-              const takingTime = await datatoCut.split(" ")[1];
-              const renderTime = await takingTime.split(":");
-
-              const htmls = `
-              <div class="row card-film-cotainer">
-                <div class="col-lg-3 item-img-container col-md-12 col-sm-12">
-                  <img
-                    src="../../images/poster.jpg"
-                    alt=""
-                    style="border-radius: 10px"
-                  />
-                </div>
-                <div class="col-lg-8 item-info col-md-12 col-sm-12">
-                  <div class="info-container-about-film">
-                    <div class="heading-info-container">
-                      <h2 class="heading-text">${dataMovie.MovieName}</h2>
-                      <div class="rating">
-                        <div class="rating-star">
-                          <img src="../../images/Star.svg" alt="" />
-                          ${dataMovie.rating}
-                        </div>
-                        <div class="rating-imdb">IMDB 7.2</div>
-                      </div>
-                    </div>
-                    <p class="genre-text">${GenreList}</p>
-                    <p class="type-text">2D | Phụ đề</p>
-                  </div>
-                  <div class="time-choosing-container container-fluid">
-                    <div class="item-container row"></div>
-                  </div>
-                </div>
-              </div>
-            `;
-              await $(".card-film-item-container").append(htmls);
-              let timehtmls = "";
-              timehtmls += `
-              <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-                <p class="place-to-choose">${RoomData.RoomName}</p>
-                <p class="time-to-choose">${renderTime[0]}:${renderTime[1]}</p>
-                <p class="seat-info"><b>${RoomData.NumberOfSeats}</b>/100 chỗ ngồi</p>
-              </div>
-            `;
-              await $(".item-container.row").append(timehtmls);
-            } else {
-              let dataMovie = await TakingMovieByID(data.MovieID);
-              let RoomData = await TakingRoomByID(data.RoomID);
-              dataMovie = dataMovie["movie"];
-              RoomData = RoomData["room"];
-              const datatoCut = data.StartTime;
-              const GenreList = await cuttingGenre(dataMovie);
-              const takingTime = await datatoCut.split(" ")[1];
-              const renderTime = await takingTime.split(":");
-
-              let timehtmls = "";
-              timehtmls += `
-        <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
-          <p class="place-to-choose">${RoomData.RoomName}</p>
-          <p class="time-to-choose">${renderTime[0]}:${renderTime[1]}</p>
-          <p class="seat-info"><b>${RoomData.NumberOfSeats}</b>/100 chỗ ngồi</p>
-        </div>
-      `;
-              $(".item-container.row").append(timehtmls);
-            }
+          const select = document.querySelector(".Select_Theater_Container");
+          const selectedOption = select.options[select.selectedIndex].value;
+          sessionStorage.setItem("TheaterName", selectedOption);
+          if (
+            selectedOption != "Rạp phim" &&
+            previousOption != selectedOption
+          ) {
+            console.log(selectedOption);
+            previousOption = selectedOption;
           }
-        };
-        function ChangingDate() {
-          const daysOfWeek = [
-            "Chủ nhật",
-            "Thứ hai",
-            "Thứ ba",
-            "Thứ tư",
-            "Thứ năm",
-            "Thứ sáu",
-            "Thứ bảy",
-          ];
-          const months = [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec",
-          ];
-
-          // Get the date container and arrow buttons
-          const previousDateBtn = $("#prev-day");
-          const nextDateBtn = $("#next-day");
-          const AddingDay = (date) => {
-            const dayOfMonth = date.getDate();
-            const month = date.getMonth();
-            const year = date.getFullYear();
-            sessionStorage.setItem(
-              "DayChoosing",
-              `${year}-${month}-${dayOfMonth}`
-            );
-            $(document).ready(() => {
-              TakingShowTime();
-            });
-          };
-          // Initialize the current date to the first day in the HTML code
-          let currentDate = new Date("April 22, 2023");
-          // Initialize the date container with the first five days
-
-          // Update the date container with the current date
-          async function updateDateContainer() {
-            previousDateBtn.off("click");
-            nextDateBtn.off("click");
-            setTimeout(() => {
-              previousDateBtn.on("click", () => {
-                currentDate.setDate(currentDate.getDate() - 1);
-                updateDateContainer();
-              });
-
-              nextDateBtn.on("click", () => {
-                currentDate.setDate(currentDate.getDate() + 1);
-                updateDateContainer();
-              });
-            }, 1000);
-            $(".date-Container").html("");
-            AddingDay(currentDate);
-            let dateHtml = "";
-            for (let i = 0; i < 5; i++) {
-              const dayOfWeek = daysOfWeek[currentDate.getDay()];
-              const dayOfMonth = currentDate.getDate();
-              const month = months[currentDate.getMonth()];
-
-              const isActive = i === 0 ? "active" : "";
-              dateHtml += `
-                        <div class="item-day-holder ${isActive}">
-                          <div class="day-text ${isActive}">${dayOfWeek}</div>
-                          <div class="day-number ${isActive}">${dayOfMonth}</div>
-                          <div class="month-text ${isActive}">${month}</div>
-                        </div>
-                      `;
-              currentDate.setDate(currentDate.getDate() + 1);
-            }
-            $(".date-Container").append(dateHtml);
-            currentDate.setDate(currentDate.getDate() - 5); // Reset the current date
-          }
-          updateDateContainer();
-        }
-        ChangingDate();
+        });
+        // Lấy toàn bộ Genre
         function changingBtnOnClickGetAll(GenreID, callingagain = true) {
           const GenreContainer = $(".row.g-2.genre-container");
           const removeBtnColor = GenreContainer.find("button.btn-main");
@@ -444,7 +299,7 @@
                   await $(".card-film-item-container").append(htmls);
                   let timehtmls = "";
                   timehtmls += `
-                      <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
+                      <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" id=${data.RoomID}>
                         <p class="place-to-choose">${RoomData.RoomName}</p>
                         <p class="time-to-choose">${renderTime[0]}:${renderTime[1]}</p>
                         <p class="seat-info"><b>${RoomData.NumberOfSeats}</b>/100 chỗ ngồi</p>
@@ -459,18 +314,22 @@
                   const datatoCut = data.StartTime;
                   const GenreList = await cuttingGenre(dataMovie);
                   const takingTime = await datatoCut.split(" ")[1];
-
                   const renderTime = await takingTime.split(":");
                   let timehtmls = "";
                   timehtmls += await `
-                      <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
+                      <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" id=${data.RoomID}>
                         <p class="place-to-choose">${RoomData.RoomName}</p>
                         <p class="time-to-choose">${renderTime[0]}:${renderTime[1]}</p>
                         <p class="seat-info"><b>${RoomData.NumberOfSeats}</b>/100 chỗ ngồi</p>
                       </div>
                       `;
-                  $(".item-container.row").append(timehtmls);
+                  await $(".item-container.row").append(timehtmls);
                 }
+              });
+              $(".item-choosing-time").on("click", () => {
+                let idRoom = $(this).attr("id");
+                sessionStorage.setItem("RoomIDChoosing", idRoom);
+                window.location.href = "../Booking/ChooseSeat/index.html";
               });
             }
           );
@@ -510,11 +369,204 @@
             });
           }
         };
-        takeAllGenre();
-        const getShowTimeByIDFunc = async () => {
-          const datas = await getShowTimeByID("../..", "M002", "10");
+        // Lấy phim bởi ID
+        const TakingMovieByID = async (ID) => {
+          let data = await getMovieByID("../../.", ID);
+          return data;
         };
-        getShowTimeByIDFunc();
+        // Lấy Room bởi ID
+        const TakingRoomByID = async (ID) => {
+          let data = await getRoomById("../../.", ID);
+          return data;
+        };
+        // Lấy ra ShowTime
+        const TakingShowTime = async () => {
+          await takeAllGenre();
+          await changingBtnOnClickGetAll("MBTN00001", false);
+          await $(".card-film-item-container").html("");
+          const IdMovieContainerCheck = [];
+          const IdRoomContainerCheck = [];
+
+          const datas = await getAllShowTimesByDate("../../.", "2022-10-10");
+
+          const cuttingGenre = (data) => {
+            let storehtml = "";
+            data["ListGenre"].flat().forEach((element) => {
+              storehtml += `<span>${element.GenreName}</span>`;
+            });
+            return storehtml;
+          };
+
+          for (const data of datas.list) {
+            if (!IdMovieContainerCheck.includes(data.MovieID)) {
+              IdMovieContainerCheck.push(data.MovieID);
+              IdRoomContainerCheck.push(data.RoomID);
+
+              let dataMovie = await TakingMovieByID(data.MovieID);
+              let RoomData = await TakingRoomByID(data.RoomID);
+
+              dataMovie = dataMovie["movie"];
+              RoomData = RoomData["room"];
+
+              const datatoCut = data.StartTime;
+              const GenreList = await cuttingGenre(dataMovie);
+              const takingTime = await datatoCut.split(" ")[1];
+              const renderTime = await takingTime.split(":");
+
+              const htmls = `
+              <div class="row card-film-cotainer">
+                <div class="col-lg-3 item-img-container col-md-12 col-sm-12">
+                  <img
+                    src="../../images/poster.jpg"
+                    alt=""
+                    style="border-radius: 10px"
+                  />
+                </div>
+                <div class="col-lg-8 item-info col-md-12 col-sm-12">
+                  <div class="info-container-about-film">
+                    <div class="heading-info-container">
+                      <h2 class="heading-text">${dataMovie.MovieName}</h2>
+                      <div class="rating">
+                        <div class="rating-star">
+                          <img src="../../images/Star.svg" alt="" />
+                          ${dataMovie.rating}
+                        </div>
+                        <div class="rating-imdb">IMDB 7.2</div>
+                      </div>
+                    </div>
+                    <p class="genre-text">${GenreList}</p>
+                    <p class="type-text">2D | Phụ đề</p>
+                  </div>
+                  <div class="time-choosing-container container-fluid">
+                    <div class="item-container row"></div>
+                  </div>
+                </div>
+              </div>
+            `;
+              await $(".card-film-item-container").append(htmls);
+              let timehtmls = "";
+              timehtmls += `
+              <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" id=${data.RoomID}s>
+                <p class="place-to-choose">${RoomData.RoomName}</p>
+                <p class="time-to-choose">${renderTime[0]}:${renderTime[1]}</p>
+                <p class="seat-info"><b>${RoomData.NumberOfSeats}</b>/100 chỗ ngồi</p>
+              </div>
+            `;
+              await $(".item-container.row").append(timehtmls);
+            } else {
+              let dataMovie = await TakingMovieByID(data.MovieID);
+              let RoomData = await TakingRoomByID(data.RoomID);
+              dataMovie = dataMovie["movie"];
+              RoomData = RoomData["room"];
+              const datatoCut = data.StartTime;
+              const GenreList = await cuttingGenre(dataMovie);
+              const takingTime = await datatoCut.split(" ")[1];
+              const renderTime = await takingTime.split(":");
+
+              let timehtmls = "";
+              timehtmls += `
+        <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" id=${data.RoomID}>
+          <p class="place-to-choose">${RoomData.RoomName}</p>
+          <p class="time-to-choose">${renderTime[0]}:${renderTime[1]}</p>
+          <p class="seat-info"><b>${RoomData.NumberOfSeats}</b>/100 chỗ ngồi</p>
+        </div>
+      `;
+              $(".item-container.row").append(timehtmls);
+              $(".item-choosing-time.col-lg-2.col-md-5.col-sm-6").on(
+                "click",
+                () => {
+                  $(".item-choosing-time").on("click", function () {
+                    let idRoom = $(this).attr("id");
+                    let TimesChoosing = $(this).find(".time-to-choose").text();
+                    sessionStorage.setItem("RoomIDChoosing", idRoom);
+                    sessionStorage.setItem("TimeChoosing", TimesChoosing);
+                    window.location.href = "../Booking/ChooseSeat/index.html";
+                  });
+                }
+              );
+            }
+          }
+        };
+        TakingShowTime();
+        function ChangingDate() {
+          const daysOfWeek = [
+            "Chủ nhật",
+            "Thứ hai",
+            "Thứ ba",
+            "Thứ tư",
+            "Thứ năm",
+            "Thứ sáu",
+            "Thứ bảy",
+          ];
+          const months = [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
+          ];
+
+          // Get the date container and arrow buttons
+          const previousDateBtn = $("#prev-day");
+          const nextDateBtn = $("#next-day");
+          const AddingDay = (date) => {
+            const dayOfMonth = date.getDate();
+            const month = date.getMonth();
+            const year = date.getFullYear();
+            sessionStorage.setItem(
+              "DayChoosing",
+              `${year}-${month}-${dayOfMonth}`
+            );
+          };
+          // Initialize the current date to the first day in the HTML code
+          let currentDate = new Date("April 22, 2023");
+          // Initialize the date container with the first five days
+
+          // Update the date container with the current date
+          async function updateDateContainer() {
+            previousOption = "";
+
+            previousDateBtn.on("click", () => {
+              currentDate.setDate(currentDate.getDate() - 1);
+              updateDateContainer();
+            });
+
+            nextDateBtn.on("click", () => {
+              currentDate.setDate(currentDate.getDate() + 1);
+              updateDateContainer();
+            });
+
+            $(".date-Container").html("");
+            AddingDay(currentDate);
+            let dateHtml = "";
+            for (let i = 0; i < 5; i++) {
+              const dayOfWeek = daysOfWeek[currentDate.getDay()];
+              const dayOfMonth = currentDate.getDate();
+              const month = months[currentDate.getMonth()];
+
+              const isActive = i === 0 ? "active" : "";
+              dateHtml += `
+                        <div class="item-day-holder ${isActive}">
+                          <div class="day-text ${isActive}">${dayOfWeek}</div>
+                          <div class="day-number ${isActive}">${dayOfMonth}</div>
+                          <div class="month-text ${isActive}">${month}</div>
+                        </div>
+                      `;
+              currentDate.setDate(currentDate.getDate() + 1);
+            }
+            $(".date-Container").append(dateHtml);
+            currentDate.setDate(currentDate.getDate() - 5); // Reset the current date
+          }
+          updateDateContainer();
+        }
+        ChangingDate();
       });
       // Modal trailer
     </script>

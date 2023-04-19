@@ -83,6 +83,8 @@ class PromotionModel {
             $EndTime = $Promotion->get_EndTime();
             $Discount = $Promotion->get_Discount();
             $Code = $Promotion->get_Code();
+            $type = $Promotion->GetType();
+            $url_image = $Promotion->getUrlImage();
             $stmt->bindParam(':PromotionID', $PromotionID);
             $stmt->bindParam(':PromotionName', $PromotionName);
             $stmt->bindParam(':Description', $Description);
@@ -125,6 +127,7 @@ public function updatePromotion(Promotion $Promotion) {
         $EndTime = $Promotion->get_EndTime();
         $Discount = $Promotion->get_Discount();
         $Code = $Promotion->get_Code();
+        $type = $Promotion->GetType();
         $url_image = $Promotion->getUrlImage();
         $stmt->bindParam(':PromotionID', $PromotionID);
         $stmt->bindParam(':PromotionName', $PromotionName);

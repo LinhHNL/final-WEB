@@ -23,11 +23,11 @@ class MovieImageModel{
             $stmt = $this->conn->prepare("DELETE FROM movieimage where ImageID = $movieImageid"); 
             $stmt->execute();
             if ($stmt->rowCount() > 0) {
-                return json_encode(array("success" => true));
+                return (array("success" => true));
             } else {
-                return json_encode(array("success" => false, "error" => "image không tồn tại"));
+                return (array("success" => false, "error" => "image không tồn tại"));
         }}catch(Exception $e){
-            return json_encode(array("success" => false, "message" => $e->getMessage()));
+            return (array("success" => false, "message" => $e->getMessage()));
         }
     }
 
@@ -35,7 +35,7 @@ class MovieImageModel{
    
         $stmt = $this->conn->prepare("SELECT ImageID, MovieID , ImagePath,type FROM movieimage WHERE MovieID = :id");
         $stmt->bindParam(":id", $id);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+         $stmt->fetch(PDO::FETCH_ASSOC);
 
         $stmt->execute();
         $images  = array();
@@ -59,34 +59,36 @@ class MovieImageModel{
         $stmt -> bindParam(":movieID", $id);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
-            return json_encode(array("success" => true));
+            return (array("success" => true));
         } else {
-            return json_encode(array("success" => false, "error" => "image không tồn tại"));
+            return (array("success" => false, "error" => "image không tồn tại"));
         }} catch(Exception $e){
-            return json_encode(array("success" => false, "message" => $e->getMessage()));
+            return (array("success" => false, "message" => $e->getMessage()));
         }
         }
     
     public function addMoiveImage(MovieImage $movieImage){
         try {
-            $stmt = $this->conn->prepare("INSERT INTO movieimage (MovieID, ImagePath,ImageID) VALUES(:movieID,:ImagePath, :ImageID)");
+            $stmt = $this->conn->prepare("INSERT INTO movieimage (MovieID, ImagePath,ImageID,type) VALUES(:movieID,:ImagePath, :ImageID,:type)");
             $id = $this ->createNewImageID();
             $moiveid = $movieImage ->get_MovieID();
-          
-            $image = $movieImage->get_ImageID();
+            $type  = $movieImage ->getType();
+            $image = $movieImage->get_ImagePath();
             $stmt->bindParam(":movieID", $moiveid);
         
             $stmt -> bindParam(":ImagePath", $image );
             $stmt -> bindParam(":ImageID", $id );
+            $stmt -> bindParam(":type", $type );
             $stmt ->execute();
             if ($stmt->rowCount() > 0) {
-                return json_encode(array("success" => true));
+                return true;
             } else {
-                return json_encode(array("success" => false, "error" => "Thêm thất bại "));
+                return false;
             }
 
+            
         }catch(Exception $e){ 
-            return json_encode(array("success"=>true,"error" => $e->getMessage()));
+            return false;
         }
     }
 }

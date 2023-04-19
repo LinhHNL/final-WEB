@@ -59,6 +59,14 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             $list = (new UserController)->getAllManager($page);
             echo $list;
             break;
+        case 'getUserById':
+            $id = $_GET['id'];
+            echo (new UserController)->getUserById($id);
+            break;
+        case 'getUserByEmail':
+            $email = $_GET['email'];
+            echo (new UserController)->getUserByEmail($id);
+            break;
         default:
             echo json_encode(array("success"=>true,"message"=>"Request không tồn tại"));
             break;

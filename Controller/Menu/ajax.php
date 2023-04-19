@@ -26,12 +26,13 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
                 $status = $_GET['status'];
                 echo json_encode((new MenuController)->getMenuByStatus($page,$status));
                     break;
+        
+
     }
 }
 if($_SERVER['REQUEST_METHOD'] == 'PUT') {
     $jsonData = file_get_contents("php://input");
     $data = json_decode($jsonData, true);
-
     header('Content-Type: application/json');
     echo json_encode((new MenuController)->updateMenu($data));
 }

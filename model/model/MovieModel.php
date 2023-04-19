@@ -1,10 +1,12 @@
 <?php
 require_once(__DIR__.'/../entity/Movie.php');
+require_once(__DIR__.'/../entity/detailmoviegenre.php');
 require_once(__DIR__.'/../System/Database.php'); 
 require_once(__DIR__.'/LanguageModel.php');
 require_once(__DIR__.'/MovieGenreModel.php');
 require_once(__DIR__.'/ActorModel.php');
 require_once(__DIR__.'/StudioModel.php');
+require_once(__DIR__.'/../entity/Format.php');
 require_once(__DIR__.'/MovieImageModel.php');
 
 class MovieModel{
@@ -288,10 +290,62 @@ class MovieModel{
         return $listmovie;
     
     }
+    // public function getFormateOfMovie($movieID){
+    //     try {
+    //         $stmt = $this->conn->prepare("Select f.FormatID, NameFormat from Format as f Join Movie as m on m.FormatID = f.formatID where m.MovieID = :MovieID");
+    //         $stmt ->bindParam(':MovieID',$movieID);
+    //         $stmt->setFetchMode(PDO::FETCH_CLASS,'Format');
+    //         $stmt->execute();
+    //         $format = $stmt->fetchObject();
+    //         if($format!=null){
+    //             return (array("success"=>true,"format"=>$format));
+    //         }else{
+    //             return (array("success"=>false,"error"=>"Format không tồn tại"));
+    //         }
+    //     }catch(Exception $e){
+    //         return array("success"=>false, "error"=>$e->getMessage());
+    //     }
+    // }
+    public function addGenreForMovie(DetailMovieGenre $db){
+      try {
+        $sql = "INSERT INTO `detailmoviegenre` (`MovieID`, `GenreID`) VALUES (:MovieID, :GenreID)";
+        $stmt = $this->conn->prepare($sql);
+        $movieid =  $db->get_MovieID();
+        $genreid = $db->get_GenreID();
+        $stmt->bindParam(':MovieID', $movieid);
+        $stmt->bindParam(':GenreID', $genreid);
+        $stmt->execute();
+        if($stmt ->rowCount()>0){
+            return true;
+        }else{
+            return  false;
+        }
+      }catch(PDOException $e){
+        return false;
+      }
+    }
+    public function deleteGenreForMovie(DetailMovieGenre $db){
+        try {
+            $sql = "DELETE FROM `detailmoviegenre` WHERE `MovieID` = :MovieID AND `GenreID` = :GenreID";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':MovieID', $db->get_MovieID());
+            $stmt->bindParam(':GenreID', $db->get_GenreID());
+            $stmt->execute();
+            if($stmt ->rowCount()>0){
+                return true;
+            }else{
+                return  false;
+            }
+        }catch(PDOException $e){
+            return false;
+        }
+    }
+    
     public function addMoive(Movie $moive){
         try {
-            $stmt = $this->conn->prepare("INSERT INTO `movie`(`MovieID`, `MovieName`, `Director`, `Year`, `Premiere`, `URLTrailer`, `Time`, `StudioID`, `LanguageID`,`age`) 
-            VALUES (:MovieID, :MovieName, :Director, :Year, :Premiere, :URLTrailer, :Time, :StudioID, :LanguageID,:age)");
+            $stmt = $this->conn->prepare("INSERT INTO `movie`(`MovieID`, `MovieName`, `Director`, `Year`, `Premiere`, `URLTrailer`, `Time`, `StudioID`, `LanguageID`, `story`, `age`) 
+            VALUES (:MovieID, :MovieName, :Director, :Year, :Premiere, :URLTrailer, :Time, :StudioID, :LanguageID, :story, :age)");
+            
             $id = $this->createNewID();
             $moiveName = $moive->get_MovieName();
             $Diretor = $moive->get_Director();
@@ -314,10 +368,11 @@ class MovieModel{
             $stmt->bindParam(':StudioID', $studioid);
             $stmt->bindParam(':LanguageID', $languageid);
             $stmt->bindParam(':age', $age);
+            $stmt->bindParam(':story', $story);
     
             $stmt->execute();
             if($stmt ->rowCount()>0){
-                return (array("success" => true));
+                return (array("success" => true,"id"=>$id));
             }else{
                 return (array("success" => false, "message" => "Could not add movie to database"));
             }
@@ -355,12 +410,10 @@ class MovieModel{
                 $row['Premiere'],
                 $row['URLTrailer'],
                 $row['Time'],
-                
                 $row['StudioID'],
                 $row['LanguageID'],
                 $row['story'],
                 $row['age'],
-
                 $row['MovieID']
             );
         }
@@ -390,20 +443,23 @@ class MovieModel{
         }
     }
     public function updateMovie(Movie $movie){
-        try {
-            $stmt = $this->conn->prepare("UPDATE `movie` SET `MovieName`=:MovieName, `Director`=:Director, , `Year`=:Year, `Premiere`=:Premiere, `URLTrailer`=:URLTrailer, `Time`=:Time, `StudioID`=:StudioID, `LanguageID`=:LanguageID ,story=:story,age=:age WHERE `MovieID`=:MovieID");
-            $id = $movie->get_MovieID();
+            try {
+
+            $stmt = $this->conn->prepare("UPDATE `movie` SET `MovieName`=:MovieName, `Director`=:Director,
+             `Year`=:Year, `Premiere`=:Premiere, `URLTrailer`=:URLTrailer, `Time`=:time, `StudioID`=:StudioID, 
+             `LanguageID`=:LanguageID ,story=:story,age=:age WHERE `MovieID`=:MovieID");
+
+            $id = $movie->get_MovieID();      
             $movieName = $movie->get_MovieName();
             $director = $movie->get_Director();
             $year = $movie->get_Year(); 
             $premiere = $movie->get_Premiere(); 
             $urltrailer = $movie->get_URLTrailer();
-            $time = $movie->get_Time();
             $studioid = $movie->get_StudioID(); 
             $languageid = $movie->get_LanguageID();
             $story = $movie->get_story();
             $age = $movie->getAge();
-            $stmt->bindParam(':story', $story);
+            $time = $movie->get_Time();
 
             $stmt->bindParam(':MovieID', $id);
             $stmt->bindParam(':MovieName', $movieName);
@@ -411,10 +467,11 @@ class MovieModel{
             $stmt->bindParam(':Year', $year);
             $stmt->bindParam(':Premiere', $premiere);
             $stmt->bindParam(':URLTrailer', $urltrailer);
-            $stmt->bindParam(':Time', $time);
+            $stmt->bindParam(':time', $time);
             $stmt->bindParam(':StudioID', $studioid);
             $stmt->bindParam(':story', $story);
             $stmt->bindParam(':LanguageID', $languageid);
+            $stmt->bindParam(':age', $age);
     
             $stmt->execute();
             if($stmt ->rowCount()>0){

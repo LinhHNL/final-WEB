@@ -77,237 +77,140 @@
         </div>
       </div>
     </nav>
-    <!-- Slide phim -->
-    <div id="movie-slide" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <div class="movie-content">
-            <div class="rating">
-              <div class="rating-star">
-                <img src="/images/Star.svg" alt="" />
-                7.8
-              </div>
-              <div class="rating-imdb">IMDB 7.2</div>
-            </div>
-            <div class="genre-list">
-              <span>Phiêu lưu</span>
-              <span>Giả tưởng</span>
-              <span>Hành động</span>
-            </div>
-            <div class="movie-title">
-              Người Kiến và Chiến binh Ong: Thế giới Lượng tử
-            </div>
-            <div class="actor-list">
-              Pual Rudd, Kathryn Newton, Tonathan Majors, Bill Murray
-            </div>
-            <div class="movie-info">
-              <span class="duration">2h 5m</span>
-              <span class="dot">●</span>
-              <span class="premier-date">17/02/2023</span>
-              <span class="dot">●</span>
-              <span class="country">USA</span>
-            </div>
-            <div class="sypnosis">
-              Scott Lang và Hope Van Dyne trở lại tiếp tục cuộc phiêu lưu của họ
-              với vai trò Người Kiến và Chiến binh Ong. Cùng với cha mẹ của
-              Hope, họ sẽ có chuyến khám phá Lượng Tử Giới, gặp gỡ những sinh
-              vật mới lạ và bắt đầu cuộc hành trình vào thế giới lượng tử.
-            </div>
-          </div>
-          <div class="background">
-            <div class="shadow-box"></div>
-            <div
-              class="movie-preview-img"
-              style="background-image: url('/images/bg-2.jpg')"
-            ></div>
-          </div>
+    <!-- Select Number -->
+    <div class="select-container" style="margin-top: 10%; margin-left: 5%">
+      <div class="select-label">SỐ GHẾ</div>
+      <select class="form-select">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+      </select>
+    </div>
+    <!-- Choose seat -->
+    <div
+      class="choose-seat-container justify-content-center align-items-center d-flex flex-column"
+      style="margin-top: 10%"
+    >
+      <div class="screen-container position-relative">
+        <img src="/images/screen.png" alt="" />
+        <span>SCREEN</span>
+      </div>
+      <div class="seats-container"></div>
+      <div class="explanation my-4">
+        <div>
+          <svg
+            width="25"
+            height="18"
+            viewBox="0 0 25 18"
+            fill="#FF3CAC"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 4.66875V2.25C3.75 1.0125 4.875 0 6.25 0H18.75C20.125 0 21.25 1.0125 21.25 2.25V4.68C19.8 5.14125 18.75 6.37875 18.75 7.84125V10.125H6.25V7.83C6.25 6.37875 5.2 5.13 3.75 4.66875ZM22.5 5.625C21.125 5.625 20 6.6375 20 7.875V11.25H5V7.875C5 6.6375 3.8875 5.625 2.5 5.625C1.1125 5.625 0 6.6375 0 7.875V13.5C0 14.7375 1.125 15.75 2.5 15.75V18H5V15.75H20V18H22.5V15.75C23.875 15.75 25 14.7375 25 13.5V7.875C25 6.6375 23.875 5.625 22.5 5.625Z"
+            />
+          </svg>
+          Couple
+        </div>
+        <div>
+          <svg
+            width="25"
+            height="18"
+            viewBox="0 0 25 18"
+            fill="#FFB160"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 4.66875V2.25C3.75 1.0125 4.875 0 6.25 0H18.75C20.125 0 21.25 1.0125 21.25 2.25V4.68C19.8 5.14125 18.75 6.37875 18.75 7.84125V10.125H6.25V7.83C6.25 6.37875 5.2 5.13 3.75 4.66875ZM22.5 5.625C21.125 5.625 20 6.6375 20 7.875V11.25H5V7.875C5 6.6375 3.8875 5.625 2.5 5.625C1.1125 5.625 0 6.6375 0 7.875V13.5C0 14.7375 1.125 15.75 2.5 15.75V18H5V15.75H20V18H22.5V15.75C23.875 15.75 25 14.7375 25 13.5V7.875C25 6.6375 23.875 5.625 22.5 5.625Z"
+            />
+          </svg>
+          Có thể đặt
+        </div>
+        <div>
+          <svg
+            width="25"
+            height="18"
+            viewBox="0 0 25 18"
+            fill="#303030"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 4.66875V2.25C3.75 1.0125 4.875 0 6.25 0H18.75C20.125 0 21.25 1.0125 21.25 2.25V4.68C19.8 5.14125 18.75 6.37875 18.75 7.84125V10.125H6.25V7.83C6.25 6.37875 5.2 5.13 3.75 4.66875ZM22.5 5.625C21.125 5.625 20 6.6375 20 7.875V11.25H5V7.875C5 6.6375 3.8875 5.625 2.5 5.625C1.1125 5.625 0 6.6375 0 7.875V13.5C0 14.7375 1.125 15.75 2.5 15.75V18H5V15.75H20V18H22.5V15.75C23.875 15.75 25 14.7375 25 13.5V7.875C25 6.6375 23.875 5.625 22.5 5.625Z"
+            />
+          </svg>
+          Đã đặt
+        </div>
+        <div>
+          <svg
+            width="25"
+            height="18"
+            viewBox="0 0 25 18"
+            fill="#29A1F9"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 4.66875V2.25C3.75 1.0125 4.875 0 6.25 0H18.75C20.125 0 21.25 1.0125 21.25 2.25V4.68C19.8 5.14125 18.75 6.37875 18.75 7.84125V10.125H6.25V7.83C6.25 6.37875 5.2 5.13 3.75 4.66875ZM22.5 5.625C21.125 5.625 20 6.6375 20 7.875V11.25H5V7.875C5 6.6375 3.8875 5.625 2.5 5.625C1.1125 5.625 0 6.6375 0 7.875V13.5C0 14.7375 1.125 15.75 2.5 15.75V18H5V15.75H20V18H22.5V15.75C23.875 15.75 25 14.7375 25 13.5V7.875C25 6.6375 23.875 5.625 22.5 5.625Z"
+            />
+          </svg>
+          Đang chọn
+        </div>
+        <div>
+          <svg
+            width="25"
+            height="18"
+            viewBox="0 0 25 18"
+            fill="#F32F50"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.75 4.66875V2.25C3.75 1.0125 4.875 0 6.25 0H18.75C20.125 0 21.25 1.0125 21.25 2.25V4.68C19.8 5.14125 18.75 6.37875 18.75 7.84125V10.125H6.25V7.83C6.25 6.37875 5.2 5.13 3.75 4.66875ZM22.5 5.625C21.125 5.625 20 6.6375 20 7.875V11.25H5V7.875C5 6.6375 3.8875 5.625 2.5 5.625C1.1125 5.625 0 6.6375 0 7.875V13.5C0 14.7375 1.125 15.75 2.5 15.75V18H5V15.75H20V18H22.5V15.75C23.875 15.75 25 14.7375 25 13.5V7.875C25 6.6375 23.875 5.625 22.5 5.625Z"
+            />
+          </svg>
+          Đã chọn
         </div>
       </div>
+    </div>
+    <!-- Bottom bar -->
+    <div class="bottom-bar">
+      <div class="bottom-bar-item">
+        <div class="title">NGÀY</div>
+        <div class="content">20.4</div>
+      </div>
+      <div class="bottom-bar-item">
+        <div class="title">GIỜ</div>
+        <div class="content">22:30</div>
+      </div>
+      <div class="bottom-bar-item">
+        <div class="title">RẠP</div>
+        <div class="content">Nam Sài Gòn</div>
+      </div>
+      <div class="bottom-bar-item">
+        <div class="title">PHÒNG</div>
+        <div class="content">Screen 2</div>
+      </div>
+      <div class="bottom-bar-item">
+        <div class="title">GHẾ</div>
+        <div class="content">I2, K3</div>
+      </div>
+      <div class="bottom-bar-item">
+        <div class="title">GIÁ VÉ</div>
+        <div class="content">120,000 ₫</div>
+      </div>
+      <div class="bottom-bar-item">
+        <div class="title">COMBO</div>
+        <div class="content">0 ₫</div>
+      </div>
+      <a href="../ComboFoodDrink/index.html" style="text-decoration: none">
+        <button class="btn-main">CHỌN COMBO</button>
+        <div class="total">120,000 ₫</div>
+      </a>
     </div>
     <!--  -->
-    <div class="main-container">
-      <div class="Choosing_day_Container">
-        <img src="/images/ArrowChangingDayBefore.png" alt="" />
 
-        <div class="item-day-holder active-thing">
-          <div class="container-icon">
-            <img src="/images/ActiveIcon.png" alt="" />
-          </div>
-
-          <div class="day-text active">Thứ hai</div>
-          <div class="day-number active">17</div>
-          <div class="month-text active">Feb</div>
-        </div>
-        <div class="item-day-holder">
-          <div class="day-text">Thứ ba</div>
-          <div class="day-number">18</div>
-          <div class="month-text">Feb</div>
-        </div>
-        <div class="item-day-holder">
-          <div class="day-text">Thứ tư</div>
-          <div class="day-number">19</div>
-          <div class="month-text">Feb</div>
-        </div>
-        <div class="item-day-holder">
-          <div class="day-text">Thứ năm</div>
-          <div class="day-number">20</div>
-          <div class="month-text">Feb</div>
-        </div>
-        <div class="item-day-holder">
-          <div class="day-text">Thứ sáu</div>
-          <div class="day-number">21</div>
-          <div class="month-text">Feb</div>
-        </div>
-        <img src="	/images/ChangingTheDayAfterArrow.png" alt="" />
-      </div>
-      <div>
-        <div class="select-container">
-          <div class="select-label">RẠP PHIM</div>
-          <select class="form-select">
-            <option selected>Chọn rạp phim</option>
-            <option value="1">Nam Sài Gòn</option>
-            <option value="2">Gò Vấp</option>
-            <option value="3">Thủ Đức</option>
-          </select>
-        </div>
-        <div class="select-container">
-          <div class="select-label">THỜI GIAN</div>
-          <select class="form-select">
-            <option selected>Chọn thời gian</option>
-            <option value="1">10:00</option>
-            <option value="2">19:30</option>
-            <option value="3">23:00</option>
-          </select>
-        </div>
-        <div class="select-container">
-          <div class="select-label">SỐ GHẾ</div>
-          <select class="form-select">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-          </select>
-        </div>
-      </div>
-      <!-- Choose seat -->
-      <div
-        class="choose-seat-container justify-content-center align-items-center d-flex flex-column"
-      >
-        <div class="screen-container position-relative">
-          <img src="/images/screen.png" alt="" />
-          <span>SCREEN</span>
-        </div>
-        <div class="seats-container"></div>
-        <div class="explanation my-4">
-          <div>
-            <svg
-              width="25"
-              height="18"
-              viewBox="0 0 25 18"
-              fill="#FF3CAC"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 4.66875V2.25C3.75 1.0125 4.875 0 6.25 0H18.75C20.125 0 21.25 1.0125 21.25 2.25V4.68C19.8 5.14125 18.75 6.37875 18.75 7.84125V10.125H6.25V7.83C6.25 6.37875 5.2 5.13 3.75 4.66875ZM22.5 5.625C21.125 5.625 20 6.6375 20 7.875V11.25H5V7.875C5 6.6375 3.8875 5.625 2.5 5.625C1.1125 5.625 0 6.6375 0 7.875V13.5C0 14.7375 1.125 15.75 2.5 15.75V18H5V15.75H20V18H22.5V15.75C23.875 15.75 25 14.7375 25 13.5V7.875C25 6.6375 23.875 5.625 22.5 5.625Z"
-              />
-            </svg>
-            Couple
-          </div>
-          <div>
-            <svg
-              width="25"
-              height="18"
-              viewBox="0 0 25 18"
-              fill="#FFB160"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 4.66875V2.25C3.75 1.0125 4.875 0 6.25 0H18.75C20.125 0 21.25 1.0125 21.25 2.25V4.68C19.8 5.14125 18.75 6.37875 18.75 7.84125V10.125H6.25V7.83C6.25 6.37875 5.2 5.13 3.75 4.66875ZM22.5 5.625C21.125 5.625 20 6.6375 20 7.875V11.25H5V7.875C5 6.6375 3.8875 5.625 2.5 5.625C1.1125 5.625 0 6.6375 0 7.875V13.5C0 14.7375 1.125 15.75 2.5 15.75V18H5V15.75H20V18H22.5V15.75C23.875 15.75 25 14.7375 25 13.5V7.875C25 6.6375 23.875 5.625 22.5 5.625Z"
-              />
-            </svg>
-            Có thể đặt
-          </div>
-          <div>
-            <svg
-              width="25"
-              height="18"
-              viewBox="0 0 25 18"
-              fill="#303030"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 4.66875V2.25C3.75 1.0125 4.875 0 6.25 0H18.75C20.125 0 21.25 1.0125 21.25 2.25V4.68C19.8 5.14125 18.75 6.37875 18.75 7.84125V10.125H6.25V7.83C6.25 6.37875 5.2 5.13 3.75 4.66875ZM22.5 5.625C21.125 5.625 20 6.6375 20 7.875V11.25H5V7.875C5 6.6375 3.8875 5.625 2.5 5.625C1.1125 5.625 0 6.6375 0 7.875V13.5C0 14.7375 1.125 15.75 2.5 15.75V18H5V15.75H20V18H22.5V15.75C23.875 15.75 25 14.7375 25 13.5V7.875C25 6.6375 23.875 5.625 22.5 5.625Z"
-              />
-            </svg>
-            Đã đặt
-          </div>
-          <div>
-            <svg
-              width="25"
-              height="18"
-              viewBox="0 0 25 18"
-              fill="#29A1F9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 4.66875V2.25C3.75 1.0125 4.875 0 6.25 0H18.75C20.125 0 21.25 1.0125 21.25 2.25V4.68C19.8 5.14125 18.75 6.37875 18.75 7.84125V10.125H6.25V7.83C6.25 6.37875 5.2 5.13 3.75 4.66875ZM22.5 5.625C21.125 5.625 20 6.6375 20 7.875V11.25H5V7.875C5 6.6375 3.8875 5.625 2.5 5.625C1.1125 5.625 0 6.6375 0 7.875V13.5C0 14.7375 1.125 15.75 2.5 15.75V18H5V15.75H20V18H22.5V15.75C23.875 15.75 25 14.7375 25 13.5V7.875C25 6.6375 23.875 5.625 22.5 5.625Z"
-              />
-            </svg>
-            Đang chọn
-          </div>
-          <div>
-            <svg
-              width="25"
-              height="18"
-              viewBox="0 0 25 18"
-              fill="#F32F50"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.75 4.66875V2.25C3.75 1.0125 4.875 0 6.25 0H18.75C20.125 0 21.25 1.0125 21.25 2.25V4.68C19.8 5.14125 18.75 6.37875 18.75 7.84125V10.125H6.25V7.83C6.25 6.37875 5.2 5.13 3.75 4.66875ZM22.5 5.625C21.125 5.625 20 6.6375 20 7.875V11.25H5V7.875C5 6.6375 3.8875 5.625 2.5 5.625C1.1125 5.625 0 6.6375 0 7.875V13.5C0 14.7375 1.125 15.75 2.5 15.75V18H5V15.75H20V18H22.5V15.75C23.875 15.75 25 14.7375 25 13.5V7.875C25 6.6375 23.875 5.625 22.5 5.625Z"
-              />
-            </svg>
-            Đã chọn
-          </div>
-        </div>
-      </div>
-      <!--  -->
-      <!-- Bottom bar -->
-      <div class="bottom-bar">
-        <div class="bottom-bar-item">
-          <div class="title">NGÀY</div>
-          <div class="content">20.4</div>
-        </div>
-        <div class="bottom-bar-item">
-          <div class="title">GIỜ</div>
-          <div class="content">22:30</div>
-        </div>
-        <div class="bottom-bar-item">
-          <div class="title">RẠP</div>
-          <div class="content">Nam Sài Gòn</div>
-        </div>
-        <div class="bottom-bar-item">
-          <div class="title">PHÒNG</div>
-          <div class="content">Screen 2</div>
-        </div>
-        <div class="bottom-bar-item">
-          <div class="title">GHẾ</div>
-          <div class="content">I2, K3</div>
-        </div>
-        <div class="bottom-bar-item">
-          <div class="title">GIÁ VÉ</div>
-          <div class="content">120,000 ₫</div>
-        </div>
-        <div class="bottom-bar-item">
-          <div class="title">COMBO</div>
-          <div class="content">0 ₫</div>
-        </div>
-        <a href="../ComboFoodDrink/index.html" style="text-decoration: none">
-          <button class="btn-main">CHỌN COMBO</button>
-          <div class="total">120,000 ₫</div>
-        </a>
-      </div>
-      <!--  -->
-    </div>
     <!-- Footer -->
     <div class="footer">
       <div class="container-fluid">
@@ -372,6 +275,12 @@
       </div>
     </div>
     <script type="module">
+      import { XOREncrypt, XORDecrypt } from "../../Util/EncryptXOR.js";
+      import {
+        postLocalStorage,
+        setLocalStorage,
+      } from "../../Util/LocalstorageInterFace.js";
+      import { getSeatByRoomID } from "../../API/SeatAPI.js";
       $(document).ready(function () {
         $(".navbar-toggler").click(function () {
           var color = $(".navbar").css("background-color");
@@ -385,6 +294,14 @@
         let numRow = 10;
         let numCol = 20;
 
+        (async function getSeatByRoomIDFunc() {
+          let RoomID = sessionStorage.getItem("RoomIDChoosing");
+          if (!RoomID) {
+            window.location.href = "../../Order/index.html";
+          }
+          let seatData = await getSeatByRoomID("../../../.", RoomID);
+          console.log(seatData);
+        })();
         for (let i = 0; i < numRow; i++) {
           let row = document.createElement("div");
           row.className = "seat-row";

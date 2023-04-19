@@ -30,7 +30,10 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-
+    <link
+      href="https://fonts.googleapis.com/css?family=Montagu Slab"
+      rel="stylesheet"
+    />
     <title>Document</title>
   </head>
   <body>
@@ -77,58 +80,43 @@
         </div>
       </div>
     </nav>
+    <!--Main-container-->
     <div class="main-container">
-      <div class="back">
-        <a href="../ChooseSeat/index.html" style="text-decoration: none">
-          <img
-            src="../../../images/arrow_right.svg"
-            style="transform: scaleX(-1)"
-          />
-          <span style="color: #ff3cac">CHỌN CHỖ NGỒI</span>
-        </a>
+      <div class="row" style="width: 100%">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+          <div class="container">
+            <div class="row mb-4">
+              <div class="col-12 d-flex justify-content-center">
+                <i class="fa-solid fa-circle-check"></i>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-12 d-flex justify-content-center info">
+                BẠN ĐÃ THANH TOÁN THÀNH CÔNG
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-12 d-flex justify-content-center info">
+                Cảm ơn vì đã lựa chọn xem phim tại hệ thống rạp chiếu của chúng
+                tôi
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-12 d-flex justify-content-center info">
+                Chúc bạn có một buổi xem phim vui vẻ
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 d-flex justify-content-center info">
+                <button class="btn-grad">KIỂM TRA ĐẶT VÉ</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3"></div>
       </div>
-      <p style="font-weight: bold; color: white; font-size: 20px">
-        COMBO BẮP NƯỚC
-      </p>
-      <div class="line"></div>
-      <div class="container-fluid mt-5 container-menu"></div>
     </div>
-    <!-- Bottom bar -->
-    <div class="bottom-bar">
-      <div class="bottom-bar-item">
-        <div class="title">NGÀY</div>
-        <div class="content">20.4</div>
-      </div>
-      <div class="bottom-bar-item">
-        <div class="title">GIỜ</div>
-        <div class="content">22:30</div>
-      </div>
-      <div class="bottom-bar-item">
-        <div class="title">RẠP</div>
-        <div class="content">Nam Sài Gòn</div>
-      </div>
-      <div class="bottom-bar-item">
-        <div class="title">PHÒNG</div>
-        <div class="content">Screen 2</div>
-      </div>
-      <div class="bottom-bar-item">
-        <div class="title">GHẾ</div>
-        <div class="content">I2, K3</div>
-      </div>
-      <div class="bottom-bar-item">
-        <div class="title">GIÁ VÉ</div>
-        <div class="content">120,000 ₫</div>
-      </div>
-      <div class="bottom-bar-item">
-        <div class="title">COMBO</div>
-        <div class="content">0 ₫</div>
-      </div>
-      <a href="../Thanhtoan/index.html" style="text-decoration: none">
-        <button class="btn-grad">THANH TOÁN</button>
-      </a>
-      <div class="total">120,000 ₫</div>
-    </div>
-    <!--  -->
     <!-- Footer -->
     <div class="footer">
       <div class="container-fluid">
@@ -173,103 +161,24 @@
             <div style="margin-top: 20px">
               <div>
                 <a href="#" class="btn-footer">
-                  <img src="../../../images/email-multiple-outline.png" />
+                  <img src="/images/email-multiple-outline.png" />
                   hoidap@5ct.vn
                 </a>
               </div>
               <div>
                 <a href="#" class="btn-footer">
-                  <img src="../../../images/phone.png" /> 1900 1008
+                  <img src="/images/phone.png" /> 1900 1008
                 </a>
               </div>
               <div class="footer-icon">
-                <a href="#"> <img src="../../../images/facebook.png" /> </a>
-                <a href="#"> <img src="../../../images/twitter.png" /> </a>
-                <a href="#"> <img src="../../../images/google-plus.png" /> </a>
+                <a href="#"> <img src="/images/facebook.png" /> </a>
+                <a href="#"> <img src="/images/twitter.png" /> </a>
+                <a href="#"> <img src="/images/google-plus.png" /> </a>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <script type="module">
-      import { getAllMenu, getDetailMenuByID } from "../../API/MenuAPI.js";
-      $(document).ready(function () {
-        async function getDescription(id) {
-          let data = await getDetailMenuByID("../../../.", id);
-          return data;
-        }
-        function toVndCurrencyFormat(number) {
-          const currencyFormat = new Intl.NumberFormat("vi-VN", {
-            style: "currency",
-            currency: "VND",
-            minimumFractionDigits: 0,
-          });
-
-          return currencyFormat.format(number);
-        }
-        async function getAllMenuFunc() {
-          let datas = await getAllMenu("../../../.", 1);
-
-          for (const data of datas["menus"]) {
-            let VNDPrice = await toVndCurrencyFormat(data.Price);
-            const htmls = `<div class="col-lg-6 col-md-12 col-xs-12">
-          <div class="card mb-5">
-            <div class="row g-0">
-              <div class="col-md-4">
-                <img
-                  src="${data.ImageURL}"
-                  class="img-fluid rounded-start"
-                  alt="..."
-                />
-              </div>
-              <div class="col-md-8">
-                <div class="card-body">
-                  <h5 class="card-title">${data.Name}</h5>
-                  <p class="card-text">
-                    <small class="text-muted"
-                      >Giá bán: <span>${VNDPrice}</span></small
-                    >
-                  </p>
-                  <p
-                    class="card-text"
-                    style="display: flex; align-items: center"
-                  >
-                    <button type="button" class="btn-minus">-</button>
-                    <span
-                      style="
-                        margin-right: 10px;
-                        margin-left: 10px;
-                        color: white;
-                        font-weight: normal;
-                      "
-                    >
-                      0
-                    </span>
-                    <button type="button" class="btn-plus">+</button>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>`;
-            $(".container-menu").append(htmls);
-          }
-
-          $(".btn-minus").click(function () {
-            const comboNumber = $(this).parent().find("span");
-            if (comboNumber.text() > 0) {
-              comboNumber.text(parseInt(comboNumber.text()) - 1);
-            }
-          });
-          $(".btn-plus").click(function () {
-            const comboNumber = $(this).parent().find("span");
-            comboNumber.text(parseInt(comboNumber.text()) + 1);
-          });
-        }
-
-        getAllMenuFunc();
-      });
-    </script>
   </body>
 </html>

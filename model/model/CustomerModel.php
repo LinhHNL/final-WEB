@@ -107,7 +107,7 @@ class CustomerModel {
     public function getAllCustomer($page = 1 ){
         $limit = 10;
         $offset = ($page - 1) * $limit;
-        $stmt = $this->conn->prepare("SELECT c.FullName, c.Address, c.Email, c.Phone, c.CustomerID, a.password 
+        $stmt = $this->conn->prepare("SELECT c.FullName, c.Address, c.Email, c.Phone, c.account_id,c.CustomerID, a.password 
                                       FROM customer c 
                                       INNER JOIN account a ON c.account_id = a.id
                                       LIMIT :limit OFFSET :offset");
@@ -116,7 +116,7 @@ class CustomerModel {
         $stmt->execute();
         $customers = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $customer = new Customer($row['FullName'], $row['Email'], $row['Address'], $row['Phone'], $row['CustomerID']);
+            $customer = new Customer($row['FullName'], $row['Email'], $row['Address'], $row['Phone'],$row['account_id'], $row['CustomerID']);
             $customer->setPassword( $row['password']);
             $customers[] = $customer;
         }
