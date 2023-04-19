@@ -10,7 +10,7 @@ const getLanguageById = async (url, id = "1") => {
 };
 const getAllLanguages = async (url) => {
   const data = await fetch(
-    `${url}/Controller/Language/ajax.php?action=getAllLanguages`,
+    `${url}/Controller/Language/ajax.php?action=getAllLanguage`,
     {
       method: "GET",
     }
@@ -55,3 +55,11 @@ const updateLanguage = async (
     const datatorender = await data.json();
     return datatorender;
 };
+
+export {
+  getAllLanguages,
+  getLanguageById,
+  addLanguage,
+  removeLanguage,
+  updateLanguage
+}

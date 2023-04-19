@@ -174,6 +174,7 @@ svg.active {
 .search-place {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 .input-place {
   max-width: 45%;
@@ -236,6 +237,11 @@ svg.active {
   color: rgba(246, 245, 246, 0.9) !important;
   border-color: #343434 !important;
 }
+
+.table-place th {
+  vertical-align: middle;
+}
+
 .table-place tr {
   width: 120px;
   height: 60px;
@@ -246,10 +252,18 @@ svg.active {
   border-color: #343434 !important;
   color: rgba(246, 245, 246, 0.9) !important;
 }
+
+
 .table-place tr td:first-child {
   color: #ff3cac !important;
   border-color: #343434 !important;
 }
+
+.table-place tr td:nth-child(9) {
+  color: #fbc300;
+  font-weight: 500;
+}
+
 .table-place tbody tr td {
   max-width: 100px;
   overflow: hidden;
@@ -334,17 +348,18 @@ p {
   color: white;
 }   
 
-.select-place {
-  max-width: 85px;
+#table-content_length select, .search-place select {
+  width: fit-content;
   max-height: 40px;
   color: white !important;
   background-color: #101521 !important;
   border: 1px solid #303030;
   border-radius: 10px;
 }
-.select-place option {
+#table-content_length select option, .search-place select option{
   background: #101521;
 }
+
 .data-heading {
   display: flex;
   justify-content: space-between;
@@ -390,7 +405,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 input[type="text"],
-input[type="date"] {
+input[type="date"],
+input[type="file"],
+.modal select {
   color: white;
   background-color: black;
   border: none;
@@ -401,7 +418,8 @@ input[type="date"] {
 }
 
 input[type="text"]:focus,
-input[type="date"]:focus {
+input[type="date"]:focus,
+.modal select:focus {
   box-sizing: border-box !important;
   color: white;
   background: black;
@@ -413,6 +431,15 @@ input[type="date"]:focus {
   background-clip: padding-box, border-box;
   box-shadow: none;
 }
+
+input[type="search"] {
+  border-radius: 10px !important;
+  padding-left: 35px;
+} 
+
+input[type="search"]:focus {
+  box-shadow: none;
+} 
 
 .form-title {
   color: #9a9fae;
@@ -433,4 +460,20 @@ input[type="date"]:focus {
 }
 a {
   text-decoration: none !important;
+}
+
+#poster {
+  background-color: black;
+  border: black;
+  color: white  ;
+}
+
+.page-link {
+  background-color: transparent !important;
+  color: white !important; 
+  border: none;
+}
+
+#table-content_length label {
+  color: white;
 }

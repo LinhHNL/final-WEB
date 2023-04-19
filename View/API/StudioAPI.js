@@ -10,7 +10,7 @@ const getStudioById = async (url, id = "1") => {
 };
 const getAllStudios = async (url) => {
     const data = await fetch(
-      `${url}/Controller/Studio/ajax.php?action=getAllStudios`,
+      `${url}/Controller/Studio/ajax.php?action=getAllStudio`,
       {
         method: "GET",
       }
@@ -61,3 +61,11 @@ const updateStudio = async (
     const datatorender = await data.json();
     return datatorender;
 };
+
+export {
+  getStudioById,
+  getAllStudios,
+  addStudio,
+  removeStudio,
+  updateStudio
+}
