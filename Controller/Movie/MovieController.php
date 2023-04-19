@@ -180,7 +180,7 @@ class MovieController{
             $obj = json_decode($images);
             $imagePaths = array(); 
             foreach ($obj->listImages as $movieImage) {
-                $imagePaths[] = $movieImage->ImagePath;
+                $imagePaths[] = $movieImage;
             }
             $Movie->add_ListImage($imagePaths);
             $actors = (new ActorModel())->getActorOfMovie($movieID);
@@ -201,7 +201,7 @@ class MovieController{
             $imagePaths = array();
            
             foreach ($obj->listImages as $movieImage) {
-                $imagePaths[] = $movieImage->ImagePath;
+                $imagePaths[] = $movieImage;
             }
             $hotMovie->add_ListImage($imagePaths);
             $actors = (new ActorModel())->getActorOfMovie($movieID);
@@ -222,7 +222,7 @@ class MovieController{
             $imagePaths = array();
            
             foreach ($obj->listImages as $movieImage) {
-                $imagePaths[] = $movieImage->ImagePath;
+                $imagePaths[] = $movieImage;
             }
             $movie->add_ListImage($imagePaths);
             $actors = (new ActorModel())->getActorOfMovie($movieID);
