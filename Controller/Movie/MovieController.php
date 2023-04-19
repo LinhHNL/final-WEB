@@ -4,6 +4,7 @@ require_once '../../model/model/MovieGenreModel.php';
 require_once '../../model/model/ActorModel.php';
 require_once '../../model/model/LanguageModel.php';
 require_once '../../model/entity/Movie.php';
+require_once '../../model/entity/movieimage.php';
 class MovieController{
     public function getPremieredMovies($page){
         $moives = (new MovieModel)->getPremieredMovies($page);
@@ -25,6 +26,7 @@ class MovieController{
             $Movie->add_ListGenre($genres);
         }   return $moives;
     }
+
     public function getUpcomingMovies($page){
         $moives = (new MovieModel)->getUpcomingMovies($page);
         foreach($moives as $Movie ){
@@ -46,7 +48,128 @@ class MovieController{
         }   
         return $moives;
     }
-       
+    public function updateMovie($data){
+        
+        $MovieName = $data['MovieName'];
+        $Director = $data['Director'];
+        $Year = $data['Year'];
+        $Premiere = $data['Premiere'];
+        $URLTrailer = $data['URLTrailer'];
+        $Time = $data['Time'];
+        $StudioID = $data['StudioID'];
+        $LanguageID = $data['LanguageID'];
+        $story = $data['story'];
+        $age = $data['age'];
+        $MovieID = $data['MovieID'];
+       $movie  = new Movie($MovieName, $Year, $Director, $Premiere, $URLTrailer, $Time, $StudioID, $LanguageID,$story,$age,$MovieID);
+     
+       return(new MovieModel)->updateMovie($movie);
+    }
+    public function deleteActorOfMovie($actorID){
+        $ActorModel = new ActorModel();
+      
+      return  $ActorModel->deleteActorOfMovie($actorID);
+    }
+    public function addActorOfMovie($data){
+        $MovieID = $data['MovieID'];
+        $NameActor = $data['NameActor'];
+        return (new ActorModel())->addActorOfMovie(new ActorOfMovie($NameActor, $MovieID));
+    }
+    public function updateActorOfMovie($data){
+        $MovieID = $data['MovieID'];
+        $ActorID = $data['ActorID'];
+        $name = $data['Name'];
+        return (new ActorModel())->updateActorOfMovie(new ActorOfMovie($name, $MovieID, $ActorID));
+    }
+    public function deleteImageOfMovie( $imageID){
+        return (new MovieImageModel)->deleteImage($imageID);
+    }
+    public function deleteGenreOfMovie( $genreID ,$movieID){
+        return (new MovieModel)->deleteGenreForMovie(new DetailMovieGenre($movieID,$genreID));
+    }
+    public function addGenreOfMovie( $data){
+        $MovieID = $data['MovieID'];
+        $GenreID = $data['GenreID'];
+        return array("success"=>(new MovieModel())->addGenreForMovie(new DetailMovieGenre($MovieID,$GenreID)));
+    }
+    public function addImageOfMovie($data){
+         $ImagePath = $data['file'];
+         $MovieID = $data['MovieID'];
+         $type = $data['type'];
+         $base64 = str_replace('data:application/octet-stream;base64,', '', $ImagePath);
+         $file = base64_decode($base64);
+        
+         $filename = 'images/imagesfilms/'. uniqid() . '.jpg'; // generate a unique filename
+         if(file_put_contents("../../".$filename, $file)) {
+             $responses[] = ['status' => 'success', 'message' => 'File saved successfully.'];
+         } else {
+             return  ['status' => 'error', 'message' => 'Error saving file.'];
+         }
+         $image = new MovieImage($filename,$MovieID,$type);
+         
+         if(!(new MovieImageModel())->addMoiveImage($image)){
+             return array('success' => false,'message' => "Thêm image thất bại");
+         }
+         return array('success' => true,'message' => "Thêm image thành công");
+
+    }
+    public function addMovie($data){
+        
+         $MovieName = $data['MovieName'];
+         $Director = $data['Director'];
+         $Year = $data['Year'];
+         $Premiere = $data['Premiere'];
+         $URLTrailer = $data['URLTrailer'];
+         $Time = $data['Time'];
+         $StudioID = $data['StudioID'];
+         $LanguageID = $data['LanguageID'];
+         $story = $data['story'];
+         $age = $data['age'];
+         $listActor = $data['ListActor'];
+         $listGenre = $data['ListGenre'];
+         $listImage = $data['ListImage'];
+        $movie  = new Movie($MovieName, $Year, $Director, $Premiere, $URLTrailer, $Time, $StudioID, $LanguageID,$story,$age);
+        $result = (new MovieModel)->addMoive($movie);
+        if($result['success']){
+            $id = $result['id'];
+            
+            foreach($listActor as $actor){
+                $actor = new ActorOfMovie($actor,$id);
+                (new ActorModel)->addActorOfMovie($actor);
+                
+            }
+            foreach($listGenre as $idgenre){
+             if(!(new MovieModel)->addGenreForMovie(new DetailMovieGenre($id,$idgenre))){
+                return array('success' => false, 'message' => "Thêm genre thất bại");
+             }
+
+            }
+            $responses  = array();
+            foreach($listImage as $image){
+          
+                $base64 = $image["file"];
+                $base64 = str_replace('data:application/octet-stream;base64,', '', $base64);
+                $file = base64_decode($base64);
+               
+                $filename = 'images/imagesfilms/'. uniqid() . '.jpg'; // generate a unique filename
+                if(file_put_contents("../../".$filename, $file)) {
+                    $responses[] = ['status' => 'success', 'message' => 'File saved successfully.'];
+                } else {
+                    return  ['status' => 'error', 'message' => 'Error saving file.'];
+                }
+                $image = new MovieImage($filename,$id,$image["type"]);
+                
+                if(!(new MovieImageModel())->addMoiveImage($image)){
+                    return array('success' => false,'message' => "Thêm image thất bại");
+                }
+        }
+        return array('success'=>true, 'message'=>"Thêm thành công 1221");
+
+        }
+        return array('success'=>false, 'message'=>"Thêm thất bại");
+
+    }   
+    
     public function getMovieByGenreID($id,$page){
         $moives = (new MovieModel)->getMoviesByGenre($id,$page);
         foreach($moives as $Movie ){
@@ -57,7 +180,7 @@ class MovieController{
             $obj = json_decode($images);
             $imagePaths = array(); 
             foreach ($obj->listImages as $movieImage) {
-                $imagePaths[] = $movieImage->ImagePath;
+                $imagePaths[] = $movieImage;
             }
             $Movie->add_ListImage($imagePaths);
             $actors = (new ActorModel())->getActorOfMovie($movieID);
@@ -78,7 +201,7 @@ class MovieController{
             $imagePaths = array();
            
             foreach ($obj->listImages as $movieImage) {
-                $imagePaths[] = $movieImage->ImagePath;
+                $imagePaths[] = $movieImage;
             }
             $hotMovie->add_ListImage($imagePaths);
             $actors = (new ActorModel())->getActorOfMovie($movieID);
@@ -99,7 +222,7 @@ class MovieController{
             $imagePaths = array();
            
             foreach ($obj->listImages as $movieImage) {
-                $imagePaths[] = $movieImage->ImagePath;
+                $imagePaths[] = $movieImage;
             }
             $movie->add_ListImage($imagePaths);
             $actors = (new ActorModel())->getActorOfMovie($movieID);
@@ -115,24 +238,7 @@ class MovieController{
         return (new MovieModel)->deleteMovie($movieid);
 
     }
-    // public function addMovie($data){
-    //     $MovieName=$data['MovieName'];
-    //     $Year=$data['Year'];
-    //     $Director=$data['Director'];
-    //     $Premiere=$data['Premiere'];
-    //     $URLTrailer=$data['URLTrailer'];
-    //     $Time=$data['Time'];
-    //     $StudioID=$data['StudioID'];
-    //     $LanguageID=$data['LanguageID'];
-    //     $story=$data['story'];
-    //     $movie  = new Movie($MovieName, $year, $Director, $Premiere, $URLTrailer, $Time, $StudioID, $LanguageID,$story);
-       
-    //     $decoded_file = base64_decode($data->file);
-    //     $filename = "../../images/uploads/" . $MovieName.time(). ".jpg";
-    //     file_put_contents($filename, $decoded_file);
-
-    //     $result = (new MovieModel())->addMoive($movie);
-    
+   
 }
 
 ?>

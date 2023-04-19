@@ -63,6 +63,7 @@ class ActorModel{
             $stmt ->bindParam(":name",$name);
             $stmt -> bindParam(":idmovie",$movie);
             $stmt->execute();
+
             if($stmt->rowCount()>0){
                 return (array("success"=>true,"message"=>"Thêm thành công"));
             }else{

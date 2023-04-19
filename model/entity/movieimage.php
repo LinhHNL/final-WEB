@@ -2,7 +2,6 @@
     class MovieImage {
         public $ImageID;
         public $ImagePath;
-     
         public $MovieID;
         public $type;
 
