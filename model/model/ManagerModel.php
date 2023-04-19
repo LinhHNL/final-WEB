@@ -17,6 +17,7 @@ class ManagerModel {
         $stmt->setFetchMode(PDO::FETCH_CLASS,'Manager');
         $stmt->execute();
         $manager = $stmt->fetchObject();
+        header('Content-Type: application/json');
         
         if($manager!=null){
             return json_encode(array("success"=>true,"manager"=>$manager));
@@ -32,9 +33,12 @@ class ManagerModel {
         $stmt->setFetchMode(PDO::FETCH_CLASS,'Manager');
         $stmt->execute();
         $manager = $stmt->fetchObject();
+
         if($manager!=null){
             return json_encode(array("success"=>true,"manager"=>$manager));
         }else{
+        header('Content-Type: application/json');
+
             return json_encode(array("success"=>false,"error"=>"Manager không tồn tại"));
         }
     }
@@ -103,6 +107,8 @@ public function deleteManager($email) {
         $stmt = $this->conn->prepare("DELETE FROM manager WHERE Email = :email");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
+        header('Content-Type: application/json');
+
         if ($stmt->rowCount() > 0) {
             return (array("success" => true));
         } else {
@@ -129,6 +135,8 @@ public function updateManager(Manager $manager) {
 
         
         $stmt->execute();
+        header('Content-Type: application/json');
+        
         if ($stmt->rowCount() > 0) {
             return json_encode(array("success" => true));
         } else {

@@ -60,7 +60,6 @@ require_once(__DIR__.'/../System/Database.php');
                 $genre = new MovieGenre($row['GenreName'], $row['Description'], $row['GenreID']);
                 $genres[] = $genre;
             }
-        
             return array(
                 'genres' => $genres,
                 'pagination' => array(
@@ -134,7 +133,6 @@ require_once(__DIR__.'/../System/Database.php');
              }
             }
 }
-$temp = new MovieGenre("Linh","Linh sđẹp trai","GE3");
- (new MovieGenreModel())->updateGenre($temp);
+
  
 ?>

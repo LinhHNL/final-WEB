@@ -17,8 +17,8 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
     header('Content-Type: application/json');
     switch($action) {
         case 'getAllShowTime':
-    echo json_encode((new ShowTimeController)->getAllShowTimes( $date));
-
+            $date = $_GET['date'];
+            echo json_encode((new ShowTimeController)->getAllShowTimes($date));
             break;
         case 'getShowTimeById':
     $id = $_GET['id'];
@@ -32,7 +32,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
                 echo json_encode((new ShowTimeController)->getAllShowtimeByMovieID($movieid,$date));
             
                         break;
-                    case 'getShowTimeByMovieandTheater':
+            case 'getShowTimeByMovieandTheater':
                 $movieid = $_GET['movieid'];
                 $Theaterid = $_GET['Theaterid'];
                 $date = $_GET['date'];

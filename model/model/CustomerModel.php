@@ -15,6 +15,8 @@ class CustomerModel {
         $stmt->setFetchMode(PDO::FETCH_CLASS,'Customer');
         $stmt->execute();
         $customer = $stmt->fetchObject();
+        header('Content-Type: application/json');
+
         if($customer!=null){
             return json_encode(array("success"=>true,"customer"=>$customer));
         }else{
@@ -29,9 +31,12 @@ class CustomerModel {
         $stmt->setFetchMode(PDO::FETCH_CLASS,'Customer');
         $stmt->execute();
         $customer = $stmt->fetchObject();
+         header('Content-Type: application/json');
+
         if($customer!=null){
             return json_encode(array("success"=>true,"customer"=>$customer));
         }else{
+            header('Content-Type: application/json');
             return json_encode(array("success"=>false,"error"=>"Khách hàng không tồn tại"));
         }
 
@@ -52,6 +57,8 @@ class CustomerModel {
        $stmt->bindParam(':email', $email);
        $stmt->bindParam(':phone', $phone);
        $stmt->execute();
+       header('Content-Type: application/json');
+
        if ($stmt->rowCount() > 0) {
         return json_encode(array("success" => true));
     } else {
@@ -100,7 +107,7 @@ class CustomerModel {
     public function getAllCustomer($page = 1 ){
         $limit = 10;
         $offset = ($page - 1) * $limit;
-        $stmt = $this->conn->prepare("SELECT c.FullName, c.Address, c.Email, c.Phone, c.CustomerID, a.password 
+        $stmt = $this->conn->prepare("SELECT c.FullName, c.Address, c.Email, c.Phone, c.account_id,c.CustomerID, a.password 
                                       FROM customer c 
                                       INNER JOIN account a ON c.account_id = a.id
                                       LIMIT :limit OFFSET :offset");
@@ -109,7 +116,7 @@ class CustomerModel {
         $stmt->execute();
         $customers = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $customer = new Customer($row['FullName'], $row['Email'], $row['Address'], $row['Phone'], $row['CustomerID']);
+            $customer = new Customer($row['FullName'], $row['Email'], $row['Address'], $row['Phone'],$row['account_id'], $row['CustomerID']);
             $customer->setPassword( $row['password']);
             $customers[] = $customer;
         }
@@ -122,6 +129,7 @@ class CustomerModel {
             $countStmt->bindParam(':customer_id', $customer_id);
             $countStmt->execute();
             $count = $countStmt->fetchColumn();
+            header('Content-Type: application/json');
     
             if ($count == 0) {
                 return json_encode(array("success"=>false,"error"=>"Customer does not exist."));

@@ -25,5 +25,4 @@ class Database {
     return (new Database)->conn;
 
 }}
-
 ?>
