@@ -37,6 +37,22 @@ class AccountModel {
             return json_encode(array("success" => true, "account" => $account));
         }
     }
+    
+    public function getAcountByEmail($email) {
+        $stmt = $this->conn->prepare("SELECT  email, password,role_id,id  FROM account WHERE email=:email");
+        $stmt->bindParam(':email',$email);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'Account');
+        $stmt->execute();
+    
+        $account = $stmt->fetchObject();
+
+        header('Content-Type: application/json');
+        if($account == null) {
+            return json_encode(array("success" => false, "error" => "Đăng nhập thất bại"));
+        } else {
+            return json_encode(array("success" => true, "account" => $account));
+        }
+    }
     public function getAcount($email, $pas) {
         $stmt = $this->conn->prepare("SELECT  email, password,role_id ,id FROM account WHERE email=:email AND password=:password");
         $stmt->bindParam(':email', $email);

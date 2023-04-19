@@ -9,6 +9,10 @@ class TicketController {
     function getTicketById($id) {
         return (new TicketModel())->getAllTicket($id);
     }
+    function  getAllTicketByShowTime($showTime) {
+        return (new TicketModel())->getAllTicketByShowTimeID($showTime);
+    }
+
     function addTicket($data){
       
          $ShowtimeID = $data['ShowtimeID'];

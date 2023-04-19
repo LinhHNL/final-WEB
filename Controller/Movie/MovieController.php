@@ -169,7 +169,7 @@ class MovieController{
         return array('success'=>false, 'message'=>"Thêm thất bại");
 
     }   
- 
+    
     public function getMovieByGenreID($id,$page){
         $moives = (new MovieModel)->getMoviesByGenre($id,$page);
         foreach($moives as $Movie ){
@@ -238,24 +238,7 @@ class MovieController{
         return (new MovieModel)->deleteMovie($movieid);
 
     }
-    // public function addMovie($data){
-    //     $MovieName=$data['MovieName'];
-    //     $Year=$data['Year'];
-    //     $Director=$data['Director'];
-    //     $Premiere=$data['Premiere'];
-    //     $URLTrailer=$data['URLTrailer'];
-    //     $Time=$data['Time'];
-    //     $StudioID=$data['StudioID'];
-    //     $LanguageID=$data['LanguageID'];
-    //     $story=$data['story'];
-    //     $movie  = new Movie($MovieName, $year, $Director, $Premiere, $URLTrailer, $Time, $StudioID, $LanguageID,$story);
-       
-    //     $decoded_file = base64_decode($data->file);
-    //     $filename = "../../images/uploads/" . $MovieName.time(). ".jpg";
-    //     file_put_contents($filename, $decoded_file);
-
-    //     $result = (new MovieModel())->addMoive($movie);
-    
+   
 }
 
 ?>

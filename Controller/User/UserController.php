@@ -6,7 +6,53 @@ require_once '../../model/entity/Account.php';
 require_once '../../model/entity/Customer.php';
 require_once '../../model/entity/Manager.php';
 class UserController {
-   
+    public function getUserByEmail($email) {
+        $account =  (new AccountModel())->getAcountByEmail($email); // thiếu dấu chấm phẩy ở cuối dòng này
+        $data = json_decode($account, true);
+        
+    //    return $account;
+       
+        if($data['success']) {
+            header('Content-Type: application/json');
+            // echo $data['account']['role_id'];
+            if($data['account']['role_id']==1){ // thiếu dấu bằng ở đây
+                $customer  = (new CustomerModel())->getCustomerByEmail($email);
+                return array( "success" => true,"role"=>$data['account']['role_id'],"user"=>$customer);
+            } else {
+                $admin  = (new ManagerModel())->getManagerByEmail($email);
+                return array("success" => true,"role"=>$data['account']['role_id'],"user"=>$admin);
+            }
+        } else {
+            header('Content-Type: application/json');
+
+            return array("success" => false,"message"=>"Đăng nhập thất bại"); // xoá dòng => ở đây và thêm giá trị false vào mảng này
+        }
+
+    }
+    public function getUserByID($id) {
+        $account =  (new AccountModel())->getAcountByID($id); // thiếu dấu chấm phẩy ở cuối dòng này
+        $data = json_decode($account, true);
+        
+    //    return $account;
+       
+        if($data['success']) {
+            header('Content-Type: application/json');
+            $email = $data['account']['email'];
+            // echo $data['account']['role_id'];
+            if($data['account']['role_id']==1){ // thiếu dấu bằng ở đây
+                $customer  = (new CustomerModel())->getCustomerByEmail($email);
+                return array( "success" => true,"role"=>$data['account']['role_id'],"user"=>$customer);
+            } else {
+                $admin  = (new ManagerModel())->getManagerByEmail($email);
+                return array("success" => true,"role"=>$data['account']['role_id'],"user"=>$admin);
+            }
+        } else {
+            header('Content-Type: application/json');
+
+            return array("success" => false,"message"=>"Đăng nhập thất bại"); // xoá dòng => ở đây và thêm giá trị false vào mảng này
+        }
+
+    }
     public function login($email,$password){
             $account =  (new AccountModel())->getAcount($email,$password); // thiếu dấu chấm phẩy ở cuối dòng này
             $data = json_decode($account, true);

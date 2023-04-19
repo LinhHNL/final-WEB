@@ -44,6 +44,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data = json_decode($jsonData, true);
     $action = $data['action'];
     switch ($action) {
+        case 'getFormatOfMovie':
+            
+            break;
         case 'addMovie':
             $list =    (new MovieController)->addMovie($data);
             echo json_encode($list);

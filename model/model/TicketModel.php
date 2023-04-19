@@ -48,6 +48,21 @@ class TicketModel{
             return (array('success' => false,'message' => $e->getMessage()));
         }
     }
+    public function getAllTicketByShowTimeID($ShowTimeID){
+        try{
+        $stmt = $this->db->prepare("SELECT TicketID,ShowTimeID,SeatID,Status FROM Ticket where ShowTimeID = '$ShowTimeID'");
+        $stmt->execute();
+        $listTicket = array();
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $listTicket[] = new Ticket($row['ShowTimeID'],$row['SeatID'],$row['Status'],$row['TicketID']);
+        }
+        return (array('success' => true, 'listTicket' => $listTicket));
+        }
+    catch(PDOException $e){
+        return (array('success' => false, 'error' => $e->getMessage()));
+
+    }
+}
     public function getAllTicket($page){
         $page = intval($page);
         $number =  35;

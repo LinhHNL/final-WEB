@@ -17,9 +17,9 @@ class FormatModel {
         $stmt->execute();
         $format = $stmt->fetchObject();
         if($format!=null){
-            echo json_encode(array("success"=>true,"format"=>$format));
+            return (array("success"=>true,"format"=>$format));
         }else{
-            echo json_encode(array("success"=>false,"error"=>"Format không tồn tại"));
+            return (array("success"=>false,"error"=>"Format không tồn tại"));
         }
     }
   
@@ -33,9 +33,9 @@ class FormatModel {
             $stmt->bindParam(':FormatID', $FormatID);
             $stmt->bindParam(':NameFormat', $NameFormat);
             $stmt ->execute();
-            echo json_encode(array("success"=>true));
+            return (array("success"=>true));
         }catch(Exception $e){
-            echo json_encode(array("success"=>false,"error"=>$e->getMessage()));
+            return (array("success"=>false,"error"=>$e->getMessage()));
         }
     }
 
@@ -46,12 +46,12 @@ class FormatModel {
             $stmt->bindParam(':FormatID', $id);
             $stmt->execute();
             if ($stmt->rowCount() > 0) {
-                echo json_encode(array("success" => true));
+                return (array("success" => true));
             } else {
-                echo json_encode(array("success" => false, "error" => "Format không tồn tại"));
+                return (array("success" => false, "error" => "Format không tồn tại"));
             }
         } catch (Exception $e) {
-            echo json_encode(array("success" => false, "error" => $e->getMessage()));
+            return (array("success" => false, "error" => $e->getMessage()));
         }
     }
     private function createNewFormatID(){
@@ -79,12 +79,12 @@ class FormatModel {
             
             $stmt->execute();
             if ($stmt->rowCount() > 0) {
-                echo json_encode(array("success" => true));
+                return (array("success" => true));
             } else {
-                echo json_encode(array("success" => false, "error" => "Format không tồn tại"));
+                return (array("success" => false, "error" => "Format không tồn tại"));
             }
         } catch (Exception $e) {
-            echo json_encode(array("success" => false, "error" => $e->getMessage()));
+            return (array("success" => false, "error" => $e->getMessage()));
         }
     }
     public function getAllFormat() {
@@ -102,7 +102,7 @@ class FormatModel {
             }
         }
     
-        echo json_encode(array("success" => true, "formats" => $formats));
+        return (array("success" => true, "formats" => $formats));
 
     }
     
