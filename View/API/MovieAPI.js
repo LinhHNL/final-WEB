@@ -50,6 +50,84 @@ const getMovieByID = async (url, IDMovie = 1) => {
   return datatorender;
 };
 
+const addMovie = async (
+  url = "../..",
+  MovieName,
+  Director,
+  Year,
+  Premiere,
+  URLTrailer,
+  Time,
+  StudioID,
+  LanguageID,
+  story,
+  age,
+  listActor,
+  listGenre,
+  listImage
+) => {
+  const urls = `${url}/Controller/Movie/ajax.php`;
+  const data = await fetch(urls, {
+    method: "POST",
+    body: JSON.stringify({
+      action: "addMovie",
+      MovieName: MovieName,
+      Director: Director,
+      Year: Year,
+      Premiere: Premiere,
+      URLTrailer: URLTrailer,
+      Time: Time,
+      StudioID: StudioID,
+      LanguageID: LanguageID,
+      story: story,
+      age: age,
+      ListActor: listActor,
+      ListGenre: listGenre,
+      ListImage: listImage
+    }),
+  });
+  const datatorender = await data.json();
+  return datatorender;
+};
+
+const updateMovie = async (
+  url = "../..",
+  MovieID,
+  MovieName,
+  Director,
+  Year,
+  Premiere,
+  URLTrailer,
+  Time,
+  StudioID,
+  LanguageID,
+  story,
+  age
+) => {
+  const urls = `${url}/Controller/Movie/ajax.php`;
+  const data = await fetch(urls, {
+    method: "PUT",
+    body: JSON.stringify({
+      action: "updateMovie",
+      MovieID: MovieID,
+      MovieName: MovieName,
+      Director: Director,
+      Year: Year,
+      Premiere: Premiere,
+      URLTrailer: URLTrailer,
+      Time: Time,
+      StudioID: StudioID,
+      LanguageID: LanguageID,
+      story: story,
+      age: age,
+
+    }),
+  });
+  const datatorender = await data.json();
+  return datatorender;
+};
+
+
 const deleteMovie = async (url, id) => {
   const data = await fetch(
     `${url}/Controller/Movie/ajax.php?id=${id}`,
@@ -67,5 +145,7 @@ export {
   getUpcomingMovie,
   getByGenreID,
   getMovieByID,
-  deleteMovie,
+  addMovie,
+  updateMovie,
+  deleteMovie
 };

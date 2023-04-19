@@ -264,6 +264,10 @@ svg.active {
   font-weight: 500;
 }
 
+.table-place tbody tr {
+  cursor: pointer;
+}
+
 .table-place tbody tr td {
   max-width: 100px;
   overflow: hidden;
@@ -277,6 +281,11 @@ svg.active {
   text-align: center  ;
   height: fit-content;
 }
+
+#table-content tr.selected {
+  background-color: #fff !important;
+}
+
 
 .rating {
   font-size: 16px;
@@ -406,7 +415,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 input[type="text"],
 input[type="date"],
-input[type="file"],
+input[type="file"], 
 .modal select {
   color: white;
   background-color: black;
@@ -415,6 +424,39 @@ input[type="file"],
   margin-top: 10px;
   border-radius: 10px;
   height: 36px;
+}
+
+.modal .selectize-control {
+  color: white;
+  background-color: black;
+  border: none;
+  box-sizing: border-box;
+  margin-top: 10px;
+  border-radius: 10px;
+  height: 36px;
+  padding: 0;
+}
+
+.modal .selectize-input {
+  color: white;
+  background-color: black;
+  border: none;
+  box-sizing: border-box;
+  border-radius: 10px;
+  height: 36px;
+}
+
+.modal .selectize-input .item {
+  background-color: #784ba0  !important;
+  background-image: none !important;
+  border: none !important;
+}
+
+.modal .selectize-dropdown {
+  background-color: black;
+  border: solid 1px #343434;
+  color: white;
+  border-radius: 10px;
 }
 
 input[type="text"]:focus,
@@ -474,6 +516,27 @@ a {
   border: none;
 }
 
-#table-content_length label {
+#table-content_length label, #table-content_info {
   color: white;
+}
+
+.message {
+  text-align: center;
+  color: red;
+}
+
+.message.success {
+  color: green !important;
+}
+
+input:disabled {
+  color: black;
+}
+
+.paginate_button:hover {
+  background: none !important;
+}
+
+.dataTables_paginate {
+ color: white  !important;
 }
