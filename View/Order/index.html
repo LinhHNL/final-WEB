@@ -187,7 +187,12 @@
       $(document).ready(function () {
         let previousOption = "";
         const date = new Date();
-
+        // Mai làm tiếp thằng này
+        sessionStorage.setItem("MovieChoosing", "");
+        sessionStorage.setItem("RoomIDChoosing", "");
+        sessionStorage.setItem("TimeChoosing", "");
+        sessionStorage.setItem("TheaterName", "");
+        sessionStorage.setItem("Seat", "");
         $(".navbar-toggler").click(function () {
           var color = $(".navbar").css("background-color");
           if (color == "rgba(0, 0, 0, 0.01)") {
@@ -210,6 +215,7 @@
           const datetoFetch = sessionStorage.getItem("DayChoosing");
           const select = document.querySelector(".Select_Theater_Container");
           const selectedOption = select.options[select.selectedIndex].value;
+          sessionStorage.setItem("TheaterName", selectedOption);
           if (
             selectedOption != "Rạp phim" &&
             previousOption != selectedOption
@@ -293,7 +299,7 @@
                   await $(".card-film-item-container").append(htmls);
                   let timehtmls = "";
                   timehtmls += `
-                      <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
+                      <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" id=${data.RoomID}>
                         <p class="place-to-choose">${RoomData.RoomName}</p>
                         <p class="time-to-choose">${renderTime[0]}:${renderTime[1]}</p>
                         <p class="seat-info"><b>${RoomData.NumberOfSeats}</b>/100 chỗ ngồi</p>
@@ -308,18 +314,22 @@
                   const datatoCut = data.StartTime;
                   const GenreList = await cuttingGenre(dataMovie);
                   const takingTime = await datatoCut.split(" ")[1];
-
                   const renderTime = await takingTime.split(":");
                   let timehtmls = "";
                   timehtmls += await `
-                      <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
+                      <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" id=${data.RoomID}>
                         <p class="place-to-choose">${RoomData.RoomName}</p>
                         <p class="time-to-choose">${renderTime[0]}:${renderTime[1]}</p>
                         <p class="seat-info"><b>${RoomData.NumberOfSeats}</b>/100 chỗ ngồi</p>
                       </div>
                       `;
-                  $(".item-container.row").append(timehtmls);
+                  await $(".item-container.row").append(timehtmls);
                 }
+              });
+              $(".item-choosing-time").on("click", () => {
+                let idRoom = $(this).attr("id");
+                sessionStorage.setItem("RoomIDChoosing", idRoom);
+                window.location.href = "../Booking/ChooseSeat/index.html";
               });
             }
           );
@@ -436,7 +446,7 @@
               await $(".card-film-item-container").append(htmls);
               let timehtmls = "";
               timehtmls += `
-              <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
+              <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" id=${data.RoomID}s>
                 <p class="place-to-choose">${RoomData.RoomName}</p>
                 <p class="time-to-choose">${renderTime[0]}:${renderTime[1]}</p>
                 <p class="seat-info"><b>${RoomData.NumberOfSeats}</b>/100 chỗ ngồi</p>
@@ -455,16 +465,29 @@
 
               let timehtmls = "";
               timehtmls += `
-        <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6">
+        <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" id=${data.RoomID}>
           <p class="place-to-choose">${RoomData.RoomName}</p>
           <p class="time-to-choose">${renderTime[0]}:${renderTime[1]}</p>
           <p class="seat-info"><b>${RoomData.NumberOfSeats}</b>/100 chỗ ngồi</p>
         </div>
       `;
               $(".item-container.row").append(timehtmls);
+              $(".item-choosing-time.col-lg-2.col-md-5.col-sm-6").on(
+                "click",
+                () => {
+                  $(".item-choosing-time").on("click", function () {
+                    let idRoom = $(this).attr("id");
+                    let TimesChoosing = $(this).find(".time-to-choose").text();
+                    sessionStorage.setItem("RoomIDChoosing", idRoom);
+                    sessionStorage.setItem("TimeChoosing", TimesChoosing);
+                    window.location.href = "../Booking/ChooseSeat/index.html";
+                  });
+                }
+              );
             }
           }
         };
+        TakingShowTime();
         function ChangingDate() {
           const daysOfWeek = [
             "Chủ nhật",

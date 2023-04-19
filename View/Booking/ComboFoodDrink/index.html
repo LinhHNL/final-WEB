@@ -84,7 +84,7 @@
             src="../../../images/arrow_right.svg"
             style="transform: scaleX(-1)"
           />
-          <span style="color: #ff3cac">CHỌN COMBO</span>
+          <span style="color: #ff3cac">CHỌN CHỖ NGỒI</span>
         </a>
       </div>
       <p style="font-weight: bold; color: white; font-size: 20px">
@@ -123,8 +123,8 @@
         <div class="title">COMBO</div>
         <div class="content">0 ₫</div>
       </div>
-      <a href="/View/Booking/Thanhtoan/index.html" style="text-decoration: none">
-        <button class="btn-grad"> THANH TOÁN </button>
+      <a href="../Thanhtoan/index.html" style="text-decoration: none">
+        <button class="btn-grad">THANH TOÁN</button>
       </a>
       <div class="total">120,000 ₫</div>
     </div>
@@ -193,8 +193,6 @@
       </div>
     </div>
     <script type="module">
-      import { SessionCodeValue } from "../../SessionFile/SessionCodeValue.js";
-      console.log(SessionCodeValue.UserID);
       import { getAllMenu, getDetailMenuByID } from "../../API/MenuAPI.js";
       $(document).ready(function () {
         async function getDescription(id) {
