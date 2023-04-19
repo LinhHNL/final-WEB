@@ -8,7 +8,7 @@ class MenuModel {
     public function __construct(){
         $this->conn = Database::getConnection();
     }
-
+   
     // Phương thức lấy thông tin Menu theo ID
     public function getMenuByID($id) {
         $stmt = $this->conn->prepare("SELECT Name,  ImageURL ,Price,status ,ItemID FROM menu WHERE ItemID=:ItemID");
@@ -22,7 +22,7 @@ class MenuModel {
             return (array("success"=>false,"error"=>"Menu không tồn tại"));
         }
     }
-  
+    
     // Phương thức thêm mới một Menu
     public function addMenu(Menu $Menu){
         try{

@@ -18,6 +18,23 @@ class TicketModel{
         $newId = "TK" . ($lastId + 1);
         return $newId;
     }
+    public function getAllTicketByBookingID($bookingid){
+        try{
+            $stmt = $this->db->prepare("SELECT Ticket.* from Ticket JOIN detailticket as dt ON dt.TicketID = Ticket.TicketID 
+            where dt.BookingID = :BookingID ");
+            $stmt ->bindParam(":BookingID",$bookingid);
+            $stmt->execute();
+            $listTicket = array();
+            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $listTicket[] = new Ticket($row['ShowTimeID'],$row['SeatID'],$row['Status'],$row['TicketID']);
+            }
+            return  $listTicket;
+            }
+        catch(PDOException $e){
+            return false;
+    
+        }
+    }
     public function addTicket(Ticket $ticket){
         try {
             $stmt = $this->db->prepare("INSERT INTO Ticket(TicketID,ShowTimeID,SeatID,Status) VALUES(:TicketID,:ShowTimeID,:SeatID,:Status)");

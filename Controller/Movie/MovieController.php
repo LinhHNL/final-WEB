@@ -113,6 +113,7 @@ class MovieController{
          return array('success' => true,'message' => "Thêm image thành công");
 
     }
+    
     public function addMovie($data){
         
          $MovieName = $data['MovieName'];
