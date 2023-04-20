@@ -128,7 +128,7 @@ const getShowTimeByDateAndTheater = async (
   theaterid = "T001"
 ) => {
   const data = await fetch(
-    `${url}/Controller/Showtime/ajax.php?action=getAllShowtimeByMovieID&Theaterid=${theaterid}&date=${date}`,
+    `${url}/Controller/Showtime/ajax.php?action=getShowTimeByDateAndTheater&Theaterid=${theaterid}&date=${date}`,
     {
       method: "GET",
     }

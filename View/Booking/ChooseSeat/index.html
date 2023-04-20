@@ -293,52 +293,83 @@
         });
         (async function getAllTicketsByShowTimeIdFunc() {
           const ShowTimeID = sessionStorage.getItem("ShowTimeID");
-          let datas = await getAllTicketsByShowTimeId("../../../.", ShowTimeID);
+          let datas = await getAllTicketsByShowTimeId("../../../.", "SH01");
           let dataShowTimeIDToLoop = datas["listTicket"];
           console.log(dataShowTimeIDToLoop);
         })();
-        let row_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        let numRow = 10;
-        let numCol = 24;
 
-        (async function getSeatByRoomIDFunc() {
+        async function getSeatByRoomIDFunc() {
           let RoomID = sessionStorage.getItem("RoomIDChoosing");
           RoomID = "R14";
           console.log(RoomID);
           let seatData = await getSeatByRoomID("../../../.", RoomID);
-          console.log(seatData);
-        })();
-        for (let i = 0; i < numRow; i++) {
-          let row = document.createElement("div");
-          row.className = "seat-row";
-          $(row).append('<div class="letter">' + row_chars[i] + "</div>");
-          $(row).append('<div class="empty"></div>');
-          for (let j = 1; j <= numCol; j++) {
-            if (j == 3 || j == numCol - 1)
-              $(row).append('<div class="empty"></div>');
-            if (i == numRow - 1) {
-              //couple row
-              $(row).append(new Seat(i, j, 3).getHTML());
-              continue;
+          return seatData.list;
+        }
+        function CountingHowManySeat(seatData, numofRow) {
+          let count = 0;
+
+          for (let i = 0; i < seatData.length / numofRow; i++) {
+            if (seatData[i].SeatName.charAt(0) === "A") {
+              count++;
             }
-            $(row).append(
-              new Seat(i, j, Math.floor(Math.random() * 2) - 1).getHTML()
-            );
-            if (i % 2 == 0) {
+          }
+          return count;
+        }
+        function createAlphabetString(lastChar) {
+          let alphabetString = "";
+          let startChar = "A";
+          for (
+            let i = startChar.charCodeAt(0);
+            i <= lastChar.charCodeAt(0);
+            i++
+          ) {
+            alphabetString += String.fromCharCode(i);
+          }
+
+          return alphabetString;
+        }
+        async function getSeatChar() {
+          let seatdata = await getSeatByRoomIDFunc();
+          let charofseat = seatdata[seatdata.length - 1].SeatName[0];
+          let rowofchars = await createAlphabetString(charofseat);
+          let numofCol = await CountingHowManySeat(seatdata, rowofchars.length);
+          return [rowofchars, rowofchars.length, numofCol, seatdata];
+        }
+        (async function renderSeat() {
+          let resultofchars = await getSeatChar();
+          console.log(resultofchars);
+          let row_chars = resultofchars[0];
+          let numCol = resultofchars[2];
+          let seatdata = resultofchars[3];
+          let numRow = resultofchars[1];
+          console.log(seatdata);
+          for (let i = 0; i < numRow; i++) {
+            let row = document.createElement("div");
+            row.className = "seat-row";
+            $(row).append('<div class="letter">' + row_chars[i] + "</div>");
+            $(row).append('<div class="empty"></div>');
+            for (let j = 1; j <= numCol; j++) {
+              if (j == 3 || j == numCol - 1)
+                $(row).append('<div class="empty"></div>');
+              if (i == numRow - 1) {
+                //couple row
+                $(row).append(new Seat(i, j, 3).getHTML());
+                continue;
+              }
               $(row).append(
                 new Seat(i, j, Math.floor(Math.random() * 2) - 1).getHTML()
               );
             }
-          }
 
-          $(".seats-container").append(row);
-        }
-        let bookingNumber = 0;
-        $(".seat").click(function () {
-          let row = $(this).attr("row");
-          let col = $(this).attr("col");
-          selectSeat(row, col);
-        });
+            $(".seats-container").append(row);
+          }
+          let bookingNumber = 0;
+          $(".seat").click(function () {
+            let row = $(this).attr("row");
+            let col = $(this).attr("col");
+            selectSeat(row, col);
+          });
+        })();
       });
 
       function selectSeat(row, col) {
