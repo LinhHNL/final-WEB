@@ -291,17 +291,15 @@
             $(".navbar").css("background", "rgba(0, 0, 0, 0.01)");
           }
         });
-        (async function getAllTicketsByShowTimeIdFunc() {
+        async function getAllTicketsByShowTimeIdFunc() {
           const ShowTimeID = sessionStorage.getItem("ShowTimeID");
-          let datas = await getAllTicketsByShowTimeId("../../../.", "SH01");
+          let datas = await getAllTicketsByShowTimeId("../../../.", ShowTimeID);
           let dataShowTimeIDToLoop = datas["listTicket"];
-          console.log(dataShowTimeIDToLoop);
-        })();
+          return dataShowTimeIDToLoop;
+        }
 
         async function getSeatByRoomIDFunc() {
           let RoomID = sessionStorage.getItem("RoomIDChoosing");
-          RoomID = "R14";
-          console.log(RoomID);
           let seatData = await getSeatByRoomID("../../../.", RoomID);
           return seatData.list;
         }
@@ -337,37 +335,94 @@
         }
         (async function renderSeat() {
           let resultofchars = await getSeatChar();
-          console.log(resultofchars);
-          let row_chars = resultofchars[0];
+          let seatChars = resultofchars[0];
           let numCol = resultofchars[2];
           let seatdata = resultofchars[3];
           let numRow = resultofchars[1];
-          console.log(seatdata);
-          for (let i = 0; i < numRow; i++) {
+          let ticketID = await getAllTicketsByShowTimeIdFunc();
+          let flagtoloop = 0;
+
+          // for (let j = 0; j <= numCol * i; j++) {
+          //   console.log(seatdata[j]);
+          // }
+          const row_chars = seatChars.slice(0, numRow);
+          const availableSeats = seatdata.filter((seat) => {
+            const isTaken = ticketID.some((t) => t.SeatID === seat.SeatID);
+            return !isTaken;
+          });
+          const fullSeats = seatdata.filter((seat) => {
+            const isTaken = ticketID.some((t) => t.SeatID === seat.SeatID);
+            return isTaken;
+          });
+          for (const char of row_chars) {
             let row = document.createElement("div");
             row.className = "seat-row";
-            $(row).append('<div class="letter">' + row_chars[i] + "</div>");
-            $(row).append('<div class="empty"></div>');
-            for (let j = 1; j <= numCol; j++) {
-              if (j == 3 || j == numCol - 1)
-                $(row).append('<div class="empty"></div>');
-              if (i == numRow - 1) {
-                //couple row
-                $(row).append(new Seat(i, j, 3).getHTML());
-                continue;
+            $(row).append('<div class="letter">' + char + "</div>");
+            let charCode = char.charCodeAt(0);
+            let charRow = 0;
+
+            if (charCode >= 65 && charCode <= 90) {
+              // Check if the character is A-Z
+              let newChar = charCode - 65;
+              charRow = newChar;
+            }
+            for (let i = 1; i <= numRow; i++) {
+              const seattoadd = availableSeats.find((seat) => {
+                return seat.SeatName === `${char}${i}`;
+              });
+              if (fullSeats.length == 0) {
+                if (seattoadd) {
+                  if (seattoadd.Type == 2) {
+                    $(row).append(new Seat(charRow, i, 3).getHTML());
+                    continue;
+                  } else {
+                    $(row).append(new Seat(charRow, i, 0).getHTML());
+                  }
+                }
+              } else {
+                if (seattoadd & (fullSeats.SeatID != seattoadd.SeatID)) {
+                  if (seattoadd.Type == 2) {
+                    $(row).append(new Seat(charRow, i, 3).getHTML());
+                    continue;
+                  } else {
+                    $(row).append(new Seat(charRow, i, 0).getHTML());
+                  }
+                } else {
+                  $(row).append('<div class="empty"></div>');
+                }
               }
-              $(row).append(
-                new Seat(i, j, Math.floor(Math.random() * 2) - 1).getHTML()
-              );
             }
 
             $(".seats-container").append(row);
           }
           let bookingNumber = 0;
+          let arrtemptransaction = [];
           $(".seat").click(function () {
             let row = $(this).attr("row");
             let col = $(this).attr("col");
-            selectSeat(row, col);
+            let stateid = $(this).attr("stateId");
+            function numberToChar(number) {
+              return String.fromCharCode(parseInt(number) + "A".charCodeAt(0));
+            }
+            if (stateid == 0) {
+              stateid = 1;
+            }
+            if (stateid == 3) {
+              stateid = 2;
+            }
+            const selectedValue = $(".form-select option:selected").val();
+            if (selectedValue > bookingNumber) {
+              selectSeat(row, col);
+              arrtemptransaction = [
+                ...arrtemptransaction,
+                { Name: numberToChar(row), Number: col, Type: stateid },
+              ];
+              sessionStorage.setItem(
+                "ChoosingSeat",
+                JSON.stringify(arrtemptransaction)
+              );
+              bookingNumber++;
+            }
           });
         })();
       });
@@ -386,6 +441,7 @@
         }
 
         getHTML() {
+          let stateId = this.state;
           let stateName;
           let row_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
           switch (this.state) {
@@ -406,7 +462,7 @@
               break;
           }
           return (
-            `<div class="seat ${stateName}" row=${this.row} col=${this.col}><svg class="width="25" height="18" viewBox="0 0 25 18" fill="#343434" xmlns="http://www.w3.org/2000/svg">` +
+            `<div class="seat ${stateName}" stateId=${stateId} row=${this.row} col=${this.col}><svg class="width="25" height="18" viewBox="0 0 25 18" fill="#343434" xmlns="http://www.w3.org/2000/svg">` +
             '<path d="M3.75 4.66875V2.25C3.75 1.0125 4.875 0 6.25 0H18.75C20.125 0 21.25 1.0125 21.25 2.25V4.68C19.8 5.14125 18.75 6.37875 18.75 7.84125V10.125H6.25V7.83C6.25 6.37875 5.2 5.13 3.75 4.66875ZM22.5 5.625C21.125 5.625 20 6.6375 20 7.875V11.25H5V7.875C5 6.6375 3.8875 5.625 2.5 5.625C1.1125 5.625 0 6.6375 0 7.875V13.5C0 14.7375 1.125 15.75 2.5 15.75V18H5V15.75H20V18H22.5V15.75C23.875 15.75 25 14.7375 25 13.5V7.875C25 6.6375 23.875 5.625 22.5 5.625Z" />' +
             "</svg>" +
             '<div class="seat-tooltip">' +

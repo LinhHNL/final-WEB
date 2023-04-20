@@ -317,8 +317,8 @@
             const timetoadd = await toHHMM(data.Time);
             let htmls = "";
             let imageurl = "";
-            if (data.listImage[0].ImagePath) {
-              imageurl = data.listImage[0].ImagePath.ImagePath;
+            if (data.listImage[0]) {
+              imageurl = data.listImage[0].ImagePath;
             }
             if (count - 1 == 0) {
               htmls = `<div id=${data.MovieID} class="carousel-item active">`;
@@ -432,7 +432,7 @@
                     </a>
                     <button class="btn-main">Đặt vé</button>
                   </div>
-                  <img class="poster" src="${data.listImage[0].ImagePath}" alt="" />
+                  <img class="poster" src="${data.listImage[0]}" alt="" />
                 </div>
 
                 <div class="movie-genre">
@@ -497,7 +497,7 @@
                     <button class="btn-outline">Chi tiết</button>
                     <button class="btn-main">Đặt vé</button>
                   </div>
-                  <img class="poster" src="${data.listImage[0].ImagePath.ImagePath}" alt="" />
+                  <img class="poster" src="${data.listImage[0].ImagePath}" alt="" />
                 </div>
 
                 <div class="movie-genre">
@@ -565,7 +565,7 @@
                     </a>
                     <button class="btn-main">Đặt vé</button>
                   </div>
-                  <img class="poster" src="${data.listImage[0].ImagePath}" alt="" />
+                  <img class="poster" src="${data.listImage[0]}" alt="" />
                 </div>
 
                 <div class="movie-genre">
@@ -634,7 +634,7 @@
                     </a>
                     <button class="btn-main">Đặt vé</button>
                   </div>
-                  <img class="poster" src="${data.listImage[0].ImagePath.ImagePath}" alt="" />
+                  <img class="poster" src="${data.listImage[0].ImagePath}" alt="" />
                 </div>
 
                 <div class="movie-genre">
