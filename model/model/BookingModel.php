@@ -137,7 +137,7 @@ class BookingModel {
     $stmt->bindParam(":status",$status);
     $stmt ->execute();
           
-    return (array("Success"=>true,"message"=>"Thêm thành công"));
+    return (array("Success"=>true,"message"=>"Thêm thành công","booking_id"=>$id));
 }catch(Exception $e){
 
     return   (array("Success"=>false,"error"=>$e->getMessage()));
