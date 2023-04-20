@@ -1,5 +1,6 @@
 <?php 
 require_once(__DIR__.'/../entity/Room.php');
+require_once(__DIR__.'/../entity/Seat.php');
 require_once(__DIR__.'/../System/Database.php');
 
 class RoomModel {
@@ -87,7 +88,7 @@ public function getAllRoom(){
     $stmt->execute();
     $Rooms = array();
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $Room = new Room( $row['RoomName'], $row['NumberOfSeats'], $row['TheaterID'],$row['RoomID']);
+        $Room = new Room( $row['RoomName'] , $row['TheaterID'], $row['NumberOfSeats'],$row['RoomID']);
         $Rooms[] = $Room;
     }
     return (array("success" => true, "list" => $Rooms));
@@ -111,5 +112,6 @@ public function getAllRoom(){
 
 //$temp = new Room('RoomName 3', 'TH001', 3);
 
-return (new RoomModel())->getAllRoom();
+
+
 ?>

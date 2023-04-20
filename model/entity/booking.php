@@ -4,7 +4,7 @@
         public $NumberOfTickets;
         public $TotalPrice;
         public $BookingTime;
-               public $Voucher;
+        public $Voucher;
         public $customer_id;
         public $status;
 

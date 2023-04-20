@@ -5,6 +5,8 @@ require_once (__DIR__.'/../entity/MenuDetail.php');
 require_once (__DIR__.'/../entity/Ticket.php');
 require_once (__DIR__.'/../entity/DetailTicket.php');
 require_once (__DIR__.'/../System/Database.php');
+require_once (__DIR__.'/TicketModel.php');
+require_once (__DIR__.'/MenuDetailModel.php');
 class BookingModel {
     private $conn;
     public function __construct(){
@@ -48,8 +50,8 @@ class BookingModel {
     $ListMenu = (new MenuDetailModel())->getMenuDetailByBookingID($booking);
     return array("booking"=>$booking, "menu"=>$ListMenu,"ticket"=>$ListTicket);
     }
+
     public function getAllBookingsByCustomerID($customer_id,$page = 1 ) {
-        
         $perPage = 10;
         $offset = ($page - 1) * $perPage;
         $stmt = $this->conn->prepare("SELECT 
@@ -63,7 +65,6 @@ class BookingModel {
         FROM Booking
         where customer_id =:id
         LIMIT :perPage OFFSET :offset");
-    
         $stmt->bindParam(':perPage', $perPage, PDO::PARAM_INT);
         $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
         $stmt->bindParam(':id', $customer_id);
@@ -71,11 +72,12 @@ class BookingModel {
         $bookings = array();
     
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $booking = new Booking($row['NumberOfTickets'],$row['BookingTime'],$row['TotalPrice'],$row['Voucher'],$row['customer_id'],$row['status'],$row['BookingID']);
-            $bookings[] = $booking;
+            $booking = new Booking($row['NumberOfTickets'],$row['BookingTime'],$row['TotalPrice'],$row['Voucher'],$row['customer_id'],$row['status'],$row['BookingID']);   
+            $ListTicket = (new TicketModel())->getAllTicketByBookingID($row['BookingID']);
+            $ListMenu = (new MenuDetailModel())->getMenuDetailByBookingID($row['BookingID']);
+            $bookings[] =  array("booking"=>$booking, "menu"=>$ListMenu,"ticket"=>$ListTicket);
         }
-    
-        return (array("success"=>true, "bookings"=>$bookings));
+        return $bookings;
     }
     public function getAllBookings($page = 1 ) {
         $perPage = 10;

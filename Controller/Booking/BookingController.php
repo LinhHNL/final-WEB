@@ -9,16 +9,25 @@ class BookingController {
         return (new BookingModel())->getBookingByID($id);
 
     }
+    public function getAllBookingsByCustomerID($customer,$page){
+        return (new BookingModel())->getAllBookingsByCustomerID($customer,$page);
+    }
+    public function getBookingDetailsByBookingID($bookingid){
+        return (new BookingModel())->getBookingDetails($bookingid);
+
+    }
     function addBooking($data){
 
-         $BookingID;
-         $NumberOfTickets;
-         $TotalPrice;
-         $BookingTime;
-                $Voucher;
-         $customer_id;
-         $status;
-        return (new BookingModel())->addBooking(new Booking($NumberOfTickets, $BookingTime, $TotalPrice,  $Voucher,$customer_id ,$status,$BookingID));
+         $BookingID = $data['BookingID'];
+         $NumberOfTickets = $data['NumberOfTickets'];
+         $TotalPrice = $data['TotalPrice'];
+         $BookingTime = $data['BookingTime'];
+         $Voucher = $data['Voucher'];
+         $customer_id = $data['customer_id'];
+         $status = $data['status'];
+         $ListTicket = $data['ListTicket'];
+         $ListMenu = $data['ListMenu'];
+        return (new BookingModel())->addBooking(new Booking($NumberOfTickets, $BookingTime, $TotalPrice,  $Voucher,$customer_id ,$status));
     }
     function removeBooking($id){
         return (new BookingModel())->deleteBooking($id);
@@ -26,13 +35,13 @@ class BookingController {
     }
 
     function updateBooking($data){
-         $BookingID;
-         $NumberOfTickets;
-         $TotalPrice;
-         $BookingTime;
-                $Voucher;
-         $customer_id;
-         $status;
+        $BookingID = $data['BookingID'];
+        $NumberOfTickets = $data['NumberOfTickets'];
+        $TotalPrice = $data['TotalPrice'];
+        $BookingTime = $data['BookingTime'];
+        $Voucher = $data['Voucher'];
+        $customer_id = $data['customer_id'];
+        $status = $data['status'];
         $Booking = new Booking( $NumberOfTickets, $BookingTime, $TotalPrice,  $Voucher,$customer_id ,$status,$BookingID);
         return (new BookingModel())->updateBooking($Booking);
 

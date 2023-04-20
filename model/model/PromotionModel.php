@@ -36,7 +36,7 @@ class PromotionModel {
         Code,
         type,
         url_Image 
-        from promotion WHERE type = 1 and endtime >= NOW()  limit $offset,$number";
+        from promotion WHERE type = 2 and endtime >= NOW()  limit $offset,$number";
         $stmt = $this->conn->prepare($query);
        
         $stmt->execute();
@@ -60,8 +60,8 @@ class PromotionModel {
         Discount,
         Code,
         type,
-        url_Image 
-        from promotion WHERE type = 2 and endtime >= NOW()  limit $offset,$number";
+        url_image 
+        from promotion WHERE type = 1 and endtime >= NOW()  limit $offset,$number";
         $stmt = $this->conn->prepare($query);
        
         $stmt->execute();
