@@ -281,6 +281,7 @@
         setLocalStorage,
       } from "../../Util/LocalstorageInterFace.js";
       import { getSeatByRoomID } from "../../API/SeatAPI.js";
+      import { getAllTicketsByShowTimeId } from "../../API/TicketAPI.js";
       $(document).ready(function () {
         $(".navbar-toggler").click(function () {
           var color = $(".navbar").css("background-color");
@@ -290,9 +291,15 @@
             $(".navbar").css("background", "rgba(0, 0, 0, 0.01)");
           }
         });
+        (async function getAllTicketsByShowTimeIdFunc() {
+          const ShowTimeID = sessionStorage.getItem("ShowTimeID");
+          let datas = await getAllTicketsByShowTimeId("../../../.", ShowTimeID);
+          let dataShowTimeIDToLoop = datas["listTicket"];
+          console.log(dataShowTimeIDToLoop);
+        })();
         let row_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         let numRow = 10;
-        let numCol = 20;
+        let numCol = 24;
 
         (async function getSeatByRoomIDFunc() {
           let RoomID = sessionStorage.getItem("RoomIDChoosing");
@@ -318,11 +325,16 @@
             $(row).append(
               new Seat(i, j, Math.floor(Math.random() * 2) - 1).getHTML()
             );
+            if (i % 2 == 0) {
+              $(row).append(
+                new Seat(i, j, Math.floor(Math.random() * 2) - 1).getHTML()
+              );
+            }
           }
 
           $(".seats-container").append(row);
         }
-
+        let bookingNumber = 0;
         $(".seat").click(function () {
           let row = $(this).attr("row");
           let col = $(this).attr("col");

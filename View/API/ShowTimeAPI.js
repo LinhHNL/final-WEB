@@ -122,7 +122,20 @@ const addShowTime = async (
   const datatorender = await data.json();
   return datatorender;
 };
-
+const getShowTimeByDateAndTheater = async (
+  url,
+  date = "2022-10-10",
+  theaterid = "T001"
+) => {
+  const data = await fetch(
+    `${url}/Controller/Showtime/ajax.php?action=getAllShowtimeByMovieID&Theaterid=${theaterid}&date=${date}`,
+    {
+      method: "GET",
+    }
+  );
+  const datatorender = await data.json();
+  return datatorender;
+};
 export {
   getShowTimeByID,
   getAllShowTimesByDate,
@@ -132,6 +145,7 @@ export {
   updateShowTime,
   addShowTime,
   removeShowTime,
+  getShowTimeByDateAndTheater,
 };
 //   $movieid = $_GET['movieid'];
 //   $date = $_GET['date'];
