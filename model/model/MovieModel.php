@@ -290,22 +290,7 @@ class MovieModel{
         return $listmovie;
     
     }
-    // public function getFormateOfMovie($movieID){
-    //     try {
-    //         $stmt = $this->conn->prepare("Select f.FormatID, NameFormat from Format as f Join Movie as m on m.FormatID = f.formatID where m.MovieID = :MovieID");
-    //         $stmt ->bindParam(':MovieID',$movieID);
-    //         $stmt->setFetchMode(PDO::FETCH_CLASS,'Format');
-    //         $stmt->execute();
-    //         $format = $stmt->fetchObject();
-    //         if($format!=null){
-    //             return (array("success"=>true,"format"=>$format));
-    //         }else{
-    //             return (array("success"=>false,"error"=>"Format không tồn tại"));
-    //         }
-    //     }catch(Exception $e){
-    //         return array("success"=>false, "error"=>$e->getMessage());
-    //     }
-    // }
+
     public function addGenreForMovie(DetailMovieGenre $db){
       try {
         $sql = "INSERT INTO `detailmoviegenre` (`MovieID`, `GenreID`) VALUES (:MovieID, :GenreID)";

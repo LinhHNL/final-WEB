@@ -49,8 +49,13 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
                 echo json_encode((new ShowTimeController)->getShowTimeByDateAndGenre($date,$genre));
                
                 break;
+            case 'getShowTimeByDateAndTheater':
+                $date = $_GET['date'];
+                $Theaterid = $_GET['Theaterid'];
+                echo json_encode((new ShowTimeController)->getAllShowtimesByTheaterAndDate($Theaterid,$date));
+                break;
 
-    }
+    }   
 }
 if($_SERVER['REQUEST_METHOD'] == 'PUT') {
     $jsonData = file_get_contents("php://input");

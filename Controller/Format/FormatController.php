@@ -24,6 +24,9 @@ class FormatController {
         return (new FormatModel())->updateFormat($Format);
 
     }
+    public function getAllFormatsOfMovie($movieid){
+        return (new FormatModel())->getFormateOfMovie($movieid);
+    }
 }
 
 ?>

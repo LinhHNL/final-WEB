@@ -90,7 +90,7 @@ public function getAllSeat($page){
     $stmt->execute();
     $Seats = array();
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $Seat = new Seat($row['SeatID'], $row['SeatName'], $row['Type'], $row['RoomID']);
+        $Seat = new Seat( $row['SeatName'], $row['RoomID'], $row['Type'],$row['SeatID']);
         $Seats[] = $Seat;
     }
     return (array("success" => true, "list" => $Seats));
@@ -102,7 +102,7 @@ public function getAllSeatByRoom($RoomID){
     $stmt->execute();
     $Seats = array();
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $Seat = new Seat($row['SeatID'], $row['SeatName'], $row['Type'], $row['RoomID']);
+        $Seat = new Seat( $row['SeatName'], $row['RoomID'], $row['Type'],$row['SeatID']);
         $Seats[] = $Seat;
     }
     return (array("success" => true, "list" => $Seats));
