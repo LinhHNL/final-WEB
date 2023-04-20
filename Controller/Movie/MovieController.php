@@ -116,19 +116,19 @@ class MovieController{
     
     public function addMovie($data){
         
-         $MovieName = $data['MovieName'];
-         $Director = $data['Director'];
-         $Year = $data['Year'];
-         $Premiere = $data['Premiere'];
-         $URLTrailer = $data['URLTrailer'];
-         $Time = $data['Time'];
-         $StudioID = $data['StudioID'];
-         $LanguageID = $data['LanguageID'];
-         $story = $data['story'];
-         $age = $data['age'];
-         $listActor = $data['ListActor'];
-         $listGenre = $data['ListGenre'];
-         $listImage = $data['ListImage'];
+        $MovieName = $data['MovieName'];
+        $Director = $data['Director'];
+        $Year = $data['Year'];
+        $Premiere = $data['Premiere'];
+        $URLTrailer = $data['URLTrailer'];
+        $Time = $data['Time'];
+        $StudioID = $data['StudioID'];
+        $LanguageID = $data['LanguageID'];
+        $story = $data['story'];
+        $age = $data['age'];
+        $listActor = $data['ListActor'];
+        $listGenre = $data['ListGenre'];
+        $listImage = $data['ListImage'];
         $movie  = new Movie($MovieName, $Year, $Director, $Premiere, $URLTrailer, $Time, $StudioID, $LanguageID,$story,$age);
         $result = (new MovieModel)->addMoive($movie);
         if($result['success']){
@@ -165,7 +165,6 @@ class MovieController{
                 }
         }
         return array('success'=>true, 'message'=>"Thêm thành công 1221");
-
         }
         return array('success'=>false, 'message'=>"Thêm thất bại");
 

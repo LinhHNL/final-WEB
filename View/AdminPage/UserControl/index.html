@@ -30,12 +30,14 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <link
+      href="https://cdn.datatables.net/v/dt/dt-1.13.4/sl-1.6.2/datatables.min.css"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.datatables.net/v/dt/dt-1.13.4/sl-1.6.2/datatables.min.js"></script>
     <link rel="stylesheet" href="homepage.css" />
     <link rel="stylesheet" href="./style.css" />
-
   </head>
   <body>
     <!-- SideBar -->
@@ -48,71 +50,66 @@
         <div class="function_place">
           <button class="btn-outline content-type-normal">Thêm file</button>
           <button class="btn-outline content-type-normal">In danh sách</button>
-          <button class="btn-main content-type-normal" data-bs-toggle="modal"
-          data-bs-target="#ModalEditUser">+ Thêm form</button>
+          <button
+            class="btn-main content-type-normal"
+            data-bs-toggle="modal"
+            data-bs-target="#ModalAddUser"
+          >
+            + Thêm form
+          </button>
         </div>
       </div>
       <div class="divider-container"></div>
       <div class="search-place">
-        <div class="input-group rounded input-place" style="margin-bottom: 0;">
+        <div class="input-group rounded input-place me-auto" style="margin-bottom: 0">
+          <img
+            src="/images/search.svg"
+            alt=""
+            style="
+              position: absolute;
+              left: 20px;
+              z-index: 10;
+              top: 50%;
+              transform: translateY(-50%);
+            "
+          />
           <input
             type="search"
             class="form-control rounded"
-            placeholder="Search"
+            placeholder="Tìm kiếm theo id"
             aria-label="Search"
             aria-describedby="search-addon"
           />
         </div>
-        <div class="dropdown dropdown-choosing">
-          <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Khu vực
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        
-       
-        
-        <button class="btn-main content-type-normal">Tìm kiếm</button>
+
+        <button class="btn-main content-type-normal" id="btn-search">Tìm kiếm</button>
       </div>
       <div class="divider-container"></div>
       <div class="transition-place">
         <div class="item-choosing-block">
-          <p class="all-user" style="margin-bottom: 12px!important">Tất cả người dùng</p>
+          <p class="all-user" style="margin-bottom: 12px !important">
+            Tất cả người dùng
+          </p>
           <div class="divider-mini"></div>
         </div>
         <div class="item-choosing-block">
-          <p class="user-favor">Khách hàng thân thiết</p>
-          <div class="divider-mini hidden"></div>
+          <p class="customer" style="margin-bottom: 12px !important">
+            Khách hàng
+          </p>
+        </div>
+        <div class="item-choosing-block">
+          <p class="manager" style="margin-bottom: 12px !important">
+            Quản lý
+          </p>
+        </div>
+        <div class="item-choosing-block">
+          <p class="search-result" style="margin-bottom: 12px !important">
+            Kết quả tìm kiếm
+          </p>
         </div>
       </div>
       <div class="divider-container"></div>
-      <div class="data-heading">
-        <p class="heading-result">Hiển thị 11 - 20 của 64 kết quả tìm kiểm</p>
-        <div class="choosing-block">
-          <p class="display-text">Số kết quả / Trang</p>
-          <select
-            class="form-select select-place"
-            aria-label="Default select example"
-          >
-            <option selected value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-            <option value="50">50</option>
-          </select>
-        </div>
-      </div>
-    
+
       <div class="datagrid-place">
         <table
           id="table-content"
@@ -123,143 +120,15 @@
             <tr>
               <th>ID</th>
               <th>Họ và Tên</th>
-              <th>SĐT</th>
               <th>Email</th>
-              <th>Mật Khẩu</th>
-              <th>Ngày sinh</th>
-              <th>Khu vực</th>
-              <th>Rạp yêu thích</th>
+              <th>SĐT</th>
+              <th>Mật khẩu</th>
+              <th>Địa chỉ</th>
+              <th>Loại</th>   
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>KH1</td>
-              <td>Nguyễn Văn A</td>
-              <td>0987654321</td>
-              <td>5coder@gmail.com</td>
-              <td>*************</td>
-              <td>01/01/2003</td>
-              <td>TP Hồ Chí Minhh</td>
-              <td>Nam Sài Gòn</td>
-
-            </tr>
-            <tr>
-                <td>KH2</td>
-                <td>Nguyễn Văn A</td>
-                <td>0987654321</td>
-                <td>5coder@gmail.com</td>
-                <td>*************</td>
-                <td>01/01/2003</td>
-                <td>TP Hồ Chí Minhh</td>
-                <td>Nam Sài Gòn</td>>
-            </tr>
-            <tr>
-                <td>KH1</td>
-                <td>Nguyễn Văn A</td>
-                <td>0987654321</td>
-                <td>5coder@gmail.com</td>
-                <td>*************</td>
-                <td>01/01/2003</td>
-                <td>TP Hồ Chí Minhh</td>
-                <td>Nam Sài Gòn</td>
-            </tr>
-            <tr>
-                <td>KH1</td>
-                <td>Nguyễn Văn A</td>
-                <td>0987654321</td>
-                <td>5coder@gmail.com</td>
-                <td>*************</td>
-                <td>01/01/2003</td>
-                <td>TP Hồ Chí Minhh</td>
-                <td>Nam Sài Gòn</td>
-            </tr>
-            <tr>
-                <td>KH1</td>
-                <td>Nguyễn Văn A</td>
-                <td>0987654321</td>
-                <td>5coder@gmail.com</td>
-                <td>*************</td>
-                <td>01/01/2003</td>
-                <td>TP Hồ Chí Minhh</td>
-                <td>Nam Sài Gòn</td>
-            </tr>
-            <tr>
-                <td>KH1</td>
-                <td>Nguyễn Văn A</td>
-                <td>0987654321</td>
-                <td>5coder@gmail.com</td>
-                <td>*************</td>
-                <td>01/01/2003</td>
-                <td>TP Hồ Chí Minhh</td>
-                <td>Nam Sài Gòn</td>
-            </tr>
-            <tr>
-                <td>KH1</td>
-                <td>Nguyễn Văn A</td>
-                <td>0987654321</td>
-                <td>5coder@gmail.com</td>
-                <td>*************</td>
-                <td>01/01/2003</td>
-                <td>TP Hồ Chí Minhh</td>
-                <td>Nam Sài Gòn</td>
-            </tr>
-            <tr>
-                <td>KH1</td>
-                <td>Nguyễn Văn A</td>
-                <td>0987654321</td>
-                <td>5coder@gmail.com</td>
-                <td>*************</td>
-                <td>01/01/2003</td>
-                <td>TP Hồ Chí Minhh</td>
-                <td>Nam Sài Gòn</td>
-            </tr>
-            <tr>
-                <td>KH1</td>
-                <td>Nguyễn Văn A</td>
-                <td>0987654321</td>
-                <td>5coder@gmail.com</td>
-                <td>*************</td>
-                <td>01/01/2003</td>
-                <td>TP Hồ Chí Minhh</td>
-                <td>Nam Sài Gòn</td>
-            </tr>
-            <tr>
-                <td>KH1</td>
-                <td>Nguyễn Văn A</td>
-                <td>0987654321</td>
-                <td>5coder@gmail.com</td>
-                <td>*************</td>
-                <td>01/01/2003</td>
-                <td>TP Hồ Chí Minhh</td>
-                <td>Nam Sài Gòn</td>
-            </tr>
-            <tr>
-                <td>KH1</td>
-                <td>Nguyễn Văn A</td>
-                <td>0987654321</td>
-                <td>5coder@gmail.com</td>
-                <td>*************</td>
-                <td>01/01/2003</td>
-                <td>TP Hồ Chí Minhh</td>
-                <td>Nam Sài Gòn</td>
-            </tr>
-          </tbody>
+          <tbody></tbody>
         </table>
-      </div>
-      <div class="change-table-place">
-        <div class="back-place">
-          <span class="back-btn"> <i class="fa fa-angle-left"></i> </span>
-          <p class="back-description">Trang Trước</p>
-        </div>
-        <input type="text" class="value-place" value="1" />
-        <p style="color: white; margin-right: 6px">/</p>
-        <p class="text-place">7</p>
-        <div class="forward-place">
-          <p class="forward-description">Trang sau</p>
-          <span class="forward-btn">
-            <i class="fa fa-angle-right" aria-hidden="true"></i>
-          </span>
-        </div>
       </div>
     </div>
     <div class="sidebar-container">
@@ -488,9 +357,8 @@
     </div>
     <div
       class="modal fade"
-      id="ModalEditUser"
+      id="ModalAddUser"
       tabindex="-1"
-      aria-labelledby="ModalEditUserLable"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -500,40 +368,21 @@
               <div class="container-fluid">
                 <div class="row gy-4 gx-5">
                   <div class="col-6">
+                    <span class="form-title"> Loại </span>
+                    <select
+                      class="form-select type"
+                      aria-label="type"
+                      aria-describedby="addon-wrapping"
+                    >
+                    <option value="1">Khách hàng</option>
+                    <option value="2">Quản lý</option>
+                  </select>
+                  </div>
+                  <div class="col-6">
                     <span class="form-title"> Họ và tên </span>
                     <input
                       type="text"
-                      class="form-control"
-                      aria-label="Username"
-                      aria-describedby="addon-wrapping"
-                    />
-                  </div>
-                  <div class="col-6">
-                    <span class="form-title"> Ngày sinh </span>
-                    <input
-                      type="date"
-                      class="form-control"
-                      aria-label="Birthday"
-                      aria-describedby="addon-wrapping"
-                      placeholder="dd/mm/yy"
-                      id="birthday"
-                    />
-                  </div>
-
-                  <div class="col-6">
-                    <span class="form-title"> Số điện thoại </span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      aria-label="Username"
-                      aria-describedby="addon-wrapping"
-                    />
-                  </div>
-                  <div class="col-6">
-                    <span class="form-title"> Khu vực </span>
-                    <input
-                      type="text"
-                      class="form-control"
+                      class="form-control fullName"
                       aria-label="Username"
                       aria-describedby="addon-wrapping"
                     />
@@ -541,17 +390,18 @@
                   <div class="col-6">
                     <span class="form-title"> Email </span>
                     <input
-                      type="text"
-                      class="form-control"
-                      aria-label="Username"
+                      type="email"
+                      class="form-control email"
+                      aria-label="email"
                       aria-describedby="addon-wrapping"
                     />
                   </div>
+
                   <div class="col-6">
-                    <span class="form-title"> Rạp yêu thích </span>
+                    <span class="form-title"> Số điện thoại </span>
                     <input
                       type="text"
-                      class="form-control"
+                      class="form-control phone"
                       aria-label="Username"
                       aria-describedby="addon-wrapping"
                     />
@@ -559,8 +409,18 @@
                   <div class="col-6">
                     <span class="form-title"> Mật khẩu </span>
                     <input
+                      type="password"
+                      class="form-control password" 
+                      aria-label="Username"
+                      aria-describedby="addon-wrapping"
+                      id="password"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Địa chỉ </span>
+                    <input
                       type="text"
-                      class="form-control"
+                      class="form-control address"
                       aria-label="Username"
                       aria-describedby="addon-wrapping"
                     />
@@ -569,6 +429,8 @@
                 </div>
               </div>
             </div>
+            <div class="message"></div>
+
             <div class="row">
               <div class="col-4"></div>
               <div
@@ -581,11 +443,11 @@
               >
                 <button
                   type="button"
-                  class="btn mt-2 text-white btn-primary"
-                  id="btn_EditUser"
+                  class="btn mt-2 text-white btn-main"
+                  id="btn-add"
                   style="border-radius: 10px"
                 >
-                  Sửa người dùng
+                  Thêm người dùng
                 </button>
               </div>
               <div class="col-4"></div>
@@ -594,13 +456,117 @@
         </div>
       </div>
     </div>
-    <script>
-      $(document).ready(function () {
-      $('#table-content').DataTable();
-      $(".dataTables_length").hide();
-      $("#table-content_filter").hide();
-      $(".pagination").hide();
-});
-    </script>
+    <div
+    class="modal fade"
+    id="ModalEditUser"
+    tabindex="-1"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content p-3">
+        <div class="modal-body">
+          <div class="input-group flex-nowrap">
+            <div class="container-fluid">
+              <div class="row gy-4 gx-5">
+                <div class="col-6">
+                  <span class="form-title"> Loại </span>
+                  <select
+                    class="form-select type"
+                    aria-label="type"
+                    aria-describedby="addon-wrapping"
+                    disabled
+                  >
+                  <option value="1">Khách hàng</option>
+                  <option value="2">Quản lý</option>
+                </select>
+                </div>
+                <div class="col-6">
+                  <span class="form-title"> ID </span>
+                  <input
+                    type="text"
+                    class="form-control id"
+                    aria-label="Username"
+                    aria-describedby="addon-wrapping"
+                    disabled
+                  />
+                </div>
+                <div class="col-6">
+                  <span class="form-title"> Họ và tên </span>
+                  <input
+                    type="text"
+                    class="form-control fullName"
+                    aria-label="Username"
+                    aria-describedby="addon-wrapping"
+                  />
+                </div>
+                <div class="col-6">
+                  <span class="form-title"> Email </span>
+                  <input
+                    type="email"
+                    class="form-control email"
+                    aria-label="email"
+                    aria-describedby="addon-wrapping"
+                  />
+                </div>
+
+                <div class="col-6">
+                  <span class="form-title" > Số điện thoại </span>
+                  <input
+                    type="text"
+                    class="form-control phone"
+                    aria-label="Username"
+                    aria-describedby="addon-wrapping"
+                  />
+                </div>
+                <div class="col-6">
+                  <span class="form-title "> Mật khẩu </span>
+                  <input
+                    type="password"
+                    class="form-control password"
+                    aria-label="Username"
+                    aria-describedby="addon-wrapping"
+                  />
+                </div>
+                <div class="col-6">
+                  <span class="form-title"> Địa chỉ </span>
+                  <input
+                    type="text"
+                    class="form-control address"
+                    aria-label="Username"
+                    aria-describedby="addon-wrapping"
+                  />
+                </div>
+                <div class="col-6"></div>
+              </div>
+            </div>
+          </div>
+          <div class="message"></div>
+
+          <div class="row">
+            <div class="col-4"></div>
+            <div
+              class="col-4"
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <button
+                type="button"
+                class="btn mt-2 text-white btn-main"
+                id="btn-edit"
+                style="border-radius: 10px"
+              >
+                Sửa người dùng
+              </button>
+            </div>
+            <div class="col-4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <script type="module" src="script.js"></script>
   </body>
 </html>

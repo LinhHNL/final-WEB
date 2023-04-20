@@ -28,7 +28,6 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
 if($_SERVER['REQUEST_METHOD'] == 'PUT') {
     $jsonData = file_get_contents("php://input");
     $data = json_decode($jsonData, true);
-
     header('Content-Type: application/json');
     echo json_encode((new LanguageController)->updateLanguage($data));
 }

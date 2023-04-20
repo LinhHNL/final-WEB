@@ -617,3 +617,31 @@ html {
 #prev-day:hover {
   cursor: pointer;
 }
+.Theater-Choosing-Heading {
+  color: white;
+  font-size: 18px;
+  margin-bottom: 0;
+  margin-right: 7%;
+}
+.Select_Theater_Container {
+  width: 30%;
+  background-color: #14181d;
+  color: white;
+}
+.choosing-theater-container {
+  display: flex;
+  align-items: center;
+  margin: 7% 10%;
+}
+.btn-main {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  padding: 10px 47.5px;
+  border-radius: 10px;
+  white-space: nowrap;
+  margin: 0;
+  margin-left: 12px;
+}

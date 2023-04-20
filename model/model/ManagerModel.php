@@ -121,7 +121,7 @@ public function deleteManager($email) {
 // Phương thức cập nhật thông tin một manager
 public function updateManager(Manager $manager) {
     try {
-        $stmt = $this->conn->prepare("UPDATE manager SET FullName = :FullName Phone = :Phone WHERE ManagerID = :ManagerID");
+        $stmt = $this->conn->prepare("UPDATE manager SET FullName = :FullName, Phone = :Phone WHERE ManagerID = :ManagerID");
         $id = $manager->get_ManagerID();
         $name = $manager->get_FullName();
         $email = $manager->get_Email();

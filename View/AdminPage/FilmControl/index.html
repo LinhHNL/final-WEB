@@ -30,6 +30,17 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css"
+      integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link href="https://cdn.datatables.net/v/dt/dt-1.13.4/sl-1.6.2/datatables.min.css" rel="stylesheet"/>
+ 
+    <script src="https://cdn.datatables.net/v/dt/dt-1.13.4/sl-1.6.2/datatables.min.js"></script>
     <link rel="stylesheet" href="homepage.css" />
     <link rel="stylesheet" href="./style.css" />
   </head>
@@ -55,96 +66,42 @@
       </div>
       <div class="divider-container"></div>
       <div class="search-place">
-        <div class="input-group rounded input-place" style="margin-bottom: 0">
+        <div
+          class="input-group rounded input-place me-auto"
+          style="margin-bottom: 0; position: relative"
+        >
+          <img
+            src="/images/search.svg"
+            alt=""
+            style="
+              position: absolute;
+              left: 20px;
+              z-index: 10;
+              top: 50%;
+              transform: translateY(-50%);
+            "
+          />
           <input
             type="search"
             class="form-control rounded"
-            placeholder="Search"
+            placeholder="Tìm kiếm theo id"
             aria-label="Search"
             aria-describedby="search-addon"
           />
         </div>
-        <div class="dropdown dropdown-choosing">
-          <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton"
-            data-bs-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Ngôn ngữ
-          </button>
-          <div
-            class="dropdown-menu dropdown-menu-dark"
-            aria-labelledby="dropdownMenuButton"
-          >
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        <div class="dropdown dropdown-choosing">
-          <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton"
-            data-bs-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Thể loại
-          </button>
-          <div
-            class="dropdown-menu dropdown-menu-dark"
-            aria-labelledby="dropdownMenuButton"
-          >
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        <div class="dropdown dropdown-choosing">
-          <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton"
-            data-bs-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Thời lượng
-          </button>
-          <div
-            class="dropdown-menu dropdown-menu-dark"
-            aria-labelledby="dropdownMenuButton"
-          >
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        <div class="dropdown dropdown-choosing">
-          <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton"
-            data-bs-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Đánh giá
-          </button>
-          <div
-            class="dropdown-menu dropdown-menu-dark"
-            aria-labelledby="dropdownMenuButton"
-          >
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        <button class="btn-main content-type-normal">Tìm kiếm</button>
+        <select id="select-language" class="form-select">
+          <option selected value="">Ngôn ngữ</option>
+        </select>
+        <select id="select-genre" class="form-select">
+          <option selected value="">Thể loại</option>
+        </select>
+        <select id="select-studio" class="form-select">
+          <option selected value="">Studio</option>
+        </select>
+
+        <button class="btn-main content-type-normal" id="btn-search">
+          Tìm kiếm
+        </button>
       </div>
       <div class="divider-container"></div>
       <div class="transition-place">
@@ -172,23 +129,14 @@
           </p>
           <div class="divider-mini hidden"></div>
         </div>
-      </div>
-      <div class="divider-container"></div>
-      <div class="data-heading">
-        <p class="heading-result">Hiển thị 0 của 0 kết quả tìm kiếm</p>
-        <div class="choosing-block">
-          <p class="display-text">Số kết quả / Trang</p>
-          <select
-            class="form-select select-place"
-            aria-label="Default select example"
-          >
-            <option selected value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-            <option value="50">50</option>
-          </select>
+        <div class="item-choosing-block">
+          <p class="search-result" style="margin-bottom: 12px !important">
+            Kết quả tìm kiếm
+          </p>
+          <div class="divider-mini hidden"></div>
         </div>
       </div>
+      <div class="divider-container"></div>
 
       <div class="datagrid-place">
         <table
@@ -199,9 +147,8 @@
           <thead>
             <tr>
               <th>Mã phim</th>
-              <th>Poster</th>
               <th>Tên phim</th>
-              <th>Diễn viên</th>
+              <th>Studio</th>
               <th>Thể loại</th>
               <th>Khởi chiếu</th>
               <th>Thời lượng</th>
@@ -209,27 +156,10 @@
               <th>Đạo diễn</th>
               <th>Đánh giá</th>
               <th>Mô tả</th>
-              <th>Trailer</th>
             </tr>
           </thead>
-          <tbody>
-          </tbody>
+          <tbody></tbody>
         </table>
-      </div>
-      <div class="change-table-place">
-        <div class="back-place">
-          <span class="back-btn"> <i class="fa fa-angle-left"></i> </span>
-          <p class="back-description">Trang Trước</p>
-        </div>
-        <input type="text" class="value-place" value="1" />
-        <p style="color: white; margin-right: 6px">/</p>
-        <p class="text-place">7</p>
-        <div class="forward-place">
-          <p class="forward-description">Trang sau</p>
-          <span class="forward-btn">
-            <i class="fa fa-angle-right" aria-hidden="true"></i>
-          </span>
-        </div>
       </div>
     </div>
     <div class="sidebar-container">
@@ -456,171 +386,7 @@
         <p class="item-description">Đăng xuất</p>
       </div>
     </div>
-    <!-- Modal Edit -->
-    <div
-      class="modal fade"
-      id="ModalEditUser"
-      tabindex="-1"
-      aria-labelledby="ModalEditUserLable"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered modal-xl">
-        <div class="modal-content p-3">
-          <div class="modal-body">
-            <div class="input-group flex-nowrap">
-              <div class="container-fluid">
-                <div class="row gy-4 gx-5">
-                  <div class="col-6">
-                    <span class="form-title"> Mã phim </span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      aria-label="IDPhim"
-                      aria-describedby="addon-wrapping"
-                      id="id"
-                    />
-                  </div>
-                  <div class="col-6">
-                    <span class="form-title"> Thời lượng </span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      aria-label="Time"
-                      aria-describedby="addon-wrapping"
-                      id="time"
-                    />
-                  </div>
 
-                  <div class="col-6">
-                    <span class="form-title"> Tên phim </span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      aria-label="ID_Film"
-                      aria-describedby="addon-wrapping"
-                      id="name"
-                    />
-                  </div>
-                  <div class="col-6">
-                    <span class="form-title"> Ngôn ngữ </span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      aria-label="Language"
-                      aria-describedby="addon-wrapping"
-                      id="language"
-                    />
-                  </div>
-                  <div class="col-6">
-                    <span class="form-title"> Link Poster </span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      aria-label="Poster Link"
-                      aria-describedby="addon-wrapping"
-                      id="poster"
-                    />
-                  </div>
-                  <div class="col-6">
-                    <span class="form-title"> Đạo Diễn </span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      aria-label="Producer_name"
-                      aria-describedby="addon-wrapping"
-                      id="director"
-                    />
-                  </div>
-                  <div class="col-6">
-                    <span class="form-title"> Diễn viên </span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      aria-label="Actor_Name"
-                      aria-describedby="addon-wrapping"
-                      id="actor"
-                    />
-                  </div>
-                  <div class="col-6">
-                    <span class="form-title"> Rated </span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      aria-label="Rating"
-                      aria-describedby="addon-wrapping"
-                      id="rating"
-                    />
-                  </div>
-                  <div class="col-6">
-                    <span class="form-title"> Thể loại </span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      aria-label="Type_Film"
-                      aria-describedby="addon-wrapping"
-                      id="genre"
-                    />
-                  </div>
-                  <div class="col-6">
-                    <span class="form-title"> Mô tả </span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      aria-label="Description"
-                      aria-describedby="addon-wrapping"
-                      id="description"
-                    />
-                  </div>
-                  <div class="col-6">
-                    <span class="form-title"> Khởi chiếu </span>
-                    <input
-                      type="date"
-                      class="form-control"
-                      aria-label="datefilm"
-                      aria-describedby="addon-wrapping"
-                      id="date"
-                    />
-                  </div>
-                  <div class="col-6">
-                    <span class="form-title"> Link Trailer </span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      aria-label="Trailer_Link"
-                      aria-describedby="addon-wrapping"
-                      id="traiiler"
-                    />
-                  </div>
-
-                  <div class="col-6"></div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-4"></div>
-              <div
-                class="col-4"
-                style="
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                "
-              >
-                <button
-                  type="button"
-                  class="btn mt-2 text-white btn-primary"
-                  id="btn_EditUser"
-                  style="border-radius: 10px"
-                >
-                  Sửa
-                </button>
-              </div>
-              <div class="col-4"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <!-- Modal Add-->
     <div
       class="modal fade"
@@ -633,16 +399,22 @@
         <div class="modal-content p-3">
           <div class="modal-body">
             <div class="input-group flex-nowrap">
-              <div class="container-fluid">
-                <div class="row gy-4 gx-5">
+              <form
+                class="container-fluid"
+                action="#"
+                method="post"
+                enctype="multipart/form-data"
+              >
+                <div class="row gy-3 gx-5">
                   <div class="col-6">
-                    <span class="form-title"> Mã phim </span>
+                    <span class="form-title"> Tên phim </span>
                     <input
                       type="text"
                       class="form-control"
-                      aria-label="IDPhim"
+                      aria-label="ID_Film"
                       aria-describedby="addon-wrapping"
-                      id="id"
+                      name="MovieName"
+                      id="name"
                     />
                   </div>
                   <div class="col-6">
@@ -653,35 +425,51 @@
                       aria-label="Time"
                       aria-describedby="addon-wrapping"
                       id="time"
-                    />
-                  </div>
-
-                  <div class="col-6">
-                    <span class="form-title"> Tên phim </span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      aria-label="ID_Film"
-                      aria-describedby="addon-wrapping"
-                      id="name"
+                      name="Time"
                     />
                   </div>
                   <div class="col-6">
                     <span class="form-title"> Ngôn ngữ </span>
-                    <input
-                      type="text"
-                      class="form-control"
+                    <select
+                      class="form-select"
                       aria-label="Language"
                       aria-describedby="addon-wrapping"
                       id="language"
+                      name="LanguageID"
+                    >
+                      <option value="" selected>Chọn ngôn ngữ</option>
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Studio </span>
+                    <select
+                      class="form-select"
+                      aria-label="studio"
+                      aria-describedby="addon-wrapping"
+                      id="studio"
+                      name="StudioID"
+                    >
+                      <option value="" selected>Chọn studio</option>
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Link ảnh </span>
+                    <input
+                      type="file"
+                      class="form-control"
+                      aria-label="image"
+                      aria-describedby="addon-wrapping"
+                      id="image"
+                      multiple
+                      name="Image[]"
                     />
                   </div>
                   <div class="col-6">
-                    <span class="form-title"> Link Poster </span>
+                    <span class="form-title"> Link poster </span>
                     <input
-                      type="text"
+                      type="file"
                       class="form-control"
-                      aria-label="Poster Link"
+                      aria-label="image"
                       aria-describedby="addon-wrapping"
                       id="poster"
                     />
@@ -694,6 +482,7 @@
                       aria-label="Producer_name"
                       aria-describedby="addon-wrapping"
                       id="director"
+                      name="Director"
                     />
                   </div>
                   <div class="col-6">
@@ -704,27 +493,30 @@
                       aria-label="Actor_Name"
                       aria-describedby="addon-wrapping"
                       id="actor"
+                      name="Actor"
                     />
                   </div>
                   <div class="col-6">
-                    <span class="form-title"> Rated </span>
+                    <span class="form-title">Độ tuổi</span>
                     <input
                       type="text"
                       class="form-control"
-                      aria-label="Rating"
+                      aria-label="age"
                       aria-describedby="addon-wrapping"
-                      id="rating"
+                      id="age"
+                      name="age"
                     />
                   </div>
                   <div class="col-6">
                     <span class="form-title"> Thể loại </span>
-                    <input
-                      type="text"
+                    <select
                       class="form-control"
                       aria-label="Type_Film"
                       aria-describedby="addon-wrapping"
+                      name="genre"
                       id="genre"
-                    />
+                      multiple
+                    ></select>
                   </div>
                   <div class="col-6">
                     <span class="form-title"> Mô tả </span>
@@ -733,7 +525,8 @@
                       class="form-control"
                       aria-label="Description"
                       aria-describedby="addon-wrapping"
-                      id="description"
+                      id="story"
+                      name="Story"
                     />
                   </div>
                   <div class="col-6">
@@ -743,7 +536,18 @@
                       class="form-control"
                       aria-label="datefilm"
                       aria-describedby="addon-wrapping"
-                      id="date"
+                      id="premiere"
+                      name="Premiere"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Năm </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="datefilm"
+                      aria-describedby="addon-wrapping"
+                      id="year"
                     />
                   </div>
                   <div class="col-6">
@@ -753,14 +557,16 @@
                       class="form-control"
                       aria-label="Trailer_Link"
                       aria-describedby="addon-wrapping"
-                      id="traiiler"
+                      id="trailer"
+                      name="URLTrailer"
                     />
                   </div>
 
                   <div class="col-6"></div>
                 </div>
-              </div>
+              </form>
             </div>
+            <div class="message"></div>
             <div class="row">
               <div class="col-4"></div>
               <div
@@ -773,8 +579,8 @@
               >
                 <button
                   type="button"
-                  class="btn mt-2 text-white btn-primary"
-                  id="btn_EditUser"
+                  class="btn mt-2 text-white btn-main"
+                  id="btn-add"
                   style="border-radius: 10px"
                 >
                   Thêm phim
@@ -786,160 +592,181 @@
         </div>
       </div>
     </div>
-    <script type="module">
-      import {
-        getHotMovieAPI,
-        getPremierMovie,
-        getUpcomingMovie,
-        getByGenreID,
-        getMovieByID,
-      } from "../../API/MovieAPI.js";
-      let currentData = [];
 
-      $(document).ready(() => {
-        $(".item-choosing-block").click(function () {
-          $(".item-choosing-block .divider-mini").remove();
-          $(this).append("<div class=divider-mini></div>");
-        });
-        $(".value-place").change(function (e) {
-          let numPage = parseInt($(".text-place").text());
-          if (parseInt($(this).val()) > numPage) $(this).val(numPage);
-          showData();
-        });
-        $(".select-place").change(function () {
-          $(".value-place").val(1); 
-          showData();
-        });
+    <!-- Modal Edit-->
+    <div
+      class="modal fade"
+      id="ModalEditUser"
+      tabindex="-1"
+      aria-labelledby="ModalEditUserLable"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content p-3">
+          <div class="modal-body">
+            <div class="input-group flex-nowrap">
+              <form
+                class="container-fluid"
+                action="#"
+                method="post"
+                enctype="multipart/form-data"
+              >
+                <div class="row gy-3 gx-5">
+                  <div class="col-6">
+                    <span class="form-title"> Mã phim </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="ID_Film"
+                      aria-describedby="addon-wrapping"
+                      name="id"
+                      id="id"
+                      disabled
+                    />
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Tên phim </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="ID_Film"
+                      aria-describedby="addon-wrapping"
+                      name="MovieName"
+                      id="name"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Thời lượng </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Time"
+                      aria-describedby="addon-wrapping"
+                      id="time"
+                      name="Time"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Ngôn ngữ </span>
+                    <select
+                      class="form-select"
+                      aria-label="Language"
+                      aria-describedby="addon-wrapping"
+                      id="language"
+                      name="LanguageID"
+                    >
+                      <option value="" selected>Chọn ngôn ngữ</option>
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Studio </span>
+                    <select
+                      class="form-select"
+                      aria-label="studio"
+                      aria-describedby="addon-wrapping"
+                      id="studio"
+                      name="StudioID"
+                    >
+                      <option value="" selected>Chọn studio</option>
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Đạo Diễn </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Producer_name"
+                      aria-describedby="addon-wrapping"
+                      id="director"
+                      name="Director"
+                    />
+                  </div>
 
-        $(".back-place").click(function() {
-          let current = parseInt($(".value-place").val());
-          if (current == 1) return;
-          $(".value-place").val(parseInt(current - 1));
-          showData();
-        })
+                  <div class="col-6">
+                    <span class="form-title">Độ tuổi</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="age"
+                      aria-describedby="addon-wrapping"
+                      id="age"
+                      name="age"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Mô tả </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Description"
+                      aria-describedby="addon-wrapping"
+                      id="story"
+                      name="Story"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Khởi chiếu </span>
+                    <input
+                      type="date"
+                      class="form-control"
+                      aria-label="datefilm"
+                      aria-describedby="addon-wrapping"
+                      id="premiere"
+                      name="Premiere"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Năm </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="datefilm"
+                      aria-describedby="addon-wrapping"
+                      id="year"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Link Trailer </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Trailer_Link"
+                      aria-describedby="addon-wrapping"
+                      id="trailer"
+                      name="URLTrailer"
+                    />
+                  </div>
 
-        $(".forward-place").click(function() {
-          let current = parseInt($(".value-place").val());
-          let numPage = parseInt($(".text-place").text());
-          if (current == numPage) return;
-          $(".value-place").val(parseInt(current + 1));
-          showData();
-        })
-
-
-        $(".hot-film").click(() => loadHotMovie().then(() => showData()));
-        $(".premiere-film").click(() => loadPremierMovie().then(() => showData()));
-        $(".upcoming-film").click(() => loadUpcomingMovie().then(() => showData()));
-        $(".all-film").click(() => loadAllMovie().then(() => showData()));
-
-
-        loadAllMovie().then(() => showData()); // page load
-      });
-
-      function showData() {
-        $("#table-content tbody").empty();
-        let data = currentData;
-        let rowLimit = parseInt($(".select-place").val());
-        let numRow = data.length;
-        let numPage = numRow < rowLimit ? 1 : Math.ceil(numRow / rowLimit);
-        let currentPage = parseInt($(".value-place").val());
-        let startIndex = rowLimit * (currentPage - 1);
-        $(".text-place").text(numPage);
-        $(".heading-result").text(
-          `Hiển thị ${startIndex + 1} - ${
-            startIndex + rowLimit < numRow ? startIndex + rowLimit : numRow
-          } của ${numRow} kết quả tìm kiếm`
-        );
-        for (let i = startIndex; i < numRow && i < startIndex + rowLimit; i++) {
-          let actorList = [];
-          data[i].ListActor.forEach((actor) => {
-            actorList.push(actor.NameActor);
-          });
-
-          let genreList = [];
-          data[i].ListGenre.forEach((genre) => {
-            genreList.push(genre.NameGenre);
-          });
-          let html = `<tr onclick="editRow(this)">
-              <td>${data[i].MovieID}</td>
-              <td>${data[i].listImage[0]}</td>
-              <td>${data[i].MovieName}</td>
-              <td>${actorList.join(", ")}</td>
-              <td>${genreList.join(", ")}g</td>
-              <td>${data[i].Premiere}</td>
-              <td>${data[i].Time}</td>
-              <td>${data[i].LanguageID}</td>
-              <td>${data[i].Director}</td>
-              <td style="color: #fbc300; font-weight: 500;">
-                  ${data[i].rating}
-              </td>
-              <td>${data[i].story}</td>
-              <td>${data[i].URLTrailer}</td>
-            </tr>`;
-          $("#table-content tbody").append(html);
-        }
-      }
-
-      async function loadPremierMovie() {
-        $("#table-content tbody").empty();
-        currentData = [];
-        let page = 1;
-        let data;
-        do {
-          data = await getPremierMovie("../../..", page);
-          currentData.push(...data);  
-          page++;
-        } while (data.length != 0);
-      }
-
-      async function loadHotMovie() {
-        $("#table-content tbody").empty();
-
-        currentData = [];
-
-        let data = await getHotMovieAPI("../../..");
-        currentData.push(...data);  
-      }
-
-      async function loadUpcomingMovie() {
-        $("#table-content tbody").empty();
-        currentData = [];
-
-        let page = 1;
-        let data;
-        do {
-          data = await getUpcomingMovie("../../..", page);
-          currentData.push(...data);  
-          page++;
-        } while (data.length != 0);
-      }
-
-      async function loadAllMovie() {
-        $("#table-content tbody").empty();
-        currentData = [];
-
-        let page = 1;
-        let data;
-        do {
-          data = await getUpcomingMovie("../../..", page);
-          currentData.push(...data);  
-          page++;
-        } while (data.length != 0);
-        page = 1;
-        do {
-          data = await getPremierMovie("../../..", page);
-          currentData.push(...data);  
-          page++;
-        } while (data.length != 0);
-      }
-
-      function editRow(row) {
-        let editModal = $("#ModalEditUser");
-      }
-
-      function toggleLoading() {
-        $('#spinner').toggleClass('d-none');
-      }
-    </script>
+                  <div class="col-6"></div>
+                </div>
+              </form>
+            </div>
+            <div class="message"></div>
+            <div class="row">
+              <div class="col-4"></div>
+              <div
+                class="col-4"
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <button
+                  type="button"
+                  class="btn mt-2 text-white btn-main"
+                  id="btn-edit"
+                  style="border-radius: 10px"
+                >
+                  Sửa phim
+                </button>
+              </div>
+              <div class="col-4"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="script.js"></script>
   </body>
 </html>
