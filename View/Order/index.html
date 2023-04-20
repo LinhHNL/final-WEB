@@ -208,6 +208,7 @@
         // Select_Theater_Container
         (async function getAllTheaterFunc() {
           let datas = await getAllTheater();
+          console.log(datas);
           let htmls = "";
           for (const data of datas["list"]) {
             htmls += `<option value=${data.TheaterID}>${data.TheaterName}</option>`;

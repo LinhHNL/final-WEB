@@ -303,9 +303,8 @@
 
         (async function getSeatByRoomIDFunc() {
           let RoomID = sessionStorage.getItem("RoomIDChoosing");
-          if (!RoomID) {
-            window.location.href = "../../Order/index.html";
-          }
+          RoomID = "R14";
+          console.log(RoomID);
           let seatData = await getSeatByRoomID("../../../.", RoomID);
           console.log(seatData);
         })();

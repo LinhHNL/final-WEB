@@ -273,6 +273,7 @@
         getByGenreID,
       } from "./View/API/MovieAPI.js";
       import { getAllGenre } from "./View/API/GenreAPI.js";
+      import { getPromotionsEvent } from "./View/API/PromotionAPI.js";
       $(document).ready(function () {
         $(".navbar-toggler").click(function () {
           var color = $(".navbar").css("background-color");
@@ -463,6 +464,10 @@
             });
             return storehtml;
           };
+          async function getPromotionEvent() {
+            let PromotionEvent = await getPromotionsEvent(".");
+            console.log(PromotionEvent);
+          }
           datas.forEach(async (data, index) => {
             let genrehtml = await cuttingGenre(data);
             let htmls = "";

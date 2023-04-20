@@ -164,7 +164,7 @@ public function updateShowtime(Showtime $Showtime) {
         $query = "SELECT s.ShowtimeID, s.Price, s.StartTime, s.EndTime, r.RoomID, s.FormatID,s.MovieID, s.ShowtimeID
             FROM Showtime s
             JOIN Room r ON s.RoomID = r.RoomID
-             r.TheaterID = :TheaterID AND DATE(s.StartTime) = :date" ;
+            Where r.TheaterID = :TheaterID AND DATE(s.StartTime) = :date" ;
     
        
     
