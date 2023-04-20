@@ -97,7 +97,7 @@ class UserController {
                 $cus = (new CustomerModel())->getCustomerByEmail($email);
                 return array("success" => true,'role' =>1,'user' =>$cus);
             }else {
-                return array("success" => false,"message"=>"Đăng ký thất bại"); // xoá dòng => ở đây và thêm giá trị false vào mảng này
+                return array("success" => false,"message"=>$customer['error']); // xoá dòng => ở đây và thêm giá trị false vào mảng này
 
             }
         }
@@ -126,7 +126,7 @@ class UserController {
             $customer = new Customer($fullname, $email, $address, $phone, "", $id);
             return (new CustomerModel)->updateCustomer($customer);
         }else{
-            return json_encode(array("success" => true,"error" => "Sai tài khoản hoặc mật khẩu"));
+            return json_encode(array("success" => true,"error" => $account['error']));
         }
          
         
@@ -157,7 +157,7 @@ class UserController {
             $Manager = new Manager($fullname, $email, $phone, "", $id);
             return (new ManagerModel)->updateManager($Manager);
         }else{
-            return json_encode(array("success" => true,"error" => "Sai tài khoản hoặc mật khẩu"));
+            return json_encode(array("success" => true,"error" => $account['error']));
         }
          
         

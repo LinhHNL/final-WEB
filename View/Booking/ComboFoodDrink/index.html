@@ -84,7 +84,7 @@
             src="../../../images/arrow_right.svg"
             style="transform: scaleX(-1)"
           />
-          <span style="color: #ff3cac">CHỌN COMBO</span>
+          <span style="color: #ff3cac">CHỌN CHỖ NGỒI</span>
         </a>
       </div>
       <p style="font-weight: bold; color: white; font-size: 20px">
@@ -93,6 +93,42 @@
       <div class="line"></div>
       <div class="container-fluid mt-5 container-menu"></div>
     </div>
+    <!-- Bottom bar -->
+    <div class="bottom-bar">
+      <div class="bottom-bar-item">
+        <div class="title">NGÀY</div>
+        <div class="content">20.4</div>
+      </div>
+      <div class="bottom-bar-item">
+        <div class="title">GIỜ</div>
+        <div class="content">22:30</div>
+      </div>
+      <div class="bottom-bar-item">
+        <div class="title">RẠP</div>
+        <div class="content">Nam Sài Gòn</div>
+      </div>
+      <div class="bottom-bar-item">
+        <div class="title">PHÒNG</div>
+        <div class="content">Screen 2</div>
+      </div>
+      <div class="bottom-bar-item">
+        <div class="title">GHẾ</div>
+        <div class="content">I2, K3</div>
+      </div>
+      <div class="bottom-bar-item">
+        <div class="title">GIÁ VÉ</div>
+        <div class="content">120,000 ₫</div>
+      </div>
+      <div class="bottom-bar-item">
+        <div class="title">COMBO</div>
+        <div class="content">0 ₫</div>
+      </div>
+      <a href="../Thanhtoan/index.html" style="text-decoration: none">
+        <button class="btn-grad">THANH TOÁN</button>
+      </a>
+      <div class="total">120,000 ₫</div>
+    </div>
+    <!--  -->
     <!-- Footer -->
     <div class="footer">
       <div class="container-fluid">
@@ -174,7 +210,7 @@
         }
         async function getAllMenuFunc() {
           let datas = await getAllMenu("../../../.", 1);
-
+          console.log(datas);
           for (const data of datas["menus"]) {
             let VNDPrice = await toVndCurrencyFormat(data.Price);
             const htmls = `<div class="col-lg-6 col-md-12 col-xs-12">
@@ -182,7 +218,7 @@
             <div class="row g-0">
               <div class="col-md-4">
                 <img
-                  src="${data.ImageURL}"
+                  src="../../../${data.ImageURL}"
                   class="img-fluid rounded-start"
                   alt="..."
                 />

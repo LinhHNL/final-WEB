@@ -6,7 +6,7 @@
 }
 html {
   height: 100%;
-  background-color: #14181D;
+  background-color: #14181d;
 }
 
 .sidebar-container {
@@ -15,7 +15,7 @@ html {
   width: 78px;
   left: 0px;
   top: 0px;
-  background-color: #14181D;
+  background-color: #14181d;
   border: 1px solid #303030;
   overflow: hidden;
   display: flex;
@@ -46,7 +46,7 @@ html {
   cursor: pointer;
 }
 
-.sidebar-container:hover .item-description   {
+.sidebar-container:hover .item-description {
   display: block;
 }
 
@@ -60,7 +60,6 @@ html {
   margin-left: 12px;
   height: fit-content;
   width: 30px;
-  
 }
 .item-description {
   font-family: "Montserrat";
@@ -235,12 +234,14 @@ svg.active {
   color: rgba(246, 245, 246, 0.9) !important;
   border-color: #343434 !important;
 }
-.table-place tbody tr {
-  height: 60px;
+
+.table-place th {
+  vertical-align: middle;
 }
 
 .table-place tr {
   width: 120px;
+  height: 60px;
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 400;
@@ -248,23 +249,39 @@ svg.active {
   border-color: #343434 !important;
   color: rgba(246, 245, 246, 0.9) !important;
 }
+
 .table-place tr td:first-child {
   color: #ff3cac !important;
   border-color: #343434 !important;
 }
+
+.table-place tr td:nth-child(9) {
+  color: #fbc300;
+  font-weight: 500;
+}
+
+.table-place tbody tr {
+  cursor: pointer;
+}
+
 .table-place tbody tr td {
   max-width: 100px;
   overflow: hidden;
-  vertical-align: middle  ;
+  vertical-align: middle;
   text-overflow: ellipsis;
   white-space: nowrap;
   text-align: center;
 }
 
 .table-place th {
-  text-align: center  ;
-  height: 20px !important;
+  text-align: center !important   ;
+  height: fit-content;
 }
+
+#table-content tr.selected {
+  background-color: #fff !important;
+}
+
 .rating {
   font-size: 16px;
   font-weight: 500;
@@ -304,7 +321,8 @@ svg.active {
   margin: 0 8px;
 }
 
-.forward-place, .back-place {
+.forward-place,
+.back-place {
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -391,7 +409,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 input[type="text"],
-input[type="date"] {
+input[type="date"],
+input[type="email"],
+input[type="password"],
+.modal select {
   color: white;
   background-color: black;
   border: none;
@@ -402,7 +423,9 @@ input[type="date"] {
 }
 
 input[type="text"]:focus,
-input[type="date"]:focus {
+input[type="date"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
   box-sizing: border-box !important;
   color: white;
   background: black;
@@ -412,6 +435,15 @@ input[type="date"]:focus {
     linear-gradient(90deg, #784ba0 0.25%, #784ba0 0.26%, #ff3cac 100.12%);
   background-origin: border-box;
   background-clip: padding-box, border-box;
+  box-shadow: none;
+}
+
+input[type="search"] {
+  border-radius: 10px !important;
+  padding-left: 35px;
+}
+
+input[type="search"]:focus {
   box-shadow: none;
 }
 
@@ -434,4 +466,54 @@ input[type="date"]:focus {
 }
 a {
   text-decoration: none !important;
+}
+
+.page-link {
+  background-color: transparent !important;
+  color: white !important;
+  border: none;
+}
+
+#table-content_length label,
+#table-content_info {
+  color: white;
+}
+
+#table-content_length select,
+.search-place select {
+  width: fit-content;
+  max-height: 40px;
+  color: white !important;
+  background-color: #101521 !important;
+  border: 1px solid #303030;
+  border-radius: 10px;
+}
+#table-content_length select option,
+.search-place select option {
+  background: #101521;
+}
+
+.message {
+  text-align: center;
+  color: red;
+}
+
+.message.success {
+  color: green !important;
+}
+
+input:disabled {
+  color: black;
+}
+
+.paginate_button:hover {
+  background: none !important;
+}
+
+.dataTables_paginate {
+  color: white !important;
+}
+
+select:disabled {
+  color: black
 }

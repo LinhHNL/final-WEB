@@ -32,7 +32,12 @@ const getShowTimeByDateAndGenre = async (
   const datatorender = await data.json();
   return datatorender;
 };
-const getShowTimeByMovieandTheater = async (url, movieid = 1, Theaterid = 1, date = "2022-10-10") => {
+const getShowTimeByMovieandTheater = async (
+  url,
+  movieid = 1,
+  Theaterid = 1,
+  date = "2022-10-10"
+) => {
   const data = await fetch(
     `${url}/Controller/Showtime/ajax.php?action=getShowTimeByMovieandTheater&movieid=${movieid}&Theaterid=${Theaterid}&date=${date}`,
     {
@@ -42,7 +47,11 @@ const getShowTimeByMovieandTheater = async (url, movieid = 1, Theaterid = 1, dat
   const datatorender = await data.json();
   return datatorender;
 };
-const getAllShowtimeByMovieID = async (url, movieid = 1, date = "2022-10-10") => {
+const getAllShowtimeByMovieID = async (
+  url,
+  movieid = 1,
+  date = "2022-10-10"
+) => {
   const data = await fetch(
     `${url}/Controller/Showtime/ajax.php?action=getAllShowtimeByMovieID&movieid=${movieid}&date=${date}`,
     {
@@ -73,7 +82,7 @@ const updateShowTime = async (
       EndTime: EndTime,
       RoomID: RoomID,
       FormatID: FormatID,
-      ShowtimeID: ShowtimeID
+      ShowtimeID: ShowtimeID,
     }),
   });
   const datatorender = await data.json();
@@ -91,7 +100,12 @@ const removeShowTime = async (url = "../..", movieid) => {
 
 const addShowTime = async (
   url = "../..",
-  Price, StartTime, MovieID, EndTime, RoomID, FormatID
+  Price,
+  StartTime,
+  MovieID,
+  EndTime,
+  RoomID,
+  FormatID
 ) => {
   const urls = `${url}/Controller/Showtime/ajax.php`;
   const data = await fetch(urls, {
@@ -108,16 +122,30 @@ const addShowTime = async (
   const datatorender = await data.json();
   return datatorender;
 };
-
-export { 
-  getShowTimeByID, 
-  getAllShowTimesByDate, 
-  getShowTimeByDateAndGenre, 
-  getShowTimeByMovieandTheater, 
+const getShowTimeByDateAndTheater = async (
+  url,
+  date = "2022-10-10",
+  theaterid = "T001"
+) => {
+  const data = await fetch(
+    `${url}/Controller/Showtime/ajax.php?action=getAllShowtimeByMovieID&Theaterid=${theaterid}&date=${date}`,
+    {
+      method: "GET",
+    }
+  );
+  const datatorender = await data.json();
+  return datatorender;
+};
+export {
+  getShowTimeByID,
+  getAllShowTimesByDate,
+  getShowTimeByDateAndGenre,
+  getShowTimeByMovieandTheater,
   getAllShowtimeByMovieID,
   updateShowTime,
   addShowTime,
-  removeShowTime
+  removeShowTime,
+  getShowTimeByDateAndTheater,
 };
 //   $movieid = $_GET['movieid'];
 //   $date = $_GET['date'];

@@ -115,7 +115,26 @@
       data-bs-ride="carousel container-sm"
     >
       <div class="carousel-indicators row"></div>
-      <div class="carousel-inner"></div>
+      <div class="carousel-inner">
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#movie-slide"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#movie-slide"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
       <div class="movie-content"></div>
     </div>
     <!--  -->
@@ -228,7 +247,6 @@
         getByGenreID,
       } from "../API/MovieAPI.js";
       import { getAllGenre } from "../API/GenreAPI.js";
-
       $(document).ready(function () {
         $(".navbar-toggler").click(function () {
           var color = $(".navbar").css("background-color");
@@ -281,7 +299,7 @@
                     </a>
                     <button class="btn-main">Đặt vé</button>
                   </div>
-                  <img class="poster" src="${data.listImage[0]}" alt="" />
+                  <img class="poster" src="../../${data.listImage[0]}" alt="" />
                 </div>
 
                 <div class="movie-genre">
@@ -305,6 +323,7 @@
         addCarouselInner(data);
         addIntoMovieInfo(data);
         addIntoCasourelIndicator(data);
+        addPosterBody(data);
         addMovieContent(data);
       })();
       const takeAllGenre = async () => {
@@ -352,14 +371,18 @@
         const datatoadd = data["movie"];
         let flag = 0;
         let htmls = ``;
+        let indicatorHTML;
+        let i = 0;
         for (const element of datatoadd["listImage"]) {
           if (flag == 0) {
             flag = 1;
-            htmls += `<div class="background">
+            htmls = `
+            <div class="carousel-item active">
+            <div class="background">
             <div
               class="movie-preview-img"
               style="
-                background-image: url('${element}');
+                background-image: url('../../${element.ImagePath}');
               "
             >
               <button
@@ -369,38 +392,46 @@
                 type="button"
               ></button>
             </div>
-          </div>`;
+          </div></div>`;
+            indicatorHTML = `
+          <button
+          type="button"
+          data-bs-target="#movie-slide"
+          data-bs-slide-to="${i}"
+          class="active"
+          aria-current="true"
+          aria-label="Slide ${i + 1}"
+        >
+          <img
+            class="thumbnail-img trailer-thumbnail"
+            src="../../${element.ImagePath}"
+            alt=""
+          />
+        </button>`;
           } else {
-            htmls += ` <div class="carousel-item active">
-          </div>
+            htmls = `
           <div class="carousel-item">
             <div class="background">
               <div
                 class="movie-preview-img"
-                style="background-image: url('${element}')"
+                style="background-image: url('../../${element.ImagePath}')"
               ></div>
             </div>
           </div>`;
-          }
-          htmls += `  <button
-          class="carousel-control-prev"
+            indicatorHTML = `
+          <button
           type="button"
           data-bs-target="#movie-slide"
-          data-bs-slide="prev"
+          data-bs-slide-to="${i}"
+          aria-label="Slide ${i + 11}"
         >
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button
-          class="carousel-control-next"
-          type="button"
-          data-bs-target="#movie-slide"
-          data-bs-slide="next"
-        >
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
+          <img class="thumbnail-img" src="../../${element.ImagePath}" alt="" />
         </button>`;
+          }
+
           $(".carousel-inner").append(htmls);
+          $(".carousel-indicators").append(indicatorHTML);
+          i++;
         }
       }
       // Thêm dữ liệu vào Movie
@@ -420,7 +451,6 @@
           <span class="duration">${datatoadd.Time}</span>
           <span class="dot">●</span>
           <span class="premier-date">${datatoadd.Premiere}</span>
-          <span class="dot">●</span>
         </div>
 
         <div class="button-container">
@@ -437,7 +467,6 @@
         let flag = 0;
         let htmls = ``;
         for (const element of datatoadd["listImage"]) {
-          console.log(element);
           if (flag == 0) {
             flag = 1;
             htmls += `<button
@@ -450,7 +479,7 @@
         >
           <img
             class="thumbnail-img trailer-thumbnail"
-            src="${element}"
+            src="../../${element.ImagePath}"
             alt=""
           />
         </button>`;
@@ -461,7 +490,7 @@
           data-bs-slide-to="1"
           aria-label="Slide 2"
         >
-          <img class="thumbnail-img" src="${element}" alt="" />
+          <img class="thumbnail-img" src="../../${element.ImagePath}" alt="" />
         </button>`;
           }
         }
@@ -469,17 +498,19 @@
       }
       //  Thêm dữ liệu Poster Body(about-poster)
       async function addPosterBody(data) {
+        console.log(data);
         const datatoadd = data["movie"];
+        const posterContainer = datatoadd.listImage[1];
+        console.log(posterContainer);
         const htmls = `<img
                    id="about-poster-img"
-                   src="../../images/poster-about.jpg"
+                   src="../../${posterContainer.ImagePath}"
                  />`;
         $("#about-poster").append(htmls);
       }
       //  Thêm dữ liệu vào about-describe
       async function addMovieContent(data) {
         const datatoadd = data["movie"];
-        console.log(datatoadd);
         const cuttingGenre = (data) => {
           let storehtml = "";
           data["ListGenre"].flat().forEach((element) => {
@@ -582,7 +613,7 @@
                     </a>
                     <button class="btn-main">Đặt vé</button>
                   </div>
-                  <img class="poster" src="${data.listImage[0]}" alt="" />
+                  <img class="poster" src="../../${data.listImage[0]}" alt="" />
                 </div>
 
                 <div class="movie-genre">
@@ -607,7 +638,6 @@
         const AddingBtnColor = GenreContainer.find(`#${GenreID}`);
         AddingBtnColor.addClass("btn-main");
         getByGenreID("../../.", GenreID).then((datas) => {
-          console.log(datas);
           const cuttingGenre = (data) => {
             let storehtml = "";
 
@@ -650,7 +680,7 @@
                     </a>
                     <button class="btn-main">Đặt vé</button>
                   </div>
-                  <img class="poster" src="${data.listImage[0]}" alt="" />
+                  <img class="poster" src="../../${data.listImage[0].ImagePath}" alt="" />
                 </div>
 
                 <div class="movie-genre">
