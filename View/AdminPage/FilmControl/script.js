@@ -15,9 +15,9 @@ let allData = [];
 let currentData = [];
 let table = $("#table-content").DataTable({
   select: {
-    style:'single',
-    info: false
- },
+    style: "single",
+    info: false,
+  },
   searching: false,
   language: {
     lengthMenu: "Số kết quả / Trang _MENU_",
@@ -52,7 +52,7 @@ $(document).ready(() => {
   $(".upcoming-film").click(() => loadUpcomingMovie().then(() => showData()));
   $(".all-film").click(() => loadAllMovie().then(() => showData()));
   $("#btn-search").click(() => {
-    let query = $(".input-place input").val().trim();
+    let query = $(".input-place input").val().trim().toUpperCase();
     let languageID = $("#select-language").val();
     let genreID = $("#select-genre").val();
     let studioID = $("#select-studio").val();
@@ -123,8 +123,13 @@ $(document).ready(() => {
           listImage
         ).then((res) => {
           if (res.success == false)
-            $("#ModalAddUser .message").text("Thêm thất bại").removeClass("success");
-          else $("#ModalAddUser .message").text("Thêm thành công").addClass("success");
+            $("#ModalAddUser .message")
+              .text("Thêm thất bại")
+              .removeClass("success");
+          else
+            $("#ModalAddUser .message")
+              .text("Thêm thành công")
+              .addClass("success");
         });
       });
   });
@@ -158,8 +163,13 @@ $(document).ready(() => {
       age
     ).then((res) => {
       if (res.success == false)
-        $("#ModalEditUser .message").text("Sửa thất bại").removeClass("success");
-      else $("#ModalEditUser .message").text("Sửa thành công").addClass("success");
+        $("#ModalEditUser .message")
+          .text("Sửa thất bại")
+          .removeClass("success");
+      else {
+        $("#ModalEditUser .message").text("Sửa thành công").addClass("success");
+        $(".all-film").trigger('click');
+      }
     });
   });
 
@@ -170,8 +180,7 @@ $(document).ready(() => {
 });
 
 function showData() {
-  table.clear();
-  // $("#table-content tbody").empty();
+  table.clear().draw();
   let data = currentData;
   let numRow = data.length;
   for (let i = 0; i < numRow; i++) {
@@ -197,7 +206,6 @@ function showData() {
 }
 
 async function loadPremierMovie() {
-  $("#table-content tbody").empty();
   currentData = [];
   let page = 1;
   let data;
@@ -209,8 +217,6 @@ async function loadPremierMovie() {
 }
 
 async function loadHotMovie() {
-  $("#table-content tbody").empty();
-
   currentData = [];
 
   let data = await getHotMovieAPI("../../..");
@@ -218,7 +224,6 @@ async function loadHotMovie() {
 }
 
 async function loadUpcomingMovie() {
-  $("#table-content tbody").empty();
   currentData = [];
 
   let page = 1;
@@ -231,7 +236,6 @@ async function loadUpcomingMovie() {
 }
 
 async function loadAllMovie() {
-  $("#table-content tbody").empty();
   currentData = [];
 
   let page = 1;

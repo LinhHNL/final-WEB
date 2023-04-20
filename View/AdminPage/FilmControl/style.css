@@ -278,7 +278,7 @@ svg.active {
 }
 
 .table-place th {
-  text-align: center  ;
+  text-align: center !important ;
   height: fit-content;
 }
 
