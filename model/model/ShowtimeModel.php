@@ -167,15 +167,9 @@ public function updateShowtime(Showtime $Showtime) {
              r.TheaterID = :TheaterID AND DATE(s.StartTime) = :date" ;
     
        
-    
         $stmt = $this->conn->prepare($query);
-      
         $stmt ->bindParam(":TheaterID",$theater);
-        
-    
-            $stmt->bindParam(':date', $date);
-        
-        
+        $stmt->bindParam(':date', $date);
         $stmt->execute();
         $Showtimes = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {

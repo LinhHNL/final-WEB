@@ -11,9 +11,14 @@ class BookingController {
     }
     function addBooking($data){
 
-        $BookingName =   $data['BookingName'];
-        $Description =  $data['Description'] ;
-        return (new BookingModel())->addBooking(new Booking($BookingName, $Description));
+         $BookingID;
+         $NumberOfTickets;
+         $TotalPrice;
+         $BookingTime;
+                $Voucher;
+         $customer_id;
+         $status;
+        return (new BookingModel())->addBooking(new Booking($NumberOfTickets, $BookingTime, $TotalPrice,  $Voucher,$customer_id ,$status,$BookingID));
     }
     function removeBooking($id){
         return (new BookingModel())->deleteBooking($id);
@@ -21,10 +26,14 @@ class BookingController {
     }
 
     function updateBooking($data){
-         $BookingID = $data['BookingID'];
-         $BookingName =   $data['BookingName'];
-         $Description =  $data['Description'] ;
-        $Booking = new Booking( $BookingName, $Description,$BookingID);
+         $BookingID;
+         $NumberOfTickets;
+         $TotalPrice;
+         $BookingTime;
+                $Voucher;
+         $customer_id;
+         $status;
+        $Booking = new Booking( $NumberOfTickets, $BookingTime, $TotalPrice,  $Voucher,$customer_id ,$status,$BookingID);
         return (new BookingModel())->updateBooking($Booking);
 
     }
