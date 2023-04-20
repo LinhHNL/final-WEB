@@ -31,6 +31,12 @@ let table = $("#table-content").DataTable({
       next: "Trang sau",
       previous: "Trang trước",
     },
+    columnDefs: [{
+      targets: 0,
+      render: function( data, type, row, meta ) {
+        return (type === 'sort')? data.replace(/\W/g, '') : data;
+      }
+    }]
   },
 });
 $("#table-content_filter").hide();

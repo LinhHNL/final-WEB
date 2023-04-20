@@ -115,7 +115,26 @@
       data-bs-ride="carousel container-sm"
     >
       <div class="carousel-indicators row"></div>
-      <div class="carousel-inner"></div>
+      <div class="carousel-inner">
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#movie-slide"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#movie-slide"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
       <div class="movie-content"></div>
     </div>
     <!--  -->
@@ -352,10 +371,14 @@
         const datatoadd = data["movie"];
         let flag = 0;
         let htmls = ``;
+        let indicatorHTML;
+        let i = 0;
         for (const element of datatoadd["listImage"]) {
           if (flag == 0) {
             flag = 1;
-            htmls += `<div class="background">
+            htmls = `
+            <div class="carousel-item active">
+            <div class="background">
             <div
               class="movie-preview-img"
               style="
@@ -369,10 +392,24 @@
                 type="button"
               ></button>
             </div>
-          </div>`;
+          </div></div>`;
+            indicatorHTML = `
+          <button
+          type="button"
+          data-bs-target="#movie-slide"
+          data-bs-slide-to="${i}"
+          class="active"
+          aria-current="true"
+          aria-label="Slide ${i + 1}"
+        >
+          <img
+            class="thumbnail-img trailer-thumbnail"
+            src="../../${element.ImagePath}"
+            alt=""
+          />
+        </button>`;
           } else {
-            htmls += ` <div class="carousel-item active">
-          </div>
+            htmls = `
           <div class="carousel-item">
             <div class="background">
               <div
@@ -381,26 +418,20 @@
               ></div>
             </div>
           </div>`;
-          }
-          htmls += `  <button
-          class="carousel-control-prev"
+            indicatorHTML = `
+          <button
           type="button"
           data-bs-target="#movie-slide"
-          data-bs-slide="prev"
+          data-bs-slide-to="${i}"
+          aria-label="Slide ${i + 11}"
         >
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button
-          class="carousel-control-next"
-          type="button"
-          data-bs-target="#movie-slide"
-          data-bs-slide="next"
-        >
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
+          <img class="thumbnail-img" src="../../${element.ImagePath}" alt="" />
         </button>`;
+          }
+
           $(".carousel-inner").append(htmls);
+          $(".carousel-indicators").append(indicatorHTML);
+          i++;
         }
       }
       // Thêm dữ liệu vào Movie
