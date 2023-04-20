@@ -57,7 +57,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto d-flex w-100">
             <li class="nav-item">
-              <a class="nav-link" href="#">PHIM</a>
+              <a class="nav-link" href="./View/MovieList/index.html">PHIM</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="./View/Order/index.html">LỊCH CHIẾU</a>
@@ -282,8 +282,13 @@
             $(".navbar").css("background", "rgba(0, 0, 0, 0.01)");
           }
         });
+        function toHHMM(minutes) {
+          var hours = Math.floor(minutes / 60);
+          var mins = minutes % 60;
+          return hours + "h" + " " + mins + "m";
+        }
         // Gọi phim Hot
-        getHotMovieAPI(".").then((datas) => {
+        getHotMovieAPI(".").then(async (datas) => {
           const cuttingGenre = (data) => {
             let storehtml = "";
             data["ListGenre"].flat().forEach((element) => {
@@ -299,11 +304,22 @@
             });
             return storehtml;
           };
-          datas.forEach(async (data, index) => {
+          let count = 0;
+          for (const data of datas) {
+            if (count < 3) {
+              count++;
+            } else {
+              break;
+            }
             let genrehtml = await cuttingGenre(data);
             let actorhtml = await cuttingActor(data);
+            const timetoadd = await toHHMM(data.Time);
             let htmls = "";
-            if (index == 0) {
+            let imageurl = "";
+            if (data.listImage[0]) {
+              imageurl = data.listImage[0].ImagePath;
+            }
+            if (count - 1 == 0) {
               htmls = `<div id=${data.MovieID} class="carousel-item active">`;
             } else {
               htmls = `<div id=${data.MovieID} class="carousel-item">`;
@@ -330,7 +346,7 @@
               `
               </div>
               <div class="movie-info">
-                <span class="duration">${data.Time}</span>
+                <span class="duration">${timetoadd}</span>
                 <span class="dot">●</span>
                 <span class="premier-date">${data.Premiere}</span>
                 <span class="dot">●</span>
@@ -356,7 +372,7 @@
               <div class="shadow-box"></div>
               <div
                 class="movie-preview-img"
-                style="background-image: url('${data.listImage[0]}')"
+                style="background-image: url('${imageurl}')"
               ></div>
             </div>
           </div>`;
@@ -367,7 +383,7 @@
               );
               sessionStorage.setItem("MovieIDSelected", dataIdNeededToChoose);
             });
-          });
+          }
         });
         // Gọi phim đang chiếu
         getPremierMovie(".").then((datas) => {
@@ -386,6 +402,8 @@
             return storehtml;
           };
           datas.forEach(async (data, index) => {
+            const timetoadd = await toHHMM(data.Time);
+
             let genrehtml = await cuttingGenre(data);
             let htmls = "";
             htmls +=
@@ -406,14 +424,14 @@
                     </div>
                     <div class="duration">
                       <img src="./images/timer.svg" alt="" />
-                      ${data.Time}
+                      ${timetoadd}
                     </div>
                     <a href="./View/Detail/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
                     <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
                     </a>
                     <button class="btn-main">Đặt vé</button>
                   </div>
-                  <img class="poster" src="./images/poster-2.jpg" alt="" />
+                  <img class="poster" src="${data.listImage[0]}" alt="" />
                 </div>
 
                 <div class="movie-genre">
@@ -430,6 +448,7 @@
         });
         // Gọi phim chuẩn bị chiếu
         getUpcomingMovie(".").then((datas) => {
+          console.log(datas);
           const cuttingGenre = (data) => {
             let storehtml = "";
 
@@ -447,6 +466,9 @@
           datas.forEach(async (data, index) => {
             let genrehtml = await cuttingGenre(data);
             let htmls = "";
+            const timetoadd = await toHHMM(data.Time);
+
+            console.log(data);
             htmls +=
               `<div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
                 <div class="card-img">
@@ -465,12 +487,12 @@
                     </div>
                     <div class="duration">
                       <img src="./images/timer.svg" alt="" />
-                      ${data.Time}
+                      ${timetoadd}
                     </div>
                     <button class="btn-outline">Chi tiết</button>
                     <button class="btn-main">Đặt vé</button>
                   </div>
-                  <img class="poster" src="./images/poster-2.jpg" alt="" />
+                  <img class="poster" src="${data.listImage[0].ImagePath}" alt="" />
                 </div>
 
                 <div class="movie-genre">
@@ -483,7 +505,7 @@
           });
         });
         // Lấy toàn bộ Genre
-        function changingBtnOnClickGetAll(GenreID) {
+        async function changingBtnOnClickGetAll(GenreID) {
           const movieContainer = $(".row.g-3.movie-premier-container");
           const GenreContainer = $(".row.g-2.genre-container");
           movieContainer.html("");
@@ -508,6 +530,9 @@
               return storehtml;
             };
             datas.forEach(async (data, index) => {
+              console.log(data);
+
+              const timetoadd = await toHHMM(data.Time);
               let genrehtml = await cuttingGenre(data);
               let htmls = "";
               htmls +=
@@ -528,14 +553,14 @@
                     </div>
                     <div class="duration">
                       <img src="./images/timer.svg" alt="" />
-                      ${data.Time}
+                      ${timetoadd}
                     </div>
                     <a href="./View/Detail/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
                     <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
                     </a>
                     <button class="btn-main">Đặt vé</button>
                   </div>
-                  <img class="poster" src="./images/poster-2.jpg" alt="" />
+                  <img class="poster" src="${data.listImage[0]}" alt="" />
                 </div>
 
                 <div class="movie-genre">
@@ -551,7 +576,7 @@
             });
           });
         }
-        function changingBtnOnClick(GenreID) {
+        async function changingBtnOnClick(GenreID) {
           const movieContainer = $(".row.g-3.movie-premier-container");
           const GenreContainer = $(".row.g-2.genre-container");
           movieContainer.html("");
@@ -576,6 +601,7 @@
               return storehtml;
             };
             datas.forEach(async (data, index) => {
+              const timetoadd = await toHHMM(data.Time);
               let genrehtml = await cuttingGenre(data);
               let htmls = "";
               htmls +=
@@ -596,14 +622,14 @@
                     </div>
                     <div class="duration">
                       <img src="./images/timer.svg" alt="" />
-                      ${data.Time}
+                      ${timetoadd}
                     </div>
                     <a href="./View/Detail/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
                     <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
                     </a>
                     <button class="btn-main">Đặt vé</button>
                   </div>
-                  <img class="poster" src="./images/poster-2.jpg" alt="" />
+                  <img class="poster" src="${data.listImage[0].ImagePath}" alt="" />
                 </div>
 
                 <div class="movie-genre">

@@ -306,7 +306,6 @@
         while (true) {
           let UserData = await getAllCustomer("../../../.", i);
           arrTemp = [...arrTemp, ...UserData["list"]];
-          console.log(UserData);
           if (UserData["list"].length == 0) {
             break;
           }

@@ -35,6 +35,9 @@ class ShowTimeController {
         return (new ShowTimeModel())->getAllShowtimeByMovieID($movieID,$date);
 
     }
+    function getAllShowtimesByTheaterAndDate($TheaterID, $Date){
+        return (new ShowTimeModel())->getShowtimesByTheaterAndDate($TheaterID,$Date);
+    }
     function updateShowTime($data){
         $Price = $data['Price'];
         $StartTime = $data['StartTime'];

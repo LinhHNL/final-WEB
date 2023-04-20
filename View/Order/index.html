@@ -180,19 +180,23 @@
         getAllShowTimesByDate,
         getShowTimeByDateAndGenre,
         getShowTimeByMovieandTheater,
+        getShowTimeByDateAndTheater,
       } from "../API/ShowTimeAPI.js";
       import { getAllTheater } from "../API/TheaterAPI.js";
       import { getMovieByID } from "../API/MovieAPI.js";
       import { getRoomById } from "../API/RoomAPI.js";
       $(document).ready(function () {
         let previousOption = "";
+        let previousOptionName = "";
         const date = new Date();
         // Mai làm tiếp thằng này
         sessionStorage.setItem("MovieChoosing", "");
         sessionStorage.setItem("RoomIDChoosing", "");
         sessionStorage.setItem("TimeChoosing", "");
         sessionStorage.setItem("TheaterName", "");
+        sessionStorage.setItem("TheaterID", "");
         sessionStorage.setItem("Seat", "");
+        sessionStorage.setItem("ShowTimeID", "");
         $(".navbar-toggler").click(function () {
           var color = $(".navbar").css("background-color");
           if (color == "rgba(0, 0, 0, 0.01)") {
@@ -215,13 +219,15 @@
           const datetoFetch = sessionStorage.getItem("DayChoosing");
           const select = document.querySelector(".Select_Theater_Container");
           const selectedOption = select.options[select.selectedIndex].value;
-          sessionStorage.setItem("TheaterName", selectedOption);
+          const selectedOptionName = select.options[select.selectedIndex].text;
+          sessionStorage.setItem("TheaterName", selectedOptionName);
           if (
             selectedOption != "Rạp phim" &&
             previousOption != selectedOption
           ) {
-            console.log(selectedOption);
             previousOption = selectedOption;
+            previousOptionName = selectedOptionName;
+            TakingShowTime(false);
           }
         });
         // Lấy toàn bộ Genre
@@ -232,7 +238,7 @@
           const AddingBtnColor = GenreContainer.find(`#${GenreID}`);
           AddingBtnColor.addClass("btn-main");
           if (callingagain) {
-            TakingShowTime();
+            TakingShowTime(false);
           }
         }
         function changingBtnOnClick(GenreID) {
@@ -380,14 +386,21 @@
           return data;
         };
         // Lấy ra ShowTime
-        const TakingShowTime = async () => {
-          await takeAllGenre();
+        const TakingShowTime = async (takingGenre = true) => {
+          if (takingGenre) {
+            await takeAllGenre();
+          }
+          const datetoGet = sessionStorage.getItem("DayChoosing");
           await changingBtnOnClickGetAll("MBTN00001", false);
           await $(".card-film-item-container").html("");
           const IdMovieContainerCheck = [];
           const IdRoomContainerCheck = [];
 
-          const datas = await getAllShowTimesByDate("../../.", "2022-10-10");
+          const datas = await getShowTimeByDateAndTheater(
+            "../../.",
+            datetoGet,
+            previousOption
+          );
 
           const cuttingGenre = (data) => {
             let storehtml = "";
@@ -446,7 +459,7 @@
               await $(".card-film-item-container").append(htmls);
               let timehtmls = "";
               timehtmls += `
-              <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" id=${data.RoomID}s>
+              <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" showtimeid=${data.ShowtimeID} id=${data.RoomID}s>
                 <p class="place-to-choose">${RoomData.RoomName}</p>
                 <p class="time-to-choose">${renderTime[0]}:${renderTime[1]}</p>
                 <p class="seat-info"><b>${RoomData.NumberOfSeats}</b>/100 chỗ ngồi</p>
@@ -465,7 +478,7 @@
 
               let timehtmls = "";
               timehtmls += `
-        <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" id=${data.RoomID}>
+        <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" showtimeid=${data.ShowtimeID} id=${data.RoomID}>
           <p class="place-to-choose">${RoomData.RoomName}</p>
           <p class="time-to-choose">${renderTime[0]}:${renderTime[1]}</p>
           <p class="seat-info"><b>${RoomData.NumberOfSeats}</b>/100 chỗ ngồi</p>
@@ -477,9 +490,11 @@
                 () => {
                   $(".item-choosing-time").on("click", function () {
                     let idRoom = $(this).attr("id");
+                    let idShowTime = $(this).attr("showtimeid");
                     let TimesChoosing = $(this).find(".time-to-choose").text();
                     sessionStorage.setItem("RoomIDChoosing", idRoom);
                     sessionStorage.setItem("TimeChoosing", TimesChoosing);
+                    sessionStorage.setItem("ShowTimeID", idShowTime);
                     window.location.href = "../Booking/ChooseSeat/index.html";
                   });
                 }
@@ -487,7 +502,6 @@
             }
           }
         };
-        TakingShowTime();
         function ChangingDate() {
           const daysOfWeek = [
             "Chủ nhật",

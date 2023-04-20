@@ -154,7 +154,7 @@ public function updatePromotion(Promotion $Promotion) {
         $page = intval($page); 
         $number = 12;
         $offset = ($page - 1) * $number;
-        $stmt = $this->conn->prepare("SELECT PromotionID, PromotionName,  Description, StartTime, EndTime,  Discount, Code,url_image FROM promotion limit $offset,$number ");
+        $stmt = $this->conn->prepare("SELECT PromotionID, PromotionName,  Description, StartTime, EndTime,  Discount, Code,type,url_image FROM promotion limit $offset,$number ");
         $stmt->execute();
         $Promotions = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {

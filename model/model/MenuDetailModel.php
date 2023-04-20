@@ -8,22 +8,29 @@ class MenuDetailModel {
     public function __construct(){
         $this->conn = Database::getConnection();
     }
-
+    
     // Phương thức lấy thông tin Menu theo ID
      // Phương thức lấy thông tin Menu theo ID
      public function getMenuDetailByBookingID($id) {
         $stmt = $this->conn->prepare("SELECT 
-        Number,	
-        Total,	
-        BookingID ,
-        ItemID	
-        FROM menudetail WHERE BookingID=:BookingID");
+        md.Number,	
+        md.Total,	
+        md.BookingID ,
+        md.ItemID	,
+        m.Name ,
+        m.Price,
+        m.ImageURL  ,
+        m.status
+
+        FROM menudetail as md Join menu as m On m.ItemID = md.ItemID  WHERE BookingID=:BookingID");
         $stmt->bindParam(':BookingID', $id);
         $stmt->execute();
         $list = array();
       while($row = $stmt->fetch(\PDO::FETCH_ASSOC)){
-            $menudetail = new MenuDetail($row['Number'], $row['Total'], $row['BookingID'], $row['ItemID']);
-            $list[] = $menudetail;
+           
+        $menudetail['detailmenu'] = new MenuDetail($row['Number'], $row['Total'], $row['BookingID'], $row['ItemID']);
+        $menudetail['menu']  = new Menu($row['Name'],$row['ImageURL'],$row['Price'],$row['Status'],$row['ItemID']); 
+        $list[] = $menudetail;
         }
         return $list;
     }
@@ -42,9 +49,9 @@ class MenuDetailModel {
             $stmt->bindParam(':ItemID', $ItemID);
             $stmt->bindParam(':BookingID', $BookingID);
             $stmt ->execute();
-            echo json_encode(array("success"=>true));
+            return (array("success"=>true));
         }catch(Exception $e){
-            echo json_encode(array("success"=>false,"error"=>$e->getMessage()));
+            return (array("success"=>false,"error"=>$e->getMessage()));
         }
     }
     // Phương thức xóa một Menu theo ID
@@ -54,12 +61,12 @@ public function deleteMenu($id) {
         $stmt->bindParam(':BookingID', $id);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
-            echo json_encode(array("success" => true));
+            return (array("success" => true));
         } else {
-            echo json_encode(array("success" => false, "error" => "Menu không tồn tại"));
+            return (array("success" => false, "error" => "Menu không tồn tại"));
         }
     } catch (Exception $e) {
-        echo json_encode(array("success" => false, "error" => $e->getMessage()));
+        return (array("success" => false, "error" => $e->getMessage()));
     }
 }
 // Phương thức cập nhật thông tin một Menu
@@ -74,18 +81,17 @@ public function updateMenu(MenuDetail $menuDetail) {
         
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
-            echo json_encode(array("success" => true));
+            return (array("success" => true));
         } else {
-            echo json_encode(array("success" => false, "error" => "Menu không tồn tại"));
+            return (array("success" => false, "error" => "Menu không tồn tại"));
         }
     } catch (Exception $e) {
-        echo json_encode(array("success" => false, "error" => $e->getMessage()));
+        return (array("success" => false, "error" => $e->getMessage()));
     }
 }
 
    
 
 }
-echo json_encode((new MenuDetailModel())->getMenuDetailByBookingID("B001"));
 
 ?>

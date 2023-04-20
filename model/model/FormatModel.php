@@ -8,7 +8,30 @@ class FormatModel {
     public function __construct(){
         $this->conn = Database::getConnection();
     }
-
+    public function getFormateOfMovie($movieID){
+        try {
+            $stmt = $this->conn->prepare("Select f.FormatID, f.NameFormat from Format as f JOIN showtime as st on st.FormatID = f.FormatID Join Movie as m on m.MovieID = st.MovieID WHERE m.MovieID = :MovieID");
+            $stmt ->bindParam(':MovieID',$movieID);
+            $stmt->execute();
+            $formats = array();
+    
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $format = new format(
+                   $row['NameFormat'],  $row['FormatID']
+                );
+                $formats[] = $format;
+            }
+        
+    
+            if($format!=null){
+                return (array("success"=>true,"format"=>$formats));
+            }else{
+                return (array("success"=>false,"error"=>"Format không tồn tại"));
+            }
+        }catch(Exception $e){
+            return array("success"=>false, "error"=>$e->getMessage());
+        }
+    }
     // Phương thức lấy thông tin format theo ID
     public function getFormatByID($id) {
         $stmt = $this->conn->prepare("SELECT FormatID, NameFormat FROM format WHERE FormatID=:FormatID");

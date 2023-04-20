@@ -43,7 +43,7 @@ class UserController {
                 $customer  = (new CustomerModel())->getCustomerByEmail($email);
                 return array( "success" => true,"role"=>$data['account']['role_id'],"user"=>$customer);
             } else {
-                $admin  = (new ManagerModel())->getManagerByEmail($email);
+                $admin  = (new ManagerModel())->getManagerByID($email);
                 return array("success" => true,"role"=>$data['account']['role_id'],"user"=>$admin);
             }
         } else {

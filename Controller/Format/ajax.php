@@ -22,7 +22,9 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
     echo json_encode((new FormatController)->getFormatById($id));
 
             break;
-
+        case 'getAllFormatsByMovieId':
+            $movieId = $_GET['movieId'];
+            echo json_encode((new FormatController)->getAllFormatsOfMovie($movieId)) ;   
     }
 }
 if($_SERVER['REQUEST_METHOD'] == 'PUT') {
