@@ -26,7 +26,7 @@ class TicketModel{
             $stmt->execute();
             $listTicket = array();
             while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                $listTicket[] = new Ticket($row['ShowTimeID'],$row['SeatID'],$row['Status'],$row['TicketID']);
+                $listTicket[] = new Ticket($row['ShowtimeID'],$row['SeatID'],$row['status'],$row['TicketID']);
             }
             return  $listTicket;
             }

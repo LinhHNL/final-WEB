@@ -29,7 +29,7 @@ class MenuDetailModel {
       while($row = $stmt->fetch(\PDO::FETCH_ASSOC)){
            
         $menudetail['detailmenu'] = new MenuDetail($row['Number'], $row['Total'], $row['BookingID'], $row['ItemID']);
-        $menudetail['menu']  = new Menu($row['Name'],$row['ImageURL'],$row['Price'],$row['Status'],$row['ItemID']); 
+        $menudetail['menu']  = new Menu($row['Name'],$row['ImageURL'],$row['Price'],$row['status'],$row['ItemID']); 
         $list[] = $menudetail;
         }
         return $list;
