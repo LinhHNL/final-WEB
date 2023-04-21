@@ -54,7 +54,7 @@ class AccountModel {
         }
     }
     public function getAcount($email, $pas) {
-        $stmt = $this->conn->prepare("SELECT  email, password,role_id ,id FROM account WHERE email=:email AND password=:password");
+        $stmt = $this->conn->prepare("SELECT email, password,role_id ,id FROM account WHERE email=:email AND password=:password");
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':password', $pas);
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Account');

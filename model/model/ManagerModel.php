@@ -28,7 +28,7 @@ class ManagerModel {
 
     // Phương thức lấy thông tin manager theo email
     public function getManagerByEmail($email) {
-        $stmt = $this->conn->prepare("SELECT ManagerID, FullName,Email, Phone, account_id FROM manager WHERE Email=:Email");
+        $stmt = $this->conn->prepare("  ");
         $stmt->bindParam(':Email', $email);
         $stmt->setFetchMode(PDO::FETCH_CLASS,'Manager');
         $stmt->execute();
