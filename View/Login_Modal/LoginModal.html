@@ -134,6 +134,7 @@
     </div>
     <script type="module">
       import { LoginAPI } from "../API/LoginAPI.js";
+      import { XOREncrypt } from "../Util/EncryptXOR.js";
       $(document).ready(() => {
         $("#btn-login").click(() => {
           let email = $("#email").val().trim();
@@ -146,16 +147,17 @@
               .hide(1);
           } else {
             LoginAPI("../..", email, password).then((res) => {
-              if (res.success === true) {
+              if (res.success == true) {
                 if (res.role === "1") {
                   let data = JSON.parse(res.user);
                   // Lưu session Storage accountID và name
+                  let email = res;
+                  console.log(data);
                   window.sessionStorage.setItem(
-                    "accountID",
-                    data.customer.account_id
+                    "Email",
+                    XOREncrypt(data.customer.Email)
                   );
-                  window.sessionStorage.setItem("name", data.customer.FullName);
-                  window.location.href = "/";
+                  window.location.href = "../../index.html";
                 } else {
                   let data = JSON.parse(res.user);
                   // Lưu session Storage accountID
