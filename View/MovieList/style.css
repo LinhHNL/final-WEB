@@ -44,7 +44,6 @@ html {
 .btn-main {
   color: white;
   background-image: linear-gradient(90deg, #784ba0 0%, #ff3cac 100%);
-  display: flex;
   justify-content: center;
   align-items: center;
   border: 0px;
@@ -59,7 +58,7 @@ html {
 
 .main-container {
   padding: 0 3%;
-  padding-top: 100px; 
+  padding-top: 100px;
 }
 
 .main-container .line {

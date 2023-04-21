@@ -691,6 +691,26 @@
           }
         };
         takeAllGenre();
+        let modalTrailer = $("#modal-trailer");
+
+        $(".play-btn").click(function () {
+          modalTrailer.modal("show");
+        });
+
+        $("#modal-trailer .close").click(function () {
+          modalTrailer.modal("hide");
+        });
+
+        let video = document.querySelector("#modal-trailer video");
+
+        modalTrailer.on("show.bs.modal", function (e) {
+          video.play();
+        });
+
+        modalTrailer.on("hide.bs.modal", function (e) {
+          video.pause();
+          video.currentTime = 0;
+        });
       });
     </script>
   </body>

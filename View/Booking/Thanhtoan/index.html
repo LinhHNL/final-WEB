@@ -92,9 +92,12 @@
       <div class="row">
         <div class="col-lg-8 col-md-8 col-xs-12">
           <div class="back">
-            <a href="Combo.html" style="text-decoration: none">
+            <a
+              href="../ComboFoodDrink/index.html"
+              style="text-decoration: none"
+            >
               <img
-                src="/images/arrow_right.svg"
+                src="../../../images/arrow_right.svg"
                 style="transform: scaleX(-1)"
               />
               <span style="color: #ff3cac">CHỌN COMBO</span>
@@ -409,13 +412,15 @@
         });
         async function FindingUserByEmailFunc(email) {
           let data = await getCustomerByEmail("../../../.", email);
-          console.log(data);
+          return data;
         }
         $(".confirm-btn").click(async () => {
-          let customerEmail = sessionStorage.getItem("Email");
-          let emailDecrypt = XORDecrypt(customerEmail);
-          let userresult = await FindingUserByEmailFunc(emailDecrypt);
-          let customer_id = "C001";
+          const EmailUser = sessionStorage.getItem("Email");
+          let UserInfo = XORDecrypt(EmailUser);
+          let UserData = await FindingUserByEmailFunc(UserInfo);
+          let UserDataRender = JSON.parse(UserData["user"]).customer;
+          console.log(UserDataRender);
+          let customer_id = UserDataRender.CustomerID;
           let ChoosingSeat = sessionStorage.getItem("ChoosingSeat");
           let RoomID = sessionStorage.getItem("RoomIDChoosing");
           let dayChoosing = sessionStorage.getItem("DayChoosing");
@@ -457,17 +462,17 @@
             ":" +
             seconds;
           let getVoucher = $(".form-discount-content").val();
-          // let resulttoadd = await AddBooking(
-          //   "../../../.",
-          //   NumofTicket,
-          //   timetoadd,
-          //   getVoucher,
-          //   customer_id,
-          //   ShowTimeID,
-          //   totalPrice,
-          //   JSON.parse(ChoosingSeat),
-          //   JSON.parse(MenuInfo)
-          // );
+          let resulttoadd = await AddBooking(
+            "../../../.",
+            NumofTicket,
+            timetoadd,
+            getVoucher,
+            customer_id,
+            ShowTimeID,
+            totalPrice,
+            JSON.parse(ChoosingSeat),
+            JSON.parse(MenuInfo)
+          );
         });
       });
     </script>

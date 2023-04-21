@@ -192,7 +192,6 @@
         let previousOption = "";
         let previousOptionName = "";
         const date = new Date();
-        sessionStorage.clear();
         $(".navbar-toggler").click(function () {
           var color = $(".navbar").css("background-color");
           if (color == "rgba(0, 0, 0, 0.01)") {
@@ -392,7 +391,7 @@
           await $(".card-film-item-container").html("");
           const IdMovieContainerCheck = [];
           const IdRoomContainerCheck = [];
-
+          console.log(datetoGet, previousOption);
           const datas = await getShowTimeByDateAndTheater(
             "../../.",
             datetoGet,
@@ -417,7 +416,8 @@
 
               dataMovie = dataMovie["movie"];
               RoomData = RoomData["room"];
-
+              console.log(dataMovie);
+              const ImageLink = dataMovie["listImage"][0];
               const datatoCut = data.StartTime;
               const GenreList = await cuttingGenre(dataMovie);
               const takingTime = await datatoCut.split(" ")[1];
@@ -427,7 +427,7 @@
               <div class="row card-film-cotainer">
                 <div class="col-lg-3 item-img-container col-md-12 col-sm-12">
                   <img
-                    src="../../images/poster.jpg"
+                    src="../../${ImageLink}"
                     alt=""
                     style="border-radius: 10px"
                   />
@@ -533,7 +533,7 @@
             const year = date.getFullYear();
             sessionStorage.setItem(
               "DayChoosing",
-              `${year}-${month}-${dayOfMonth}`
+              `${year}-${month + 1}-${dayOfMonth}`
             );
           };
           // Initialize the current date to the first day in the HTML code
