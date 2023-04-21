@@ -4,7 +4,15 @@ require_once 'BookingController.php';
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $jsonData = file_get_contents("php://input");
     $data = json_decode($jsonData, true);
+    $action = $data['action'];
+    switch($action) {
+        case 'addBooking':
     echo  json_encode((new BookingController)->addBooking($data));
+    break;
+    case 'caluateTotalPriceUsingCode':
+        echo json_encode((new BookingController)->caluateBookingByCode($data));
+    break;
+    }
 }
 if($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     $id = $_GET['id'];
@@ -31,6 +39,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
             $id = $_GET['id'];
             echo json_encode((new BookingController)->getBookingDetailsByBookingID($Booking));
             break;
+        
 
 
         }       
@@ -40,6 +49,15 @@ if($_SERVER['REQUEST_METHOD'] == 'PUT') {
     $data = json_decode($jsonData, true);
 
     header('Content-Type: application/json');
-    echo json_encode((new BookingController)->updateBooking($data));
+    $action = $data['action'];
+    switch ($action) {
+
+        case 'update':
+            echo json_encode((new BookingController)->updateBooking($data));
+break;
+            case 'changeStatus':
+    echo json_encode((new BookingController)->changeStatusBooking($data));
+                break;
+    }
 }
 ?>

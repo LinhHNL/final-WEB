@@ -47,6 +47,21 @@ class PromotionModel {
         }
         return (array("success" => true, "list" => $Promotions));
     }
+    public function getPromotionsByCode($code){
+        $stmt = $this->conn->prepare("SELECT PromotionName, Description, StartTime, EndTime, Discount, Code, type, PromotionID, url_Image FROM promotion WHERE Code=:Code");
+        $stmt->bindParam(':Code', $code);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+    
+        if(count($result) > 0) {
+            $Promotion = new Promotion($result[0]['PromotionName'], $result[0]['StartTime'], $result[0]['Description'], $result[0]['EndTime'], $result[0]['Discount'], $result[0]['Code'], $result[0]['type'], $result[0]['url_Image'], $result[0]['PromotionID']);
+            return $Promotion;
+        } else {
+            return null;
+        }
+    }
+    
     public function getPromotionsEvent($page){
         $page = intval($page); 
         $number = 12;

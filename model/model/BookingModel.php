@@ -122,12 +122,14 @@ class BookingModel {
 
    }
    function addBooking(Booking $booking){
-   try{ $stmt = $this->conn->prepare("INSERT INTO Booking VALUES(:id,:numberticket,:total,:datetime,:voucher,:status,:customer_id)");
+   try{ $stmt = $this->conn->prepare("INSERT INTO Booking VALUES(:id,:numberticket,:total,:datetime,:voucher,:customer_id,:status)");
     $id = $this->createNewID();
     $numberticket = $booking->get_NumberOfTickets();
     $total = $booking->get_TotalPrice();
     $datetime = $booking->get_BookingTime();
     $voucher = $booking->get_Voucher();
+    $customer_id = $booking->getCustomerId();
+    $status = $booking->getStatus();
     $stmt->bindParam(":id",$id);
     $stmt->bindParam(":numberticket",$numberticket);
     $stmt->bindParam(":total",$total);
@@ -137,30 +139,37 @@ class BookingModel {
     $stmt->bindParam(":status",$status);
     $stmt ->execute();
           
-    return (array("Success"=>true,"message"=>"Thêm thành công","booking_id"=>$id));
+    return (array("success"=>true,"message"=>"Thêm thành công","booking_id"=>$id));
 }catch(Exception $e){
 
-    return   (array("Success"=>false,"error"=>$e->getMessage()));
+    return   (array("success"=>false,"error"=>$e->getMessage()));
     
     
          
     }} 
     function deleteBooking($id){
         try{
+            $this->conn->beginTransaction();
+            $stmt = $this->conn->prepare("DELETE FROM detailticket WHERE BookingID=:BookingID");
+            $stmt->bindParam(':BookingID',$id);
+            $stmt->execute();
+            $stmt = $this->conn->prepare("DELETE FROM Ticket WHERE TicketID IN (SELECT TicketID FROM detailticket WHERE BookingID=:BookingID)");
+            $stmt->bindParam(':BookingID',$id);
+            $stmt->execute();
+            $stmt = $this->conn->prepare("DELETE FROM menudetail WHERE BookingID = :BookingID");
+            $stmt->bindParam(':BookingID', $id);
+            $stmt->execute();
             $stmt = $this->conn->prepare("DELETE FROM Booking WHERE BookingID = :id");
-            $stmt ->bindParam(":id",$id);
-            $stmt ->execute();
-            if ($stmt->rowCount() > 0) {
-                 return (array("success" => true));
-             } else {
-                 return (array("success" => false, "error" => "Booking không tồn tại"));
-             
-       }}catch(EXception $e)
-{
-  return (array("success" => false, "error" => $e->getMessage()));
-
-       }
-    } 
+            $stmt->bindParam(":id",$id);
+            $stmt->execute();
+            $this->conn->commit();
+            return (array("success" => true));
+        }catch(Exception $e){
+            $this->conn->rollBack();
+            return (array("success" => false, "error" => $e->getMessage()));
+        }
+    }
+    
    
     function updateBooking(Booking $booking){
         try{ 
@@ -169,6 +178,8 @@ class BookingModel {
             $numberticket = $booking->get_NumberOfTickets();
             $total = $booking->get_TotalPrice();
             $voucher = $booking->get_Voucher();
+            $customer_id = $booking->getCustomerId();
+            $status = $booking->getStatus();
             $stmt->bindParam(":id",$id);
             $stmt->bindParam(":numberticket",$numberticket);
             $stmt->bindParam(":total",$total);
@@ -186,7 +197,23 @@ class BookingModel {
             return (array("Success"=>false,"error"=>$e->getMessage()));
         }
     }
-    
+    function updateBookingStatus($booking_id, $status){
+        try{ 
+            $stmt = $this->conn->prepare("UPDATE Booking SET status = :status WHERE BookingID=:id");
+            $stmt->bindParam(":id", $booking_id);
+            $stmt->bindParam(":status", $status);
+            $stmt ->execute();
+                   
+            if ($stmt->rowCount() > 0) {
+                return (array("success" => true));
+            } else {
+                return (array("success" => false, "error" => "Booking không tồn tại"));
+            }
+        } catch(Exception $e){
+            return (array("Success"=>false,"error"=>$e->getMessage()));
+        }
+    }
+
     }
 
 ?>
