@@ -306,7 +306,12 @@
                     <a href="./index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
                     <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
                     </a>
-                    <button class="btn-main">Đặt vé</button>
+                    <a href="../Order/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
+                      <button class="btn-main btn-book">
+                      ĐẶT VÉ
+                      <img src="../../images/Arrow_right_long.svg" alt="" />
+                    </button>
+                    </a>
                   </div>
                   <img class="poster" src="../../${data.listImage[0]}" alt="" />
                 </div>
@@ -445,7 +450,13 @@
       }
       // Thêm dữ liệu vào Movie
       async function addIntoMovieInfo(data) {
+        function toHHMM(minutes) {
+          var hours = Math.floor(minutes / 60);
+          var mins = minutes % 60;
+          return hours + "h" + " " + mins + "m";
+        }
         const datatoadd = data["movie"];
+        let timerender = await toHHMM(datatoadd.Time);
         const htmls = `<div class="rating">
           <div class="rating-star">
             <img src="../../images/Star.svg" alt="" />
@@ -457,16 +468,17 @@
           ${datatoadd.MovieName}
         </div>
         <div class="movie-info">
-          <span class="duration">${datatoadd.Time}</span>
+          <span class="duration">${timerender}</span>
           <span class="dot">●</span>
           <span class="premier-date">${datatoadd.Premiere}</span>
         </div>
 
         <div class="button-container">
-          <button class="btn-main btn-book">
+          <a href="../Order/index.html" style="text-decoration:None;display:block;width:100%">
+            <button class="btn-main btn-book">
             ĐẶT VÉ
             <img src="../../images/Arrow_right_long.svg" alt="" />
-          </button>
+          </button></a>
         </div>`;
         $(".movie-content").append(htmls);
       }
@@ -627,7 +639,12 @@
                     <a href="./View/Detail/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
                     <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
                     </a>
-                    <button class="btn-main">Đặt vé</button>
+                    <a href="../Order/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
+                      <button class="btn-main btn-book">
+                      ĐẶT VÉ
+                      <img src="../../images/Arrow_right_long.svg" alt="" />
+                    </button>
+                    </a>
                   </div>
                   <img class="poster" src="../../${data.listImage[0]}" alt="" />
                 </div>
@@ -700,7 +717,12 @@
                     <a href="./index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
                     <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
                     </a>
-                    <button class="btn-main">Đặt vé</button>
+                    <a href="../Order/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
+                      <button class="btn-main btn-book">
+                      ĐẶT VÉ
+                      <img src="../../images/Arrow_right_long.svg" alt="" />
+                    </button>
+                    </a>
                   </div>
                   <img class="poster" src="../../${data.listImage[0].ImagePath}" alt="" />
                 </div>

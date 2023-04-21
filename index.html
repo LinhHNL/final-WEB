@@ -279,6 +279,7 @@
       } from "./View/API/MovieAPI.js";
       import { getAllGenre } from "./View/API/GenreAPI.js";
       import { getPromotionsEvent } from "./View/API/PromotionAPI.js";
+      import { getAllFormatsByMovieId } from "./View/API/FormatAPI.js";
       $(document).ready(function () {
         $(".navbar-toggler").click(function () {
           var color = $(".navbar").css("background-color");
@@ -392,6 +393,7 @@
           }
         });
         // Gọi phim đang chiếu
+
         getPremierMovie(".").then((datas) => {
           const cuttingGenre = (data) => {
             let storehtml = "";
@@ -409,7 +411,6 @@
           };
           datas.forEach(async (data, index) => {
             const timetoadd = await toHHMM(data.Time);
-
             let genrehtml = await cuttingGenre(data);
             let htmls = "";
             htmls +=
