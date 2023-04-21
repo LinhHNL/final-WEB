@@ -42,29 +42,31 @@ class CustomerModel {
 
 
     }
+    
     public function updateCustomer(Customer $customer){
         try{
-           $stmt =$this->conn->prepare("UPDATE Customer set FullName=:name,Address=:address,Email=:email,Phone=:phone where CustomerID=:id");
-           $id = $customer->get_CustomerID();
-       $name = $customer->get_FullName();
-       $address = $customer->get_Address();
-       $email = $customer->get_Email();
-       $phone = $customer->get_Phone();
-       $account_id = $customer->get_Account_Id();
-       $stmt->bindParam(':id', $id);
-       $stmt->bindParam(':name', $name);
-       $stmt->bindParam(':address', $address);
-       $stmt->bindParam(':email', $email);
-       $stmt->bindParam(':phone', $phone);
-       $stmt->execute();
-       header('Content-Type: application/json');
-
-       if ($stmt->rowCount() > 0) {
-        return json_encode(array("success" => true));
-    } else {
-        return json_encode(array("success" => false, "error" => "Manager không tồn tại"));
-    }
-  
+            $id = $customer->get_CustomerID();
+            $name = $customer->get_FullName();
+            $address = $customer->get_Address();
+            $email = $customer->get_Email();
+            $phone = $customer->get_Phone();
+            $stmt = $this->conn->prepare("SELECT  Email	FROM customer WHERE CustomerID =:CustomerID");
+            $stmt->bindParam(':CustomerID', $id);
+            $stmt->execute();
+            $temp = $stmt->fetchColumn();   
+            // die(json_encode($customer->get_CustomerID()));       
+            if($temp==null){
+                return json_encode(array("success" => false, "error" => "Tài khoản không tồn tại"));
+            }
+            $stmt =$this->conn->prepare("UPDATE Customer set FullName=:name,Address=:address,Email=:email,Phone=:phone where CustomerID=:id");
+            $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':address', $address);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':phone', $phone);
+            $stmt->execute();
+            header('Content-Type: application/json');
+            return json_encode(array("success" => true));
        }catch(Exception $e){
           return json_encode(array("success"=>false,"error"=>$e->getMessage()));
        }
@@ -92,12 +94,12 @@ class CustomerModel {
         }
     }
     private function createNewIDCustomer() {
-        $query = "SELECT CustomerID FROM customer ORDER BY CAST(RIGHT(CustomerID, LENGTH(CustomerID) - 1) AS UNSIGNED) DESC LIMIT 1";
+        $query = "SELECT CustomerID FROM customer ORDER BY CAST(RIGHT(CustomerID, LENGTH(CustomerID) - 2) AS UNSIGNED) DESC LIMIT 1";
         $result = $this->conn->query($query);
         $lastId = 0;
     
         if ($result->rowCount() > 0) {
-            $lastId = intval(substr($result->fetchColumn(), 1));
+            $lastId = intval(substr($result->fetchColumn(), 2));
         }
     
         $newId = "KH" . ($lastId + 1);

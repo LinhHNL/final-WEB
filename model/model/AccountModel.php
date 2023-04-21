@@ -61,7 +61,6 @@ class AccountModel {
         $stmt->execute();
     
         $account = $stmt->fetchObject();
-
         header('Content-Type: application/json');
         if($account == null) {
             return json_encode(array("success" => false, "error" => "Đăng nhập thất bại"));
@@ -74,18 +73,17 @@ class AccountModel {
             $id = $account->getId();
             $email = $account->getEmail();
             $password = $account->getPassword();
-            $role = $account->getRole();
-            $stmt = $this->conn->prepare("UPDATE account SET Email=:email, Password=:password, Role_id=:role WHERE ID=:id");
+           
+            $stmt = $this->conn->prepare("UPDATE account SET Email=:email, Password=:password WHERE ID=:id");
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':password',  $password);
-            $stmt->bindParam(':role', $role);
             $stmt->bindParam(':id', $id);
             $stmt->execute();
             header('Content-Type: application/json');
-            return json_encode(array("success"=>true));
+            return (array("success"=>true));
         }catch(Exception $e){
             header('Content-Type: application/json');
-            return json_encode(array("success"=>false,"error"=>$e->getMessage()));
+            return (array("success"=>false,"error"=>$e->getMessage()));
         }
     }
     
