@@ -116,19 +116,23 @@
               </div>
               <div class="row justify-content-center mb-3">
                 <div class="col-6 account-title">TÊN</div>
-                <div class="col-6 account-content">ABC</div>
+                <div class="col-6 account-content name-display">ABC</div>
               </div>
               <div class="row justify-content-center mb-3">
                 <div class="col-6 account-title">EMAIL</div>
-                <div class="col-6 account-content">ABC@gmail.com</div>
+                <div class="col-6 account-content email-display">
+                  ABC@gmail.com
+                </div>
               </div>
               <div class="row justify-content-center mb-3">
                 <div class="col-6 account-title">TÊN ĐĂNG NHẬP</div>
-                <div class="col-6 account-content">ABCD</div>
+                <div class="col-6 account-content user-display">ABCD</div>
               </div>
               <div class="row justify-content-center mb-3">
                 <div class="col-6 account-title">SỐ ĐIỆN THOẠI</div>
-                <div class="col-6 account-content">01021002131</div>
+                <div class="col-6 account-content phone-display">
+                  01021002131
+                </div>
               </div>
               <div class="row justify-content-center mb-3">
                 <div class="col-6">
@@ -302,19 +306,17 @@
       </div>
     </div>
     <script type="module">
-      import { getAllCustomer } from "../../API/UserAPI.js";
+      import { getCustomerByEmail } from "../../API/UserAPI.js";
+      import { XORDecrypt } from "../../Util/EncryptXOR.js";
       (async function TakeUserInformation() {
-        let i = 1;
-        let arrTemp = [];
-        while (true) {
-          let UserData = await getAllCustomer("../../../.", i);
-          arrTemp = [...arrTemp, ...UserData["list"]];
-          if (UserData["list"].length == 0) {
-            break;
-          }
-          i++;
-        }
-        console.log(arrTemp);
+        const EmailUser = sessionStorage.getItem("Email");
+        let UserInfo = XORDecrypt(EmailUser);
+        let UserData = await getCustomerByEmail("../../../.", UserInfo);
+        let UserDataRender = JSON.parse(UserData["user"]).customer;
+        $(".name-display").text(UserDataRender.FullName);
+        $(".email-display").text(UserInfo);
+        $(".user-display").text(UserInfo);
+        $(".phone-display").text(UserDataRender.phone);
       })();
     </script>
   </body>
