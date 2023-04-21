@@ -10,7 +10,7 @@ class FormatModel {
     }
     public function getFormateOfMovie($movieID){
         try {
-            $stmt = $this->conn->prepare("Select f.FormatID, f.NameFormat from Format as f JOIN showtime as st on st.FormatID = f.FormatID Join Movie as m on m.MovieID = st.MovieID WHERE m.MovieID = :MovieID");
+            $stmt = $this->conn->prepare("Select DISTINCT f.FormatID, f.NameFormat from Format as f JOIN showtime as st on st.FormatID = f.FormatID Join Movie as m on m.MovieID = st.MovieID WHERE m.MovieID = :MovieID");
             $stmt ->bindParam(':MovieID',$movieID);
             $stmt->execute();
             $formats = array();

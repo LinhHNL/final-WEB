@@ -69,7 +69,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             break;
         case 'getUserByEmail':
             $email = $_GET['email'];
-            echo (new UserController)->getUserByEmail($id);
+            echo json_encode((new UserController)->getUserByEmail($email));
             break;
         default:
             echo json_encode(array("success"=>true,"message"=>"Request không tồn tại"));
