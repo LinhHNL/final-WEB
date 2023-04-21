@@ -189,14 +189,7 @@
         let previousOption = "";
         let previousOptionName = "";
         const date = new Date();
-        // Mai làm tiếp thằng này
-        sessionStorage.setItem("MovieChoosing", "");
-        sessionStorage.setItem("RoomIDChoosing", "");
-        sessionStorage.setItem("TimeChoosing", "");
-        sessionStorage.setItem("TheaterName", "");
-        sessionStorage.setItem("TheaterID", "");
-        sessionStorage.setItem("Seat", "");
-        sessionStorage.setItem("ShowTimeID", "");
+        sessionStorage.clear();
         $(".navbar-toggler").click(function () {
           var color = $(".navbar").css("background-color");
           if (color == "rgba(0, 0, 0, 0.01)") {

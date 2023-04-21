@@ -97,36 +97,36 @@
     <div class="bottom-bar">
       <div class="bottom-bar-item">
         <div class="title">NGÀY</div>
-        <div class="content">20.4</div>
+        <div class="content date-content">20.4</div>
       </div>
       <div class="bottom-bar-item">
         <div class="title">GIỜ</div>
-        <div class="content">22:30</div>
+        <div class="content hour-content">22:30</div>
       </div>
       <div class="bottom-bar-item">
         <div class="title">RẠP</div>
-        <div class="content">Nam Sài Gòn</div>
+        <div class="content theater-content">Nam Sài Gòn</div>
       </div>
       <div class="bottom-bar-item">
         <div class="title">PHÒNG</div>
-        <div class="content">Screen 2</div>
+        <div class="content room-content">Screen 2</div>
       </div>
       <div class="bottom-bar-item">
         <div class="title">GHẾ</div>
-        <div class="content">I2, K3</div>
+        <div class="content seat-content"></div>
       </div>
       <div class="bottom-bar-item">
         <div class="title">GIÁ VÉ</div>
-        <div class="content">120,000 ₫</div>
+        <div class="content ticket-content">0 ₫</div>
       </div>
       <div class="bottom-bar-item">
         <div class="title">COMBO</div>
-        <div class="content">0 ₫</div>
+        <div class="content combo-content">0 ₫</div>
       </div>
       <a href="../Thanhtoan/index.html" style="text-decoration: none">
         <button class="btn-grad">THANH TOÁN</button>
       </a>
-      <div class="total">120,000 ₫</div>
+      <div class="total total-content">0 ₫</div>
     </div>
     <!--  -->
     <!-- Footer -->
@@ -195,7 +195,7 @@
     <script type="module">
       import { getAllMenu, getDetailMenuByID } from "../../API/MenuAPI.js";
       $(document).ready(function () {
-        async function getDescription(id) {
+        async function getDetailMenuByIDFunc(id) {
           let data = await getDetailMenuByID("../../../.", id);
           return data;
         }
@@ -208,6 +208,23 @@
 
           return currencyFormat.format(number);
         }
+        async function renderInformation() {
+          $(".date-content").text(sessionStorage.getItem("DayChoosing"));
+          $(".room-content").text(sessionStorage.getItem("RoomIDChoosing"));
+          $(".hour-content").text(sessionStorage.getItem("TimeChoosing"));
+          $(".theater-content").text(sessionStorage.getItem("TheaterName"));
+          let seatdata = JSON.parse(sessionStorage.getItem("ChoosingSeat"));
+          let textseatdata = "";
+          for (var i = 0; i < seatdata.length; i++) {
+            textseatdata += seatdata[i].SeatName + " ";
+          }
+          $(".seat-content").text(textseatdata);
+          // Cập nhật thông tin giá
+          let pricetorender = sessionStorage.getItem("Pricing");
+          $(".ticket-content").text(toVndCurrencyFormat(pricetorender));
+          $(".total-content").text(toVndCurrencyFormat(pricetorender));
+        }
+        renderInformation();
         async function getAllMenuFunc() {
           let datas = await getAllMenu("../../../.", 1);
           console.log(datas);
@@ -235,7 +252,7 @@
                     class="card-text"
                     style="display: flex; align-items: center"
                   >
-                    <button type="button" class="btn-minus">-</button>
+                    <button itemid=${data.ItemID} type="button" class="btn-minus">-</button>
                     <span
                       style="
                         margin-right: 10px;
@@ -246,7 +263,7 @@
                     >
                       0
                     </span>
-                    <button type="button" class="btn-plus">+</button>
+                    <button itemid=${data.ItemID} type="button" class="btn-plus">+</button>
                   </p>
                 </div>
               </div>
@@ -255,16 +272,93 @@
         </div>`;
             $(".container-menu").append(htmls);
           }
-
-          $(".btn-minus").click(function () {
+          const objectstore = [];
+          $(".btn-minus").click(async function () {
             const comboNumber = $(this).parent().find("span");
             if (comboNumber.text() > 0) {
               comboNumber.text(parseInt(comboNumber.text()) - 1);
+              let numbertoadd = parseInt(comboNumber.text());
+              let itemid = $(this).attr("itemid");
+              let data = await getDetailMenuByIDFunc(itemid);
+              let datatoadd = data["menu"];
+              let existingItem = objectstore.find(function (item) {
+                return (
+                  item.Name === datatoadd.Name &&
+                  item.ImageURL === datatoadd.ImageURL
+                );
+              });
+              if (existingItem) {
+                if (!existingItem.hasOwnProperty("Number")) {
+                  existingItem.Number = 1;
+                } else {
+                  existingItem.Number -= 1;
+                }
+              }
             }
+            sessionStorage.setItem("MenuInfo", JSON.stringify(objectstore));
+            const itemTotalPrices = objectstore.map((item) => {
+              const totalPrice = Number(item.Price) * item.Number;
+              return { ...item, totalPrice };
+            });
+
+            const totalPrice = itemTotalPrices.reduce((total, item) => {
+              return total + item.totalPrice;
+            }, 0);
+            $(".combo-content").text(toVndCurrencyFormat(totalPrice));
+            sessionStorage.setItem("PriceMenu", totalPrice);
+            let pricetocal = sessionStorage.getItem("Pricing");
+            $(".total-content").text(
+              toVndCurrencyFormat(totalPrice + parseInt(pricetocal))
+            );
+            sessionStorage.setItem(
+              "TotalPrice",
+              totalPrice + parseInt(pricetocal)
+            );
+            sessionStorage.setItem("PriceMenu", totalPrice);
           });
-          $(".btn-plus").click(function () {
+          $(".btn-plus").click(async function () {
             const comboNumber = $(this).parent().find("span");
             comboNumber.text(parseInt(comboNumber.text()) + 1);
+            let numbertoadd = parseInt(comboNumber.text());
+            let itemid = $(this).attr("itemid");
+            let data = await getDetailMenuByIDFunc(itemid);
+            let datatoadd = data["menu"];
+            let existingItem = objectstore.find(function (item) {
+              return (
+                item.Name === datatoadd.Name &&
+                item.ImageURL === datatoadd.ImageURL
+              );
+            });
+            if (existingItem) {
+              if (!existingItem.hasOwnProperty("Number")) {
+                existingItem.Number = 1;
+              } else {
+                existingItem.Number += 1;
+              }
+            } else {
+              datatoadd.Number = 1;
+              objectstore.push(datatoadd);
+            }
+            sessionStorage.setItem("MenuInfo", JSON.stringify(objectstore));
+            const itemTotalPrices = objectstore.map((item) => {
+              const totalPrice = Number(item.Price) * item.Number;
+              return { ...item, totalPrice };
+            });
+
+            // Get the total price of all items
+            const totalPrice = itemTotalPrices.reduce((total, item) => {
+              return total + item.totalPrice;
+            }, 0);
+            $(".combo-content").text(toVndCurrencyFormat(totalPrice));
+            let pricetocal = sessionStorage.getItem("Pricing");
+            $(".total-content").text(
+              toVndCurrencyFormat(totalPrice + parseInt(pricetocal))
+            );
+            sessionStorage.setItem(
+              "TotalPrice",
+              totalPrice + parseInt(pricetocal)
+            );
+            sessionStorage.setItem("PriceMenu", totalPrice);
           });
         }
 

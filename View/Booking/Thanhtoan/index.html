@@ -106,7 +106,7 @@
             <div class="input-tag">
               <input
                 type="text"
-                class="form-control"
+                class="form-control form-discount-content"
                 aria-label="Username"
                 aria-describedby="addon-wrapping"
               />
@@ -174,50 +174,52 @@
           <ul class="bill">
             <li class="bill-row">
               <span class="bill-row-left"> NGÀY CHIẾU </span>
-              <span class="bill-row-right"> 20.4 </span>
+              <span class="bill-row-right date-content"> 20.4 </span>
             </li>
             <li class="bill-row">
               <span class="bill-row-left"> PHIM </span>
-              <span class="bill-row-right"> Người kiến và chiến binh ong </span>
+              <span class="bill-row-right movie-content">
+                Người kiến và chiến binh ong
+              </span>
             </li>
             <li class="bill-row">
               <span class="bill-row-left"> GIỜ CHIẾU </span>
-              <span class="bill-row-right"> 22:30 </span>
+              <span class="bill-row-right time-content"> 22:30 </span>
             </li>
             <li class="bill-row">
               <span class="bill-row-left"> RẠP</span>
-              <span class="bill-row-right"> Nam Sài Gòn </span>
+              <span class="bill-row-right theater-content"> Nam Sài Gòn </span>
             </li>
             <li class="bill-row">
               <span class="bill-row-left"> PHÒNG CHIẾU </span>
-              <span class="bill-row-right"> Screen 2 </span>
+              <span class="bill-row-right screen-content"> Screen 2 </span>
             </li>
             <li class="bill-row">
               <span class="bill-row-left"> GHẾ </span>
-              <span class="bill-row-right"> I2,K3 </span>
+              <span class="bill-row-right seat-content"> I2,K3 </span>
             </li>
             <li class="bill-row">
               <span class="bill-row-left"> GIÁ VÉ </span>
-              <span class="bill-row-right"> 120,000 ₫ </span>
+              <span class="bill-row-right price-ticket"> 120,000 ₫ </span>
             </li>
             <li class="bill-row">
               <span class="bill-row-left"> COMBO </span>
-              <span class="bill-row-right"> 220,000 ₫ </span>
+              <span class="bill-row-right menu-content"> 220,000 ₫ </span>
             </li>
             <li class="bill-line"></li>
             <li class="bill-row">
               <span class="bill-row-left"> THÀNH TIỀN </span>
-              <span class="bill-row-right"> 340,000 ₫ </span>
+              <span class="bill-row-right all-price-content"> 340,000 ₫ </span>
             </li>
             <li class="bill-row">
               <span class="bill-row-left"> KHUYẾN MÃI </span>
-              <span class="bill-row-right"> -50,000 ₫ </span>
+              <span class="bill-row-right discount-content"> -0 ₫ </span>
             </li>
             <li class="bill-line"></li>
             <li class="bill-row">
               <span class="bill-row-left"> TỔNG TIỀN </span>
               <div class="bill-row-right">
-                <div class="bill-money">290,000 ₫</div>
+                <div class="bill-money after-price-content">290,000 ₫</div>
               </div>
             </li>
             <li class="bill-row">
@@ -290,8 +292,84 @@
         </div>
       </div>
     </div>
-    <script>
+    <script type="module">
+      import {
+        getPromotionsVoucher,
+        getPromotionsEvent,
+        calculateTotalPrice,
+      } from "../../API/PromotionAPI.js";
       $(document).ready(function () {
+        async function getPromotionData() {
+          let data = await getPromotionsEvent("../../../.");
+          return data["list"];
+        }
+        async function getPromotionDiscount(promotionID) {
+          let data = await getPromotionData();
+          for (const datavoucher of data) {
+            if (datavoucher.PromotionID == promotionID) {
+              return datavoucher.Discount;
+            }
+          }
+          return 0;
+        }
+        function toVndCurrencyFormat(number) {
+          const currencyFormat = new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND",
+            minimumFractionDigits: 0,
+          });
+
+          return currencyFormat.format(number);
+        }
+        async function renderInformation() {
+          $(".date-content").text(sessionStorage.getItem("DayChoosing"));
+          $(".room-content").text(sessionStorage.getItem("RoomIDChoosing"));
+          $(".hour-content").text(sessionStorage.getItem("TimeChoosing"));
+          $(".theater-content").text(sessionStorage.getItem("TheaterName"));
+          let seatdata = JSON.parse(sessionStorage.getItem("ChoosingSeat"));
+          let textseatdata = "";
+          for (var i = 0; i < seatdata.length; i++) {
+            textseatdata += seatdata[i].SeatName + " ";
+          }
+          $(".seat-content").text(textseatdata);
+          // Cập nhật thông tin giá
+          let pricetorender = sessionStorage.getItem("Pricing");
+          let PriceTotal = sessionStorage.getItem("TotalPrice");
+          let menuprice = sessionStorage.getItem("PriceMenu");
+          $(".menu-content").text(toVndCurrencyFormat(menuprice));
+          $(".price-ticket").text(toVndCurrencyFormat(pricetorender));
+          $(".all-price-content").text(toVndCurrencyFormat(PriceTotal));
+          $(".after-price-content").text(toVndCurrencyFormat(PriceTotal));
+        }
+        renderInformation();
+        async function ChangePrice(PromotionPrice, newPrice) {
+          $(".discount-content").text(
+            "- " + toVndCurrencyFormat(PromotionPrice)
+          );
+          $(".after-price-content").text(toVndCurrencyFormat(newPrice));
+        }
+        $(".btn-grad").click(async () => {
+          // ../../../.
+          let PromtionPrice = await calculateTotalPrice(
+            "../../../.",
+            $(".form-discount-content").val(),
+            JSON.parse(sessionStorage.getItem("TotalPrice"))
+          );
+          if (PromtionPrice.success) {
+            let newPrice = PromtionPrice.totalPrice;
+            let PromotionPrice =
+              JSON.parse(sessionStorage.getItem("TotalPrice")) - newPrice;
+            ChangePrice(PromotionPrice, newPrice);
+          }
+          // let PromotionPrice =
+          //   JSON.parse(sessionStorage.getItem("TotalPrice")) *
+          //   (Promotion / 100);
+          // let newPrice =
+          //   JSON.parse(sessionStorage.getItem("TotalPrice")) - PromotionPrice;
+          // if (PromotionPrice > 0) {
+          //   ChangePrice(PromotionPrice, newPrice);
+          // }
+        });
         $("#method-momo").click(function () {
           if ($("#method-atm p").css("color") == "rgb(255, 60, 172)") {
             $(this).css("border", "1px solid #ff3cac");
