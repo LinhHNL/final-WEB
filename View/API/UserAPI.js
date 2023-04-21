@@ -56,6 +56,14 @@ const updateCustomer = async (
   const datatorender = await data.json();
   return datatorender;
 };
+const getCustomerByEmail = async (url, email) => {
+  const urls = `${url}/Controller/User/ajax.php?action=getUserByEmail&email=${email}`;
+  const data = await fetch(urls, {
+    method: "GET",
+  });
+  const datatorender = await data.json();
+  return datatorender;
+};
 
 const updateManager = async (
   url = "../..",
@@ -81,13 +89,7 @@ const updateManager = async (
   return datatorender;
 };
 
-const addManager = async (
-  url = "../..",
-  email,
-  password,
-  fullname,
-  phone
-) => {
+const addManager = async (url = "../..", email, password, fullname, phone) => {
   const urls = `${url}/Controller/User/ajax.php`;
   const data = await fetch(urls, {
     method: "POST",
@@ -97,7 +99,7 @@ const addManager = async (
       password: password,
       fullname: fullname,
       phone: phone,
-      role: 2
+      role: 2,
     }),
   });
   const datatorender = await data.json();
@@ -121,4 +123,5 @@ export {
   updateManager,
   addManager,
   deleteManager,
+  getCustomerByEmail,
 };

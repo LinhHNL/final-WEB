@@ -301,6 +301,9 @@
         calculateTotalPrice,
       } from "../../API/PromotionAPI.js";
       import { AddBooking } from "../../API/BookingAPI.js";
+      import { getCustomerByEmail } from "../../API/UserAPI.js";
+
+      import { XORDecrypt } from "../../Util/EncryptXOR.js";
       $(document).ready(function () {
         async function getPromotionData() {
           let data = await getPromotionsEvent("../../../.");
@@ -399,55 +402,14 @@
             }
           }
         });
-        $(".confirm-btn").click(async () => {
-          /*
-              numofticket,
-      time,
-      voucher,
-      CID,
-      SID,
-      total,
-      listtic,
-      listme
-              */
-          /*
-             {
-    "action" :"addBooking",
-  "NumberOfTickets": 2,
-  "BookingTime": "2023-04-20 11:00:00",
-  "Voucher": "LING",
-  "customer_id": "C11",
-  "ShowTimeID": "SH10",
-  "TotalPrice" : 42342343,
-  "ListTicket": 
-     [
-      {
-            "SeatID": "ST7",
-            "SeatName": "A1",
-            "Type": "1",
-            "RoomID": "R10"
-      },
-       {
-             "SeatID": "ST8",
-            "SeatName": "A1",
-            "Type": "1",
-            "RoomID": "R10"
+        async function FindingUserByEmailFunc(email) {
+          let data = await getCustomerByEmail("../../../.", email);
+          console.log(data);
         }
-      
-    ]
-  ,
-  "ListMenu": [
-    {
-        "ItemID": "IT2",
-        "Name": "Coca",
-        "Price": "20000",
-        "ImageURL": "images/img/item2.webp",
-        "status": "1",
-        "Number": 2 
-    }
-  ]
-}
-             */
+        $(".confirm-btn").click(async () => {
+          let customerEmail = sessionStorage.getItem("Email");
+          let emailDecrypt = XORDecrypt(customerEmail);
+          let userresult = await FindingUserByEmailFunc(emailDecrypt);
           let customer_id = "C001";
           let ChoosingSeat = sessionStorage.getItem("ChoosingSeat");
           let RoomID = sessionStorage.getItem("RoomIDChoosing");
@@ -490,17 +452,17 @@
             ":" +
             seconds;
           let getVoucher = $(".form-discount-content").val();
-          let resulttoadd = await AddBooking(
-            "../../../.",
-            NumofTicket,
-            timetoadd,
-            getVoucher,
-            customer_id,
-            ShowTimeID,
-            totalPrice,
-            JSON.parse(ChoosingSeat),
-            JSON.parse(MenuInfo)
-          );
+          // let resulttoadd = await AddBooking(
+          //   "../../../.",
+          //   NumofTicket,
+          //   timetoadd,
+          //   getVoucher,
+          //   customer_id,
+          //   ShowTimeID,
+          //   totalPrice,
+          //   JSON.parse(ChoosingSeat),
+          //   JSON.parse(MenuInfo)
+          // );
         });
       });
     </script>
