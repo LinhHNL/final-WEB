@@ -3,7 +3,7 @@ session_start();
 require_once 'UserController.php';
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    
+    header('Content-Type: application/json');
     $jsonData = file_get_contents("php://input");
     $data = json_decode($jsonData, true);
     $action = $data['action'];
@@ -39,7 +39,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo json_encode($addManger);
             }
             break;
-        case 'logout':
+    
             
         }
             
@@ -47,25 +47,29 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
     $action = $_GET['action'];
-    $page = $_GET['page'];
     header('Content-Type: application/json');
 
     switch($action){
         case 'getAllCustomer';
+    $page = $_GET['page'];
+
             $list = (new UserController)->getAllCustomer($page);
             echo $list;
             break;
         case 'getAllManger':
+    $page = $_GET['page'];
+
             $list = (new UserController)->getAllManager($page);
             echo $list;
             break;
         case 'getUserById':
             $id = $_GET['id'];
-            echo (new UserController)->getUserById($id);
+
+            echo json_encode((new UserController)->getUserById($id));
             break;
         case 'getUserByEmail':
             $email = $_GET['email'];
-            echo (new UserController)->getUserByEmail($email);
+            echo json_encode((new UserController)->getUserByEmail($email));
             break;
         default:
             echo json_encode(array("success"=>true,"message"=>"Request không tồn tại"));
@@ -76,10 +80,11 @@ if($_SERVER['REQUEST_METHOD'] == 'PUT'){
     $data = file_get_contents("php://input");
     header('Content-Type: application/json');
 
-// Chuyển đổi nội dung JSON thành đối tượng PHP
+
         $jsonData = file_get_contents("php://input");
         $data = json_decode($jsonData, true);
         $action = $data['action'];
+   
     switch($action){
         case 'changePassword':
             $id = $data['id'];
@@ -89,14 +94,17 @@ if($_SERVER['REQUEST_METHOD'] == 'PUT'){
             break;
         case 'update_customer':
             $result = (new UserController())->updateInformationForCustomer($data);
-            echo $result;
-         
+            echo ($result);
             break;
-            case 'update_manager':
+        case 'update_customer_for_admin':
+            $result = (new UserController())->updateCustomerForAdmin($data);
+            echo json_encode($result);
+            break;
+        case 'update_manager':
                 $result = (new UserController())->updateInformationForManager($data);
                 echo $result;
-                break;
-                default:
+             break;
+        default:
                 echo json_encode(array("success"=>true,"message"=>"Request không tồn tại"));
                 break;
         }

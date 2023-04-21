@@ -25,12 +25,12 @@ class UserController {
         } else {
             header('Content-Type: application/json');
 
-            return array("success" => false,"message"=>"Đăng nhập thất bại"); // xoá dòng => ở đây và thêm giá trị false vào mảng này
+            return array("success" => false,"message"=>"Đăng nhập thất bại");
         }
 
     }
     public function getUserByID($id) {
-        $account =  (new AccountModel())->getAcountByID($id); // thiếu dấu chấm phẩy ở cuối dòng này
+        $account =  (new AccountModel())->getAcountByID($id); 
         $data = json_decode($account, true);
         
     //    return $account;
@@ -38,8 +38,8 @@ class UserController {
         if($data['success']) {
             header('Content-Type: application/json');
             $email = $data['account']['email'];
-            // echo $data['account']['role_id'];
-            if($data['account']['role_id']==1){ // thiếu dấu bằng ở đây
+
+            if($data['account']['role_id']==1){ 
                 $customer  = (new CustomerModel())->getCustomerByEmail($email);
                 return array( "success" => true,"role"=>$data['account']['role_id'],"user"=>$customer);
             } else {
@@ -49,7 +49,7 @@ class UserController {
         } else {
             header('Content-Type: application/json');
 
-            return array("success" => false,"message"=>"Đăng nhập thất bại"); // xoá dòng => ở đây và thêm giá trị false vào mảng này
+            return array("success" => false,"message"=>"Đăng nhập thất bại"); 
         }
 
     }
@@ -84,24 +84,22 @@ class UserController {
         $phone = $data ['phone'];
         $account =     (new AccountModel())->addAcount(new Account($email,$password,1));
         $result = json_decode($account, true);
-   
+        header('Content-Type: application/json');
         if($result['success']){
             $acc = (new AccountModel())->getAcount($email,$password);
             $acc = json_decode($acc, true);
-          
-
             $customer = (new CustomerModel())->addCustomer(new Customer($fullname,$email,$address,$phone,$acc['account']['id']));
             $customer = json_decode($customer, true);
-        //  return $acc['account']['id'];
+
             if($customer['success']){
                 $cus = (new CustomerModel())->getCustomerByEmail($email);
                 return array("success" => true,'role' =>1,'user' =>$cus);
             }else {
-                return array("success" => false,"message"=>$customer['error']); // xoá dòng => ở đây và thêm giá trị false vào mảng này
+                return array("success" => false,"message"=>$customer['error']); 
 
             }
         }
-        return array("success" => false,"message"=>$result['error']); // xoá dòng => ở đây và thêm giá trị false vào mảng này
+        return array("success" => false,"message"=>"Đăng ký thất bại"); 
 
     }
     public function getAllCustomer($page){
@@ -119,18 +117,41 @@ class UserController {
         $fullname = $data['fullname'];
         $address = $data['address'];
         $phone = $data ['phone'];
-        $id = $data['id'];
+        $customer_id = $data['id'];
         $acc = (new AccountModel())->getAcount($email,$password);
         $account = json_decode($acc,true);
         if($account['success']){
-            $customer = new Customer($fullname, $email, $address, $phone, "", $id);
+            $customer = new Customer($fullname, $email, $address, $phone, "", $customer_id);
             return (new CustomerModel)->updateCustomer($customer);
         }else{
             return json_encode(array("success" => true,"error" => $account['error']));
         }
-         
-        
     }
+    public function updateCustomerForAdmin($data){
+        $email = $data['email'];
+        $password = $data['password'];
+        $fullname = $data['fullname'];
+        $address = $data['address'];
+        $phone = $data ['phone'];
+        $customer_id = $data['custome_id'];
+        $acc = (new AccountModel())->getAcountByEmail($email);
+
+        $acc = json_decode($acc, true);
+
+        if($acc['success']){
+            $account = new Account($email,$password,"",$acc['account']['id']);
+            $result = (new AccountModel())->updateAccount($account);
+             if(!$result['success']){
+            return array('success'=>false , "message"=>"Update Thông tin thất bạ1");
+            }
+        }else{
+            return array('success'=>false , "message"=>"Update Thông tin thất bại2");
+            
+        }
+            $customer = new Customer($fullname, $email, $address, $phone, "", $customer_id);
+            // die((new CustomerModel)->updateCustomer($customer));
+            return (new CustomerModel)->updateCustomer($customer);
+        }    
     public function deteleManager($email){
         $manager = (new ManagerModel())->deleteManager($email);
         if(!$manager['success']){
@@ -192,17 +213,7 @@ class UserController {
 }
 
 
-    public function getAllUser($page){
-        $accounts=json_decode( (new AccountModel())->getAllAccounts());
-        foreach($accounts as $Account ){
-            $AccountID=$Account->getId();
-            //$AccountName=$Account->getName();
-            //$AcountPhone=$Account->getPhone();
-            $AccountPassword=$Account->getPassword();
-            //$AccountBirth=$Account->getBirth();
-        }
-        return $accounts;
-    }   
+
 
 }
 ?>
