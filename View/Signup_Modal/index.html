@@ -91,7 +91,6 @@
                   placeholder="Tên"
                 />
               </div>
-
               <div class="form-group">
                 <input
                 style="
@@ -101,8 +100,20 @@
               "
                   type="text"
                   class="form-control"
-                  id="Phone"
-                  aria-describedby="Phone_Number"
+                  id="Email"
+                  placeholder="Email"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                style="
+                background-color: #20232d;
+                color: #9a9fae;
+                border: solid 1px #303030;
+              "
+                  type="text"
+                  class="form-control"
+                  id="Address"
                   placeholder="Địa chỉ"
                 />
               </div>
@@ -131,7 +142,7 @@
                   class="form-control"
                   id="Password"
                   aria-describedby="PassWord_User"
-                  placeholder="Password"
+                  placeholder="Mật khẩu"
                 />
               </div>
               <div class="form-group">
@@ -143,15 +154,16 @@
               "
                   type="password"
                   class="form-control"
-                  id="PassWord_User_Confirm"
+                  id="Password_confirm"
                   aria-describedby="PassWord_User_Confirm"
-                  placeholder="Nhập lại password"
+                  placeholder="Nhập lại mật khẩu"
                 />
               </div>
               <div class="form-button-place" style="text-align: center">
                 <button
-                  type="submit"
+                  type="button"
                   class="btn btn-primary"
+                  id="btn-register"
                   style="
                     color: white;
                     background-image: linear-gradient(
@@ -172,24 +184,51 @@
             </form>
           </div>
           <div class="Changing_Section">
-            <span style="color: #9a9fae">Đã có tài khoản ? <a href="" style="color: #ff3cac">Đăng nhập.</a></span>
+            <span style="color: #9a9fae">Đã có tài khoản ? <a href="../Login_Modal/LoginModal.html" style="color: #ff3cac">Đăng nhập.</a></span>
 
           </div>
         </div>
       </div>
     </div>
-    <script>
-      $(function () {
-        for (let i = 1; i < 32; i++) {
-          $(".Date_User").append(`<option>${i}</option>`);
+    <script type="module">
+      import {RegisterAPI} from "../API/LoginAPI.js";
+      $(document).ready(() => {
+        $('#btn-register').click(() => {
+        let fullname = $('#Ho').val().trim() + " " + $('#Ten').val().trim();
+        let address = $('#Address').val().trim();
+        let phone = $('#Phone ').val().trim();
+        let email = $('#Email').val().trim();
+        let password = $('#Password').val().trim();
+        let passwordConfirm = $('#Password_confirm').val().trim();
+
+        if (fullname === " " || address === "" || phone === "" || email === "" || password === "" || passwordConfirm === "") {
+          $('.message').text("Vui lòng nhập đầy đủ thông tin").show(3000).delay(3000).hide(1);
         }
-        for (let i = 1; i < 13; i++) {
-          $(".Month_User").append(`<option>${i}</option>`);
+        else if (password !== passwordConfirm){
+          $('.message').text("Xác nhận mật khẩu không đúng").show(3000).delay(3000).hide(1);
         }
-        for (let i = new Date().getFullYear(); i >= 1900; i--) {
-          $(".Year_User").append(`<option>${i}</option>`);
+        else {
+          RegisterAPI("../..", email, password, fullname, address, phone).then(res => {
+            console.log(res);
+            // if (res.success === true) {
+            //   if (res.role === '1') {
+            //     let data = JSON.parse(res.user);
+            //     window.sessionStorage.setItem('accountID', data.customer.account_id);
+            //     window.sessionStorage.setItem('name', data.customer.FullName);
+            //     window.location.href = "/";
+            //   }
+            //   else {
+            //     let data = JSON.parse(res.user);
+            //     window.sessionStorage.setItem('accountID', data.manager.account_id);
+            //     window.location.href = "../AdminPage/UserControl";
+            //   }
+            // }
+            // else 
+            //   $('.message').text("Tên đăng nhập hoặc mật khẩu không đúng").show(3000).delay(3000).hide(1);
+          })
         }
-      });
+      })  
+      })
     </script>
   </body>
 </html>
