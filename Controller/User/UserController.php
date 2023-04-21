@@ -101,7 +101,7 @@ class UserController {
 
             }
         }
-        return array("success" => false,"message"=>"Đăng ký thất bại"); // xoá dòng => ở đây và thêm giá trị false vào mảng này
+        return array("success" => false,"message"=>$result['error']); // xoá dòng => ở đây và thêm giá trị false vào mảng này
 
     }
     public function getAllCustomer($page){

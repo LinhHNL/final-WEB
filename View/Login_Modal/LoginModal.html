@@ -66,7 +66,7 @@
             class="info_container"
             style="margin-bottom: 36px; margin-top: 36px"
           >
-            <form >
+            <form>
               <div class="form-group" style="margin-bottom: 36px">
                 <input
                   style="
@@ -120,45 +120,62 @@
               </div>
             </form>
           </div>
-          <div class="message text-danger hidden" ></div>
+          <div class="message text-danger hidden"></div>
           <div class="Changing_Section">
             <span style="color: #9a9fae"
-              >Chưa có tài khoản? <a href="../Signup_Modal/index.html" style="color: #ff3cac">Đăng ký.</a></span
+              >Chưa có tài khoản?
+              <a href="../Signup_Modal/index.html" style="color: #ff3cac"
+                >Đăng ký.</a
+              ></span
             >
           </div>
         </div>
       </div>
     </div>
     <script type="module">
-      import {LoginAPI} from "../API/LoginAPI.js";
+      import { LoginAPI } from "../API/LoginAPI.js";
       $(document).ready(() => {
-        $('#btn-login').click(() => {
-        let email = $('#email').val().trim();
-        let password = $('#password').val().trim();
-        if (email === "" || password === "") {
-          $('.message').text("Vui lòng nhập đầy đủ thông tin").show(3000).delay(3000).hide(1);
-        }
-        else {
-          LoginAPI("../..", email, password).then(res => {
-            if (res.success === true) {
-              if (res.role === '1') {
-                let data = JSON.parse(res.user);
-                window.sessionStorage.setItem('accountID', data.customer.account_id);
-                window.sessionStorage.setItem('name', data.customer.FullName);
-                window.location.href = "/";
-              }
-              else {
-                let data = JSON.parse(res.user);
-                window.sessionStorage.setItem('accountID', data.manager.account_id);
-                window.location.href = "../AdminPage/UserControl";
-              }
-            }
-            else 
-              $('.message').text("Tên đăng nhập hoặc mật khẩu không đúng").show(3000).delay(3000).hide(1);
-          })
-        }
-      })  
-      })
+        $("#btn-login").click(() => {
+          let email = $("#email").val().trim();
+          let password = $("#password").val().trim();
+          if (email === "" || password === "") {
+            $(".message")
+              .text("Vui lòng nhập đầy đủ thông tin")
+              .show(3000)
+              .delay(3000)
+              .hide(1);
+          } else {
+            LoginAPI("../..", email, password).then((res) => {
+              if (res.success === true) {
+                if (res.role === "1") {
+                  let data = JSON.parse(res.user);
+                  // Lưu session Storage accountID và name
+                  window.sessionStorage.setItem(
+                    "accountID",
+                    data.customer.account_id
+                  );
+                  window.sessionStorage.setItem("name", data.customer.FullName);
+                  window.location.href = "/";
+                } else {
+                  let data = JSON.parse(res.user);
+                  // Lưu session Storage accountID
+
+                  window.sessionStorage.setItem(
+                    "accountID",
+                    data.manager.account_id
+                  );
+                  window.location.href = "../AdminPage/UserControl";
+                }
+              } else
+                $(".message")
+                  .text("Tên đăng nhập hoặc mật khẩu không đúng")
+                  .show(3000)
+                  .delay(3000)
+                  .hide(1);
+            });
+          }
+        });
+      });
     </script>
   </body>
 </html>
