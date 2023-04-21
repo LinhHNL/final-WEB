@@ -93,7 +93,7 @@ public function updateTheater(Theater $Theater) {
         $stmt->execute();
         $Theaters = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $Theater = new Theater($row['TheaterID'], $row['TheaterName'], $row['Address'], $row['Phone'], $row['NumberOfRooms']);
+            $Theater = new Theater( $row['TheaterName'], $row['Address'], $row['Phone'], $row['NumberOfRooms'],$row['TheaterID']);
             $Theaters[] = $Theater;
         }
         return (array("success" => true, "list" => $Theaters));

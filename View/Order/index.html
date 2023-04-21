@@ -189,14 +189,7 @@
         let previousOption = "";
         let previousOptionName = "";
         const date = new Date();
-        // Mai làm tiếp thằng này
-        sessionStorage.setItem("MovieChoosing", "");
-        sessionStorage.setItem("RoomIDChoosing", "");
-        sessionStorage.setItem("TimeChoosing", "");
-        sessionStorage.setItem("TheaterName", "");
-        sessionStorage.setItem("TheaterID", "");
-        sessionStorage.setItem("Seat", "");
-        sessionStorage.setItem("ShowTimeID", "");
+        sessionStorage.clear();
         $(".navbar-toggler").click(function () {
           var color = $(".navbar").css("background-color");
           if (color == "rgba(0, 0, 0, 0.01)") {
@@ -208,6 +201,7 @@
         // Select_Theater_Container
         (async function getAllTheaterFunc() {
           let datas = await getAllTheater();
+          console.log(datas);
           let htmls = "";
           for (const data of datas["list"]) {
             htmls += `<option value=${data.TheaterID}>${data.TheaterName}</option>`;
@@ -401,7 +395,7 @@
             datetoGet,
             previousOption
           );
-
+          console.log(datas);
           const cuttingGenre = (data) => {
             let storehtml = "";
             data["ListGenre"].flat().forEach((element) => {
@@ -540,22 +534,20 @@
             );
           };
           // Initialize the current date to the first day in the HTML code
-          let currentDate = new Date("April 22, 2023");
+          let currentDate = new Date("March 13, 2023");
           // Initialize the date container with the first five days
+          previousDateBtn.on("click", () => {
+            currentDate.setDate(currentDate.getDate() - 1);
+            updateDateContainer();
+          });
 
+          nextDateBtn.on("click", () => {
+            currentDate.setDate(currentDate.getDate() + 1);
+            updateDateContainer();
+          });
           // Update the date container with the current date
           async function updateDateContainer() {
             previousOption = "";
-
-            previousDateBtn.on("click", () => {
-              currentDate.setDate(currentDate.getDate() - 1);
-              updateDateContainer();
-            });
-
-            nextDateBtn.on("click", () => {
-              currentDate.setDate(currentDate.getDate() + 1);
-              updateDateContainer();
-            });
 
             $(".date-Container").html("");
             AddingDay(currentDate);

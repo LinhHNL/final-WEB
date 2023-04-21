@@ -1,6 +1,6 @@
-const getShowTimeByID = async (url, movieid = 1, date = 16) => {
+const getShowTimeById = async (url, ShowtimeID = 1, date = 16) => {
   const data = await fetch(
-    `${url}/Controller/Showtime/ajax.php?action=getAllShowTimesByMovie&movieid=${movieid}&date=${date}`,
+    `${url}/Controller/Showtime/ajax.php?action=getShowTimeById&id=${ShowtimeID}`,
     {
       method: "GET",
     }
@@ -61,7 +61,6 @@ const getAllShowtimeByMovieID = async (
   const datatorender = await data.json();
   return datatorender;
 };
-
 const updateShowTime = async (
   url = "../..",
   Price,
@@ -128,7 +127,7 @@ const getShowTimeByDateAndTheater = async (
   theaterid = "T001"
 ) => {
   const data = await fetch(
-    `${url}/Controller/Showtime/ajax.php?action=getAllShowtimeByMovieID&Theaterid=${theaterid}&date=${date}`,
+    `${url}/Controller/Showtime/ajax.php?action=getShowTimeByDateAndTheater&Theaterid=${theaterid}&date=${date}`,
     {
       method: "GET",
     }
@@ -137,7 +136,7 @@ const getShowTimeByDateAndTheater = async (
   return datatorender;
 };
 export {
-  getShowTimeByID,
+  getShowTimeById,
   getAllShowTimesByDate,
   getShowTimeByDateAndGenre,
   getShowTimeByMovieandTheater,

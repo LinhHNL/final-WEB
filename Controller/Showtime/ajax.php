@@ -17,8 +17,8 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
     header('Content-Type: application/json');
     switch($action) {
         case 'getAllShowTime':
-            $date = $_GET['date'];
-            echo json_encode((new ShowTimeController)->getAllShowTimes($date));
+            $page = $_GET['page'];
+            echo json_encode((new ShowTimeController)->getAllShowTimes($page));
             break;
         case 'getShowTimeById':
     $id = $_GET['id'];

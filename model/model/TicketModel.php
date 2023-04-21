@@ -1,5 +1,6 @@
 <?php
 require_once(__DIR__.'/../entity/Ticket.php');
+require_once(__DIR__.'/../entity/DetailTicket.php');
 require_once(__DIR__.'/../System/Database.php');
 class TicketModel{
     private $db; 
@@ -26,7 +27,7 @@ class TicketModel{
             $stmt->execute();
             $listTicket = array();
             while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                $listTicket[] = new Ticket($row['ShowTimeID'],$row['SeatID'],$row['Status'],$row['TicketID']);
+                $listTicket[] = new Ticket($row['ShowtimeID'],$row['SeatID'],$row['status'],$row['TicketID']);
             }
             return  $listTicket;
             }
@@ -43,9 +44,11 @@ class TicketModel{
             $SeatID = $ticket -> get_SeatID();
             $Status = $ticket -> getStatus();
             $stmt->bindParam(':TicketID',$id);
-            $stmt->bindParam(':ShowTimeID',$ShowTimeID);            $stmt->bindParam(':SeatID',$SeatID);            $stmt->bindParam(':Status',$Status);
+            $stmt->bindParam(':ShowTimeID',$ShowTimeID);         
+               $stmt->bindParam(':SeatID',$SeatID);            
+               $stmt->bindParam(':Status',$Status);
             $stmt->execute();
-            
+            return array("success"=>true,"TicketID"=>$id);
         }catch(Exception $e){
         return (array('success' => false, 'message' => $e->getMessage()));
         }
@@ -91,6 +94,36 @@ class TicketModel{
             $listTicket[] = new Ticket($row['ShowTimeID'],$row['SeatID'],$row['Status'],$row['TicketID']);
         }
         return (array('success' => true, 'listTicket' => $listTicket));
+    }
+    public function deleteTicketbyBookingID($booking_id){
+        try {
+            $this->db->beginTransaction();
+            $stmt = $this->db->prepare("DELETE FROM detailticket WHERE BookingID=:BookingID");
+            $stmt->bindParam(':BookingID',$booking_id);
+            $stmt->execute();
+            $stmt = $this->db->prepare("DELETE FROM Ticket WHERE TicketID IN (SELECT TicketID FROM detailticket WHERE BookingID=:BookingID)");
+            $stmt->bindParam(':BookingID',$booking_id);
+            $stmt->execute();
+            $this->db->commit();
+            return (array('success' => true ));
+        }catch(Exception $e){
+            $this->db->rollBack();
+            return (array('success' => false,'message' => $e->getMessage()));
+        }
+    }
+    public function addTicketsDetails(DetailTicket $ticket){
+         try {
+            $stmt = $this->db->prepare("INSERT INTO `detailticket`(`TicketID`, `BookingID`) VALUES (:TicketID,:BookingID)");
+            
+            $BookingID = $ticket -> get_BookingID();
+            $ticketid = $ticket->get_TicketID();
+            $stmt->bindParam(':TicketID', $ticketid);
+            $stmt->bindParam(':BookingID', $BookingID);
+            $stmt->execute();
+            return array("success"=>true );
+        }catch(Exception $e){
+        return (array('success' => false, 'message' => $e->getMessage()));
+        }
     }
     public function updateTicket(Ticket $ticket){
         try {

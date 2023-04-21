@@ -29,12 +29,12 @@ class MenuDetailModel {
       while($row = $stmt->fetch(\PDO::FETCH_ASSOC)){
            
         $menudetail['detailmenu'] = new MenuDetail($row['Number'], $row['Total'], $row['BookingID'], $row['ItemID']);
-        $menudetail['menu']  = new Menu($row['Name'],$row['ImageURL'],$row['Price'],$row['Status'],$row['ItemID']); 
+        $menudetail['menu']  = new Menu($row['Name'],$row['ImageURL'],$row['Price'],$row['status'],$row['ItemID']); 
         $list[] = $menudetail;
         }
         return $list;
     }
-  
+   
     // Phương thức thêm mới một Menu
     public function addMenu(MenuDetail $menuDetail){
         try{
@@ -55,6 +55,20 @@ class MenuDetailModel {
         }
     }
     // Phương thức xóa một Menu theo ID
+    public function deleteMenudetailByBooking($booking){
+        try {
+            $stmt = $this->conn->prepare("DELETE FROM menudetail WHERE BookingID = :BookingID");
+            $stmt->bindParam(':BookingID', $booking);
+            $stmt->execute();
+            if ($stmt->rowCount() > 0) {
+                return (array("success" => true));
+            } else {
+                return (array("success" => false, "error" => "Menu không tồn tại"));
+            }
+        } catch (Exception $e) {
+            return (array("success" => false, "error" => $e->getMessage()));
+        }
+    }
 public function deleteMenu($id) {
     try {
         $stmt = $this->conn->prepare("DELETE FROM menudetail WHERE BookingID = :BookingID");

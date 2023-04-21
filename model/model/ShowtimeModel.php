@@ -39,30 +39,51 @@ class ShowtimeModel {
     // Phương thức thêm mới một Showtime
     public function addShowtime(Showtime $Showtime){
         try{
-            $stmt =$this->conn->prepare("INSERT INTO showtime (ShowtimeID, Price, StartTime, EndTime, MovieID, RoomID, FormatID) VALUES (:ShowtimeID, :StartTime, :EndTime, :Price, :MovieID, :RoomID, :FormatID)");
-            $ShowtimeID = $this->createNewID();
-            $Price = $Showtime->get_Price();
+            $this->conn->beginTransaction();
+    
+            // Kiểm tra xem có showtime khác trong khoảng thời gian và phòng chiếu tương tự hay không
+            $stmt = $this->conn->prepare("SELECT ShowtimeID FROM showtime WHERE RoomID = :RoomID AND ((StartTime <= :StartTime AND EndTime >= :StartTime) OR (StartTime <= :EndTime AND EndTime >= :EndTime))");
             $StartTime = $Showtime->get_StartTime();
             $EndTime = $Showtime->get_EndTime();
-            $MovieID = $Showtime->get_MovieID();
             $RoomID = $Showtime->get_RoomID();
-            $FormatID = $Showtime->get_FormatID();
-
-
-            $stmt->bindParam(':ShowtimeID', $ShowtimeID);
-            $stmt->bindParam(':Price', $Price);
             $stmt->bindParam(':StartTime', $StartTime);
             $stmt->bindParam(':EndTime', $EndTime);
-            $stmt->bindParam(':MovieID', $MovieID);
             $stmt->bindParam(':RoomID', $RoomID);
-            $stmt->bindParam(':FormatID', $FormatID);
-
-            $stmt ->execute();
-            return (array("success"=>true));
+            $stmt->execute();
+            $result = $stmt->fetch();
+    
+            if ($result) {
+                // Nếu tìm thấy showtime khác thì hủy bỏ thêm mới và trả về kết quả với thông báo lỗi
+                return (array("success"=>false,"error"=>"Không thể thêm mới showtime do đã tồn tại showtime khác trong khoảng thời gian và phòng chiếu tương tự"));
+            } else {
+                // Nếu không tìm thấy showtime khác thì thêm mới showtime
+                $stmt = $this->conn->prepare("INSERT INTO showtime (ShowtimeID, Price, StartTime, EndTime, MovieID, RoomID, FormatID) VALUES (:ShowtimeID, :StartTime, :EndTime, :Price, :MovieID, :RoomID, :FormatID)");
+                $ShowtimeID = $this->createNewID();
+                $Price = $Showtime->get_Price();
+                $StartTime = $Showtime->get_StartTime();
+                $EndTime = $Showtime->get_EndTime();
+                $MovieID = $Showtime->get_MovieID();
+                $RoomID = $Showtime->get_RoomID();
+                $FormatID = $Showtime->get_FormatID();
+    
+                $stmt->bindParam(':ShowtimeID', $ShowtimeID);
+                $stmt->bindParam(':Price', $Price);
+                $stmt->bindParam(':StartTime', $StartTime);
+                $stmt->bindParam(':EndTime', $EndTime);
+                $stmt->bindParam(':MovieID', $MovieID);
+                $stmt->bindParam(':RoomID', $RoomID);
+                $stmt->bindParam(':FormatID', $FormatID);
+    
+                $stmt->execute();
+                $this->conn->commit();
+                return (array("success"=>true));
+            }
         }catch(Exception $e){
+            $this->conn->rollBack();
             return (array("success"=>false,"error"=>$e->getMessage()));
         }
     }
+     
     // Phương thức xóa một Showtime theo ID
 public function deleteShowtime($id) {
     try {
@@ -118,12 +139,14 @@ public function updateShowtime(Showtime $Showtime) {
             $offset = ($page - 1) * $number;
             $query = "SELECT Price, MovieID, StartTime, EndTime, RoomID, FormatID, ShowtimeID FROM showtime ORDER By STARTTIME DESC LIMIT $offset , $number ";
             $stmt = $this->conn->prepare($query);
-            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Showtime');
             $stmt->execute();
-            $ShowtimeList = $stmt->fetchAll();
-    
-            if ($ShowtimeList !== null) {
-                return array("success"=>true,"ShowtimeList"=>$ShowtimeList);
+            $Showtimes = array();
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $Showtime = new Showtime( $row['Price'], $row['StartTime'],$row['MovieID'] , $row['EndTime'], $row['RoomID'], $row['FormatID'], $row['ShowtimeID']);
+                $Showtimes[] = $Showtime;
+            }   
+            if ($Showtimes !== null) {
+                return array("success"=>true,"ShowtimeList"=>$Showtimes);
             } else {
                 return array("success"=>false,"error"=>"Không tìm thấy Showtime");
             }
@@ -154,28 +177,21 @@ public function updateShowtime(Showtime $Showtime) {
         $Showtimes = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $Showtime = new Showtime( $row['Price'], $row['StartTime'], $movieID, $row['EndTime'], $row['RoomID'], $row['FormatID'], $row['ShowtimeID']);
-    
             $Showtimes[] = $Showtime;
-        }
-        
+        }   
         return (array("success" => true, "list" => $Showtimes));
     }
     public function getShowtimesByTheaterAndDate($theater, $date){
         $query = "SELECT s.ShowtimeID, s.Price, s.StartTime, s.EndTime, r.RoomID, s.FormatID,s.MovieID, s.ShowtimeID
             FROM Showtime s
             JOIN Room r ON s.RoomID = r.RoomID
-             r.TheaterID = :TheaterID AND DATE(s.StartTime) = :date" ;
+            Where r.TheaterID = :TheaterID AND DATE(s.StartTime) = :date" ;
     
        
-    
         $stmt = $this->conn->prepare($query);
-      
         $stmt ->bindParam(":TheaterID",$theater);
-        
-    
-            $stmt->bindParam(':date', $date);
-        
-        
+        $stmt->bindParam(':date', $date);
+
         $stmt->execute();
         $Showtimes = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
