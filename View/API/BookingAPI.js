@@ -38,4 +38,28 @@ const getAllBookingsByCustomerID = async (url = "../..", page = 1, id) => {
   return datatorender;
 };
 
-export { AddBooking, getAllBookingsByCustomerID };
+const getAllBooking = async (url = "../..", page = 1) => {
+  const urls = `${url}/Controller/Booking/ajax.php?action=getAllBooking&page=${page}`;
+  const data = await fetch(urls, {
+    method: "GET",
+  });
+  const datatorender = await data.json();
+  return datatorender;
+};
+
+const changeStatus = async (url = "../..", id, status) => {
+  const urls = `${url}/Controller/Booking/ajax.php?action=changeStatus`;
+  const data = await fetch(urls, {
+    method: "PUT",
+    body: JSON.stringify({
+      action: 'changeStatus',
+      booking_id: id,
+      status: status
+    })
+  });
+  const datatorender = await data.json();
+  return datatorender;
+};
+
+
+export { AddBooking, getAllBookingsByCustomerID, getAllBooking, changeStatus };
