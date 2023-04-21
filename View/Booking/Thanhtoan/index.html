@@ -377,6 +377,7 @@
           let pricetorender = sessionStorage.getItem("Pricing");
           let PriceTotal = sessionStorage.getItem("TotalPrice");
           let menuprice = sessionStorage.getItem("PriceMenu");
+          $(".movie-content").text(sessionStorage.getItem("FilmName"));
           $(".menu-content").text(toVndCurrencyFormat(menuprice));
           $(".price-ticket").text(toVndCurrencyFormat(pricetorender));
           $(".all-price-content").text(toVndCurrencyFormat(PriceTotal));
@@ -500,6 +501,9 @@
             JSON.parse(ChoosingSeat),
             JSON.parse(MenuInfo)
           );
+          if (resulttoadd.success) {
+            window.location.href = "../SuccessPayment/index.html";
+          }
         });
       });
     </script>
