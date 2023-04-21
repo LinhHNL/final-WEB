@@ -131,7 +131,23 @@ public function getAllRatingByMovie($id,$page){
         $newId = "RT" . ($lastId + 1);
         return $newId;
     }
-
+    function getAverageRating($movieID) {
+    
+        $sql = "SELECT AVG(Score) AS AvgRating FROM rating WHERE MovieID = :MovieID";
+        
+        $stmt = $this->conn->prepare($sql);
+        $stmt ->bindParam(":MovieID", $movieID);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if ($result) {
+            $avgRating = $result["AvgRating"];
+            return $avgRating;
+        } else {
+            return 0;
+        }
+    }
+    
 }
 
 

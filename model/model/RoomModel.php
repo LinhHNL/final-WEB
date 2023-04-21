@@ -43,7 +43,10 @@ class RoomModel {
             return (array("success"=>false,"error"=>$e->getMessage()));
         }
     }
-    // Phương thức xóa một Room theo ID
+    
+   
+
+    
 public function deleteRoom($id) {
     try {
         $stmt = $this->conn->prepare("DELETE FROM room WHERE RoomID = :RoomID");

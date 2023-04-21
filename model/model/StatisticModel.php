@@ -8,107 +8,195 @@ class StatisticModel{
     public function __construct(){
         $this->conn = (new Database())->getConnection();
     }
-    public function getRevenueForDate( $date ){
+    public function getRevenueForDate($date=null,$page=1){
         try{
-            $sql = "SELECT SUM(TotalPrice) AS DailyRevenue, BookingTime as Day
-            FROM booking
-            WHERE DATE(BookingTime) = :date
-            GROUP BY DATE(BookingTime);
-            ";
-            $stmt = $this->conn->prepare( $sql );
-            $stmt ->bindParam(":date", $date,PDO::PARAM_STR);
-            $stmt ->execute();
-            $result = $stmt->fetch();
-            if (!$result) {
-                return array("success" => false, "error" => "No data found for the given date");
+            $per_page = 10;
+            $offset = ($page -1)* $per_page;
+            $sql = "SELECT SUM(TotalPrice) AS DailyRevenue, Date(BookingTime) as Day
+            FROM booking";
+            if($date!=null){
+                $sql.= " WHERE Date(BookingTime) =:date";
             }
-    
-            return array("success" => true, "DailyRevenue" =>$result['DailyRevenue'], "Day" =>$result['Day']);
+            $sql.="
+            GROUP BY DATE(BookingTime)
+            ORDER BY DATE(BookingTime) Desc
+            Limit :offset,:per_page";
+            
+
+            $stmt = $this->conn->prepare( $sql );
+            if($date!=null){
+                $stmt ->bindParam(":date", $date,PDO::PARAM_STR);
+
+            }
+            $stmt ->bindParam(":offset", $offset,PDO::PARAM_INT);
+            $stmt ->bindParam(":per_page", $per_page,PDO::PARAM_INT);
+
+            $stmt ->execute();
+            $list = array();
+           
+            while ($row=$stmt->fetch(\PDO::FETCH_ASSOC)){
+            $list[] =  array("DailyRevenue" =>$row['DailyRevenue'], "Day" =>$row['Day']);
+            
+             }
+             return array("success"=>true , "list"=>$list);
         }catch( Exception $e){
             return array("success"=>false , "error"=>$e->getMessage());
         }
      }
-     public function getRevenueForMonth($year, $month) {
+     public function getRevenueForMonth($year=null, $month=null,$page = 1) {
         try {
+            $per_page = 10;
+            $offset = ($page -1)* $per_page;
             $sql = "SELECT SUM(TotalPrice) AS MonthlyRevenue, DATE_FORMAT(BookingTime, '%Y-%m') AS Month
-                    FROM booking
-                    WHERE YEAR(BookingTime) = :year AND MONTH(BookingTime) = :month
-                    GROUP BY DATE_FORMAT(BookingTime, '%Y-%m')";
+                    FROM booking";
+                  
+            if($year!=null && $month!=null){
+                  $sql.= "WHERE YEAR(BookingTime) = :year AND MONTH(BookingTime) = :month";
+            }
+            $sql.="GROUP BY DATE_FORMAT(BookingTime, '%Y-%m')
+            ORDER BY DATE_FORMAT(BookingTime, '%Y-%m') Desc
+             Limit :offset,:per_page";
+            
             $stmt = $this->conn->prepare($sql);
+            if($year!=null && $month!=null){
             $stmt->bindParam(":year", $year, PDO::PARAM_INT);
             $stmt->bindParam(":month", $month, PDO::PARAM_INT);
-            $stmt->execute();
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-            if (!$result) {
-                return array("success" => false, "error" => "No data found for the given month");
             }
+            $stmt ->bindParam(":offset", $offset,PDO::PARAM_INT);
+            $stmt ->bindParam(":per_page", $per_page,PDO::PARAM_INT);
+
+            $stmt->execute();
     
-            return array("success" => true, "MonthlyRevenue" => $result['MonthlyRevenue'], "Month" => $result['Month']);
+            $list = array();
+           
+            while ($row=$stmt->fetch(\PDO::FETCH_ASSOC)){
+            $list[] =  array( "MonthlyRevenue" =>$row['MonthlyRevenue'], "Month" =>$row['Month']);
+            
+             }
+             return array("success"=>true , "list"=>$list);
         } catch (Exception $e) {
             return array("success" => false, "error" => $e->getMessage());
         }
     }
     
-    public function getRevenueForYear($year) {
+    public function getRevenueForYear($year=null,$page =1 ) {
         try {
             $sql = "SELECT SUM(TotalPrice) AS YearlyRevenue, YEAR(BookingTime) AS Year
-                    FROM booking
-                    WHERE YEAR(BookingTime) = :year
-                    GROUP BY YEAR(BookingTime)";
+                    FROM booking";
+                      $per_page = 10;
+                      $offset = ($page -1)* $per_page;
+                if($year!=null){
+                    $sql.=   "WHERE YEAR(BookingTime) = :year";
+
+                }              
+                $sql.= "GROUP BY YEAR(BookingTime)
+                         ORDER BY YearlyRevenue Desc 
+                         Limit :offset,:per_page";
             $stmt = $this->conn->prepare($sql);
-            $stmt->bindParam(":year", $year, PDO::PARAM_INT);
-            $stmt->execute();
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($year!=null){
+                $stmt->bindParam(":year", $year, PDO::PARAM_INT);
+            }
+            $stmt ->bindParam(":offset", $offset,PDO::PARAM_INT);
+            $stmt ->bindParam(":per_page", $per_page,PDO::PARAM_INT);
     
-            if (!$result) {
-                return array("success" => false, "error" => "No data found for the given year");
+            $stmt->execute();
+            $list = array();
+           
+            while ($row=$stmt->fetch(\PDO::FETCH_ASSOC)){
+            $list[] =  array("YearlyRevenue" => $row['YearlyRevenue'], "Year" => $row['Year']);
+            
             }
     
-            return array("success" => true, "YearlyRevenue" => $result['YearlyRevenue'], "Year" => $result['Year']);
+            return array("success" => true, "List" => $list);
         } catch (Exception $e) {
             return array("success" => false, "error" => $e->getMessage());
         }
     }
     
-    public function getRevenueForQuarterOfYear($year, $quarter) {
+    public function getRevenueForQuarterOfYear($year=null, $quarter=null, $page=1) {
         try {
+            $per_page = 10;
+            $offset = ($page -1)* $per_page;
             $sql = "SELECT SUM(TotalPrice) AS QuarterlyRevenue, QUARTER(BookingTime) AS Quarter, YEAR(BookingTime) AS Year
-                    FROM booking
-                    WHERE YEAR(BookingTime) = :year AND QUARTER(BookingTime) = :quarter
-                    GROUP BY QUARTER(BookingTime), YEAR(BookingTime)";
+                    FROM booking";
+            if($year!=null&&$quarter!=null){
+                $sql.=    "WHERE YEAR(BookingTime) = :year AND QUARTER(BookingTime) = :quarter";
+
+            }
+                $sql.=  "GROUP BY QUARTER(BookingTime), YEAR(BookingTime)
+                ORDER BY QuarterlyRevenue Desc Limit :offset,:per_page";
+
             $stmt = $this->conn->prepare($sql);
-            $stmt->bindParam(":year", $year, PDO::PARAM_INT);
-            $stmt->bindParam(":quarter", $quarter, PDO::PARAM_INT);
-            $stmt->execute();
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($year!=null&&$quarter!=null){
+                $stmt->bindParam(":year", $year, PDO::PARAM_INT);
+                $stmt->bindParam(":quarter", $quarter, PDO::PARAM_INT);
+            }
+            $stmt ->bindParam(":offset", $offset,PDO::PARAM_INT);
+            $stmt ->bindParam(":per_page", $per_page,PDO::PARAM_INT);
     
-            if (!$result) {
-                return array("success" => false, "error" => "No data found for the given year and quarter");
+           
+            $stmt->execute();
+            $list = array();
+           
+            while ($row=$stmt->fetch(\PDO::FETCH_ASSOC)){
+            $list[] =  array("QuarterlyRevenue" => $row['QuarterlyRevenue'], "Quarter" => $row['Quarter'], "Year" => $row['Year']);
+            
             }
     
-            return array("success" => true, "QuarterlyRevenue" => $result['QuarterlyRevenue'], "Quarter" => $result['Quarter'], "Year" => $result['Year']);
+            return array("success" => true, "List" => $list);
+           
+    
         } catch (Exception $e) {
             return array("success" => false, "error" => $e->getMessage());
         }
     }
     
-    public function getTopHighestGrossingMovie($page){
-        try{
+    public function getTopHighestGrossingMovie($page, $date, $timeframe) {
+        try {
             $perPage = 10;
             $offset = ($page - 1) * $perPage;
-            $sql = "SELECT SUM(IF(seat.type = 1, showtime.Price, showtime.Price * 2)) AS TotalRevenue , Movie.*
-            FROM ticket
-            JOIN detailticket ON ticket.TicketID = detailticket.TicketID
-            JOIN seat ON ticket.SeatID = seat.SeatID
-            JOIN showtime ON ticket.ShowTimeID = showtime.ShowTimeID
-            JOIN Movie on Movie.MovieID = showtime.MovieID
-            GROUP BY (Movie.MovieID)
-            LIMIT :perPage OFFSET :offset";
+    
+            switch ($timeframe) {
+                case 'day':
+                    $groupBy = 'DATE(b.BookingTime)';
+                    $dateFormat = '%Y-%m-%d';
+                    break;
+                case 'month':
+                    $groupBy = 'MONTH(b.BookingTime), YEAR(b.BookingTime)';
+                    $dateFormat = '%Y-%m';
+                    break;
+                case 'year':
+                    $groupBy = 'YEAR(b.BookingTime)';
+                    $dateFormat = '%Y';
+                    break;
+                case 'quarter':
+                    $groupBy = 'QUARTER(b.BookingTime), YEAR(b.BookingTime)';
+                    $dateFormat = '%Y-%m';
+                    break;
+                default:
+                    return array("success" => false, "error" => "Invalid timeframe");
+            }
+    
+            $sql = "SELECT SUM(IF(seat.type = 1, showtime.Price, showtime.Price * 2)) AS TotalRevenue ,Movie.*, DATE_FORMAT(b.BookingTime, :dateFormat) as Timeframe
+                FROM ticket
+                JOIN detailticket ON ticket.TicketID = detailticket.TicketID
+                JOIN seat ON ticket.SeatID = seat.SeatID
+                JOIN showtime ON ticket.ShowTimeID = showtime.ShowTimeID
+                JOIN Movie ON Movie.MovieID = showtime.MovieID
+                JOIN booking AS b ON b.BookingID = detailticket.BookingID
+                where DATE_FORMAT(b.BookingTime, :dateFormat) = :date
+                GROUP BY Movie.MovieID, Timeframe 
+                ORDER BY TotalRevenue DESC
+                LIMIT :perPage OFFSET :offset";
+    
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':perPage', $perPage, PDO::PARAM_INT);
             $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-            $stmt ->execute();
+            $stmt->bindParam(':date', $date);
+            $stmt->bindParam(':dateFormat', $dateFormat);
+            $stmt->bindParam(':groupVar', $groupVar);
+            $stmt->execute();
+    
             $list = array();
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $temp['movie'] = new Movie(
@@ -124,18 +212,17 @@ class StatisticModel{
                     $row['age'],
                     $row['MovieID']
                 );
-                $temp['TotalRevenue'] = $row['TotalRevenue'] ;
+                $temp['TotalRevenue'] = $row['TotalRevenue'];
+                $temp['Timeframe'] = $timeframe;
                 $list[] = $temp;
             }
-        return array("success"=>true,"list"=>$list);
-        }
-        catch(Exception $e){
-            return array("success" => false, "error" =>$e->getMessage());
+            return array("success" => true, "list" => $list);
+        } catch (Exception $e) {
+            return array("success" => false, "error" => $e->getMessage());
         }
     }
-    public function getTopHighestGrossingItem(){
-      
-    }
+    
+  
     public function getTopHighestGrossingThearts(){
         try{
             $sql = "SELECT SUM(IF(seat.type = 1, showtime.Price, showtime.Price * 2)) AS TotalRevenue , theater.*
@@ -145,9 +232,9 @@ class StatisticModel{
             JOIN showtime ON ticket.ShowTimeID = showtime.ShowTimeID
             JOIN room ON room.RoomID = showtime.RoomID
             JOIN theater on theater.TheaterID = room.TheaterID
-            GROUP BY (theater.TheaterID)";
+            GROUP BY (theater.TheaterID) , 
+            ORDER BY TotalRevenue DESC";
              $stmt = $this->conn->prepare($sql);
-            
              $stmt ->execute();
              $list = array();
              while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
