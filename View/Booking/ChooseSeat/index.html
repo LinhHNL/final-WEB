@@ -466,6 +466,7 @@
               seatdata += seatIndentify["Seat"].SeatName + " ";
               $(".seat-content").text(seatdata);
               // Cập nhật thông tin giá
+              console.log(pricing["Showtime"]);
               let pricetorender = toVndCurrencyFormat(pricetocal * price);
               $(".ticket-content").text(pricetorender);
               $(".total-content").text(pricetorender);
