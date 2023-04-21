@@ -99,6 +99,15 @@
                 >Đăng ký</a
               >
             </li>
+            <li
+              class="nav-item d-flex align-items-center ms-auto visually-hidden"
+              id="user-account"
+            >
+              <a class="nav-link" href="#"></a>
+            </li>
+            <li class="nav-item visually-hidden" id="signout">
+              <a class="nav-link" href="#">Đăng xuất</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -308,6 +317,31 @@
     <script type="module">
       import { getCustomerByEmail } from "../../API/UserAPI.js";
       import { XORDecrypt } from "../../Util/EncryptXOR.js";
+      $(document).ready(function () {
+        if (sessionStorage.getItem("Email")) {
+          let email = XORDecrypt(window.sessionStorage.getItem("Email"));
+          getCustomerByEmail("../../..", email).then((res) => {
+            let data = JSON.parse(res.user);
+            let name = data.customer.FullName;
+            $("#create-accout").addClass("visually-hidden");
+            $("#login-accout").addClass("visually-hidden");
+            $("#user-account")
+              .removeClass("visually-hidden")
+              .find("a")
+              .text(name);
+            $("#signout").removeClass("visually-hidden");
+          });
+        }
+        else {
+          window.location.href = "../../Login_Modal/LoginModal.html";
+        }
+
+        $("#signout a").click(() => {
+          sessionStorage.removeItem("Email");
+          window.location.href = ".";
+        });
+      });
+
       (async function TakeUserInformation() {
         const EmailUser = sessionStorage.getItem("Email");
         let UserInfo = XORDecrypt(EmailUser);

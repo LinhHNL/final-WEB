@@ -76,6 +76,15 @@
             <li class="nav-item" id="create-accout">
               <a class="nav-link" href="../Signup_Modal/index.html">Đăng ký</a>
             </li>
+            <li
+              class="nav-item d-flex align-items-center ms-auto visually-hidden"
+              id="user-account"
+            >
+              <a class="nav-link" href="../Account/ThongTinCaNhan/"></a>
+            </li>
+            <li class="nav-item visually-hidden" id="signout">
+              <a class="nav-link" href="#">Đăng xuất</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -188,7 +197,32 @@
       import { getAllTheater } from "../API/TheaterAPI.js";
       import { getMovieByID } from "../API/MovieAPI.js";
       import { getRoomById } from "../API/RoomAPI.js";
+      import { XORDecrypt } from "../Util/EncryptXOR.js";
+      import { getCustomerByEmail } from "../API/UserAPI.js";
       $(document).ready(function () {
+        // Navbar for logged in
+        if (sessionStorage.getItem("Email")) {
+          let email = XORDecrypt(window.sessionStorage.getItem("Email"));
+          getCustomerByEmail("../..", email).then((res) => {
+            let data = JSON.parse(res.user);
+            let name = data.customer.FullName;
+            $("#create-accout").addClass("visually-hidden");
+            $("#login-accout").addClass("visually-hidden");
+            $("#user-account")
+              .removeClass("visually-hidden")
+              .find("a")
+              .text(name);
+            $("#signout").removeClass("visually-hidden");
+          });
+        } else {
+          window.location.href = "../Login_Modal/LoginModal.html";
+        }
+
+        $("#signout a").click(() => {
+          sessionStorage.removeItem("Email");
+          window.location.href = ".";
+        });
+
         let previousOption = "";
         let previousOptionName = "";
         const date = new Date();

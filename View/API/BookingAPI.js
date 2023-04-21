@@ -28,4 +28,14 @@ const AddBooking = async (
   const datatorender = await data.json();
   return datatorender;
 };
-export { AddBooking };
+
+const getAllBookingsByCustomerID = async (url = "../..", page = 1, id) => {
+  const urls = `${url}/Controller/Booking/ajax.php?action=getAllBookingsByCustomerID&page=${page}&CustomerID=${id}`;
+  const data = await fetch(urls, {
+    method: "GET",
+  });
+  const datatorender = await data.json();
+  return datatorender;
+};
+
+export { AddBooking, getAllBookingsByCustomerID };
