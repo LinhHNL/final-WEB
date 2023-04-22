@@ -79,15 +79,14 @@
                 >Đăng ký</a
               >
             </li>
-            <li class="nav-item d-flex align-items-center ms-auto visually-hidden" id="user-account">
-              <a class="nav-link" href="./View/Account/ThongTinCaNhan/"
-                ></a
-              >
+            <li
+              class="nav-item d-flex align-items-center ms-auto visually-hidden"
+              id="user-account"
+            >
+              <a class="nav-link" href="./View/Account/ThongTinCaNhan/"></a>
             </li>
             <li class="nav-item visually-hidden" id="signout">
-              <a class="nav-link" href="#"
-                >Đăng xuất</a
-              >
+              <a class="nav-link" href="#">Đăng xuất</a>
             </li>
           </ul>
         </div>
@@ -290,25 +289,28 @@
       import { getAllGenre } from "./View/API/GenreAPI.js";
       import { getPromotionsEvent } from "./View/API/PromotionAPI.js";
       import { getAllFormatsByMovieId } from "./View/API/FormatAPI.js";
-      import {XORDecrypt} from "./View/Util/EncryptXOR.js";
-      import {getCustomerByEmail} from "./View/API/UserAPI.js";
+      import { XORDecrypt } from "./View/Util/EncryptXOR.js";
+      import { getCustomerByEmail } from "./View/API/UserAPI.js";
       $(document).ready(function () {
-        if (sessionStorage.getItem('Email')) {
-          let email = XORDecrypt(window.sessionStorage.getItem('Email'));
-          getCustomerByEmail(".", email).then(res => {
+        if (sessionStorage.getItem("Email")) {
+          let email = XORDecrypt(window.sessionStorage.getItem("Email"));
+          getCustomerByEmail(".", email).then((res) => {
             let data = JSON.parse(res.user);
             let name = data.customer.FullName;
-            $('#create-accout').addClass('visually-hidden');
-            $('#login-accout').addClass('visually-hidden');
-            $('#user-account').removeClass('visually-hidden').find('a').text(name);
-            $('#signout').removeClass('visually-hidden');       
-          });  
+            $("#create-accout").addClass("visually-hidden");
+            $("#login-accout").addClass("visually-hidden");
+            $("#user-account")
+              .removeClass("visually-hidden")
+              .find("a")
+              .text(name);
+            $("#signout").removeClass("visually-hidden");
+          });
         }
 
-        $('#signout a').click(() => {
+        $("#signout a").click(() => {
           sessionStorage.removeItem("Email");
           window.location.href = ".";
-        })
+        });
 
         $(".navbar-toggler").click(function () {
           var color = $(".navbar").css("background-color");
@@ -465,7 +467,11 @@
                     <a href="./View/Detail/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
                     <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
                     </a>
-                    <button class="btn-main">Đặt vé</button>
+                    <a href="./View/Order/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
+                      <button class="btn-main btn-book" style="display:block">
+                      ĐẶT VÉ
+                      <img src="../../images/Arrow_right_long.svg" alt="" />
+                    </button>
                   </div>
                   <img class="poster" src="${data.listImage[0]}" alt="" />
                 </div>
@@ -530,7 +536,11 @@
                       ${timetoadd}
                     </div>
                     <button class="btn-outline">Chi tiết</button>
-                    <button class="btn-main">Đặt vé</button>
+                    <a href="./View/Order/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
+                      <button class="btn-main btn-book" style="display:block">
+                      ĐẶT VÉ
+                      <img src="../../images/Arrow_right_long.svg" alt="" />
+                    </button>
                   </div>
                   <img class="poster" src="${data.listImage[0].ImagePath}" alt="" />
                 </div>
@@ -598,7 +608,11 @@
                     <a href="./View/Detail/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
                     <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
                     </a>
-                    <button class="btn-main">Đặt vé</button>
+                    <a href="./View/Order/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
+                      <button class="btn-main btn-book" style="display:block">
+                      ĐẶT VÉ
+                      <img src="../../images/Arrow_right_long.svg" alt="" />
+                    </button>
                   </div>
                   <img class="poster" src="${data.listImage[0]}" alt="" />
                 </div>
@@ -667,7 +681,11 @@
                     <a href="./View/Detail/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
                     <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
                     </a>
-                    <button class="btn-main">Đặt vé</button>
+                    <a href="./View/Order/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
+                      <button class="btn-main btn-book" style="display:block">
+                      ĐẶT VÉ
+                      <img src="../../images/Arrow_right_long.svg" alt="" />
+                    </button>
                   </div>
                   <img class="poster" src="${data.listImage[0].ImagePath}" alt="" />
                 </div>
