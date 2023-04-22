@@ -106,7 +106,7 @@ async function loadAllMenu() {
   do {
     data = await getAllMenu("../../..", page);
     currentData.push(...data.menus);
-    //console.log(currentData);
+    console.log(currentData);
     page++;
   } while (data.menus.length != 0);
   page = 1;
@@ -117,6 +117,7 @@ function showData() {
   let data = currentData;
   let numRow = data.length;
   for (let i = 0; i < numRow; i++) {
+    
     table.row
       .add([
         data[i].ItemID,
