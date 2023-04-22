@@ -114,43 +114,48 @@ class StatisticModel{
         }
     }
     
-    public function getRevenueForQuarterOfYear($year=null, $quarter=null, $page=1) {
+    public function getRevenueForQuarterOfYear($year = null, $quarter = null, $page = 1) {
         try {
             $per_page = 10;
-            $offset = ($page -1)* $per_page;
+            $offset = ($page - 1) * $per_page;
+    
             $sql = "SELECT SUM(TotalPrice) AS QuarterlyRevenue, QUARTER(BookingTime) AS Quarter, YEAR(BookingTime) AS Year
                     FROM booking";
-            if($year!=null&&$quarter!=null){
-                $sql.=    "WHERE YEAR(BookingTime) = :year AND QUARTER(BookingTime) = :quarter";
-
+    
+            if ($year != null && $quarter != null) {
+                $sql .= " WHERE YEAR(BookingTime) = :year AND QUARTER(BookingTime) = :quarter";
             }
-                $sql.=  "GROUP BY QUARTER(BookingTime), YEAR(BookingTime)
-                ORDER BY QuarterlyRevenue Desc Limit :offset,:per_page";
-
+    
+            $sql .= " GROUP BY QUARTER(BookingTime), YEAR(BookingTime)
+                      ORDER BY QuarterlyRevenue DESC LIMIT :offset, :per_page";
+    
             $stmt = $this->conn->prepare($sql);
-            if($year!=null&&$quarter!=null){
+    
+            if ($year != null && $quarter != null) {
                 $stmt->bindParam(":year", $year, PDO::PARAM_INT);
                 $stmt->bindParam(":quarter", $quarter, PDO::PARAM_INT);
             }
-            $stmt ->bindParam(":offset", $offset,PDO::PARAM_INT);
-            $stmt ->bindParam(":per_page", $per_page,PDO::PARAM_INT);
     
-           
+            $stmt->bindParam(":offset", $offset, PDO::PARAM_INT);
+            $stmt->bindParam(":per_page", $per_page, PDO::PARAM_INT);
             $stmt->execute();
+    
             $list = array();
-           
-            while ($row=$stmt->fetch(\PDO::FETCH_ASSOC)){
-            $list[] =  array("QuarterlyRevenue" => $row['QuarterlyRevenue'], "Quarter" => $row['Quarter'], "Year" => $row['Year']);
-            
+    
+            while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+                $list[] = array(
+                    "QuarterlyRevenue" => $row['QuarterlyRevenue'],
+                    "Quarter" => $row['Quarter'],
+                    "Year" => $row['Year']
+                );
             }
     
             return array("success" => true, "List" => $list);
-           
-    
         } catch (Exception $e) {
             return array("success" => false, "error" => $e->getMessage());
         }
     }
+    
     
     public function getTopHighestGrossingMovie($page, $date, $timeframe) {
         try {
