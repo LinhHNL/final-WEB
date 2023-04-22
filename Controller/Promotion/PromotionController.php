@@ -23,10 +23,18 @@ class PromotionController {
          $EndTime = $data['EndTime'];
          $Discount = $data['Discount'];
          $Code = $data['Code'];
+    
+         $url_image = $data['file'];
          $type = $data['type'];
-         $url_image = $data['url_image'];
-     
-        return (new PromotionModel())->addPromotion(new Promotion($PromotionName, $StartTime, $Description, $EndTime, $Discount, $Code, $type,$url_image));
+         $base64 = str_replace('data:application/octet-stream;base64,', '', $url_image);
+         $file = base64_decode($base64);
+         $filename = 'images/img/'. uniqid() . '.jpg'; // generate a unique filename
+         if(file_put_contents("../../".$filename, $file)) {
+             $responses[] = ['status' => 'success', 'message' => 'File saved successfully.'];
+         } else {
+             return  ['status' => 'error', 'message' => 'Error saving file.'];
+         }
+        return (new PromotionModel())->addPromotion(new Promotion($PromotionName, $StartTime, $Description, $EndTime, $Discount, $Code, $type,$filename));
     }
     function removePromotion($id){
         return (new PromotionModel())->deletePromotion($id);
