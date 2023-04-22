@@ -26,7 +26,7 @@ class MenuModel {
     // Phương thức thêm mới một Menu
     public function addMenu(Menu $Menu){
         try{
-            $stmt =$this->conn->prepare("INSERT INTO menu (ItemID, Name,  Price, ImageURL,status) VALUES (:ItemID, :Name, :Price, :ImageURL:status)");
+            $stmt =$this->conn->prepare("INSERT INTO menu (ItemID, Name,  Price, ImageURL,status) VALUES (:ItemID, :Name, :Price, :ImageURL, :status)");
             $ItemID = $this->createNewID();
             $Name = $Menu->get_Name();
             $Price = $Menu->get_Price();
@@ -61,7 +61,7 @@ public function deleteMenu($id) {
 // Phương thức cập nhật thông tin một Menu
 public function updateMenu(Menu $Menu) {
     try {
-        $stmt = $this->conn->prepare("UPDATE menu SET Name = :Name, Price = :Price, ImageURL = :ImageURL,:status = status WHERE ItemID = :ItemID");
+        $stmt = $this->conn->prepare("UPDATE menu SET Name = :Name, Price = :Price, ImageURL = :ImageURL,status = :status WHERE ItemID = :ItemID");
         $id = $Menu->get_ItemID();
         $Name = $Menu->get_Name();
         $Price = $Menu->get_Price();
@@ -127,17 +127,17 @@ public function updateMenu(Menu $Menu) {
     
         // Phương thức sinh mã ID mới cho Menu
         private function createNewID() {
-            $query = "SELECT ItemID FROM Menu ORDER BY CAST(RIGHT(ItemID, LENGTH(ItemID) - 2) AS UNSIGNED) DESC LIMIT 1";
+            $query = "SELECT ItemID FROM Menu ORDER BY CAST(RIGHT(ItemID, LENGTH(ItemID) - 1) AS UNSIGNED) DESC LIMIT 1";
             $result = $this->conn->query($query);
             $lastId = 0;
         
             if ($result->rowCount() > 0) {
-                $lastId = intval(substr($result->fetchColumn(), 2));
+                $lastId = intval(substr($result->fetchColumn(), 1));
             }
         
             $newId = "I" . ($lastId + 1);
             return $newId;
-        }
+        } 
 
 }
 

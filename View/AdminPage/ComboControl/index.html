@@ -387,17 +387,6 @@
               >
                 <div class="row gy-3 gx-5">
                   <div class="col-6">
-                    <span class="form-title"> Mã Combo </span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      aria-label="ItemID"
-                      aria-describedby="addon-wrapping"
-                      name="ItemID"
-                      id="ItemID"
-                    />
-                  </div>
-                  <div class="col-6">
                     <span class="form-title"> Tên Combo </span>
                     <input
                       type="text"
@@ -503,6 +492,7 @@
                       aria-describedby="addon-wrapping"
                       name="ItemID"
                       id="ItemID"
+                      disabled
                     />
                   </div>
                   <div class="col-6">
@@ -530,13 +520,14 @@
                   <div class="col-6">
                     <span class="form-title"> Ảnh </span>
                     <input
-                      type="file"
+                      type="text"
                       class="form-control"
                       aria-label="image"
                       aria-describedby="addon-wrapping"
                       id="image"
                       multiple
                       name="Image[]"
+                      disabled
                     />
                   </div>
                   <div class="col-6">
@@ -546,8 +537,7 @@
                       aria-label="status"
                       aria-describedby="addon-wrapping"
                       name="status"
-                      id="status"
-      
+                      id="status"      
                     >
                     <option value="1">1</option>
                     <option value="1">2</option>
@@ -571,7 +561,7 @@
                 <button
                   type="button"
                   class="btn mt-2 text-white btn-main"
-                  id="btn-add"
+                  id="btn-edit"
                   style="border-radius: 10px"
                 >
                   Sửa Combo

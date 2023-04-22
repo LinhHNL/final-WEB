@@ -31,12 +31,6 @@ let table = $("#table-content").DataTable({
 });
 $("#table-content_filter").hide();
 $(document).ready(() => {
-    // table.on("select", function (e, dt, type, indexes) {
-    //   if (type === "row") {
-    //     var data = table.rows(indexes).data();
-    //     fillEditData(data[0][0]);
-    //   }
-    // });
     $(".item-choosing-block").click(function () {
         $(".item-choosing-block .divider-mini").remove();
         $(this).append("<div class=divider-mini></div>");
