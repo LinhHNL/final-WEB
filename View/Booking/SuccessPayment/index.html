@@ -82,14 +82,14 @@
               >
             </li>
             <li
-            class="nav-item d-flex align-items-center ms-auto visually-hidden"
-            id="user-account"
-          >
-            <a class="nav-link" href="../../Account/ThongTinCaNhan/"></a>
-          </li>
-          <li class="nav-item visually-hidden" id="signout">
-            <a class="nav-link" href="#">Đăng xuất</a>
-          </li>
+              class="nav-item d-flex align-items-center ms-auto visually-hidden"
+              id="user-account"
+            >
+              <a class="nav-link" href="../../Account/ThongTinCaNhan/"></a>
+            </li>
+            <li class="nav-item visually-hidden" id="signout">
+              <a class="nav-link" href="#">Đăng xuất</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -181,19 +181,19 @@
             <div style="margin-top: 20px">
               <div>
                 <a href="#" class="btn-footer">
-                  <img src="/images/email-multiple-outline.png" />
+                  <img src="../../../images/email-multiple-outline.png" />
                   hoidap@5ct.vn
                 </a>
               </div>
               <div>
                 <a href="#" class="btn-footer">
-                  <img src="/images/phone.png" /> 1900 1008
+                  <img src="../../../images/phone.png" /> 1900 1008
                 </a>
               </div>
               <div class="footer-icon">
-                <a href="#"> <img src="/images/facebook.png" /> </a>
-                <a href="#"> <img src="/images/twitter.png" /> </a>
-                <a href="#"> <img src="/images/google-plus.png" /> </a>
+                <a href="#"> <img src="../../../images/facebook.png" /> </a>
+                <a href="#"> <img src="../../../images/twitter.png" /> </a>
+                <a href="#"> <img src="../../../images/google-plus.png" /> </a>
               </div>
             </div>
           </div>
@@ -204,8 +204,8 @@
       import { XORDecrypt } from "../../Util/EncryptXOR.js";
       import { getCustomerByEmail } from "../../API/UserAPI.js";
       $(document).ready(() => {
-                // Navbar for logged in
-                if (sessionStorage.getItem("Email")) {
+        // Navbar for logged in
+        if (sessionStorage.getItem("Email")) {
           let email = XORDecrypt(window.sessionStorage.getItem("Email"));
           getCustomerByEmail("../../..", email).then((res) => {
             let data = JSON.parse(res.user);
@@ -221,7 +221,7 @@
         } else {
           window.location.href = "../../Login_Modal/LoginModal.html";
         }
-      })
+      });
     </script>
   </body>
 </html>

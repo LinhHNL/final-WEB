@@ -211,19 +211,19 @@
             <div style="margin-top: 20px">
               <div>
                 <a href="#" class="btn-footer">
-                  <img src="/images/email-multiple-outline.png" />
+                  <img src="../../../images/email-multiple-outline.png" />
                   hoidap@5ct.vn
                 </a>
               </div>
               <div>
                 <a href="#" class="btn-footer">
-                  <img src="/images/phone.png" /> 1900 1008
+                  <img src="../../../images/phone.png" /> 1900 1008
                 </a>
               </div>
               <div class="footer-icon">
-                <a href="#"> <img src="/images/facebook.png" /> </a>
-                <a href="#"> <img src="/images/twitter.png" /> </a>
-                <a href="#"> <img src="/images/google-plus.png" /> </a>
+                <a href="#"> <img src="../../../images/facebook.png" /> </a>
+                <a href="#"> <img src="../../../images/twitter.png" /> </a>
+                <a href="#"> <img src="../../../images/google-plus.png" /> </a>
               </div>
             </div>
           </div>
@@ -252,7 +252,6 @@
                       aria-label="Producer_name"
                       aria-describedby="addon-wrapping"
                       id="password-old"
-
                     />
                   </div>
                 </div>
@@ -327,8 +326,7 @@
               .text(name);
             $("#signout").removeClass("visually-hidden");
           });
-        }
-        else {
+        } else {
           window.location.href = "../../Login_Modal/LoginModal.html";
         }
 
@@ -337,24 +335,33 @@
           window.location.href = ".";
         });
 
-        $('#btn-change-password').click(() => {
-          let oldPass = $('#password-old').val();
-          let newPass = $('#password-new').val();
-          let newPassConfirm = $('#password-new-confirm').val();
+        $("#btn-change-password").click(() => {
+          let oldPass = $("#password-old").val();
+          let newPass = $("#password-new").val();
+          let newPassConfirm = $("#password-new-confirm").val();
           if (newPass !== newPassConfirm) {
-            $('.message').text('Mật khẩu xác nhận không khớp').show(1).delay(3000).hide(1);
+            $(".message")
+              .text("Mật khẩu xác nhận không khớp")
+              .show(1)
+              .delay(3000)
+              .hide(1);
             return;
           }
-          changePassword("../../..", accountID, newPass, oldPass).then(res => {
-            
-            if (res.success) 
-              $('.message').text('Đổi mật khẩu thành công').addClass('text-success').removeClass('text-danger');
-            else  
-              $('.message').text('Mật khẩu cũ không đúng').addClass('text-danger').removeClass('text-success');
-
-          })
-
-        })
+          changePassword("../../..", accountID, newPass, oldPass).then(
+            (res) => {
+              if (res.success)
+                $(".message")
+                  .text("Đổi mật khẩu thành công")
+                  .addClass("text-success")
+                  .removeClass("text-danger");
+              else
+                $(".message")
+                  .text("Mật khẩu cũ không đúng")
+                  .addClass("text-danger")
+                  .removeClass("text-success");
+            }
+          );
+        });
       });
 
       (async function TakeUserInformation() {
