@@ -8,46 +8,51 @@ require_once '../../model/entity/Movie.php';
 require_once '../../model/entity/movieimage.php';
 class MovieController{
     public function getPremieredMovies($page){
-        $moives = (new MovieModel)->getPremieredMovies($page);
-        foreach($moives as $Movie ){
-            $movieID = $Movie->get_MovieID();
-            // return $moives;
-            $number_rating = (new RatingModel())->getAverageRating($movieID);
-            $Movie->set_rating($number_rating);
+        $movies = (new MovieModel)->getPremieredMovies($page);
+ 
+        
+        foreach($movies as $movie ){
+            $movieID = $movie->get_MovieID();
+            // return $movies;
+            $movie->set_rating((new RatingModel())->getAverageRating($movieID));
             $images = (new MovieImageModel())->getMoiveImageID($movieID);
             $obj = json_decode($images);
             $imagePaths = array();
            
             foreach ($obj->listImages as $movieImage) {
-                $imagePaths[] = $movieImage->ImagePath;
+                $imagePaths[] = $movieImage;
             }
-            $Movie->add_ListImage($imagePaths);
+            $movie->add_ListImage($imagePaths);
             $actors = (new ActorModel())->getActorOfMovie($movieID);
-            $Movie->add_ListActor($actors);
+            $movie->add_ListActor($actors);
             $genres = (new MovieGenreModel())->getGenreAllByMoiveID($movieID);
-            $Movie->add_ListGenre($genres);
-        }   return $moives;
+            $movie->add_ListGenre($genres);
+        }
+        return $movies;
     }
 
     public function getUpcomingMovies($page){
-        $moives = (new MovieModel)->getUpcomingMovies($page);
-        foreach($moives as $Movie ){
-            $movieID = $Movie->get_MovieID();
-            $Movie->set_rating((new RatingModel())->getAverageRating($movieID));
+        $movies = (new MovieModel)->getUpcomingMovies($page);
+ 
+        
+        foreach($movies as $hotMovie ){
+            $movieID = $hotMovie->get_MovieID();
+            // return $movies;
+            $hotMovie->set_rating((new RatingModel())->getAverageRating($movieID));
             $images = (new MovieImageModel())->getMoiveImageID($movieID);
             $obj = json_decode($images);
             $imagePaths = array();
            
             foreach ($obj->listImages as $movieImage) {
-                $imagePaths[] = $movieImage->ImagePath;
+                $imagePaths[] = $movieImage;
             }
-            $Movie->add_ListImage($imagePaths);
+            $hotMovie->add_ListImage($imagePaths);
             $actors = (new ActorModel())->getActorOfMovie($movieID);
-            $Movie->add_ListActor($actors);
+            $hotMovie->add_ListActor($actors);
             $genres = (new MovieGenreModel())->getGenreAllByMoiveID($movieID);
-            $Movie->add_ListGenre($genres);
-        }   
-        return $moives;
+            $hotMovie->add_ListGenre($genres);
+        }
+        return $movies;
     }
     public function updateMovie($data){
         

@@ -16,11 +16,20 @@ class MenuController {
     function addMenu($data){
       
         $Name = $data['Name'];
-         $ImageURL =  $data['ImageURL'];
+         
          $Price =  $data['Price'];
          $status =  $data['status'];
-   
-        return (new MenuModel())->addMenu(new Menu($Name, $ImageURL, $Price ,$status ));
+         $url_image = $data['file'];
+       
+         $base64 = str_replace('data:application/octet-stream;base64,', '', $url_image);
+         $file = base64_decode($base64);
+         $filename = 'images/img/'. uniqid() . '.jpg'; // generate a unique filename
+         if(file_put_contents("../../".$filename, $file)) {
+             $responses[] = ['status' => 'success', 'message' => 'File saved successfully.'];
+         } else {
+             return  ['status' => 'error', 'message' => 'Error saving file.'];
+         }
+        return (new MenuModel())->addMenu(new Menu($Name, $filename, $Price ,$status ));
     }
     function removeMenu($id){
         return (new MenuModel())->deleteMenu($id);
