@@ -111,10 +111,7 @@
             </button>
             <!-- 16:9 aspect ratio -->
             <div class="ratio ratio-16x9">
-              <video class="embed-responsive-item" controls>
-                <source src="../..../../images/" type="" />
-                <source src="../../images/trailer.mp4" type="video/mp4" />
-              </video>
+              <iframe src="" frameborder="0"></iframe>
             </div>
           </div>
         </div>
@@ -252,6 +249,16 @@
         </div>
       </div>
     </div>
+    <script>
+      function showTrailer(btn) {
+        let url = $(btn)
+          .data("trailerurl")
+          .replace("https://youtu.be", "https://youtube.com/embed");
+        let modal = $("#modal-trailer");
+        modal.find("iframe").attr("src", url);
+        $("#modal-trailer").modal("show");
+      }
+    </script>
     <script type="module">
       import {
         getMovieByID,
@@ -276,8 +283,6 @@
               .text(name);
             $("#signout").removeClass("visually-hidden");
           });
-        } else {
-          window.location.href = "../Login_Modal/LoginModal.html";
         }
 
         $("#signout a").click(() => {
@@ -437,7 +442,9 @@
                 class="play-btn"
                 data-toggle="modal"
                 data-target="#modal-trailer"
+                data-trailerurl=${data.movie.URLTrailer}
                 type="button"
+                onclick="showTrailer(this)"
               ></button>
             </div>
           </div></div>`;
@@ -784,15 +791,10 @@
         modalTrailer.modal("hide");
       });
 
-      let video = document.querySelector("#modal-trailer video");
-
-      modalTrailer.on("show.bs.modal", function (e) {
-        video.play();
-      });
+      let iframe = $("#modal-trailer iframe");
 
       modalTrailer.on("hide.bs.modal", function (e) {
-        video.pause();
-        video.currentTime = 0;
+        iframe.attr("src", "");
       });
     </script>
   </body>
