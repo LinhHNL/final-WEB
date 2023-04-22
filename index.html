@@ -301,15 +301,20 @@
             </button>
             <!-- 16:9 aspect ratio -->
             <div class="ratio ratio-16x9">
-              <video class="embed-responsive-item" controls>
-                <source src="../..../../images/" type="" />
-                <source src="../../images/trailer.mp4" type="video/mp4" />
-              </video>
+              <iframe src="" frameborder="0"></iframe>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <script>
+        function showTrailer(btn) {
+          let url = $(btn).data('trailerurl').replace("https://youtu.be", "https://youtube.com/embed");
+          let modal = $('#modal-trailer');
+          modal.find('iframe').attr('src', url);
+          $('#modal-trailer').modal('show');
+        }
+    </script>
     <script type="module">
       import {
         getHotMovieAPI,
@@ -322,6 +327,7 @@
       import { getAllFormatsByMovieId } from "./View/API/FormatAPI.js";
       import { XORDecrypt } from "./View/Util/EncryptXOR.js";
       import { getCustomerByEmail } from "./View/API/UserAPI.js";
+
       $(document).ready(function () {
         if (sessionStorage.getItem("Email")) {
           let email = XORDecrypt(window.sessionStorage.getItem("Email"));
@@ -786,19 +792,12 @@
           modalTrailer.modal("hide");
         });
 
-        let video = document.querySelector("#modal-trailer video");
-
-        modalTrailer.on("show.bs.modal", function (e) {
-          video.play();
-        });
+        let iframe = $("#modal-trailer iframe");
 
         modalTrailer.on("hide.bs.modal", function (e) {
-          video.pause();
-          video.currentTime = 0;
+          iframe.attr('src', '');
         });
-        function showTrailer(btn) {
-          console.log($(btn).data('trailerurl'))
-        }
+
       });
     </script>
   </body>
