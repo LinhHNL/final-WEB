@@ -27,22 +27,21 @@ $("#table-content_filter").hide();
 
 $(document).ready(() => {
   let authFlag = true;
-  if (sessionStorage.getItem('Email')) {
-    let email = XORDecrypt(sessionStorage.getItem('Email'));
-    getUserByEmail("../../..", email).then(res => {
-      if (res.role !== '2') authFlag = false;
-    })
-  }
-  else authFlag = false;
+  if (sessionStorage.getItem("Email")) {
+    let email = XORDecrypt(sessionStorage.getItem("Email"));
+    getUserByEmail("../../..", email).then((res) => {
+      if (res.role !== "2") authFlag = false;
+    });
+  } else authFlag = false;
 
   if (!authFlag) {
     window.location.href = "../../Login_Modal/LoginModal.html";
   }
 
-  $('.logout-container').click(() => {
-    sessionStorage.removeItem('Email');
+  $(".logout-container").click(() => {
+    sessionStorage.removeItem("Email");
     window.location.href = "../../../";
-  })
+  });
   table.on("select", function (e, dt, type, indexes) {
     if (type === "row") {
       var data = table.rows(indexes).data();
@@ -98,15 +97,15 @@ function showData() {
 
   let numRow = data.length;
   for (let i = 0; i < numRow && i < 1000; i++) {
-      table.row
-      .add([  
+    table.row
+      .add([
         data[i].BookingID,
         data[i].NumberOfTickets,
         toVndCurrencyFormat(data[i].TotalPrice),
         data[i].BookingTime,
         data[i].Voucher,
         data[i].customer_id,
-        data[i].status === 1 ? "Đã thanh toán" : "Chưa thanh toán",
+        data[i].status == 1 ? "Đã thanh toán" : "Chưa thanh toán",
       ])
       .draw();
   }
