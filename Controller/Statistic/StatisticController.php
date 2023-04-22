@@ -8,7 +8,6 @@ class StatisticController{
     }
     public function getRevenueForMonth($year=null, $month=null,$page = 1){
         return (new StatisticModel() )->getRevenueForMonth($year,$month,$page);
-
     }
     public function getRevenueForYear($year=null, $page = 1){
         return (new StatisticModel() )->getRevenueForYear($year,$page);

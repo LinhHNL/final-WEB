@@ -18,4 +18,21 @@ const getDetailMenuByID = async (url, id = "1") => {
   const datatorender = await data.json();
   return datatorender;
 };
-export { getAllMenu, getDetailMenuByID };
+const addMenu = async (
+  url = "../..",
+  Name, ImageURL, Price ,status 
+) => {
+  const urls = `${url}/Controller/Menu/ajax.php`;
+  const data = await fetch(urls, {
+    method: "POST",
+    body: JSON.stringify({
+      Name:Name,
+      ImageURL:ImageURL,
+      Price:Price,
+      status:status,
+    }),
+  });
+  const datatorender = await data.json();
+  return datatorender;
+};
+export { getAllMenu, getDetailMenuByID ,addMenu};
