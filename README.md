@@ -24,6 +24,14 @@ Cấu trúc chương trình của trang web được tổ chức như sau:
 - ./Source/database: Chứa database của trang web.
 - ./Source/View: Chứa các dữ liệu mà chúng ta lấy từ dữ liệu trong model để có thể hiển thị đầu ra cho người dùng.
 
+## Các công nghệ sử dụng:
+- Jquery
+- HTML
+- CSS
+- JS
+- BootStrap
+- Jquery Datatable
+
 # Running the Application
 ## Những công cụ cần có: 
 - XAMPP
@@ -38,12 +46,14 @@ Cấu trúc chương trình của trang web được tổ chức như sau:
 - Tới trình duyệt và gõ localhost:8080
 - Sau khi dùng xong, tắt chương trình ở IDE và Stop Apache, MySQL
 ## Usage
-Demo account:
+### Demo account:
 - Admin(username/pass): admin1/123
 - Customer(username/pass): user1/123
 - Demo Voucher: GIAMSOC50PHANTRAM
 
-Demo Customer:
+### Video Demo : <a href="">Link Video Demo</a>
+
+### Demo Customer:
 
 Ta có hiển thị giao diện trang chủ của user như sau:
 <img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/6b9d97047da6c7daf2eb9ab1c3ed2eb4/image.png"/>
@@ -64,7 +74,7 @@ Khi bấm thanh toán thì ta được chuyển tới giao diện thanh toán. �
 Khi bấm nút thanh toán và thanh toán xong thì hệ thống cho hiện giao diện đặt vé thành công và các lưu ý cần thiết.
 <img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/ec87d705784bf3799a78ed0887a6ef8e/image.png"/>
 
-Demo Admin:
+### Demo Admin:
 
 Để đăng nhập vào tài khoản Admin ta dùng Account đã được cung cấp ở trên:
 <img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/467a436c7f7b7ffb2d38ea0989e05eaa/image.png"/>
