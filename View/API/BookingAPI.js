@@ -1,8 +1,8 @@
 const AddBooking = async (
   url,
-  numofticket,
+  numofticket = "1",
   time,
-  voucher,
+  voucher = "",
   CID,
   SID,
   total,
@@ -20,6 +20,7 @@ const AddBooking = async (
     ListTicket: listtic,
     ListMenu: listme,
   };
+  console.log(bodyinput);
   const bodytoadd = JSON.stringify(bodyinput);
   const data = await fetch(`${url}/Controller/Booking/ajax.php`, {
     method: "POST",
@@ -52,14 +53,13 @@ const changeStatus = async (url = "../..", id, status) => {
   const data = await fetch(urls, {
     method: "PUT",
     body: JSON.stringify({
-      action: 'changeStatus',
+      action: "changeStatus",
       booking_id: id,
-      status: status
-    })
+      status: status,
+    }),
   });
   const datatorender = await data.json();
   return datatorender;
 };
-
 
 export { AddBooking, getAllBookingsByCustomerID, getAllBooking, changeStatus };
