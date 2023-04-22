@@ -68,7 +68,7 @@ function showData() {
         toVndCurrencyFormat(data[i].booking.TotalPrice),
         data[i].booking.BookingTime,
         data[i].booking.Voucher,
-        data[i].status === 1 ? "Đã xác nhận" : "Chưa xác nhận",
+        data[i].booking.status === 1 ? "Đã xác nhận" : "Chưa xác nhận",
       ])
       .draw();
   }
