@@ -360,7 +360,7 @@
                   timehtmls += `
                       <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" showtimeid=${
                         data.ShowtimeID
-                      } id=${data.RoomID}>
+                      } id=${data.RoomID} filmname=${dataMovie.MovieName}>
                         <p class="place-to-choose">${RoomData.RoomName}</p>
                         <p class="time-to-choose">${renderTime[0]}:${
                     renderTime[1]
@@ -395,7 +395,7 @@
                   timehtmls += await `
                       <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" showtimeid=${
                         data.ShowtimeID
-                      } id=${data.RoomID}>
+                      } id=${data.RoomID} Filmformat=${dataMovie.MovieName}>
                         <p class="place-to-choose">${RoomData.RoomName}</p>
                         <p class="time-to-choose">${renderTime[0]}:${
                     renderTime[1]
@@ -413,6 +413,7 @@
               ).bind("click", () => {
                 let idRoom = $(this).attr("id");
                 let idShowtime = $(this).attr("showtimeid");
+                let MovieName = $(this).attr("Filmformat");
                 sessionStorage.setItem("RoomIDChoosing", idRoom);
                 sessionStorage.setItem("ShowTimeID", idShowtime);
                 sessionStorage.setItem("TheaterName", previousOptionName);
@@ -507,6 +508,7 @@
             );
             let dataMovie = await TakingMovieByID(data.MovieID);
             dataMovie = dataMovie["movie"];
+            console.log(dataMovie.MovieName);
             const datatoCut = data.StartTime;
             const takingTime = await datatoCut.split(" ")[1];
             const renderTime = await takingTime.split(":");
@@ -566,7 +568,7 @@
               timehtmls += `
               <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" showtimeid=${
                 data.ShowtimeID
-              } id=${data.RoomID}>
+              } id=${data.RoomID} Filmformat=${dataMovie.MovieName}>
                 <p class="place-to-choose">${RoomData.RoomName}</p>
                 <p class="time-to-choose">${renderTime[0]}:${renderTime[1]}</p>
                 <p class="seat-info"><b>${
@@ -597,7 +599,7 @@
               timehtmls += `
         <div class="item-choosing-time col-lg-2 col-md-5 col-sm-6" showtimeid=${
           data.ShowtimeID
-        } id=${data.RoomID}>
+        } id=${data.RoomID} filmname=${dataMovie.MovieName}>
           <p class="place-to-choose">${RoomData.RoomName}</p>
           <p class="time-to-choose">${renderTime[0]}:${renderTime[1]}</p>
           <p class="seat-info"><b>${RoomData.NumberOfSeats - ticketNum}</b>/${
@@ -614,6 +616,7 @@
             $(`.item-choosing-time`).bind("click", function (event) {
               let idRoom = $(this).attr("id");
               let idShowtime = $(this).attr("showtimeid");
+              let MovieName = $(this).attr("Filmformat");
               sessionStorage.setItem("RoomIDChoosing", idRoom);
               sessionStorage.setItem("ShowTimeID", idShowtime);
               sessionStorage.setItem("TheaterName", previousOptionName);
@@ -621,7 +624,7 @@
                 "TimeChoosing",
                 `${renderTime[0]}:${renderTime[1]}`
               );
-              sessionStorage.setItem("FilmName", dataMovie.MovieName);
+              sessionStorage.setItem("FilmName", MovieName);
               window.location.href = "../Booking/ChooseSeat/index.html";
             });
           }
