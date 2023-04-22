@@ -3,6 +3,8 @@ import {
   addMenu,
   updateMenu,
 } from "../../API/MenuAPI.js";
+import { getUserByEmail } from "../../API/UserAPI.js";
+import { XORDecrypt } from "../../Util/EncryptXOR.js";
 let allData = [];
 let currentData = [];
 let table = $("#table-content").DataTable({
@@ -27,6 +29,23 @@ let table = $("#table-content").DataTable({
 });
 $("#table-content_filter").hide();
 $(document).ready(() => {
+  let authFlag = true;
+  if (sessionStorage.getItem('Email')) {
+    let email = XORDecrypt(sessionStorage.getItem('Email'));
+    getUserByEmail("../../..", email).then(res => {
+      if (res.role !== '2') authFlag = false;
+    })
+  }
+  else authFlag = false;
+
+  if (!authFlag) {
+    window.location.href = "../../../Login_Modal/LoginModal.html";
+  }
+
+  $('.logout-container').click(() => {
+    
+  })
+
   table.on("select", function (e, dt, type, indexes) {
     if (type === "row") {
       var data = table.rows(indexes).data();

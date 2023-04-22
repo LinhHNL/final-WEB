@@ -492,7 +492,8 @@
               );
               // Cập nhật thông tin Seat
               let seatdata = $(".seat-content").text();
-              let seatList = seatdata.split(" ").filter(e => e !== seatIndentify.Seat.SeatID)
+              let seatList = seatdata.split(" ").filter(e => e !== seatIndentify.Seat.SeatName)
+              console.log(seatIndentify.Seat)
               seatdata = seatList.join(" ");
               $(".seat-content").text(seatdata);
               // Cập nhật thông tin giá
