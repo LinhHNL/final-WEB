@@ -507,22 +507,22 @@
             });
           });
         });
-        getPromotionsEvent(".").then((res) => {
-          let data = res.list;
-          console.log((data));
-          data.forEach(element => {
-            let html = `           <div class="movie-card col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6">
-              <div class="card-img">
-                <img class="poster" src="./${element.url_image}" alt="" />
-              </div>
+        // getPromotionsEvent(".").then((res) => {
+        //   let data = res.list;
+        //   console.log((data));
+        //   data.forEach(element => {
+        //     let html = `           <div class="movie-card col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6">
+        //       <div class="card-img">
+        //         <img class="poster" src="./${element.url_image}" alt="" />
+        //       </div>
 
-              <div class="event-title">
-                ${element.Description} 
-              </div>
-            </div>`
-            $('.event').find('.row').append(html);
-          });
-        })
+        //       <div class="event-title">
+        //         ${element.Description} 
+        //       </div>
+        //     </div>`
+        //     $('.event').find('.row').append(html);
+        //   });
+        // })
         // Gọi phim chuẩn bị chiếu
         getUpcomingMovie(".").then((datas) => {
           const cuttingGenre = (data) => {
