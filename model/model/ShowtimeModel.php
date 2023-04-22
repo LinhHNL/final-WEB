@@ -57,7 +57,7 @@ class ShowtimeModel {
                 return (array("success"=>false,"error"=>"Không thể thêm mới showtime do đã tồn tại showtime khác trong khoảng thời gian và phòng chiếu tương tự"));
             } else {
                 // Nếu không tìm thấy showtime khác thì thêm mới showtime
-                $stmt = $this->conn->prepare("INSERT INTO showtime (ShowtimeID, Price, StartTime, EndTime, MovieID, RoomID, FormatID) VALUES (:ShowtimeID, :StartTime, :EndTime, :Price, :MovieID, :RoomID, :FormatID)");
+                $stmt = $this->conn->prepare("INSERT INTO showtime (ShowtimeID, Price, StartTime, EndTime, MovieID, RoomID, FormatID) VALUES (:ShowtimeID, :Price, :StartTime, :EndTime, :MovieID, :RoomID, :FormatID)");
                 $ShowtimeID = $this->createNewID();
                 $Price = $Showtime->get_Price();
                 $StartTime = $Showtime->get_StartTime();

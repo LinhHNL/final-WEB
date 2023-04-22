@@ -10,7 +10,7 @@ const getRoomById = async (url, id = "1") => {
 };
 const getAllRooms = async (url) => {
   const data = await fetch(
-    `${url}/Controller/Room/ajax.php?action=getAllRooms`,
+    `${url}/Controller/Room/ajax.php?action=getAllRoom`,
     {
       method: "GET",
     }

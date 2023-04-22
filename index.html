@@ -79,6 +79,16 @@
                 >Đăng ký</a
               >
             </li>
+            <li class="nav-item d-flex align-items-center ms-auto visually-hidden" id="user-account">
+              <a class="nav-link" href="./View/Account/ThongTinCaNhan/"
+                ></a
+              >
+            </li>
+            <li class="nav-item visually-hidden" id="signout">
+              <a class="nav-link" href="#"
+                >Đăng xuất</a
+              >
+            </li>
           </ul>
         </div>
       </div>
@@ -280,7 +290,26 @@
       import { getAllGenre } from "./View/API/GenreAPI.js";
       import { getPromotionsEvent } from "./View/API/PromotionAPI.js";
       import { getAllFormatsByMovieId } from "./View/API/FormatAPI.js";
+      import {XORDecrypt} from "./View/Util/EncryptXOR.js";
+      import {getCustomerByEmail} from "./View/API/UserAPI.js";
       $(document).ready(function () {
+        if (sessionStorage.getItem('Email')) {
+          let email = XORDecrypt(window.sessionStorage.getItem('Email'));
+          getCustomerByEmail(".", email).then(res => {
+            let data = JSON.parse(res.user);
+            let name = data.customer.FullName;
+            $('#create-accout').addClass('visually-hidden');
+            $('#login-accout').addClass('visually-hidden');
+            $('#user-account').removeClass('visually-hidden').find('a').text(name);
+            $('#signout').removeClass('visually-hidden');       
+          });  
+        }
+
+        $('#signout a').click(() => {
+          sessionStorage.removeItem("Email");
+          window.location.href = ".";
+        })
+
         $(".navbar-toggler").click(function () {
           var color = $(".navbar").css("background-color");
           if (color == "rgba(0, 0, 0, 0.01)") {

@@ -2,8 +2,6 @@ import {
   getHotMovieAPI,
   getPremierMovie,
   getUpcomingMovie,
-  getByGenreID,
-  getMovieByID,
   addMovie,
   updateMovie,
 } from "../../API/MovieAPI.js";
@@ -23,7 +21,7 @@ let table = $("#table-content").DataTable({
     lengthMenu: "Số kết quả / Trang _MENU_",
     zeroRecords: "Không tìm thấy dữ liệu",
     info: "Hiển thị trang _PAGE_ trên _PAGES_",
-    infoEmpty: "Không tìm thấy dữ liệu",
+    infoEmpty: "Đang tìm kiếm dữ liệu",
     infoFiltered: "(filtered from _MAX_ total records)",
     paginate: {
       first: "Trang đầu",
@@ -31,12 +29,6 @@ let table = $("#table-content").DataTable({
       next: "Trang sau",
       previous: "Trang trước",
     },
-    columnDefs: [{
-      targets: 0,
-      render: function( data, type, row, meta ) {
-        return (type === 'sort')? data.replace(/\W/g, '') : data;
-      }
-    }]
   },
 });
 $("#table-content_filter").hide();
@@ -62,7 +54,6 @@ $(document).ready(() => {
     let languageID = $("#select-language").val();
     let genreID = $("#select-genre").val();
     let studioID = $("#select-studio").val();
-    console.log(languageID);
     currentData = allData.filter(
       (element) =>
         element.MovieID.search(query) != -1 &&
@@ -174,7 +165,6 @@ $(document).ready(() => {
           .removeClass("success");
       else {
         $("#ModalEditUser .message").text("Sửa thành công").addClass("success");
-        $(".all-film").trigger('click');
       }
     });
   });
@@ -298,7 +288,6 @@ async function loadAllStudio() {
 
 async function loadAllLanguage() {
   let data = await getAllLanguages("../../..");
-  console.log(data);
   data.Language.forEach((element) => {
     $("#select-language").append(
       `<option value=${element.LanguageID}>${element.LanguageName}</option>`
