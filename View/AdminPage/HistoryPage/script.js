@@ -65,7 +65,15 @@ $(document).ready(() => {
 
   loadAllBooking().then(() => showData()); // page load
 });
+function toVndCurrencyFormat(number) {
+  const currencyFormat = new Intl.NumberFormat("vi-VN", {
+    style: "currency",
+    currency: "VND",
+    minimumFractionDigits: 0,
+  });
 
+  return currencyFormat.format(number);
+}
 function showData() {
   table.clear().draw();
   let data = currentData;
@@ -77,7 +85,7 @@ function showData() {
       .add([
         data[i].BookingID,
         data[i].NumberOfTickets,
-        data[i].TotalPrice,
+        toVndCurrencyFormat(data[i].TotalPrice),
         data[i].BookingTime,
         data[i].Voucher,
         data[i].customer_id,

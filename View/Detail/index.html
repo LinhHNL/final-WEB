@@ -314,6 +314,10 @@
           return storehtml;
         };
         datas.forEach(async (data, index) => {
+          let imagebannerObj = data.listImage;
+          let filteredMovies = imagebannerObj.filter(function (movie) {
+            return movie.type === "2" && movie.ImagePath;
+          });
           function toHHMM(minutes) {
             var hours = Math.floor(minutes / 60);
             var mins = minutes % 60;
@@ -352,7 +356,7 @@
                     </button>
                     </a>
                   </div>
-                  <img class="poster" src="../../${data.listImage[0]}" alt="" />
+                  <img class="poster" src="../../${imagebannerObj[0].ImagePath}" alt="" />
                 </div>
 
                 <div class="movie-genre">
@@ -649,6 +653,10 @@
             return storehtml;
           };
           datas.forEach(async (data, index) => {
+            let imagebannerObj = data.listImage;
+            let filteredMovies = imagebannerObj.filter(function (movie) {
+              return movie.type === "2" && movie.ImagePath;
+            });
             function toHHMM(minutes) {
               var hours = Math.floor(minutes / 60);
               var mins = minutes % 60;
@@ -687,7 +695,7 @@
                     </button>
                     </a>
                   </div>
-                  <img class="poster" src="../../${data.listImage[0]}" alt="" />
+                  <img class="poster" src="../../${imagebannerObj[0].ImagePath}" alt="" />
                 </div>
 
                 <div class="movie-genre">
@@ -727,6 +735,10 @@
             return storehtml;
           };
           datas.forEach(async (data, index) => {
+            let imagebannerObj = data.listImage;
+            let filteredMovies = imagebannerObj.filter(function (movie) {
+              return movie.type === "2" && movie.ImagePath;
+            });
             function toHHMM(minutes) {
               var hours = Math.floor(minutes / 60);
               var mins = minutes % 60;
@@ -765,7 +777,7 @@
                     </button>
                     </a>
                   </div>
-                  <img class="poster" src="../../${data.listImage[0].ImagePath}" alt="" />
+                  <img class="poster" src="../../${imagebannerObj[0].ImagePath}" alt="" />
                 </div>
 
                 <div class="movie-genre">
