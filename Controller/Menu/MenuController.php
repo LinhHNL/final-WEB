@@ -3,7 +3,9 @@ require_once '../../model/model/MenuModel.php';
 require_once '../../model/entity/Menu.php';
 class MenuController {
     function getAllMenus($page) {
+
         return (new MenuModel())->getAllMenu($page);
+   
     }
     function getMenuById($id) {
         return (new MenuModel())->getMenuByID($id);
