@@ -37,7 +37,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
             break;
         case 'getBookingDetailsByBookingID':
             $id = $_GET['id'];
-            echo json_encode((new BookingController)->getBookingDetailsByBookingID($Booking));
+            echo json_encode((new BookingController)->getBookingDetailsByBookingID($id));
             break;
         
 

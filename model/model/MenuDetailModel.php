@@ -13,28 +13,29 @@ class MenuDetailModel {
      // Phương thức lấy thông tin Menu theo ID
      public function getMenuDetailByBookingID($id) {
         $stmt = $this->conn->prepare("SELECT 
-        md.Number,	
-        md.Total,	
-        md.BookingID ,
-        md.ItemID	,
-        m.Name ,
-        m.Price,
-        m.ImageURL  ,
-        m.status
-
-        FROM menudetail as md Join menu as m On m.ItemID = md.ItemID  WHERE BookingID=:BookingID");
-        $stmt->bindParam(':BookingID', $id);
+                md.Number,	
+                md.Total,	
+                md.BookingID ,
+                md.ItemID	,
+                m.Name ,
+                m.Price,
+                m.ImageURL,
+                m.status
+            FROM menudetail as md 
+            JOIN menu as m ON m.ItemID = md.ItemID  
+            WHERE md.BookingID=:id");
+        $stmt->bindParam(":id", $id);
         $stmt->execute();
+    
         $list = array();
-      while($row = $stmt->fetch(\PDO::FETCH_ASSOC)){
-           
-        $menudetail['detailmenu'] = new MenuDetail($row['Number'], $row['Total'], $row['BookingID'], $row['ItemID']);
-        $menudetail['menu']  = new Menu($row['Name'],$row['ImageURL'],$row['Price'],$row['status'],$row['ItemID']); 
-        $list[] = $menudetail;
+        while($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+            $menudetail = new MenuDetail($row['Number'], $row['Total'], $row['BookingID'], $row['ItemID']);
+            $menu = new Menu($row['Name'], $row['ImageURL'], $row['Price'], $row['status'], $row['ItemID']); 
+            $list[] = array('detailmenu' => $menudetail, 'menu' => $menu);
         }
         return $list;
     }
-   
+    
     // Phương thức thêm mới một Menu
     public function addMenu(MenuDetail $menuDetail){
         try{

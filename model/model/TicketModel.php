@@ -19,23 +19,26 @@ class TicketModel{
         $newId = "TK" . ($lastId + 1);
         return $newId;
     }
-    public function getAllTicketByBookingID($bookingid){
-        try{
+    public function getAllTicketByBookingID($bookingid) {
+        try {
             $stmt = $this->db->prepare("SELECT Ticket.* from Ticket JOIN detailticket as dt ON dt.TicketID = Ticket.TicketID 
-            where dt.BookingID = :BookingID ");
-            $stmt ->bindParam(":BookingID",$bookingid);
+                                        WHERE dt.BookingID = :BookingID 
+                                        ");
+            $stmt->bindParam(":BookingID", $bookingid);
             $stmt->execute();
+            
             $listTicket = array();
-            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                $listTicket[] = new Ticket($row['ShowtimeID'],$row['SeatID'],$row['status'],$row['TicketID']);
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $listTicket[] = new Ticket($row['ShowtimeID'], $row['SeatID'], $row['status'], $row['TicketID']);
             }
-            return  $listTicket;
-            }
-        catch(PDOException $e){
+            return $listTicket;
+        } catch (PDOException $e) {
+            // Log or handle the error as appropriate
+            error_log("Error retrieving tickets for booking ID {$bookingid}: {$e->getMessage()}");
             return false;
-    
         }
     }
+    
     public function addTicket(Ticket $ticket){
         try {
             $stmt = $this->db->prepare("INSERT INTO Ticket(TicketID,ShowTimeID,SeatID,Status) VALUES(:TicketID,:ShowTimeID,:SeatID,:Status)");
@@ -70,7 +73,9 @@ class TicketModel{
     }
     public function getAllTicketByShowTimeID($ShowTimeID){
         try{
-        $stmt = $this->db->prepare("SELECT TicketID,ShowTimeID,SeatID,Status FROM Ticket where ShowTimeID = '$ShowTimeID'");
+        $stmt = $this->db->prepare("SELECT TicketID,ShowTimeID,SeatID,Status FROM Ticket where ShowTimeID = '$ShowTimeID'
+        ORDER BY CAST(RIGHT(TicketID, LENGTH(TicketID) - 2) AS UNSIGNED) DESC
+        ");
         $stmt->execute();
         $listTicket = array();
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -87,13 +92,29 @@ class TicketModel{
         $page = intval($page);
         $number =  35;
         $offset = ($page - 1) * $number;
-        $stmt = $this->db->prepare("SELECT TicketID,ShowTimeID,SeatID,Status FROM Ticket ORDER BY TicketID DESC LIMIT $offset,$number");
+        $stmt = $this->db->prepare("SELECT TicketID,ShowTimeID,SeatID,Status FROM Ticket ORDER BY CAST(RIGHT(TicketID, LENGTH(TicketID) - 2) AS UNSIGNED) DESC LIMIT $offset,$number");
         $stmt->execute();
         $listTicket = array();
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             $listTicket[] = new Ticket($row['ShowTimeID'],$row['SeatID'],$row['Status'],$row['TicketID']);
         }
+        
         return (array('success' => true, 'listTicket' => $listTicket));
+    }
+    public function getTicketById($id){
+       
+        $stmt = $this->db->prepare("SELECT TicketID,ShowTimeID,SeatID,Status FROM Ticket where TicketID =:id");
+        $stmt->bindParam(":id",$id);
+        $stmt->execute();
+        $ticket  = null;
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $ticket = new Ticket($row['ShowTimeID'],$row['SeatID'],$row['Status'],$row['TicketID']);
+        }
+        if($ticket==null){
+        return (array('success' => false, 'message' => "Ticket không tồn tại"));
+
+        }
+        return (array('success' => true, 'ticket' => $ticket));
     }
     public function deleteTicketbyBookingID($booking_id){
         try {
