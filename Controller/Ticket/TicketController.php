@@ -7,7 +7,7 @@ class TicketController {
         return (new TicketModel())->getAllTicket($page);
     }
     function getTicketById($id) {
-        return (new TicketModel())->getAllTicket($id);
+        return (new TicketModel())->getTicketById($id);
     }
     function  getAllTicketByShowTime($showTime) {
         return (new TicketModel())->getAllTicketByShowTimeID($showTime);

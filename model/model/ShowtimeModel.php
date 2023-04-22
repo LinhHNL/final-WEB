@@ -137,7 +137,7 @@ public function updateShowtime(Showtime $Showtime) {
             $page = intval($page); 
             $number = 12;
             $offset = ($page - 1) * $number;
-            $query = "SELECT Price, MovieID, StartTime, EndTime, RoomID, FormatID, ShowtimeID FROM showtime ORDER By STARTTIME DESC LIMIT $offset , $number ";
+            $query = "SELECT Price, MovieID, StartTime, EndTime, RoomID, FormatID, ShowtimeID FROM showtime ORDER By StartTime DESC LIMIT $offset , $number ";
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             $Showtimes = array();
@@ -155,16 +155,17 @@ public function updateShowtime(Showtime $Showtime) {
         }
     }
     
-    public function getShowtimesByMovieIDandTheater($movieID, $theater, $date){
+    public function getShowtimesByMovieIDandTheater($movieID, $theater, $date=null) {
         $query = "SELECT s.ShowtimeID, s.Price, s.StartTime, s.EndTime, r.RoomID, s.FormatID
             FROM Showtime s
             JOIN Room r ON s.RoomID = r.RoomID
-            WHERE s.MovieID = :MovieID AND r.TheaterID = :TheaterID";
+            WHERE s.MovieID = :MovieID AND r.TheaterID = :TheaterID
+          ";
     
         if ($date !== null) {
             $query .= " AND DATE(s.StartTime) = :date";
         }
-    
+        $query .="  ORDER BY s.StartTime DESC";
         $stmt = $this->conn->prepare($query);
         $stmt ->bindParam(":MovieID",$movieID);
         $stmt ->bindParam(":TheaterID",$theater);
@@ -185,7 +186,9 @@ public function updateShowtime(Showtime $Showtime) {
         $query = "SELECT s.ShowtimeID, s.Price, s.StartTime, s.EndTime, r.RoomID, s.FormatID,s.MovieID, s.ShowtimeID
             FROM Showtime s
             JOIN Room r ON s.RoomID = r.RoomID
-            Where r.TheaterID = :TheaterID AND DATE(s.StartTime) = :date" ;
+            Where r.TheaterID = :TheaterID AND DATE(s.StartTime) = :date
+            ORDER BY s.StartTime DESC
+            " ;
     
        
         $stmt = $this->conn->prepare($query);
@@ -207,7 +210,9 @@ public function updateShowtime(Showtime $Showtime) {
         JOIN Room r ON s.RoomID = r.RoomID 
         JOIN Movie m On m.MovieID = s.MovieID
         JOIN detailmoviegenre dg  On dg.MovieID = m.MovieID  
-            WHERE  DATE(s.StartTime) = :date and dg.GenreID = :GenreID";
+            WHERE  DATE(s.StartTime) = :date and dg.GenreID = :GenreID
+            ORDER BY s.StartTime DESC
+            ";
     
      
     

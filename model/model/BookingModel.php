@@ -47,7 +47,7 @@ class BookingModel {
         return array("booking"=>null);
     }
     $ListTicket = (new TicketModel())->getAllTicketByBookingID($bookingid);
-    $ListMenu = (new MenuDetailModel())->getMenuDetailByBookingID($booking);
+    $ListMenu = (new MenuDetailModel())->getMenuDetailByBookingID($bookingid);
     return array("booking"=>$booking, "menu"=>$ListMenu,"ticket"=>$ListTicket);
     }
 
@@ -64,7 +64,10 @@ class BookingModel {
             status
         FROM Booking
         where customer_id =:id
-        LIMIT :perPage OFFSET :offset");
+        
+        ORDER BY Booking.BookingTime DESC
+        LIMIT 
+    :perPage OFFSET :offset");
         $stmt->bindParam(':perPage', $perPage, PDO::PARAM_INT);
         $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
         $stmt->bindParam(':id', $customer_id);
@@ -91,7 +94,10 @@ class BookingModel {
             customer_id,
             status
         FROM Booking
-        LIMIT :perPage OFFSET :offset");
+        
+        ORDER BY Booking.BookingTime DESC
+LIMIT 
+    :perPage OFFSET :offset");
     
         $stmt->bindParam(':perPage', $perPage, PDO::PARAM_INT);
         $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
