@@ -80,6 +80,7 @@ function showData() {
 
   let numRow = data.length;
   for (let i = 0; i < numRow; i++) {
+    console.log(data[i]);
     table.row
       .add([
         data[i].BookingID,
@@ -88,7 +89,7 @@ function showData() {
         data[i].BookingTime,
         data[i].Voucher,
         data[i].customer_id,
-        data[i].status === 1 ? "Đã xác nhận" : "Chưa xác nhận",
+        data[i].status === 1 ? "Đã thanh toán" : "Chưa thanh toán",
       ])
       .draw();
   }
