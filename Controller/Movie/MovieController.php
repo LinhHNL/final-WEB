@@ -12,7 +12,8 @@ class MovieController{
         foreach($moives as $Movie ){
             $movieID = $Movie->get_MovieID();
             // return $moives;
-            $Movie->set_rating((new RatingModel())->getAverageRating($movieID));
+            $number_rating = (new RatingModel())->getAverageRating($movieID);
+            $Movie->set_rating($number_rating);
             $images = (new MovieImageModel())->getMoiveImageID($movieID);
             $obj = json_decode($images);
             $imagePaths = array();

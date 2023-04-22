@@ -21,9 +21,9 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
             echo json_encode((new ShowTimeController)->getAllShowTimes($page));
             break;
         case 'getShowTimeById':
-    $id = $_GET['id'];
-   
-    echo json_encode((new ShowTimeController)->getShowTimeById($id));
+            $id = $_GET['id'];
+        
+            echo json_encode((new ShowTimeController)->getShowTimeById($id));
 
             break;
             case 'getAllShowTimesByMovie':
