@@ -455,8 +455,6 @@
           }
         });
 
-
-
         // Gọi phim đang chiếu
 
         getPremierMovie(".").then((datas) => {
@@ -475,6 +473,7 @@
             return storehtml;
           };
           datas.forEach(async (data, index) => {
+            console.log(data);
             const timetoadd = await toHHMM(data.Time);
             let genrehtml = await cuttingGenre(data);
             let htmls = "";
@@ -523,11 +522,11 @@
             });
           });
         });
-
-
+        async function getPromotionEvent() {
+          let PromotionEvent = await getPromotionsEvent(".");
+        }
         // Gọi phim chuẩn bị chiếu
         getUpcomingMovie(".").then((datas) => {
-          console.log(datas);
           const cuttingGenre = (data) => {
             let storehtml = "";
 
@@ -542,16 +541,12 @@
             });
             return storehtml;
           };
-          async function getPromotionEvent() {
-            let PromotionEvent = await getPromotionsEvent(".");
-            console.log(PromotionEvent);
-          }
+
           datas.forEach(async (data, index) => {
             let genrehtml = await cuttingGenre(data);
             let htmls = "";
             const timetoadd = await toHHMM(data.Time);
 
-            console.log(data);
             htmls +=
               `<div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
                 <div class="card-img">
@@ -579,7 +574,7 @@
                       <img src="../../images/Arrow_right_long.svg" alt="" />
                     </button>
                   </div>
-                  <img class="poster" src="${data.listImage[0].ImagePath}" alt="" />
+                  <img class="poster" src="${data.listImage[0]}" alt="" />
                 </div>
 
                 <div class="movie-genre">
@@ -618,8 +613,6 @@
               return storehtml;
             };
             datas.forEach(async (data, index) => {
-              console.log(data);
-
               const timetoadd = await toHHMM(data.Time);
               let genrehtml = await cuttingGenre(data);
               let htmls = "";
@@ -677,7 +670,6 @@
           const AddingBtnColor = GenreContainer.find(`#${GenreID}`);
           AddingBtnColor.addClass("btn-main");
           getByGenreID(".", GenreID).then((datas) => {
-            console.log(datas);
             const cuttingGenre = (data) => {
               let storehtml = "";
 
@@ -797,7 +789,7 @@
           video.currentTime = 0;
         });
         function showTrailer(btn) {
-          console.log($(btn).data('trailerurl'))
+          console.log($(btn).data("trailerurl"));
         }
       });
     </script>
