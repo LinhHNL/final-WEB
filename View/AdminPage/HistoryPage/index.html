@@ -30,6 +30,16 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css"
+      integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link href="https://cdn.datatables.net/v/dt/dt-1.13.4/sl-1.6.2/datatables.min.css" rel="stylesheet"/>
+ 
+    <script src="https://cdn.datatables.net/v/dt/dt-1.13.4/sl-1.6.2/datatables.min.js"></script>
     <link rel="stylesheet" href="homepage.css" />
     <link rel="stylesheet" href="./style.css" />
 
@@ -45,74 +55,53 @@
         <div class="function_place">
           <button class="btn-outline content-type-normal">Thêm file</button>
           <button class="btn-outline content-type-normal">In danh sách</button>
+          <button
+            class="btn-main content-type-normal"
+            data-bs-toggle="modal"
+            data-bs-target="#ModalAddUser"
+          >
+            + Thêm form
+          </button>
         </div>
       </div>
       <div class="divider-container"></div>
       <div class="search-place">
-        <div class="input-group rounded input-place" style="margin-bottom: 0;">
+        <div
+          class="input-group rounded input-place me-auto"
+          style="margin-bottom: 0; position: relative"
+        >
+          <img
+            src="/images/search.svg"
+            alt=""
+            style="
+              position: absolute;
+              left: 20px;
+              z-index: 10;
+              top: 50%;
+              transform: translateY(-50%);
+            "
+          />
           <input
             type="search"
             class="form-control rounded"
-            placeholder="Search"
+            placeholder="Tìm kiếm theo id"
             aria-label="Search"
             aria-describedby="search-addon"
           />
         </div>
-        <div class="dropdown dropdown-choosing">
-          <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Tên rạp
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        <div class="dropdown dropdown-choosing">
-          <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Giờ chiếu
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        <div class="dropdown dropdown-choosing">
-          <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Ngày chiếu
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        
-       
-        
-        <button class="btn-main content-type-normal">Tìm kiếm</button>
+        <select id="select-language" class="form-select">
+          <option selected value="">Ngôn ngữ</option>
+        </select>
+        <select id="select-genre" class="form-select">
+          <option selected value="">Thể loại</option>
+        </select>
+        <select id="select-studio" class="form-select">
+          <option selected value="">Studio</option>
+        </select>
+
+        <button class="btn-main content-type-normal" id="btn-search">
+          Tìm kiếm
+        </button>
       </div>
       <div class="divider-container"></div>
       <div class="transition-place">
@@ -123,22 +112,6 @@
     
       </div>
       <div class="divider-container"></div>
-      <div class="data-heading">
-        <p class="heading-result">Hiển thị 11 - 20 của 64 kết quả tìm kiểm</p>
-        <div class="choosing-block">
-          <p class="display-text">Số kết quả / Trang</p>
-          <select
-            class="form-select select-place"
-            aria-label="Default select example"
-          >
-            <option selected value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-            <option value="50">50</option>
-          </select>
-        </div>
-      </div>
-    
       <div class="datagrid-place">
         <table
           id="table-content"
