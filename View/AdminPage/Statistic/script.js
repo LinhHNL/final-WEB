@@ -50,11 +50,13 @@ $(document).ready(() => {
     $(".Statistic-year").click(function(){
         $("#table-title").text("Năm"); 
     })
-    //$(".Statistic-quarter").click(() => LoadRevenueForQuarter().then(() => showData()));
+    $(".Statistic-quarter").click(() => LoadRevenueForQuarter().then(() => showDataQuarter()));
+    $(".Statistic-quarter").click(function(){
+        $("#table-title").text("Qúy"); 
+    })
     $(".item-choosing-block .divider-mini").remove();
     $(".Statistic-month").parent().append("<div class=divider-mini></div>");
-    //LoadRevenueForMonth().then(() => showDataMonth())
-    LoadRevenueForQuarter();
+    LoadRevenueForMonth().then(() => showDataMonth())
 })
 async function LoadRevenueForMonth() {
     currentData = [];
@@ -75,18 +77,15 @@ async function LoadRevenueForQuarter() {
     currentData = [];
     let yearList = [2022, 2023];
     let monthList = [1,2,3,4];
-    let data = await getRevenueForQuarterOfYear("../../..", 2023, 2, 1)
-    console.log(data);
     for (let i = 0;i<yearList.length;i++){
         for (let j = 0; j<monthList.length;j++){
             let page = 1;
-            // let data = await getRevenueForQuarterOfYear("../../..", yearList[i], monthList[j], page)
-            // console.log(data);
-            // if (data.list[0])
-            //     currentData.push(data.list[0]);
-            // page = 1;
-            // console.log(currentData);
+            let data = await getRevenueForQuarterOfYear("../../..", yearList[i], monthList[j], page)
+            console.log(data);
+            if (data.List[0])
+                currentData.push(data.List[0]);
             page = 1;
+            console.log(currentData);
         }
     }
     currentData= currentData.reverse();
@@ -125,6 +124,20 @@ function showDataMonth() {
             .add([
                 data[i].Month,
                 data[i].MonthlyRevenue,              
+            ])
+            .draw();
+    }
+}
+function showDataQuarter() {
+    table.clear().draw();
+    let data = currentData;
+    let numRow = data.length;
+    console.log(currentData);
+    for (let i = 0; i < numRow; i++) {
+          table.row
+            .add([
+                data[i].Year + " - " +data[i].Quarter,
+                data[i].QuarterlyRevenue,              
             ])
             .draw();
     }
