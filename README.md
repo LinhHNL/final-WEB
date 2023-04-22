@@ -43,7 +43,7 @@ Demo account:
 - Customer(username/pass): user1/123
 - Demo Voucher: GIAMSOC50PHANTRAM
 
-Demo website:
+Demo Customer:
 
 Ta có hiển thị giao diện trang chủ của user như sau:
 <img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/6b9d97047da6c7daf2eb9ab1c3ed2eb4/image.png"/>
@@ -64,7 +64,48 @@ Khi bấm thanh toán thì ta được chuyển tới giao diện thanh toán. �
 Khi bấm nút thanh toán và thanh toán xong thì hệ thống cho hiện giao diện đặt vé thành công và các lưu ý cần thiết.
 <img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/ec87d705784bf3799a78ed0887a6ef8e/image.png"/>
 
+Demo Admin:
 
-
-
+Để đăng nhập vào tài khoản Admin ta dùng Account đã được cung cấp ở trên:
+<img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/467a436c7f7b7ffb2d38ea0989e05eaa/image.png"/>
+Sau khi đăng nhập thành công hệ thống sẽ cho chuyển giao diện đến trang quản lý, trang quản lý danh sách người dùng là trang hiện lên đầu tiên:
+<img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/5d613c0666673fe4ac519b612a9bb31d/image.png"/>
+Admin có thể tìm kiếm khách hàng dựa trên ID, ở đây mình sẽ tìm thử với ID là "C80" và kết quả trả ra được:
+<img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/736869e57eb8bee9cf4a34420ef7cce3/image.png"/>
+Admin có thể sửa thông tin khách hàng trừ Loại và ID, khi bấm nút sửa thì form sửa thông tin khách hàng sẽ hiện lên như sau:
+<img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/fe2f2cfb4a7a17ef93ad5827549def89/image.png"/>
+Admin có thể quản lý phim, khi chọn mục quản lý phim thì giao diện sẽ được hiện lên như dưới đây:
+<img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/441ce6729c78874ee0c30cfdfe377ba4/image.png"/>
+Admin có thể tìm kiếm phim dựa trên ID hoặc ngôn ngữ, thể loại, studio. 5CT cho lọc theo thể loại "Hành động" thì nhận được kết quả như sau:
+<img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/ebe2b42a26a7f3006fdba2917c0af83d/image.png"/>
+Tương tự, khi tìm kiếm theo ID = "M11" thì sẽ được kết quả:
+<img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/b7a0be1556349e09292e45b0d3a80dad/image.png"/>
+Có thể dùng các cách tìm kiếm chồng lên nhau để lọc kĩ hơn, nếu không có phim nào đạt yêu cầu thì sẽ không hiện phim nào, như dưới đây mình cho lọc theo thể loại "Hành động" và Studio là "Habadicap" thì kết quả trả về là rỗng:
+<img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/d4ba88c1624dcdb0bc679d69310b198d/image.png"/>
+Admin có thể sửa thông tin phim bằng cách chỉnh sửa form thông tin như bên dưới trừ thông tin về ID:
+<img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/c26caba94463f43e1fd299c9b3b214c5/image.png"/>
+Khi quản lý lịch sử giao dịch thì giao diện sẽ hiện lên với danh sách lịch sử giao dịch như sau:
+<img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/8fadd11b10ecd2e50890deb93dc6ca48/image.png"/>
+Ở đây, Admin có thể tìm giao dịch dựa trên ID, 5CT tìm kiếm theo ID = "107" thì nhận được kết quả dưới đây:
+<img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/8fadd11b10ecd2e50890deb93dc6ca48/image.png"/>
+Admin có thể sửa trạng thái giao dịch bằng cách chỉnh sửa form thông tin như sau:
+<img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/254785268975742445f4737187bd434d/image.png"/>
+Sau khi sửa và bấm bút sửa giao dịch, khi chỉnh sửa trạng thái từ 0 thành 1 và thành công thì mình nhận được dòng chứ thông báo "Sửa thành công" như sau:  
+<img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/f4b9d58432ce937393f2237e18024a9c/image.png"/>
+Quản lý danh sách lịch chiếu của Admin có giao diện như sau:
+<img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/2932ad1090a7051230e20e24ad6164e5/image.png"/>
+Ta có thể lọc lịch chiếu theo, ID, Movie, Phòng chiếu và định dạng, 5CT lọc theo ID="SH227" và movie="M23-TROLL3" thì nhận được kết quả như sau:
+<img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/93a3c77d500018edd4aff7cae4a7942c/image.png"/>
+Ta có thể chỉnh sửa lịch chiếu theo form như dưới đây:
+<img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/35edfe15ac8ad06028b46ff4ce5217cd/image.png"/>
+Giao diện quản lý danh sách Combo của Admin có dạng như sau:
+<img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/d99388b5abe45687ffa53dd67d649e60/image.png"/>
+Ở đây ta có thể lọc Combo theo mã combo, 5CT lọc theo Mã Combo là "IT9" thì nhận được kết quả như sau:
+<img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/36896b91c22e6a7955d310482ed1cbd4/image.png"/>
+Admin có giao diện quản lý thống kê như sau:
+<img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/2f81aaf5d21444daf8b0e1ece6c69db7/image.png"/>
+Ta có thể xem thống kê theo quý:
+<img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/9c02c3c07edcd95840ace83681050601/image.png"/>
+Và thống kê theo năm:
+<img src="https://gitlab.duthu.net/S52100778/do-an-cuoi-ky-mon-lap-trinh-web/uploads/358b5951e83b29e82a3f509ed815e87f/image.png"/>
 
