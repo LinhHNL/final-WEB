@@ -458,6 +458,16 @@ html {
   height: 50px;
 }
 
+.seats-container .couple {
+  width: 66px;
+}
+
+
+.seat {
+  display: flex;
+  justify-content: center;
+}
+
 
 
 /* large */
@@ -625,6 +635,7 @@ html {
 
 }
 
+
 @media only screen and (max-width: 575px) {
   #movie-slide .movie-preview-img {
     height: 50%;
@@ -703,7 +714,6 @@ html {
   border-color: #808080;
   color: white;
   width: fit-content;
-  margin-top: 10px;
   border-radius: 10px;
 }
 
@@ -714,6 +724,7 @@ html {
 
 .select-label {
   color: white;
+  margin: 0 !important;
 }
 
 .screen-container span {
@@ -756,6 +767,10 @@ html {
 
 .seat-row .letter {
   width: 20px;
+}
+
+.seat-row:last-child {
+  justify-content: center;
 }
 
 .seat.available svg {
@@ -828,12 +843,20 @@ html {
   visibility: visible;
 }
 
-.choose-seat-container * {
-  max-width: 100%;
-
+.choose-seat-container {
+  margin-top: 70px;
 }
 
-.choose-seat-container .explanation div {
+.choose-seat-container * {
+  max-width: 100%;
+}
+
+.explanation {
+  display: flex;
+  align-items: center;
+}
+
+.choose-seat-container > .explanation div {
   margin: 20px;
   display: inline-flex;
   flex-direction: row;

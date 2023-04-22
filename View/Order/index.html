@@ -206,9 +206,13 @@
         if (sessionStorage.getItem("Email")) {
           let email = XORDecrypt(window.sessionStorage.getItem("Email"));
           getCustomerByEmail("../..", email).then((res) => {
+            if (res.role !== "1") {
+              window.location.href = "../Login_Modal/LoginModal.html";
+            }
+
             let data = JSON.parse(res.user);
             let name = data.customer.FullName;
-            $("#create-accout").addClass("visually-hidden");
+            $("#create-accout").addClass("visually-hidden");  
             $("#login-accout").addClass("visually-hidden");
             $("#user-account")
               .removeClass("visually-hidden")
@@ -216,9 +220,8 @@
               .text(name);
             $("#signout").removeClass("visually-hidden");
           });
-        } else {
-          window.location.href = "../Login_Modal/LoginModal.html";
-        }
+        } 
+        else window.location.href = "../Login_Modal/LoginModal.html";
 
         $("#signout a").click(() => {
           sessionStorage.removeItem("Email");
