@@ -91,7 +91,7 @@ if($start_time <= $now && $end_time >= $now) {
 
             }
         }
-        return array('success' =>true, 'message' =>"Đặt vé thành công");
+        return array('success' =>true, 'message' =>"Đặt vé thành công","id"=>$booking_id);
     }
     function removeBooking($id){
         return (new BookingModel())->deleteBooking($id);
