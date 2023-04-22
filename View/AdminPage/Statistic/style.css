@@ -217,9 +217,10 @@ svg.active {
   font-style: normal;
   font-weight: 500;
   height: 20px;
+  width: 200px;
+  text-align: center;
   font-size: 16px;
   line-height: 20px;
-  margin-right: 37.12px;
   color: white;
   cursor: pointer;
 }
@@ -540,4 +541,3 @@ input:disabled {
 .dataTables_paginate {
  color: white  !important;
 }
-  

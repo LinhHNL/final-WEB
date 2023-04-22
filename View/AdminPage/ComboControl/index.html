@@ -30,16 +30,41 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css"
+    integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <link
+    href="https://cdn.datatables.net/v/dt/dt-1.13.4/sl-1.6.2/datatables.min.css"
+    rel="stylesheet"
+  />
+
+  <script src="https://cdn.datatables.net/v/dt/dt-1.13.4/sl-1.6.2/datatables.min.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css"
+    integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
+    integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
     <link rel="stylesheet" href="homepage.css" />
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <!-- SideBar -->
-
     <div class="body-container">
       <div class="header-container">
         <div class="title-place">
-          <h1 class="title-heading">Danh sách phim</h1>
+          <h1 class="title-heading">Danh sách Combo</h1>
         </div>
         <div class="function_place">
           <button class="btn-outline content-type-normal">Thêm file</button>
@@ -47,7 +72,7 @@
           <button
             class="btn-main content-type-normal"
             data-bs-toggle="modal"
-            data-bs-target="#ModalEditUser"
+            data-bs-target="#ModalAddUser"
           >
             + Thêm form
           </button>
@@ -55,131 +80,49 @@
       </div>
       <div class="divider-container"></div>
       <div class="search-place">
-        <div class="input-group rounded input-place" style="margin-bottom: 0">
+        <div
+          class="input-group rounded input-place me-auto"
+          style="margin-bottom: 0; position: relative"
+        >
+          <img
+            src="/images/search.svg"
+            alt=""
+            style="
+              position: absolute;
+              left: 20px;
+              z-index: 10;
+              top: 50%;
+              transform: translateY(-50%);
+            "
+          />
           <input
             type="search"
             class="form-control rounded"
-            placeholder="Search"
+            placeholder="Tìm kiếm theo id"
             aria-label="Search"
             aria-describedby="search-addon"
           />
         </div>
-        <div class="dropdown dropdown-choosing">
-          <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton"
-            data-bs-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Ngôn ngữ
-          </button>
-          <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        <div class="dropdown dropdown-choosing">
-          <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton"
-            data-bs-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Thể loại
-          </button>
-          <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        <div class="dropdown dropdown-choosing">
-          <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton"
-            data-bs-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Thời lượng
-          </button>
-          <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
-
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        <div class="dropdown dropdown-choosing">
-          <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton"
-            data-bs-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Đánh giá
-          </button>
-          <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
-
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        <button class="btn-main content-type-normal">Tìm kiếm</button>
+        <button class="btn-main content-type-normal" id="btn-search">
+          Tìm kiếm
+        </button>
       </div>
       <div class="divider-container"></div>
       <div class="transition-place">
         <div class="item-choosing-block">
-          <p class="all-film" style="margin-bottom: 12px !important">
-            Tất cả phim
+          <p class="all-combo" style="margin-bottom: 12px !important">
+            Tất cả Combo
           </p>
           <div class="divider-mini"></div>
         </div>
         <div class="item-choosing-block">
-          <p class="hot-film" style="margin-bottom: 12px !important">
-            Phim hot
-          </p>
-          <div class="divider-mini hidden"></div>
-        </div>
-        <div class="item-choosing-block">
-          <p class="premiere-film" style="margin-bottom: 12px !important">
-            Phim đang chiếu
-          </p>
-          <div class="divider-mini hidden"></div>
-        </div>
-        <div class="item-choosing-block">
-          <p class="upcoming-film" style="margin-bottom: 12px !important">
-            Phim sắp chiếu
+          <p class="search-result" style="margin-bottom: 12px !important">
+            Kết quả tìm kiếm
           </p>
           <div class="divider-mini hidden"></div>
         </div>
       </div>
       <div class="divider-container"></div>
-      <div class="data-heading">
-        <p class="heading-result">Hiển thị 11 - 20 của 64 kết quả tìm kiểm</p>
-        <div class="choosing-block">
-          <p class="display-text">Số kết quả / Trang</p>
-          <select
-            class="form-select select-place"
-            aria-label="Default select example"
-          >
-            <option selected value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-            <option value="50">50</option>
-          </select>
-        </div>
-      </div>
-
       <div class="datagrid-place">
         <table
           id="table-content"
@@ -188,37 +131,15 @@
         >
           <thead>
             <tr>
-              <th>Mã phim</th>
-              <th>Poster</th>
-              <th>Tên phim</th>
-              <th>Diễn viên</th>
-              <th>Thể loại</th>
-              <th>Khởi chiếu</th>
-              <th>Thời lượng</th>
-              <th>Ngôn ngữ</th>
-              <th>Đạo diễn</th>
-              <th>Đánh giá</th>
-              <th>Mô tả</th>
-              <th>Trailer</th>
+              <th>Mã Combo</th>
+              <th>Tên Combo</th>
+              <th>Giá</th>
+              <th>Ảnh</th>
+              <th>Trạng thái</th>
             </tr>
           </thead>
           <tbody></tbody>
         </table>
-      </div>
-      <div class="change-table-place">
-        <div class="back-place">
-          <span class="back-btn"> <i class="fa fa-angle-left"></i> </span>
-          <p class="back-description">Trang Trước</p>
-        </div>
-        <input type="text" class="value-place" value="1" />
-        <p style="color: white; margin-right: 6px">/</p>
-        <p class="text-place">7</p>
-        <div class="forward-place">
-          <p class="forward-description">Trang sau</p>
-          <span class="forward-btn">
-            <i class="fa fa-angle-right" aria-hidden="true"></i>
-          </span>
-        </div>
       </div>
     </div>
     <div class="sidebar-container">
@@ -383,37 +304,38 @@
           <p class="item-description active">Combo</p>
         </div>
       </a>
-
-      <div class="item-container">
-        <span class="item-icon">
-          <svg
-            width="25"
-            height="24"
-            viewBox="0 0 25 24"
-            fill="#474851"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M8.5 18.6667H5.83333V9.33333H8.5V18.6667ZM13.8333 18.6667H11.1667V5.33333H13.8333V18.6667ZM19.1667 18.6667H16.5V13.3333H19.1667V18.6667ZM21.8333 21.3333H3.16667V2.66667H21.8333V21.4667M21.8333 0H3.16667C1.7 0 0.5 1.2 0.5 2.66667V21.3333C0.5 22.8 1.7 24 3.16667 24H21.8333C23.3 24 24.5 22.8 24.5 21.3333V2.66667C24.5 1.2 23.3 0 21.8333 0Z"
-            />
-
-            <defs>
-              <linearGradient
-                id="paint0_linear_258_515"
-                x1="0"
-                y1="28"
-                x2="28"
-                y2="28"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stop-color="#784BA0" />
-                <stop offset="1" stop-color="#FF3CAC" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </span>
-        <p class="item-description">Thống kê</p>
-      </div>
+      <a href="../Statistic/index.html">
+        <div class="item-container">
+          <span class="item-icon">
+            <svg
+              width="25"
+              height="24"
+              viewBox="0 0 25 24"
+              fill="#474851"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.5 18.6667H5.83333V9.33333H8.5V18.6667ZM13.8333 18.6667H11.1667V5.33333H13.8333V18.6667ZM19.1667 18.6667H16.5V13.3333H19.1667V18.6667ZM21.8333 21.3333H3.16667V2.66667H21.8333V21.4667M21.8333 0H3.16667C1.7 0 0.5 1.2 0.5 2.66667V21.3333C0.5 22.8 1.7 24 3.16667 24H21.8333C23.3 24 24.5 22.8 24.5 21.3333V2.66667C24.5 1.2 23.3 0 21.8333 0Z"
+              />
+  
+              <defs>
+                <linearGradient
+                  id="paint0_linear_258_515"
+                  x1="0"
+                  y1="28"
+                  x2="28"
+                  y2="28"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#784BA0" />
+                  <stop offset="1" stop-color="#FF3CAC" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </span>
+          <p class="item-description">Thống kê</p>
+        </div>
+      </a>
       <div class="item-container logout-container">
         <span class="item-icon">
           <svg
@@ -445,135 +367,89 @@
         <p class="item-description">Đăng xuất</p>
       </div>
     </div>
-    <!-- Modal -->
+    <!-- Add Modal -->
     <div
       class="modal fade"
-      id="ModalEditUser"
+      id="ModalAddUser"
       tabindex="-1"
-      aria-labelledby="ModalEditUserLable"
+      aria-labelledby="ModalAddUserLable"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content p-3">
           <div class="modal-body">
             <div class="input-group flex-nowrap">
-              <div class="container-fluid">
-                <div class="row gy-4 gx-5">
+              <form
+                class="container-fluid"
+                action="#"
+                method="post"
+                enctype="multipart/form-data"
+              >
+                <div class="row gy-3 gx-5">
                   <div class="col-6">
-                    <span class="form-title"> Mã phim </span>
+                    <span class="form-title"> Mã Combo </span>
                     <input
                       type="text"
                       class="form-control"
-                      aria-label="IDPhim"
+                      aria-label="ItemID"
                       aria-describedby="addon-wrapping"
+                      name="ItemID"
+                      id="ItemID"
                     />
                   </div>
                   <div class="col-6">
-                    <span class="form-title"> Thời lượng </span>
+                    <span class="form-title"> Tên Combo </span>
                     <input
                       type="text"
                       class="form-control"
-                      aria-label="Time"
+                      aria-label="Name"
                       aria-describedby="addon-wrapping"
-                      id="time"
+                      id="Name"
+                      name="Name"
                     />
                   </div>
-
                   <div class="col-6">
-                    <span class="form-title"> Tên phim </span>
+                    <span class="form-title"> Giá </span>
                     <input
                       type="text"
                       class="form-control"
-                      aria-label="ID_Film"
+                      aria-label="Price"
                       aria-describedby="addon-wrapping"
+                      id="Price"
+                      name="Price"
                     />
                   </div>
                   <div class="col-6">
-                    <span class="form-title"> Ngôn ngữ </span>
+                    <span class="form-title"> Ảnh </span>
                     <input
-                      type="text"
+                      type="file"
                       class="form-control"
-                      aria-label="Language"
+                      aria-label="image"
                       aria-describedby="addon-wrapping"
+                      id="image"
+                      multiple
+                      name="Image[]"
                     />
                   </div>
                   <div class="col-6">
-                    <span class="form-title"> Link Poster </span>
-                    <input
-                      type="text"
+                    <span class="form-title"> Trạng thái </span>
+                    <select
                       class="form-control"
-                      aria-label="Poster Link"
+                      aria-label="status"
                       aria-describedby="addon-wrapping"
-                    />
+                      name="status"
+                      id="status"
+                      
+                    >
+                    <option value="1">1</option>
+                    <option value="1">2</option>
+                    </select>
                   </div>
-                  <div class="col-6">
-                    <span class="form-title"> Đạo Diễn </span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      aria-label="Producer_name"
-                      aria-describedby="addon-wrapping"
-                    />
-                  </div>
-                  <div class="col-6">
-                    <span class="form-title"> Diễn viên </span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      aria-label="Actor_Name"
-                      aria-describedby="addon-wrapping"
-                    />
-                  </div>
-                  <div class="col-6">
-                    <span class="form-title"> Rated </span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      aria-label="Rating"
-                      aria-describedby="addon-wrapping"
-                    />
-                  </div>
-                  <div class="col-6">
-                    <span class="form-title"> Thể loại </span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      aria-label="Type_Film"
-                      aria-describedby="addon-wrapping"
-                    />
-                  </div>
-                  <div class="col-6">
-                    <span class="form-title"> Mô tả </span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      aria-label="Description"
-                      aria-describedby="addon-wrapping"
-                    />
-                  </div>
-                  <div class="col-6">
-                    <span class="form-title"> Khởi chiếu </span>
-                    <input
-                      type="date"
-                      class="form-control"
-                      aria-label="datefilm"
-                      aria-describedby="addon-wrapping"
-                    />
-                  </div>
-                  <div class="col-6">
-                    <span class="form-title"> Link Trailer </span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      aria-label="Trailer_Link"
-                      aria-describedby="addon-wrapping"
-                    />
-                  </div>
-
                   <div class="col-6"></div>
                 </div>
-              </div>
+              </form>
             </div>
+            <div class="message"></div>
             <div class="row">
               <div class="col-4"></div>
               <div
@@ -586,11 +462,11 @@
               >
                 <button
                   type="button"
-                  class="btn mt-2 text-white btn-primary"
-                  id="btn_EditUser"
+                  class="btn mt-2 text-white btn-main"
+                  id="btn-add"
                   style="border-radius: 10px"
                 >
-                  Thêm phim
+                  Thêm Combo
                 </button>
               </div>
               <div class="col-4"></div>
@@ -599,87 +475,114 @@
         </div>
       </div>
     </div>
-    <script type="module">
-      import {
-        getHotMovieAPI,
-        getPremierMovie,
-        getUpcomingMovie,
-        getByGenreID,
-        getMovieByID,
-      } from "../../API/MovieAPI.js";
-      let currentData;
-
-      $(document).ready(() => {
-        $(".item-choosing-block").click(function () {
-          $(".item-choosing-block .divider-mini").remove();
-          $(this).append("<div class=divider-mini></div>");
-        });
-
-        $(".hot-film").click(showHotMovie);
-        $(".premiere-film").click(showPremiereMovie);
-        $(".upcoming-film").click(showUpcomingMovie);
-        $(".value-place").change(function (e) {
-          let numPage = $(".text-place").text();
-          if ($(this) > numPage) $(this).val(numPage);
-          showData(currentData);  
-        });
-      });
-
-      function showData(data) {
-        currentData = data;
-        $("#table-content tbody").empty();
-        let rowLimit = $(".select-place").val();
-        let numRow = data.length;
-        let numPage = numRow < rowLimit ? 1 : Math.floor(numRow / rowLimit);
-        let currentPage = $(".value-place").val();
-        let startIndex = rowLimit * (currentPage - 1);
-
-        $(".text-place").text(numPage);
-        $(".heading-result").text(
-          `Hiển thị ${startIndex + 1} - ${
-            startIndex + rowLimit < numRow ? startIndex + rowLimit : numRow
-          } của ${numRow} kết quả tìm kiểm`
-        );
-        for (let i = startIndex; i < startIndex + rowLimit && i < numRow; i++) {
-          let actorList = [];
-          data[i].ListActor.forEach((actor) => {
-            actorList.push(actor.NameActor);
-          });
-
-          let genreList = [];
-          data[i].ListGenre.forEach((genre) => {
-            genreList.push(genre.NameGenre);
-          });
-          let html = `<tr>
-              <td>${data[i].MovieID}</td>
-              <td>${data[i].listImage[0]}</td>
-              <td>${data[i].MovieName}</td>
-              <td>${actorList.join(", ")}</td>
-              <td>${genreList.join(", ")}g</td>
-              <td>${data[i].Premiere}</td>
-              <td>${data[i].Time}</td>
-              <td>${data[i].LanguageID}</td>
-              <td>${data[i].Director}</td>
-              <td style="color: #fbc300; font-weight: 500;">
-                  ${data[i].rating}
-              </td>
-              <td>${data[i].story}</td>
-              <td>${data[i].URLTrailer}</td>
-            </tr>`;
-          $("#table-content tbody").append(html);
-        }
-      }
-
-      function showHotMovie() {
-        getHotMovieAPI("../../..").then((data) => showData(data));
-      }
-
-      function showPremiereMovie() {
-        getPremierMovie("../../..").then((data) => showData(data));
-      }
-      function showUpcomingMovie() {
-        getUpcomingMovie("../../..").then((data) => showData(data));
-      }
-    </script>
+    <!-- Edit Modal -->
+    <div
+      class="modal fade"
+      id="ModalEditUser"
+      tabindex="-1"
+      aria-labelledby="ModalEditUserLable"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content p-3">
+          <div class="modal-body">
+            <div class="input-group flex-nowrap">
+              <form
+                class="container-fluid"
+                action="#"
+                method="post"
+                enctype="multipart/form-data"
+              >
+                <div class="row gy-3 gx-5">
+                  <div class="col-6">
+                    <span class="form-title"> Mã Combo </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="ItemID"
+                      aria-describedby="addon-wrapping"
+                      name="ItemID"
+                      id="ItemID"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Tên Combo </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Name"
+                      aria-describedby="addon-wrapping"
+                      id="Name"
+                      name="Name"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Giá </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      aria-label="Price"
+                      aria-describedby="addon-wrapping"
+                      id="Price"
+                      name="Price"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Ảnh </span>
+                    <input
+                      type="file"
+                      class="form-control"
+                      aria-label="image"
+                      aria-describedby="addon-wrapping"
+                      id="image"
+                      multiple
+                      name="Image[]"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <span class="form-title"> Trạng thái </span>
+                    <select
+                      class="form-control"
+                      aria-label="status"
+                      aria-describedby="addon-wrapping"
+                      name="status"
+                      id="status"
+      
+                    >
+                    <option value="1">1</option>
+                    <option value="1">2</option>
+                    </select>
+                  </div>
+                  <div class="col-6"></div>
+                </div>
+              </form>
+            </div>
+            <div class="message"></div>
+            <div class="row">
+              <div class="col-4"></div>
+              <div
+                class="col-4"
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <button
+                  type="button"
+                  class="btn mt-2 text-white btn-main"
+                  id="btn-add"
+                  style="border-radius: 10px"
+                >
+                  Sửa Combo
+                </button>
+              </div>
+              <div class="col-4"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="script.js"></script>
   </body>
 </html>
