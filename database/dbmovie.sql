@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 22, 2023 lúc 07:32 AM
+-- Thời gian đã tạo: Th4 22, 2023 lúc 07:58 AM
 -- Phiên bản máy phục vụ: 10.4.27-MariaDB
 -- Phiên bản PHP: 8.0.25
 
@@ -29,14 +29,11 @@ USE `dbmovie`;
 -- Cấu trúc bảng cho bảng `account`
 --
 
-CREATE TABLE IF NOT EXISTS `account` (
+CREATE TABLE `account` (
   `id` char(11) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `role_id` char(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`),
-  KEY `role_id` (`role_id`)
+  `role_id` char(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -175,12 +172,10 @@ INSERT INTO `account` (`id`, `email`, `password`, `role_id`) VALUES
 -- Cấu trúc bảng cho bảng `actorof_movie`
 --
 
-CREATE TABLE IF NOT EXISTS `actorof_movie` (
+CREATE TABLE `actorof_movie` (
   `ActorID` char(11) NOT NULL,
   `NameActor` varchar(50) NOT NULL,
-  `MovieID` char(11) NOT NULL,
-  PRIMARY KEY (`ActorID`),
-  KEY `MovieID` (`MovieID`)
+  `MovieID` char(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -311,16 +306,14 @@ INSERT INTO `actorof_movie` (`ActorID`, `NameActor`, `MovieID`) VALUES
 -- Cấu trúc bảng cho bảng `booking`
 --
 
-CREATE TABLE IF NOT EXISTS `booking` (
+CREATE TABLE `booking` (
   `BookingID` char(11) NOT NULL,
   `NumberOfTickets` int(11) NOT NULL,
   `TotalPrice` float NOT NULL,
   `BookingTime` datetime NOT NULL,
   `Voucher` char(50) DEFAULT NULL,
   `customer_id` char(11) NOT NULL,
-  `status` int(4) NOT NULL,
-  PRIMARY KEY (`BookingID`),
-  KEY `customer_id` (`customer_id`)
+  `status` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -1334,16 +1327,13 @@ INSERT INTO `booking` (`BookingID`, `NumberOfTickets`, `TotalPrice`, `BookingTim
 -- Cấu trúc bảng cho bảng `customer`
 --
 
-CREATE TABLE IF NOT EXISTS `customer` (
+CREATE TABLE `customer` (
   `CustomerID` char(11) NOT NULL,
   `FullName` varchar(50) NOT NULL,
   `Address` varchar(50) NOT NULL,
   `Email` varchar(50) NOT NULL,
   `Phone` char(10) NOT NULL,
-  `account_id` char(11) NOT NULL,
-  PRIMARY KEY (`CustomerID`),
-  UNIQUE KEY `Email` (`Email`),
-  UNIQUE KEY `account_id` (`account_id`)
+  `account_id` char(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -1479,11 +1469,9 @@ INSERT INTO `customer` (`CustomerID`, `FullName`, `Address`, `Email`, `Phone`, `
 -- Cấu trúc bảng cho bảng `detailmoviegenre`
 --
 
-CREATE TABLE IF NOT EXISTS `detailmoviegenre` (
+CREATE TABLE `detailmoviegenre` (
   `MovieID` char(11) NOT NULL,
-  `GenreID` char(11) NOT NULL,
-  PRIMARY KEY (`MovieID`,`GenreID`),
-  KEY `GenreID` (`GenreID`)
+  `GenreID` char(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -1532,14 +1520,9 @@ INSERT INTO `detailmoviegenre` (`MovieID`, `GenreID`) VALUES
 -- Cấu trúc bảng cho bảng `detailticket`
 --
 
-CREATE TABLE IF NOT EXISTS `detailticket` (
+CREATE TABLE `detailticket` (
   `TicketID` char(11) NOT NULL,
-  `BookingID` char(11) NOT NULL,
-  PRIMARY KEY (`TicketID`,`BookingID`),
-  UNIQUE KEY `TicketID_3` (`TicketID`,`BookingID`),
-  KEY `BookingID` (`BookingID`),
-  KEY `TicketID` (`TicketID`,`BookingID`),
-  KEY `TicketID_2` (`TicketID`,`BookingID`)
+  `BookingID` char(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3019,14 +3002,12 @@ INSERT INTO `detailticket` (`TicketID`, `BookingID`) VALUES
 -- Cấu trúc bảng cho bảng `errorreport`
 --
 
-CREATE TABLE IF NOT EXISTS `errorreport` (
+CREATE TABLE `errorreport` (
   `ReportID` char(11) NOT NULL,
   `ErrorMessage` varchar(50) NOT NULL,
   `ReportTime` datetime NOT NULL,
   `Status` varchar(50) NOT NULL,
-  `CustomerID` char(11) NOT NULL,
-  PRIMARY KEY (`ReportID`),
-  KEY `CustomerID` (`CustomerID`)
+  `CustomerID` char(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -3035,10 +3016,9 @@ CREATE TABLE IF NOT EXISTS `errorreport` (
 -- Cấu trúc bảng cho bảng `format`
 --
 
-CREATE TABLE IF NOT EXISTS `format` (
+CREATE TABLE `format` (
   `FormatID` char(11) NOT NULL,
-  `NameFormat` varchar(50) NOT NULL,
-  PRIMARY KEY (`FormatID`)
+  `NameFormat` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3055,10 +3035,9 @@ INSERT INTO `format` (`FormatID`, `NameFormat`) VALUES
 -- Cấu trúc bảng cho bảng `language`
 --
 
-CREATE TABLE IF NOT EXISTS `language` (
+CREATE TABLE `language` (
   `LanguageID` char(11) NOT NULL,
-  `LanguageName` varchar(50) NOT NULL,
-  PRIMARY KEY (`LanguageID`)
+  `LanguageName` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3083,16 +3062,12 @@ INSERT INTO `language` (`LanguageID`, `LanguageName`) VALUES
 -- Cấu trúc bảng cho bảng `manager`
 --
 
-CREATE TABLE IF NOT EXISTS `manager` (
+CREATE TABLE `manager` (
   `ManagerID` char(11) NOT NULL,
   `FullName` varchar(50) NOT NULL,
   `Email` varchar(50) NOT NULL,
   `Phone` char(10) NOT NULL,
-  `account_id` char(11) NOT NULL,
-  PRIMARY KEY (`ManagerID`),
-  UNIQUE KEY `account_id` (`account_id`),
-  UNIQUE KEY `Email_2` (`Email`),
-  KEY `Email` (`Email`)
+  `account_id` char(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3108,13 +3083,12 @@ INSERT INTO `manager` (`ManagerID`, `FullName`, `Email`, `Phone`, `account_id`) 
 -- Cấu trúc bảng cho bảng `menu`
 --
 
-CREATE TABLE IF NOT EXISTS `menu` (
+CREATE TABLE `menu` (
   `ItemID` char(11) NOT NULL,
   `Name` varchar(50) NOT NULL,
   `Price` float NOT NULL,
   `ImageURL` text NOT NULL,
-  `status` int(11) NOT NULL,
-  PRIMARY KEY (`ItemID`)
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3140,13 +3114,11 @@ INSERT INTO `menu` (`ItemID`, `Name`, `Price`, `ImageURL`, `status`) VALUES
 -- Cấu trúc bảng cho bảng `menudetail`
 --
 
-CREATE TABLE IF NOT EXISTS `menudetail` (
+CREATE TABLE `menudetail` (
   `Number` int(11) NOT NULL,
   `Total` float NOT NULL,
   `ItemID` char(11) NOT NULL,
-  `BookingID` char(11) NOT NULL,
-  PRIMARY KEY (`ItemID`,`BookingID`),
-  KEY `BookingID` (`BookingID`)
+  `BookingID` char(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -3155,7 +3127,7 @@ CREATE TABLE IF NOT EXISTS `menudetail` (
 -- Cấu trúc bảng cho bảng `movie`
 --
 
-CREATE TABLE IF NOT EXISTS `movie` (
+CREATE TABLE `movie` (
   `MovieID` char(11) NOT NULL,
   `MovieName` varchar(50) NOT NULL,
   `Director` varchar(50) NOT NULL,
@@ -3166,10 +3138,7 @@ CREATE TABLE IF NOT EXISTS `movie` (
   `StudioID` char(11) NOT NULL,
   `LanguageID` char(11) NOT NULL,
   `story` text NOT NULL,
-  `age` text NOT NULL,
-  PRIMARY KEY (`MovieID`),
-  KEY `StudioID` (`StudioID`),
-  KEY `LanguageID` (`LanguageID`)
+  `age` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3177,40 +3146,40 @@ CREATE TABLE IF NOT EXISTS `movie` (
 --
 
 INSERT INTO `movie` (`MovieID`, `MovieName`, `Director`, `Year`, `Premiere`, `URLTrailer`, `Time`, `StudioID`, `LanguageID`, `story`, `age`) VALUES
-('M1', 'Khắc tinh của quỷ', 'Julius Avery', 2020, '0000-00-00', 'https://youtu.be/VHzgvX25HAY', 104, 'ST1', 'L3', 'Lấy cảm hứng từ những hồ sơ có thật của Cha Gabriele Amorth, Trưởng Trừ Tà của Vatican (Russell Crowe, đoạt giải Oscar), bộ phim The Popes Exorcist theo chân Amorth trong cuộc điều tra về vụ quỷ ám kinh hoàng của một cậu bé và dần khám phá ra những bí mật hàng thế kỷ mà Vatican đã cố gắng giấu kín.', 'C13'),
-('M10', 'Tình chị duyên em', 'Wan Wanwaew Hongvivatana', 2022, '0000-00-00', 'https://youtu.be/KJyh89GttL0', 121, 'ST2', 'L3', 'Chuyện phim lấy bối cảnh năm 1999, khi thế giới đang chìm trong nỗi sợ hãi Y2K - sự cố khiến hệ thống máy tính sụp đổ và dự đoán có thể làm trái đất diệt vong khi bước sang năm 2000. Ngay lúc này, hai chị em sinh đôi giống hệt nhau là “You” và “Me” cũng đang lo lắng cho tương lai của họ về việc “làm sao sống mà có thể thiếu vắng nhau”. Cặp song sinh thân thiết với nhau đến mức có thể chia sẻ mọi khía cạnh cuộc sống cho nhau, kể cả nụ hôn đầu. Tình chị em tưởng chừng không thể rạn nứt cho đến khi chàng trai tên Mark chen vào giữa họ. Nếu ngay từ đầu, “lợi ích” của việc có ngoại hình giống hệt nhau được họ áp dụng để gian lận trong nhà hàng, rạp chiếu phim và trường học, thì sự xuất hiện của Mark khiến mọi thứ trở nên rối tung. Khi cặp song sinh phải đối mặt với “mối tình đầu không thể chia sẻ” như những thứ khác, cuộc xung đột nội tâm này sẽ dẫn họ bước sang giai đoạn mới của cuộc đời như thế nào?', 'C16'),
-('M11', 'Assassin club', 'Camille Delamarre', 2021, '0000-00-00', 'https://youtu.be/neDUFSt8N0Q', 104, 'ST14', 'L4', 'Morgan Gaines - một sát thủ chuyên nghiệp có nhiệm vụ phải giết bảy người, sau đó Morgan phát hiện ra bảy \"mục tiêu\" cũng là bảy sát thủ nặng ký. Morgan bắt đầu một cuộc săn lùng Quốc tế để loại bỏ từng dấu vết. Trong khi đó, những kẻ ám sát nhắm vào Sophie - tình yêu của cuộc đời Morgan. Sophie trở thành con tốt trong trò chơi sống còn của bảy tên sát thủ. Cách duy nhất để cứu mạng cô ấy là buông bỏ tất cả. Vậy Morgan chọn tình yêu hay sự nghiệp?', 'C16'),
-('M12', 'Siêu lừa gặp siêu lầy', 'Võ Thanh Hòa', 2020, '0000-00-00', 'https://youtu.be/NIVa1CCdFv4', 112, 'ST2', 'L3', 'Thuộc phong cách hành động – hài hước với các “cú lừa” thông minh và lầy lội đến từ bộ đôi Tú (Anh Tú) và Khoa (Mạc Văn Khoa), Siêu Lừa Gặp Siêu Lầy của đạo diễn Võ Thanh Hòa theo chân của Khoa – tên lừa đảo tầm cỡ “quốc nội” đến đảo ngọc Phú Quốc với mong muốn đổi đời. Tại đây, Khoa gặp Tú – tay lừa đảo “hàng real” và cùng Tú thực hiện các phi vụ từ nhỏ đến lớn. Cứ ngỡ sự ranh mãnh của Tú và sự may mắn trời cho của Khoa sẽ giúp họ trở thành bộ đôi bất khả chiến bại, nào ngờ lại đối mặt với nhiều tình huống dở khóc – dở cười. Nhất là khi băng nhóm của bộ đôi nhanh chóng mở rộng vì sự góp mặt của ông Năm (Nhất Trung) và bé Mã Lai (Ngọc Phước).', 'C16'),
-('M13', 'MY BEAUTIFUL MAN', 'Sakai Mai', 2020, '0000-00-00', 'https://youtu.be/-_bjpJ7noQE', 132, 'ST2', 'L3', 'Chàng Trai Xinh Đẹp Của Tôi xoay quanh chuyện tình thanh xuân tươi đẹp giữa 2 cậu bạn cùng lớp Hira và Kiyoi. Với tính cách khép kín, Hira hay trở thành mục tiêu bắt nạt, sai bảo của bạn bè cùng lớp. Trong khi đó, Kiyoi là mỹ nam hàng đầu với vẻ đẹp “như vị thần”, song cũng là người thường xuyên sai vặt Hira. Nhận ra mình thích Kiyoi từ cái nhìn đầu tiên, Hira làm mọi thứ vì cậu và mối quan hệ của cả hai dần thắt chặt sau khi Hira thấy Kiyoi tập nhảy để thi làm idol. Hira hứa giữ bí mật này cho Kiyoi và dần dà, những bức ảnh trong máy của Hira đều toàn là Kiyoi - người mà cậu tôn thờ và là “chàng trai xinh đẹp nhất”. Trong khi đó, Kiyoi cũng có tình cảm với Hira nhưng ngoài mặt vẫn lạnh lùng, miệng lại “hỗn”. Liệu cả hai sẽ tìm cách gì để bày tỏ lòng mình cho đối phương, và cuộc sống tình cảm của 2 con người trái dấu này có gì thú vị?', 'C16'),
-('M14', 'THE GHOST WITHIN', 'Lawrence Fowler', 2022, '0000-00-00', 'https://youtu.be/3MKRzG9k76Q', 102, 'ST17', 'L4', 'Đã 20 năm nhưng bí ẩn về cái ch.ế.t của người em gái vẫn chưa có lời giải đáp. Sự thật về bi kịch gia đình đã khiến thời khắc kinh hoàng lại xuất hiện đúng lúc đồng hồ điểm 09:09 mỗi đêm. Duy nhất một cơ hội để biết toàn bộ sự thật hoặc chỉ có thể để hận thù chôn vùi nó mãi mãi.', 'C16'),
-('M15', 'THE FIRST SLAM DUNK', 'Yasuyuki Ebara, Takehiko Inoue', 2021, '0000-00-00', 'https://youtu.be/kDuiynKxjQU', 124, 'ST8', 'L3', 'The First Slam Dunk - phiên bản điện ảnh đầu tiên của loạt phim/truyện đình đám này sẽ do đích thân tác giả Inoue Takehiko chỉ đạo. Tuy nhiên lần này, câu chuyện sẽ được kể từ góc nhìn của chàng hậu vệ nhỏ con Miyagi Ryota, thay vì anh chàng tóc đỏ xốc nổi Hanamichi. Lấy bối cảnh trận đấu quan trọng giữa Shohoku và Sannoh - đội bóng top 10 toàn quốc, phim đan xen câu chuyện quá khứ của từng thành viên, đặc biệt là Ryota, cùng những diễn biến của trận đấu. Từ đó, tác giả Inoue Takehiko thành công khắc họa việc bóng rổ có ảnh hưởng to lớn như thế nào đến sự trưởng thành của mỗi thành viên Shohoku.', 'C16'),
-('M16', 'PHIM ANH EM SUPER MARIO', 'Michael Jelenic, Aaron Horvath', 2020, '0000-00-00', 'https://youtu.be/QcinmCfoh8E', 93, 'ST4', 'L4', 'The Super Mario Bros. Movie xoay quanh cuộc phiêu lưu ở thế giới Vương quốc Nấm của anh em thợ sửa ống nước Mario và Luigi. Sau khi tình cờ bước tới vùng đất lạ từ một ống nước, Luigi đã bị chia tách với Mario và rơi vào tay quái vật rùa xấu xa Bowser, hắn đang âm mưu độc chiếm thế giới. Trong lúc cố gắng tìm kiếm người anh em của mình, Mario đã chạm mặt anh bạn nấm Toad và công chúa Peach. Từ đây họ sát cánh bên nhau trên hành trình ngăn chặn thế lực hắc ám.', 'C16'),
-('M17', 'TRI ÂM - NGƯỜI GIỮ THỜI GIAN', 'Mỹ Tâm, Tạ Nguyên Hiệp', 2022, '0000-00-00', 'https://youtu.be/yiI_McOCaw4', 105, 'ST7', 'L3', 'Khán giả sẽ một lần nữa sống lại những cảm xúc thăng hoa cũng như cảm nhận và đồng hành cùng Mỹ Tâm trong hành trình tạo nên một liveshow âm nhạc lịch sử của Việt Nam trong 2 năm qua. Đây chắc chắn sẽ là những trải nghiệm khó quên trong hành trình tìm lại những ký ức tươi đẹp của thanh xuân với Mỹ Tâm - Người giữ thời gian - cô gái đã mang tất cả những ký ức thanh xuân của những người yêu mến mình trở lại bằng âm nhạc.', 'C16'),
-('M18', 'DUNGEONS & DRAGONS: HONOR AMONG THIEVES', 'Jonathan Goldstein, John Francis Daley', 2022, '0000-00-00', 'https://youtu.be/75uZYaO_F0M', 124, 'ST19', 'L4', 'Theo chân một tên trộm quyến rũ và một nhóm những kẻ bịp bợm nghiệp dư thực hiện vụ trộm sử thi nhằm lấy lại một di vật đã mất, nhưng mọi thứ trở nên nguy hiểm khó lường hơn bao giờ hết khi họ đã chạm trán nhầm người. Ngục Tối Và Rồng: Danh Dự Của Kẻ Trộm mang thế giới huyền ảo của trò chơi nhập vai huyền thoại lên màn ảnh rộng bằng một cuộc phiêu lưu tràn ngập các màn hành động đã mắt cùng màu sắc hài hước, vui nhộn.', 'C16'),
-('M19', 'MIGRATION', 'Benjamin Renner', 2022, '0000-00-00', 'https://youtu.be/SRdCWLCPOrc', 104, 'ST5', 'L4', 'Bộ phim đã hé lộ về chuyến phiêu lưu đầy thú vị và nhiều sắc màu của đàn vịt trời. Đến mùa di cư, những đàn vịt nối đuôi nhau bay lượn vô cùng nhộn nhịp trên bầu trời. Một gia đình vịt nọ được dẫn dắt bởi vịt bố, cũng đã sẵn sàng “cất cánh” cho chuyến bay đến vùng đất mới trong tâm thế đầy hào hứng và vui vẻ. Thành viên phi hành đoàn cũng có độ tuổi rất đa dạng, từ “trẻ nhỏ”, “thiếu niên” cho đến vịt “trung niên”. Đang tự do bay lượn trong làn mây trắng bồng bềnh, nhà vịt đột ngột gặp phải cơn mưa lớn. Tiu ngỉu ôm nhau trú mưa dưới miếng gỗ nho nhỏ, cả nhà bỗng đối mặt với một sinh vật toát ra cảm giác đáng sợ nguy hiểm khó lường.', 'C16'),
-('M2', 'Marry my dead body', 'Cheng Wei Hao', 2022, '0000-00-00', 'https://youtu.be/zxk_YEa2Ky0', 130, 'ST2', 'L3', 'Ming-Han là một cảnh sát nhiệt huyết. Một ngày nọ, trong quá trình truy bắt tội phạm cùng người đồng nghiệp xinh đẹp Zi-Qing, Ming-Han vô tình nhặt được một phong bao màu đỏ, và một nhóm người bất ngờ nhảy ra gọi anh là \"con rể\". Họ yêu cầu anh ta kết hôn với đứa con đã chết của họ. Ming-Han không thể chấp nhận quyết định này. Tuy nhiên, anh ấy sau đó anh ta gặp phải vô số sự cố xui xẻo. Điều đáng sợ hơn nữa là anh ta bắt đầu nhìn thấy người chồng ma Mao-Mao của mình. Vì vậy, Ming-Han đã tìm đến thầy để tìm cách. Để thoát khỏi Mao-Mao, Ming-Han không còn cách nào khác ngoài việc giúp anh ta thực hiện mọi mong muốn của mình. Nếu không, Mao-Mao sẽ theo anh ta mãi mãi.Đồng thời, Mao-Mao cũng đóng vai trò là đối tác của Ming-Han để giúp anh ta điều tra vụ buôn lậu ma túy. Một cuộc hành trình giả tưởng đầy tiếng cười và nước mắt giữa một người đàn ông thẳng thắn và một con ma đồng tính đã bắt đầu.', 'C13'),
-('M20', 'INDIANA JONES AND THE DIAL OF DESTINY', 'James Mangold', 2022, '0000-00-00', 'https://youtu.be/GAM3Pj__H-U', 104, 'ST2', 'L3', 'Trong chuyến phiêu lưu cuối cùng này, Indiana Jones cùng con gái nuôi Helena sẽ phải đối đầu với những tên phát xít hiểm ác. Indiana Jones 5 cũng sẽ là phần phim cuối cùng mà Harrison Ford hóa thân thành nhà khảo cổ học Indiana Jones - vai diễn làm nên tên tuổi và gắn liền với ông trong suốt hơn 40 năm.', 'C16'),
-('M21', 'BARBIE', 'Greta Gerwig', 2022, '0000-00-00', 'https://youtu.be/sa8LpBKyPUc', 104, 'ST12', 'L4', 'Nàng Barbie là phim điện ảnh thuộc thể loại hài lãng mạn. Bộ phim do Greta Gerwig làm đạo diễn kiêm viết kịch bản với Noah Baumbach. Đây là tác phẩm điện ảnh đầu tiên về búp bê Barbie do người thật đóng, với sự kết hợp bởi nữ diên viên Margot Robbie và nam thần Ryan Gosling hóa thân thành 2 nhân vật chính Barbie và Ken.', 'C18'),
-('M22', 'BLUE BEETLE', 'Angel Manuel Soto', 2020, '0000-00-00', 'https://youtu.be/kY-4x45tC0A', 104, 'ST22', 'L3', 'Xoay quanh thế hệ thứ 3 của siêu anh hùng này - anh chàng vừa tốt nghiệp Jamie Reyes. Anh trở về nhà với tràn trề niềm tin và hy vọng về tương lai, để rồi nhận ra quê nhà đã thay đổi rất nhiều so với trước đây. Khi tìm kiếm mục đích sống trên thế giới này, Jamie đối mặt với bước ngoặt cuộc đời khi anh nhận ra mình sở hữu một di sản cổ đại của công nghệ sinh học ngoài hành tinh: Scarab. Khi Scarab chọn Jamie trở thành vật chủ, anh được ban tặng một bộ áo giáp với siêu sức mạnh đáng kinh ngạc không ai có thể lường trước. Số phận của Jamie hoàn toàn thay đổi khi giờ đây, anh đã là siêu anh hùng Blue Beetle.', 'C18'),
-('M23', 'TROLL 3', 'Tim Heitz, Walt Dohrn', 2021, '0000-00-00', 'https://youtu.be/dvGFh-XdDgQ', 104, 'ST20', 'L3', 'John Dory cùng với bốn người anh em khác của Branch đã từng là một ban nhạc nam nổi tiếng, kể cả Poppy cũng đã vô cùng yêu mến - BroZone. BroZone tan rã khi Branch vẫn còn là một đứa bé, và gia đình cũng cứ như vậy mà tan theo. Branch không hề gặp lại họ kể từ đó, và những người này cũng trở thành “đã từng” là anh trai của Branch. Nhưng khi John đề nghị Branch về việc tìm lại các anh em để có thể tiếp tục cùng nhau làm một ban nhạc như xưa, cùng với sự hào hứng của Poppy, anh đã bất đắ dĩ đồng ý. Ba chú Troll, cùng với sự trợ giúp của Tí Kim Cương, cùng nhau lên đường thực hiện chuyến phiêu lưu âm nhạc đầy cảm xúc, tràn trề hi vọng về một cuộc sum họp gia đình tuyệt với nhất.', 'C18'),
-('M24', 'TRANSFORMERS: RISE OF THE BEASTS', 'Steven Caple Jr.', 2020, '0000-00-00', 'https://youtu.be/VV_Mjc8ttrg', 104, 'ST19', 'L4', 'Transfromers: Rise Of The Beasts lấy bối cảnh vào năm 1994, khoảng thời gian tiếp sau khi Bumblebee xuất hiện. Như tựa đề đã thể hiện, phần phim này dựa theo bộ truyện Beast Wars cực kỳ ăn khách vào thập niên 1990. Đây cũng là lần đầu tiên, một nhóm robot mới xuất hiện, có khả năng biến mình thành động vật thay vì ôtô như trước đó.', 'C18'),
-('M25', 'THE FLASH', 'James Gunn', 2020, '0000-00-00', 'https://youtu.be/fEKGQ91isng', 104, 'ST12', 'L4', 'Câu chuyện của Flash bắt đầu khi Barry Allen (Ezra Miller thủ vai) sử dụng siêu năng lực của mình để du hành thời gian nhằm thay đổi những sự kiện trong quá khứ. Nhưng khi nỗ lực cứu lấy gia đình mình vô tình thay đổi tương lai, Barry bị kẹt lại trong một thực tại, nơi tướng Zod tái xuất và đe dọa hủy diệt tất cả, nhưng không có bất cứ siêu anh hùng nào đứng ra giải cứu… Trừ khi Barry có thể thuyết phục một Batman rất khác và giải cứu một cư dân Kryptonian đang bị cầm tù… dẫu có thể đó không phải người mà anh thực sự tìm kiếm. Để giải cứu thế giới hiện tại cũng như trở lại tương lai mình từng biết, niềm hy vọng duy nhất của Barry là phải chạy đua vì cuộc đời mình. Vậy nhưng, sự hy sinh tuyệt đối đó có là đủ để đưa thế giới về lại như ban đầu?', 'C18'),
-('M26', 'ELEMENTALl', 'Peter Sohn', 2022, '0000-00-00', 'https://youtu.be/j2DD_MlAnoA', 104, 'ST24', 'L4', 'Bộ phim sẽ là hành trình xoay quanh mối quan hệ giữa cô nàng guyên tố lửa, Ember (do Lewis lồng tiếng) và chàng trai nguyên tố nước, Wade (do Athie lồng tiếng), những cá thể không thể chạm được đến nhau; nhưng cùng nhau khám phá xem họ có bao nhiêu điểm chung giống nhau.', 'C18'),
-('M27', 'NO HARD FEELINGS', 'Genedy Tartakovsky', 2021, '0000-00-00', 'https://youtu.be/wc4IvKlagJg', 104, 'ST25', 'L4', 'Trong phim, Jennifer Lawrence thủ vai một cô gái lẳng lơ, sống này đây mai đó với đủ loại công việc. Cho tới một ngày, một cặp vợ chồng trung niên tìm tới và thuê cô quyến rũ cậu con trai 19 tuổi của mình. Thế là hành trình của bà cô U40 đi cò cưa trai trẻ bắt đầu, đầy khó khăn với biết bao tình huống khó đỡ, éo le.', 'C18'),
-('M28', 'LẬT MẶT 6: TẤM VÉ ĐỊNH MỆNH', 'Lý Hải', 2020, '0000-00-00', 'https://youtu.be/2EnP2tVC00Q', 132, 'ST2', 'L3', 'Một nhóm bạn thân lâu năm bất ngờ nhận được cơ hội đổi đời  khi biết tấm vé của cả nhóm trúng giải độc đắc 136.8 tỷ. Đột nhiên An, người nắm giữ tấm vé bất ngờ gặp tai nạn không qua khỏi. Đứng trước món tiền trúng số đáng mơ ước lẽ ra sẽ dễ dàng có được trong tầm tay, nhóm bạn bước chân vào hành trình đi tìm tờ vé số. Nhưng đó chỉ là khởi đầu của vô số những sự kiện không ngờ đến. Liệu hành trình tìm kiếm và chia chác món tiền trong mơ béo bở này sẽ thực sự dẫn đưa cả nhóm đến đâu?', 'C18'),
-('M29', 'CON NHÓT MÓT CHỒNG', 'Vũ Ngọc Đãng', 2022, '0000-00-00', 'https://youtu.be/e7KHOQ-alqY', 104, 'ST30', 'L3', 'Lấy cảm hứng từ web drama Chuyện Xóm Tui, phiên bản điện ảnh sẽ mang một màu sắc hoàn toàn khác: hài hước hơn, gần gũi và nhiều cảm xúc hơn. Bộ phim là câu chuyện của Nhót - người phụ nữ “chưa kịp già” đã sắp bị mãn kinh, vội vàng đi tìm chồng. Nhưng sâu thẳm trong cô là khao khát muốn có một đứa con, và luôn muốn hàn gắn với người cha suốt ngày say xỉn của mình.', 'C18'),
-('M3', 'Suzme no tojimari', 'Shinkai Makoto', 2022, '0000-00-00', 'https://youtu.be/xQ4_c8JfuzI', 122, 'ST8', 'L3', 'Khóa Chặt Cửa Nào Suzume kể câu chuyện khi Suzume vô tình gặp một chàng trai trẻ đến thị trấn nơi cô sinh sống với mục đích tìm kiếm \"một cánh cửa\". Để bảo vệ Nhật Bản khỏi thảm họa, những cánh cửa rải rác khắp nơi phải được đóng lại, và bất ngờ thay Suzume cũng có khả năng đóng cửa đặc biệt này. Từ đó cả hai cùng nhau thực hiện sự mệnh \"khóa chặt cửa\"!', 'C13'),
-('M30', 'CATS IN THE MUSEUM', 'Vasiliy Rovenskiy', 2022, '0000-00-00', 'https://youtu.be/UdaZwNPQ9fk', 104, 'ST33', 'L4', 'Chuyện phim xoay quanh chú mèo Vincent bắt tay cùng chú chuột Maurice để cố gắng thoát khỏi lũ lụt trong một chiếc đàn piano cũ. Một nhóm thủy thủ đã vô tình lấy được cây đàn và gửi nó đến viện bảo tàng. Tại đây, Vincent gặp một đội mèo ưu tú, làm nhiệm vụ bảo vệ những kiệt tác khỏi các loài gặm nhấm và sâu bọ khác trong nhiều năm qua. Mặc dù khao khát tìm được một mái ấm, Vincent buộc phải giấu tất cả về sự tồn tại của Maurice.  Mọi chuyện trở nên phức tạp khi một trong những bức tranh vĩ đại nhất thế giới được đưa đến viện bảo tàng. Một thế lực bí ẩn đang cố gắng đánh cắp bức tranh, buộc Vincent, Maurice và hội mèo tinh hoa phải cùng nhau làm tất cả để bảo vệ kiệt tác này… Liệu Vincent và đồng đội của mình có đủ can đảm và trí thông minh để cứu lấy những kiệt tác của Da Vinci và bảo vệ danh tiếng cho bảo tàng không?', 'C18'),
-('M31', 'GUARDIANS OF THE GALAXY VOL.3', 'James Gunn', 2022, '0000-00-00', 'https://youtu.be/cfbKqpbdrYg', 104, 'ST6', 'L4', 'Trong phần phim thứ 3 về Vệ Binh Dải Ngân Hà, biệt đội mà chúng ta từng biết sẽ có một vài sự thay đổi. Peter Quill vẫn đang chìm đắm trong nỗi đau mất đi Gamora nhưng vẫn phải làm tròn trách nhiệm tập hợp cả đội để bảo vệ toàn vũ trụ. Họ phải đối mặt với một nhiệm vụ cam go và nếu như  thất bại, đội Vệ Binh có thể phải kết thúc sứ mệnh của họ.', 'C18'),
-('M32', 'KHẾ ƯỚC', 'Guy Ritchie', 2022, '0000-00-00', 'https://youtu.be/JwjjIoTiv5k', 104, 'ST34', 'L3', 'Bối cảnh phim Khế Ước diễn ra tại chiến trường Afghanistan. Trong nhiệm vụ cuối cùng, Trung sĩ John Kinley (Jake Gyllenhaal thủ vai) cùng đội với phiên dịch viên bản địa Ahmed (Dal Salim thủ vai). Khi đơn vị của họ bị phục kích, John và Ahmed là 2 người sống sót duy nhất. Bị kẻ địch truy đuổi, Ahmed liều mạng đưa John đang bị thương băng qua nhiều dặm đường địa hình khắc nghiệt đến nơi an toàn. Trở về Mỹ, John biết rằng Ahmed và gia đình không được cấp giấy thông hành tới Mỹ như đã hứa. Quyết tâm bảo vệ bạn mình và đền ơn cứu mạng, John trở lại chiến trường để giúp Ahmed và gia đình trước khi lực lượng phiến quân phát hiện ra họ.', 'C18'),
-('M33', 'BEARMAN', 'Park Sung Kwang', 2022, '0000-00-00', 'https://youtu.be/MagrY1rpOT4', 104, 'ST35', 'L4', 'Đầu Gấu Đụng Đầu Đất dựa trên câu chuyện thần thoại nổi tiếng tại Hàn Quốc về hai chú gấu sinh đôi hoá thành người sau khi ăn tỏi và ngải cứu trong 100 ngày. Chú gấu ăn tỏi trở thành Na Woong-nam, được một cặp vợ chồng nhà khoa học mang về nuôi nấng, tuy chỉ mới 25 tuổi nhưng lại sở hữu “giao diện” của một ông chú 52 với cái “đầu đất” ngây thơ, hiền lành. Trong khi đó, chú gấu ăn ngải cứu trở thành “đầu gấu” Lee Jeong-hak, được một tên trùm tổ chức tội phạm mang về nuôi và bị lợi dụng như một món “vũ khí” phòng vệ.  Trong một tình huống bất đắc dĩ, Na Woong-nam đã trực tiếp đối đầu cùng anh em song sinh Lee Jeong-hak để ngăn chặn một vụ khủng bố virus có tầm lây lan mạnh. Sức mạnh của loài gấu bộc phát sẽ đẩy cuộc đụng độ của cặp gấu song sinh hoá người đi đến hồi kết nào?', 'C18'),
-('M34', 'SOUND OF SILENCE', 'Alessandro Antonaci', 2022, '0000-00-00', 'https://youtu.be/239gO3anEwE', 104, 'ST2', 'L3', 'Sau cái chết của cha, Emma (Penelope Sangiorgi) vội vã bay từ New York về quê nhà ở Ý để lo hậu sự. Trong thời gian diễn ra tang lễ, Emma ở một mình trong căn nhà mà cha mẹ để lại. Lúc này, cô bị buộc phải đối mặt với một thực thể tà ác có khả năng kết nối thông qua một chiếc radio bị nguyền rủa. Để sống sót và bảo vệ những người mình yêu thương, Emma phải tìm ra bí mật đen tối ẩn sau chiếc radio ma quỷ kia…', 'C13'),
-('M4', 'Pulau', 'Eu Ho', 2022, '0000-00-00', 'https://youtu.be/jSZUpx_3yL4', 112, 'ST2', 'L4', 'Nhóm du khách trẻ vô tình phá bỏ phong ấn của con quái vật khát máu khi đến tham quan một hòn đảo cấm không dân địa phương nào dám đặt chân đến. Liệu họ có thể bình an thoát khỏi hay đó sẽ là nơi chôn vùi tất cả?', 'C13'),
-('M5', 'Biệt đội bất ổn', 'Tạ Nguyên Hiệp', 2022, '0000-00-00', 'https://youtu.be/XHvNz4g88pE', 104, 'ST10', 'L3', 'Xoay quanh bộ đôi Khuê (Hoàng Oanh) và Phong (Hứa Vĩ Văn). Sau lần chạm trán tình cờ, bộ đôi lôi kéo Bảy Cục (Võ Tấn Phát), Bảy Súc (Nguyên Thảo), Quạu (Ngọc Phước), Quọ (Ngọc Hoa) tham gia vào phi vụ đặc biệt: Đánh tráo chiếc vòng đính hôn bằng kim cương quý giá và lật tẩy bộ mặt thật của Tuấn - chồng cũ của Quyên trong đám cưới giữa hắn và Tư Xoàn - nữ đại gia miền Tây sở hữu khối tài sản triệu đô.', 'C13'),
-('M6', 'Soulmate', 'Min Young Keun', 2021, '0000-00-00', 'https://youtu.be/K46K_1yTwUg', 124, 'ST9', 'L3', 'Soulmate là câu chuyện về Mi So (Kim Da Mi thủ vai) và Ha Eun (Jeon So Nee thủ vai) trong một mối quan hệ chồng chéo chất chứa những hạnh phúc, nỗi buồn, rung động và cả biệt ly. Từ giây phút đầu tiên gặp nhau dưới mái trường tiểu học, giữa hai cô gái đã hình thành một sợi dây liên kết đặc biệt. Và khi Ham Jin Woo (Byun Woo Seok thủ vai) bước vào giữa cả hai, đó cũng là lúc những vết nứt trong mối quan hệ của Mi So và Ha Eun xuất hiện.', 'C13'),
-('M7', 'SHAZAM! FURY OF THE GODS', 'David F. Sandberg', 2020, '0000-00-00', 'https://youtu.be/KyRCmJE65ms', 130, 'ST12', 'L4', 'Trong lần trở lại này, cậu chàng Shazam vẫn trăn trở cho rằng mình “không xứng đáng với năng lực này”. Thế giới có The Flash nhanh như chớp với bộ suit đỏ đặc trưng, Aquaman to cao lực lưỡng và cả Batman siêu ngầu. Trong khi đó, Shazam vẫn chỉ là Shazam chẳng có năng lực gì khác biệt… hoặc là Billy Batson, một cậu nhóc trung học trong thân hình một siêu anh hùng cao to già đời, không thể kiểm soát sức mạnh của mình. Nếu như các siêu anh hùng khác khiến khán giả không khỏi trầm trồ vì những năng lực siêu phàm có thể cứu thế giới thì “cậu nhóc” Shazam, mỗi khi dùng siêu năng lực vẫn hậu đậu như một “chú hề” lừng danh khiến người xem phải bật cười.', 'C13'),
-('M8', 'AIR', 'Ben Affleck', 2022, '0000-00-00', 'https://youtu.be/LC8jobIl57Q', 112, 'ST12', 'L4', 'Từ đạo diễn đã từng đoạt giải thưởng Ben Affleck, AIR hé lộ mối quan hệ đột phá giữa huyền thoại Michael Jordan khi mới bắt đầu sự nghiệp và bộ phận bóng rổ còn non trẻ của Nike, đã làm thay đổi thế giới thể thao và văn hóa đương đại với thương hiệu Air Jordan. Câu chuyện cảm động này kể về sự đánh cược khi đặt lên bàn cân tình hình kinh doanh của cả công ty, tầm nhìn vĩ đại của một người mẹ biết giá trị và tài năng của con trai mình, và một siêu sao bóng rổ đã trở thành huyền thoại.', 'C13'),
-('M9', 'RENFIELD TAY SAI CỦA QUỶ', 'Chris McKay', 2022, '0000-00-00', 'https://youtu.be/bv5V0ZOecT8', 92, 'ST6', 'L4', 'Renfield phát ốm vì mối quan hệ đồng phụ thuộc kéo dài hàng thế kỷ với Dracula. Với hy vọng tạo dựng một cuộc sống mới ở thế giới con người, tại New Orleans thời hiện đại, cuộc sống của Renfield trở nên phức tạp hơn khi anh phải lòng một cảnh sát giao thông. Mà trong lúc đó, anh ta vẫn phải đối phó với những yêu cầu, đòi hỏi quái lạ từ Dracula - một ông chủ thực sự đến từ địa ngục.', 'C16');
+('M1', 'Khắc tinh của quỷ', 'Julius Avery', 2020, '2023-04-05', 'https://youtu.be/VHzgvX25HAY', 104, 'ST1', 'L3', 'Lấy cảm hứng từ những hồ sơ có thật của Cha Gabriele Amorth, Trưởng Trừ Tà của Vatican (Russell Crowe, đoạt giải Oscar), bộ phim The Popes Exorcist theo chân Amorth trong cuộc điều tra về vụ quỷ ám kinh hoàng của một cậu bé và dần khám phá ra những bí mật hàng thế kỷ mà Vatican đã cố gắng giấu kín.', 'C13'),
+('M10', 'Tình chị duyên em', 'Wan Wanwaew Hongvivatana', 2022, '2023-04-03', 'https://youtu.be/KJyh89GttL0', 121, 'ST2', 'L3', 'Chuyện phim lấy bối cảnh năm 1999, khi thế giới đang chìm trong nỗi sợ hãi Y2K - sự cố khiến hệ thống máy tính sụp đổ và dự đoán có thể làm trái đất diệt vong khi bước sang năm 2000. Ngay lúc này, hai chị em sinh đôi giống hệt nhau là “You” và “Me” cũng đang lo lắng cho tương lai của họ về việc “làm sao sống mà có thể thiếu vắng nhau”. Cặp song sinh thân thiết với nhau đến mức có thể chia sẻ mọi khía cạnh cuộc sống cho nhau, kể cả nụ hôn đầu. Tình chị em tưởng chừng không thể rạn nứt cho đến khi chàng trai tên Mark chen vào giữa họ. Nếu ngay từ đầu, “lợi ích” của việc có ngoại hình giống hệt nhau được họ áp dụng để gian lận trong nhà hàng, rạp chiếu phim và trường học, thì sự xuất hiện của Mark khiến mọi thứ trở nên rối tung. Khi cặp song sinh phải đối mặt với “mối tình đầu không thể chia sẻ” như những thứ khác, cuộc xung đột nội tâm này sẽ dẫn họ bước sang giai đoạn mới của cuộc đời như thế nào?', 'C16'),
+('M11', 'Assassin club', 'Camille Delamarre', 2021, '2023-05-31', 'https://youtu.be/neDUFSt8N0Q', 104, 'ST14', 'L4', 'Morgan Gaines - một sát thủ chuyên nghiệp có nhiệm vụ phải giết bảy người, sau đó Morgan phát hiện ra bảy \"mục tiêu\" cũng là bảy sát thủ nặng ký. Morgan bắt đầu một cuộc săn lùng Quốc tế để loại bỏ từng dấu vết. Trong khi đó, những kẻ ám sát nhắm vào Sophie - tình yêu của cuộc đời Morgan. Sophie trở thành con tốt trong trò chơi sống còn của bảy tên sát thủ. Cách duy nhất để cứu mạng cô ấy là buông bỏ tất cả. Vậy Morgan chọn tình yêu hay sự nghiệp?', 'C16'),
+('M12', 'Siêu lừa gặp siêu lầy', 'Võ Thanh Hòa', 2020, '2023-04-22', 'https://youtu.be/NIVa1CCdFv4', 112, 'ST2', 'L3', 'Thuộc phong cách hành động – hài hước với các “cú lừa” thông minh và lầy lội đến từ bộ đôi Tú (Anh Tú) và Khoa (Mạc Văn Khoa), Siêu Lừa Gặp Siêu Lầy của đạo diễn Võ Thanh Hòa theo chân của Khoa – tên lừa đảo tầm cỡ “quốc nội” đến đảo ngọc Phú Quốc với mong muốn đổi đời. Tại đây, Khoa gặp Tú – tay lừa đảo “hàng real” và cùng Tú thực hiện các phi vụ từ nhỏ đến lớn. Cứ ngỡ sự ranh mãnh của Tú và sự may mắn trời cho của Khoa sẽ giúp họ trở thành bộ đôi bất khả chiến bại, nào ngờ lại đối mặt với nhiều tình huống dở khóc – dở cười. Nhất là khi băng nhóm của bộ đôi nhanh chóng mở rộng vì sự góp mặt của ông Năm (Nhất Trung) và bé Mã Lai (Ngọc Phước).', 'C16'),
+('M13', 'MY BEAUTIFUL MAN', 'Sakai Mai', 2020, '2023-04-22', 'https://youtu.be/-_bjpJ7noQE', 132, 'ST2', 'L3', 'Chàng Trai Xinh Đẹp Của Tôi xoay quanh chuyện tình thanh xuân tươi đẹp giữa 2 cậu bạn cùng lớp Hira và Kiyoi. Với tính cách khép kín, Hira hay trở thành mục tiêu bắt nạt, sai bảo của bạn bè cùng lớp. Trong khi đó, Kiyoi là mỹ nam hàng đầu với vẻ đẹp “như vị thần”, song cũng là người thường xuyên sai vặt Hira. Nhận ra mình thích Kiyoi từ cái nhìn đầu tiên, Hira làm mọi thứ vì cậu và mối quan hệ của cả hai dần thắt chặt sau khi Hira thấy Kiyoi tập nhảy để thi làm idol. Hira hứa giữ bí mật này cho Kiyoi và dần dà, những bức ảnh trong máy của Hira đều toàn là Kiyoi - người mà cậu tôn thờ và là “chàng trai xinh đẹp nhất”. Trong khi đó, Kiyoi cũng có tình cảm với Hira nhưng ngoài mặt vẫn lạnh lùng, miệng lại “hỗn”. Liệu cả hai sẽ tìm cách gì để bày tỏ lòng mình cho đối phương, và cuộc sống tình cảm của 2 con người trái dấu này có gì thú vị?', 'C16'),
+('M14', 'THE GHOST WITHIN', 'Lawrence Fowler', 2022, '2023-04-23', 'https://youtu.be/3MKRzG9k76Q', 102, 'ST17', 'L4', 'Đã 20 năm nhưng bí ẩn về cái ch.ế.t của người em gái vẫn chưa có lời giải đáp. Sự thật về bi kịch gia đình đã khiến thời khắc kinh hoàng lại xuất hiện đúng lúc đồng hồ điểm 09:09 mỗi đêm. Duy nhất một cơ hội để biết toàn bộ sự thật hoặc chỉ có thể để hận thù chôn vùi nó mãi mãi.', 'C16'),
+('M15', 'THE FIRST SLAM DUNK', 'Yasuyuki Ebara, Takehiko Inoue', 2021, '2023-04-05', 'https://youtu.be/kDuiynKxjQU', 124, 'ST8', 'L3', 'The First Slam Dunk - phiên bản điện ảnh đầu tiên của loạt phim/truyện đình đám này sẽ do đích thân tác giả Inoue Takehiko chỉ đạo. Tuy nhiên lần này, câu chuyện sẽ được kể từ góc nhìn của chàng hậu vệ nhỏ con Miyagi Ryota, thay vì anh chàng tóc đỏ xốc nổi Hanamichi. Lấy bối cảnh trận đấu quan trọng giữa Shohoku và Sannoh - đội bóng top 10 toàn quốc, phim đan xen câu chuyện quá khứ của từng thành viên, đặc biệt là Ryota, cùng những diễn biến của trận đấu. Từ đó, tác giả Inoue Takehiko thành công khắc họa việc bóng rổ có ảnh hưởng to lớn như thế nào đến sự trưởng thành của mỗi thành viên Shohoku.', 'C16'),
+('M16', 'PHIM ANH EM SUPER MARIO', 'Michael Jelenic, Aaron Horvath', 2020, '2023-05-31', 'https://youtu.be/QcinmCfoh8E', 93, 'ST4', 'L4', 'The Super Mario Bros. Movie xoay quanh cuộc phiêu lưu ở thế giới Vương quốc Nấm của anh em thợ sửa ống nước Mario và Luigi. Sau khi tình cờ bước tới vùng đất lạ từ một ống nước, Luigi đã bị chia tách với Mario và rơi vào tay quái vật rùa xấu xa Bowser, hắn đang âm mưu độc chiếm thế giới. Trong lúc cố gắng tìm kiếm người anh em của mình, Mario đã chạm mặt anh bạn nấm Toad và công chúa Peach. Từ đây họ sát cánh bên nhau trên hành trình ngăn chặn thế lực hắc ám.', 'C16'),
+('M17', 'TRI ÂM - NGƯỜI GIỮ THỜI GIAN', 'Mỹ Tâm, Tạ Nguyên Hiệp', 2022, '2023-04-22', 'https://youtu.be/yiI_McOCaw4', 105, 'ST7', 'L3', 'Khán giả sẽ một lần nữa sống lại những cảm xúc thăng hoa cũng như cảm nhận và đồng hành cùng Mỹ Tâm trong hành trình tạo nên một liveshow âm nhạc lịch sử của Việt Nam trong 2 năm qua. Đây chắc chắn sẽ là những trải nghiệm khó quên trong hành trình tìm lại những ký ức tươi đẹp của thanh xuân với Mỹ Tâm - Người giữ thời gian - cô gái đã mang tất cả những ký ức thanh xuân của những người yêu mến mình trở lại bằng âm nhạc.', 'C16'),
+('M18', 'DUNGEONS & DRAGONS: HONOR AMONG THIEVES', 'Jonathan Goldstein, John Francis Daley', 2022, '2023-04-13', 'https://youtu.be/75uZYaO_F0M', 124, 'ST19', 'L4', 'Theo chân một tên trộm quyến rũ và một nhóm những kẻ bịp bợm nghiệp dư thực hiện vụ trộm sử thi nhằm lấy lại một di vật đã mất, nhưng mọi thứ trở nên nguy hiểm khó lường hơn bao giờ hết khi họ đã chạm trán nhầm người. Ngục Tối Và Rồng: Danh Dự Của Kẻ Trộm mang thế giới huyền ảo của trò chơi nhập vai huyền thoại lên màn ảnh rộng bằng một cuộc phiêu lưu tràn ngập các màn hành động đã mắt cùng màu sắc hài hước, vui nhộn.', 'C16'),
+('M19', 'MIGRATION', 'Benjamin Renner', 2022, '2022-11-01', 'https://youtu.be/SRdCWLCPOrc', 104, 'ST5', 'L4', 'Bộ phim đã hé lộ về chuyến phiêu lưu đầy thú vị và nhiều sắc màu của đàn vịt trời. Đến mùa di cư, những đàn vịt nối đuôi nhau bay lượn vô cùng nhộn nhịp trên bầu trời. Một gia đình vịt nọ được dẫn dắt bởi vịt bố, cũng đã sẵn sàng “cất cánh” cho chuyến bay đến vùng đất mới trong tâm thế đầy hào hứng và vui vẻ. Thành viên phi hành đoàn cũng có độ tuổi rất đa dạng, từ “trẻ nhỏ”, “thiếu niên” cho đến vịt “trung niên”. Đang tự do bay lượn trong làn mây trắng bồng bềnh, nhà vịt đột ngột gặp phải cơn mưa lớn. Tiu ngỉu ôm nhau trú mưa dưới miếng gỗ nho nhỏ, cả nhà bỗng đối mặt với một sinh vật toát ra cảm giác đáng sợ nguy hiểm khó lường.', 'C16'),
+('M2', 'Marry my dead body', 'Cheng Wei Hao', 2022, '2022-12-26', 'https://youtu.be/zxk_YEa2Ky0', 130, 'ST2', 'L3', 'Ming-Han là một cảnh sát nhiệt huyết. Một ngày nọ, trong quá trình truy bắt tội phạm cùng người đồng nghiệp xinh đẹp Zi-Qing, Ming-Han vô tình nhặt được một phong bao màu đỏ, và một nhóm người bất ngờ nhảy ra gọi anh là \"con rể\". Họ yêu cầu anh ta kết hôn với đứa con đã chết của họ. Ming-Han không thể chấp nhận quyết định này. Tuy nhiên, anh ấy sau đó anh ta gặp phải vô số sự cố xui xẻo. Điều đáng sợ hơn nữa là anh ta bắt đầu nhìn thấy người chồng ma Mao-Mao của mình. Vì vậy, Ming-Han đã tìm đến thầy để tìm cách. Để thoát khỏi Mao-Mao, Ming-Han không còn cách nào khác ngoài việc giúp anh ta thực hiện mọi mong muốn của mình. Nếu không, Mao-Mao sẽ theo anh ta mãi mãi.Đồng thời, Mao-Mao cũng đóng vai trò là đối tác của Ming-Han để giúp anh ta điều tra vụ buôn lậu ma túy. Một cuộc hành trình giả tưởng đầy tiếng cười và nước mắt giữa một người đàn ông thẳng thắn và một con ma đồng tính đã bắt đầu.', 'C13'),
+('M20', 'INDIANA JONES AND THE DIAL OF DESTINY', 'James Mangold', 2022, '2022-12-26', 'https://youtu.be/GAM3Pj__H-U', 104, 'ST2', 'L3', 'Trong chuyến phiêu lưu cuối cùng này, Indiana Jones cùng con gái nuôi Helena sẽ phải đối đầu với những tên phát xít hiểm ác. Indiana Jones 5 cũng sẽ là phần phim cuối cùng mà Harrison Ford hóa thân thành nhà khảo cổ học Indiana Jones - vai diễn làm nên tên tuổi và gắn liền với ông trong suốt hơn 40 năm.', 'C16'),
+('M21', 'BARBIE', 'Greta Gerwig', 2022, '2023-04-18', 'https://youtu.be/sa8LpBKyPUc', 104, 'ST12', 'L4', 'Nàng Barbie là phim điện ảnh thuộc thể loại hài lãng mạn. Bộ phim do Greta Gerwig làm đạo diễn kiêm viết kịch bản với Noah Baumbach. Đây là tác phẩm điện ảnh đầu tiên về búp bê Barbie do người thật đóng, với sự kết hợp bởi nữ diên viên Margot Robbie và nam thần Ryan Gosling hóa thân thành 2 nhân vật chính Barbie và Ken.', 'C18'),
+('M22', 'BLUE BEETLE', 'Angel Manuel Soto', 2020, '2023-04-01', 'https://youtu.be/kY-4x45tC0A', 104, 'ST22', 'L3', 'Xoay quanh thế hệ thứ 3 của siêu anh hùng này - anh chàng vừa tốt nghiệp Jamie Reyes. Anh trở về nhà với tràn trề niềm tin và hy vọng về tương lai, để rồi nhận ra quê nhà đã thay đổi rất nhiều so với trước đây. Khi tìm kiếm mục đích sống trên thế giới này, Jamie đối mặt với bước ngoặt cuộc đời khi anh nhận ra mình sở hữu một di sản cổ đại của công nghệ sinh học ngoài hành tinh: Scarab. Khi Scarab chọn Jamie trở thành vật chủ, anh được ban tặng một bộ áo giáp với siêu sức mạnh đáng kinh ngạc không ai có thể lường trước. Số phận của Jamie hoàn toàn thay đổi khi giờ đây, anh đã là siêu anh hùng Blue Beetle.', 'C18'),
+('M23', 'TROLL 3', 'Tim Heitz, Walt Dohrn', 2021, '2023-05-26', 'https://youtu.be/dvGFh-XdDgQ', 104, 'ST20', 'L3', 'John Dory cùng với bốn người anh em khác của Branch đã từng là một ban nhạc nam nổi tiếng, kể cả Poppy cũng đã vô cùng yêu mến - BroZone. BroZone tan rã khi Branch vẫn còn là một đứa bé, và gia đình cũng cứ như vậy mà tan theo. Branch không hề gặp lại họ kể từ đó, và những người này cũng trở thành “đã từng” là anh trai của Branch. Nhưng khi John đề nghị Branch về việc tìm lại các anh em để có thể tiếp tục cùng nhau làm một ban nhạc như xưa, cùng với sự hào hứng của Poppy, anh đã bất đắ dĩ đồng ý. Ba chú Troll, cùng với sự trợ giúp của Tí Kim Cương, cùng nhau lên đường thực hiện chuyến phiêu lưu âm nhạc đầy cảm xúc, tràn trề hi vọng về một cuộc sum họp gia đình tuyệt với nhất.', 'C18'),
+('M24', 'TRANSFORMERS: RISE OF THE BEASTS', 'Steven Caple Jr.', 2020, '2023-04-18', 'https://youtu.be/VV_Mjc8ttrg', 104, 'ST19', 'L4', 'Transfromers: Rise Of The Beasts lấy bối cảnh vào năm 1994, khoảng thời gian tiếp sau khi Bumblebee xuất hiện. Như tựa đề đã thể hiện, phần phim này dựa theo bộ truyện Beast Wars cực kỳ ăn khách vào thập niên 1990. Đây cũng là lần đầu tiên, một nhóm robot mới xuất hiện, có khả năng biến mình thành động vật thay vì ôtô như trước đó.', 'C18'),
+('M25', 'THE FLASH', 'James Gunn', 2020, '2023-04-18', 'https://youtu.be/fEKGQ91isng', 104, 'ST12', 'L4', 'Câu chuyện của Flash bắt đầu khi Barry Allen (Ezra Miller thủ vai) sử dụng siêu năng lực của mình để du hành thời gian nhằm thay đổi những sự kiện trong quá khứ. Nhưng khi nỗ lực cứu lấy gia đình mình vô tình thay đổi tương lai, Barry bị kẹt lại trong một thực tại, nơi tướng Zod tái xuất và đe dọa hủy diệt tất cả, nhưng không có bất cứ siêu anh hùng nào đứng ra giải cứu… Trừ khi Barry có thể thuyết phục một Batman rất khác và giải cứu một cư dân Kryptonian đang bị cầm tù… dẫu có thể đó không phải người mà anh thực sự tìm kiếm. Để giải cứu thế giới hiện tại cũng như trở lại tương lai mình từng biết, niềm hy vọng duy nhất của Barry là phải chạy đua vì cuộc đời mình. Vậy nhưng, sự hy sinh tuyệt đối đó có là đủ để đưa thế giới về lại như ban đầu?', 'C18'),
+('M26', 'ELEMENTALl', 'Peter Sohn', 2022, '2023-05-26', 'https://youtu.be/j2DD_MlAnoA', 104, 'ST24', 'L4', 'Bộ phim sẽ là hành trình xoay quanh mối quan hệ giữa cô nàng guyên tố lửa, Ember (do Lewis lồng tiếng) và chàng trai nguyên tố nước, Wade (do Athie lồng tiếng), những cá thể không thể chạm được đến nhau; nhưng cùng nhau khám phá xem họ có bao nhiêu điểm chung giống nhau.', 'C18'),
+('M27', 'NO HARD FEELINGS', 'Genedy Tartakovsky', 2021, '2023-04-18', 'https://youtu.be/wc4IvKlagJg', 104, 'ST25', 'L4', 'Trong phim, Jennifer Lawrence thủ vai một cô gái lẳng lơ, sống này đây mai đó với đủ loại công việc. Cho tới một ngày, một cặp vợ chồng trung niên tìm tới và thuê cô quyến rũ cậu con trai 19 tuổi của mình. Thế là hành trình của bà cô U40 đi cò cưa trai trẻ bắt đầu, đầy khó khăn với biết bao tình huống khó đỡ, éo le.', 'C18'),
+('M28', 'LẬT MẶT 6: TẤM VÉ ĐỊNH MỆNH', 'Lý Hải', 2020, '2023-04-18', 'https://youtu.be/2EnP2tVC00Q', 132, 'ST2', 'L3', 'Một nhóm bạn thân lâu năm bất ngờ nhận được cơ hội đổi đời  khi biết tấm vé của cả nhóm trúng giải độc đắc 136.8 tỷ. Đột nhiên An, người nắm giữ tấm vé bất ngờ gặp tai nạn không qua khỏi. Đứng trước món tiền trúng số đáng mơ ước lẽ ra sẽ dễ dàng có được trong tầm tay, nhóm bạn bước chân vào hành trình đi tìm tờ vé số. Nhưng đó chỉ là khởi đầu của vô số những sự kiện không ngờ đến. Liệu hành trình tìm kiếm và chia chác món tiền trong mơ béo bở này sẽ thực sự dẫn đưa cả nhóm đến đâu?', 'C18'),
+('M29', 'CON NHÓT MÓT CHỒNG', 'Vũ Ngọc Đãng', 2022, '2023-05-26', 'https://youtu.be/e7KHOQ-alqY', 104, 'ST30', 'L3', 'Lấy cảm hứng từ web drama Chuyện Xóm Tui, phiên bản điện ảnh sẽ mang một màu sắc hoàn toàn khác: hài hước hơn, gần gũi và nhiều cảm xúc hơn. Bộ phim là câu chuyện của Nhót - người phụ nữ “chưa kịp già” đã sắp bị mãn kinh, vội vàng đi tìm chồng. Nhưng sâu thẳm trong cô là khao khát muốn có một đứa con, và luôn muốn hàn gắn với người cha suốt ngày say xỉn của mình.', 'C18'),
+('M3', 'Suzme no tojimari', 'Shinkai Makoto', 2022, '2023-04-18', 'https://youtu.be/xQ4_c8JfuzI', 122, 'ST8', 'L3', 'Khóa Chặt Cửa Nào Suzume kể câu chuyện khi Suzume vô tình gặp một chàng trai trẻ đến thị trấn nơi cô sinh sống với mục đích tìm kiếm \"một cánh cửa\". Để bảo vệ Nhật Bản khỏi thảm họa, những cánh cửa rải rác khắp nơi phải được đóng lại, và bất ngờ thay Suzume cũng có khả năng đóng cửa đặc biệt này. Từ đó cả hai cùng nhau thực hiện sự mệnh \"khóa chặt cửa\"!', 'C13'),
+('M30', 'CATS IN THE MUSEUM', 'Vasiliy Rovenskiy', 2022, '2023-05-26', 'https://youtu.be/UdaZwNPQ9fk', 104, 'ST33', 'L4', 'Chuyện phim xoay quanh chú mèo Vincent bắt tay cùng chú chuột Maurice để cố gắng thoát khỏi lũ lụt trong một chiếc đàn piano cũ. Một nhóm thủy thủ đã vô tình lấy được cây đàn và gửi nó đến viện bảo tàng. Tại đây, Vincent gặp một đội mèo ưu tú, làm nhiệm vụ bảo vệ những kiệt tác khỏi các loài gặm nhấm và sâu bọ khác trong nhiều năm qua. Mặc dù khao khát tìm được một mái ấm, Vincent buộc phải giấu tất cả về sự tồn tại của Maurice.  Mọi chuyện trở nên phức tạp khi một trong những bức tranh vĩ đại nhất thế giới được đưa đến viện bảo tàng. Một thế lực bí ẩn đang cố gắng đánh cắp bức tranh, buộc Vincent, Maurice và hội mèo tinh hoa phải cùng nhau làm tất cả để bảo vệ kiệt tác này… Liệu Vincent và đồng đội của mình có đủ can đảm và trí thông minh để cứu lấy những kiệt tác của Da Vinci và bảo vệ danh tiếng cho bảo tàng không?', 'C18'),
+('M31', 'GUARDIANS OF THE GALAXY VOL.3', 'James Gunn', 2022, '2023-05-26', 'https://youtu.be/cfbKqpbdrYg', 104, 'ST6', 'L4', 'Trong phần phim thứ 3 về Vệ Binh Dải Ngân Hà, biệt đội mà chúng ta từng biết sẽ có một vài sự thay đổi. Peter Quill vẫn đang chìm đắm trong nỗi đau mất đi Gamora nhưng vẫn phải làm tròn trách nhiệm tập hợp cả đội để bảo vệ toàn vũ trụ. Họ phải đối mặt với một nhiệm vụ cam go và nếu như  thất bại, đội Vệ Binh có thể phải kết thúc sứ mệnh của họ.', 'C18'),
+('M32', 'KHẾ ƯỚC', 'Guy Ritchie', 2022, '2023-04-18', 'https://youtu.be/JwjjIoTiv5k', 104, 'ST34', 'L3', 'Bối cảnh phim Khế Ước diễn ra tại chiến trường Afghanistan. Trong nhiệm vụ cuối cùng, Trung sĩ John Kinley (Jake Gyllenhaal thủ vai) cùng đội với phiên dịch viên bản địa Ahmed (Dal Salim thủ vai). Khi đơn vị của họ bị phục kích, John và Ahmed là 2 người sống sót duy nhất. Bị kẻ địch truy đuổi, Ahmed liều mạng đưa John đang bị thương băng qua nhiều dặm đường địa hình khắc nghiệt đến nơi an toàn. Trở về Mỹ, John biết rằng Ahmed và gia đình không được cấp giấy thông hành tới Mỹ như đã hứa. Quyết tâm bảo vệ bạn mình và đền ơn cứu mạng, John trở lại chiến trường để giúp Ahmed và gia đình trước khi lực lượng phiến quân phát hiện ra họ.', 'C18'),
+('M33', 'BEARMAN', 'Park Sung Kwang', 2022, '2023-04-18', 'https://youtu.be/MagrY1rpOT4', 104, 'ST35', 'L4', 'Đầu Gấu Đụng Đầu Đất dựa trên câu chuyện thần thoại nổi tiếng tại Hàn Quốc về hai chú gấu sinh đôi hoá thành người sau khi ăn tỏi và ngải cứu trong 100 ngày. Chú gấu ăn tỏi trở thành Na Woong-nam, được một cặp vợ chồng nhà khoa học mang về nuôi nấng, tuy chỉ mới 25 tuổi nhưng lại sở hữu “giao diện” của một ông chú 52 với cái “đầu đất” ngây thơ, hiền lành. Trong khi đó, chú gấu ăn ngải cứu trở thành “đầu gấu” Lee Jeong-hak, được một tên trùm tổ chức tội phạm mang về nuôi và bị lợi dụng như một món “vũ khí” phòng vệ.  Trong một tình huống bất đắc dĩ, Na Woong-nam đã trực tiếp đối đầu cùng anh em song sinh Lee Jeong-hak để ngăn chặn một vụ khủng bố virus có tầm lây lan mạnh. Sức mạnh của loài gấu bộc phát sẽ đẩy cuộc đụng độ của cặp gấu song sinh hoá người đi đến hồi kết nào?', 'C18'),
+('M34', 'SOUND OF SILENCE', 'Alessandro Antonaci', 2022, '2023-04-18', 'https://youtu.be/239gO3anEwE', 104, 'ST2', 'L3', 'Sau cái chết của cha, Emma (Penelope Sangiorgi) vội vã bay từ New York về quê nhà ở Ý để lo hậu sự. Trong thời gian diễn ra tang lễ, Emma ở một mình trong căn nhà mà cha mẹ để lại. Lúc này, cô bị buộc phải đối mặt với một thực thể tà ác có khả năng kết nối thông qua một chiếc radio bị nguyền rủa. Để sống sót và bảo vệ những người mình yêu thương, Emma phải tìm ra bí mật đen tối ẩn sau chiếc radio ma quỷ kia…', 'C13'),
+('M4', 'Pulau', 'Eu Ho', 2022, '2023-05-26', 'https://youtu.be/jSZUpx_3yL4', 112, 'ST2', 'L4', 'Nhóm du khách trẻ vô tình phá bỏ phong ấn của con quái vật khát máu khi đến tham quan một hòn đảo cấm không dân địa phương nào dám đặt chân đến. Liệu họ có thể bình an thoát khỏi hay đó sẽ là nơi chôn vùi tất cả?', 'C13'),
+('M5', 'Biệt đội bất ổn', 'Tạ Nguyên Hiệp', 2022, '2023-05-26', 'https://youtu.be/XHvNz4g88pE', 104, 'ST10', 'L3', 'Xoay quanh bộ đôi Khuê (Hoàng Oanh) và Phong (Hứa Vĩ Văn). Sau lần chạm trán tình cờ, bộ đôi lôi kéo Bảy Cục (Võ Tấn Phát), Bảy Súc (Nguyên Thảo), Quạu (Ngọc Phước), Quọ (Ngọc Hoa) tham gia vào phi vụ đặc biệt: Đánh tráo chiếc vòng đính hôn bằng kim cương quý giá và lật tẩy bộ mặt thật của Tuấn - chồng cũ của Quyên trong đám cưới giữa hắn và Tư Xoàn - nữ đại gia miền Tây sở hữu khối tài sản triệu đô.', 'C13'),
+('M6', 'Soulmate', 'Min Young Keun', 2021, '2023-05-26', 'https://youtu.be/K46K_1yTwUg', 124, 'ST9', 'L3', 'Soulmate là câu chuyện về Mi So (Kim Da Mi thủ vai) và Ha Eun (Jeon So Nee thủ vai) trong một mối quan hệ chồng chéo chất chứa những hạnh phúc, nỗi buồn, rung động và cả biệt ly. Từ giây phút đầu tiên gặp nhau dưới mái trường tiểu học, giữa hai cô gái đã hình thành một sợi dây liên kết đặc biệt. Và khi Ham Jin Woo (Byun Woo Seok thủ vai) bước vào giữa cả hai, đó cũng là lúc những vết nứt trong mối quan hệ của Mi So và Ha Eun xuất hiện.', 'C13'),
+('M7', 'SHAZAM! FURY OF THE GODS', 'David F. Sandberg', 2020, '2023-05-26', 'https://youtu.be/KyRCmJE65ms', 130, 'ST12', 'L4', 'Trong lần trở lại này, cậu chàng Shazam vẫn trăn trở cho rằng mình “không xứng đáng với năng lực này”. Thế giới có The Flash nhanh như chớp với bộ suit đỏ đặc trưng, Aquaman to cao lực lưỡng và cả Batman siêu ngầu. Trong khi đó, Shazam vẫn chỉ là Shazam chẳng có năng lực gì khác biệt… hoặc là Billy Batson, một cậu nhóc trung học trong thân hình một siêu anh hùng cao to già đời, không thể kiểm soát sức mạnh của mình. Nếu như các siêu anh hùng khác khiến khán giả không khỏi trầm trồ vì những năng lực siêu phàm có thể cứu thế giới thì “cậu nhóc” Shazam, mỗi khi dùng siêu năng lực vẫn hậu đậu như một “chú hề” lừng danh khiến người xem phải bật cười.', 'C13'),
+('M8', 'AIR', 'Ben Affleck', 2022, '2023-04-12', 'https://youtu.be/LC8jobIl57Q', 112, 'ST12', 'L4', 'Từ đạo diễn đã từng đoạt giải thưởng Ben Affleck, AIR hé lộ mối quan hệ đột phá giữa huyền thoại Michael Jordan khi mới bắt đầu sự nghiệp và bộ phận bóng rổ còn non trẻ của Nike, đã làm thay đổi thế giới thể thao và văn hóa đương đại với thương hiệu Air Jordan. Câu chuyện cảm động này kể về sự đánh cược khi đặt lên bàn cân tình hình kinh doanh của cả công ty, tầm nhìn vĩ đại của một người mẹ biết giá trị và tài năng của con trai mình, và một siêu sao bóng rổ đã trở thành huyền thoại.', 'C13'),
+('M9', 'RENFIELD TAY SAI CỦA QUỶ', 'Chris McKay', 2022, '2023-04-26', 'https://youtu.be/bv5V0ZOecT8', 92, 'ST6', 'L4', 'Renfield phát ốm vì mối quan hệ đồng phụ thuộc kéo dài hàng thế kỷ với Dracula. Với hy vọng tạo dựng một cuộc sống mới ở thế giới con người, tại New Orleans thời hiện đại, cuộc sống của Renfield trở nên phức tạp hơn khi anh phải lòng một cảnh sát giao thông. Mà trong lúc đó, anh ta vẫn phải đối phó với những yêu cầu, đòi hỏi quái lạ từ Dracula - một ông chủ thực sự đến từ địa ngục.', 'C16');
 
 -- --------------------------------------------------------
 
@@ -3218,11 +3187,10 @@ INSERT INTO `movie` (`MovieID`, `MovieName`, `Director`, `Year`, `Premiere`, `UR
 -- Cấu trúc bảng cho bảng `moviegenre`
 --
 
-CREATE TABLE IF NOT EXISTS `moviegenre` (
+CREATE TABLE `moviegenre` (
   `GenreID` char(11) NOT NULL,
   `GenreName` varchar(50) NOT NULL,
-  `Description` text NOT NULL,
-  PRIMARY KEY (`GenreID`)
+  `Description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3249,13 +3217,11 @@ INSERT INTO `moviegenre` (`GenreID`, `GenreName`, `Description`) VALUES
 -- Cấu trúc bảng cho bảng `movieimage`
 --
 
-CREATE TABLE IF NOT EXISTS `movieimage` (
+CREATE TABLE `movieimage` (
   `ImageID` char(11) NOT NULL,
   `ImagePath` text NOT NULL,
   `MovieID` char(11) NOT NULL,
-  `type` int(11) NOT NULL,
-  PRIMARY KEY (`ImageID`),
-  KEY `MovieID` (`MovieID`)
+  `type` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3324,7 +3290,7 @@ INSERT INTO `movieimage` (`ImageID`, `ImagePath`, `MovieID`, `type`) VALUES
 -- Cấu trúc bảng cho bảng `promotion`
 --
 
-CREATE TABLE IF NOT EXISTS `promotion` (
+CREATE TABLE `promotion` (
   `PromotionID` char(11) NOT NULL,
   `PromotionName` varchar(50) NOT NULL,
   `Description` varchar(50) NOT NULL,
@@ -3333,8 +3299,7 @@ CREATE TABLE IF NOT EXISTS `promotion` (
   `Discount` float NOT NULL,
   `Code` varchar(45) NOT NULL,
   `url_image` text NOT NULL,
-  `type` int(11) NOT NULL,
-  PRIMARY KEY (`PromotionID`)
+  `type` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3370,16 +3335,13 @@ INSERT INTO `promotion` (`PromotionID`, `PromotionName`, `Description`, `StartTi
 -- Cấu trúc bảng cho bảng `rating`
 --
 
-CREATE TABLE IF NOT EXISTS `rating` (
+CREATE TABLE `rating` (
   `RatingID` char(11) NOT NULL,
   `Score` float NOT NULL,
   `Comment` varchar(50) NOT NULL,
   `Day` datetime NOT NULL,
   `MovieID` char(11) NOT NULL,
-  `CustomerID` char(11) NOT NULL,
-  PRIMARY KEY (`RatingID`),
-  KEY `MovieID` (`MovieID`),
-  KEY `CustomerID` (`CustomerID`)
+  `CustomerID` char(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3412,10 +3374,9 @@ INSERT INTO `rating` (`RatingID`, `Score`, `Comment`, `Day`, `MovieID`, `Custome
 -- Cấu trúc bảng cho bảng `role`
 --
 
-CREATE TABLE IF NOT EXISTS `role` (
+CREATE TABLE `role` (
   `id` char(11) NOT NULL,
-  `name` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
+  `name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3432,13 +3393,11 @@ INSERT INTO `role` (`id`, `name`) VALUES
 -- Cấu trúc bảng cho bảng `room`
 --
 
-CREATE TABLE IF NOT EXISTS `room` (
+CREATE TABLE `room` (
   `RoomID` char(11) NOT NULL,
   `RoomName` varchar(50) NOT NULL,
   `NumberOfSeats` int(11) NOT NULL,
-  `TheaterID` char(11) NOT NULL,
-  PRIMARY KEY (`RoomID`),
-  KEY `TheaterID` (`TheaterID`)
+  `TheaterID` char(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3570,13 +3529,11 @@ INSERT INTO `room` (`RoomID`, `RoomName`, `NumberOfSeats`, `TheaterID`) VALUES
 -- Cấu trúc bảng cho bảng `seat`
 --
 
-CREATE TABLE IF NOT EXISTS `seat` (
+CREATE TABLE `seat` (
   `SeatID` char(11) NOT NULL,
   `SeatName` varchar(50) NOT NULL,
   `type` varchar(50) NOT NULL,
-  `RoomID` char(11) NOT NULL,
-  PRIMARY KEY (`SeatID`),
-  KEY `RoomID` (`RoomID`)
+  `RoomID` char(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -5451,18 +5408,14 @@ INSERT INTO `seat` (`SeatID`, `SeatName`, `type`, `RoomID`) VALUES
 -- Cấu trúc bảng cho bảng `showtime`
 --
 
-CREATE TABLE IF NOT EXISTS `showtime` (
+CREATE TABLE `showtime` (
   `ShowtimeID` char(11) NOT NULL,
   `StartTime` datetime NOT NULL,
   `EndTime` datetime NOT NULL,
   `Price` float NOT NULL,
   `MovieID` char(11) NOT NULL,
   `RoomID` char(11) NOT NULL,
-  `FormatID` char(11) NOT NULL,
-  PRIMARY KEY (`ShowtimeID`),
-  KEY `MovieID` (`MovieID`),
-  KEY `RoomID` (`RoomID`),
-  KEY `FormatID` (`FormatID`)
+  `FormatID` char(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -5912,10 +5865,9 @@ INSERT INTO `showtime` (`ShowtimeID`, `StartTime`, `EndTime`, `Price`, `MovieID`
 -- Cấu trúc bảng cho bảng `status_of_ticket`
 --
 
-CREATE TABLE IF NOT EXISTS `status_of_ticket` (
+CREATE TABLE `status_of_ticket` (
   `id` char(11) NOT NULL,
-  `name` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
+  `name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -5933,13 +5885,12 @@ INSERT INTO `status_of_ticket` (`id`, `name`) VALUES
 -- Cấu trúc bảng cho bảng `studio`
 --
 
-CREATE TABLE IF NOT EXISTS `studio` (
+CREATE TABLE `studio` (
   `StudioID` char(11) NOT NULL,
   `StudioName` varchar(50) NOT NULL,
   `Address` varchar(50) NOT NULL,
   `Phone` char(10) NOT NULL,
-  `Email` varchar(50) NOT NULL,
-  PRIMARY KEY (`StudioID`)
+  `Email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -5992,13 +5943,12 @@ INSERT INTO `studio` (`StudioID`, `StudioName`, `Address`, `Phone`, `Email`) VAL
 -- Cấu trúc bảng cho bảng `theater`
 --
 
-CREATE TABLE IF NOT EXISTS `theater` (
+CREATE TABLE `theater` (
   `TheaterID` char(11) NOT NULL,
   `TheaterName` varchar(50) NOT NULL,
   `Address` varchar(50) NOT NULL,
   `Phone` char(10) NOT NULL,
-  `NumberOfRooms` int(11) NOT NULL,
-  PRIMARY KEY (`TheaterID`)
+  `NumberOfRooms` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -6045,15 +5995,11 @@ INSERT INTO `theater` (`TheaterID`, `TheaterName`, `Address`, `Phone`, `NumberOf
 -- Cấu trúc bảng cho bảng `ticket`
 --
 
-CREATE TABLE IF NOT EXISTS `ticket` (
+CREATE TABLE `ticket` (
   `TicketID` char(11) NOT NULL,
   `ShowtimeID` char(11) NOT NULL,
   `SeatID` char(11) NOT NULL,
-  `status` char(11) NOT NULL,
-  PRIMARY KEY (`TicketID`),
-  KEY `ShowtimeID` (`ShowtimeID`),
-  KEY `SeatID` (`SeatID`),
-  KEY `status` (`status`)
+  `status` char(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -7527,6 +7473,189 @@ INSERT INTO `ticket` (`TicketID`, `ShowtimeID`, `SeatID`, `status`) VALUES
 ('TK9750', 'SH352', 'ST1747', 'S2'),
 ('TK98', 'SH105', 'ST145', 'S2'),
 ('TK99', 'SH105', 'ST187', 'S2');
+
+--
+-- Chỉ mục cho các bảng đã đổ
+--
+
+--
+-- Chỉ mục cho bảng `account`
+--
+ALTER TABLE `account`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `role_id` (`role_id`);
+
+--
+-- Chỉ mục cho bảng `actorof_movie`
+--
+ALTER TABLE `actorof_movie`
+  ADD PRIMARY KEY (`ActorID`),
+  ADD KEY `MovieID` (`MovieID`);
+
+--
+-- Chỉ mục cho bảng `booking`
+--
+ALTER TABLE `booking`
+  ADD PRIMARY KEY (`BookingID`),
+  ADD KEY `customer_id` (`customer_id`);
+
+--
+-- Chỉ mục cho bảng `customer`
+--
+ALTER TABLE `customer`
+  ADD PRIMARY KEY (`CustomerID`),
+  ADD UNIQUE KEY `Email` (`Email`),
+  ADD UNIQUE KEY `account_id` (`account_id`);
+
+--
+-- Chỉ mục cho bảng `detailmoviegenre`
+--
+ALTER TABLE `detailmoviegenre`
+  ADD PRIMARY KEY (`MovieID`,`GenreID`),
+  ADD KEY `GenreID` (`GenreID`);
+
+--
+-- Chỉ mục cho bảng `detailticket`
+--
+ALTER TABLE `detailticket`
+  ADD PRIMARY KEY (`TicketID`,`BookingID`),
+  ADD UNIQUE KEY `TicketID_3` (`TicketID`,`BookingID`),
+  ADD KEY `BookingID` (`BookingID`),
+  ADD KEY `TicketID` (`TicketID`,`BookingID`),
+  ADD KEY `TicketID_2` (`TicketID`,`BookingID`);
+
+--
+-- Chỉ mục cho bảng `errorreport`
+--
+ALTER TABLE `errorreport`
+  ADD PRIMARY KEY (`ReportID`),
+  ADD KEY `CustomerID` (`CustomerID`);
+
+--
+-- Chỉ mục cho bảng `format`
+--
+ALTER TABLE `format`
+  ADD PRIMARY KEY (`FormatID`);
+
+--
+-- Chỉ mục cho bảng `language`
+--
+ALTER TABLE `language`
+  ADD PRIMARY KEY (`LanguageID`);
+
+--
+-- Chỉ mục cho bảng `manager`
+--
+ALTER TABLE `manager`
+  ADD PRIMARY KEY (`ManagerID`),
+  ADD UNIQUE KEY `account_id` (`account_id`),
+  ADD UNIQUE KEY `Email_2` (`Email`),
+  ADD KEY `Email` (`Email`);
+
+--
+-- Chỉ mục cho bảng `menu`
+--
+ALTER TABLE `menu`
+  ADD PRIMARY KEY (`ItemID`);
+
+--
+-- Chỉ mục cho bảng `menudetail`
+--
+ALTER TABLE `menudetail`
+  ADD PRIMARY KEY (`ItemID`,`BookingID`),
+  ADD KEY `BookingID` (`BookingID`);
+
+--
+-- Chỉ mục cho bảng `movie`
+--
+ALTER TABLE `movie`
+  ADD PRIMARY KEY (`MovieID`),
+  ADD KEY `StudioID` (`StudioID`),
+  ADD KEY `LanguageID` (`LanguageID`);
+
+--
+-- Chỉ mục cho bảng `moviegenre`
+--
+ALTER TABLE `moviegenre`
+  ADD PRIMARY KEY (`GenreID`);
+
+--
+-- Chỉ mục cho bảng `movieimage`
+--
+ALTER TABLE `movieimage`
+  ADD PRIMARY KEY (`ImageID`),
+  ADD KEY `MovieID` (`MovieID`);
+
+--
+-- Chỉ mục cho bảng `promotion`
+--
+ALTER TABLE `promotion`
+  ADD PRIMARY KEY (`PromotionID`);
+
+--
+-- Chỉ mục cho bảng `rating`
+--
+ALTER TABLE `rating`
+  ADD PRIMARY KEY (`RatingID`),
+  ADD KEY `MovieID` (`MovieID`),
+  ADD KEY `CustomerID` (`CustomerID`);
+
+--
+-- Chỉ mục cho bảng `role`
+--
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `room`
+--
+ALTER TABLE `room`
+  ADD PRIMARY KEY (`RoomID`),
+  ADD KEY `TheaterID` (`TheaterID`);
+
+--
+-- Chỉ mục cho bảng `seat`
+--
+ALTER TABLE `seat`
+  ADD PRIMARY KEY (`SeatID`),
+  ADD KEY `RoomID` (`RoomID`);
+
+--
+-- Chỉ mục cho bảng `showtime`
+--
+ALTER TABLE `showtime`
+  ADD PRIMARY KEY (`ShowtimeID`),
+  ADD KEY `MovieID` (`MovieID`),
+  ADD KEY `RoomID` (`RoomID`),
+  ADD KEY `FormatID` (`FormatID`);
+
+--
+-- Chỉ mục cho bảng `status_of_ticket`
+--
+ALTER TABLE `status_of_ticket`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `studio`
+--
+ALTER TABLE `studio`
+  ADD PRIMARY KEY (`StudioID`);
+
+--
+-- Chỉ mục cho bảng `theater`
+--
+ALTER TABLE `theater`
+  ADD PRIMARY KEY (`TheaterID`);
+
+--
+-- Chỉ mục cho bảng `ticket`
+--
+ALTER TABLE `ticket`
+  ADD PRIMARY KEY (`TicketID`),
+  ADD KEY `ShowtimeID` (`ShowtimeID`),
+  ADD KEY `SeatID` (`SeatID`),
+  ADD KEY `status` (`status`);
 
 --
 -- Các ràng buộc cho các bảng đã đổ
