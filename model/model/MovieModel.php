@@ -356,7 +356,7 @@ class MovieModel{
             $stmt->bindParam(':story', $story);
     
             $stmt->execute();
-            if($stmt ->rowCount()>0){
+            if($stmt->rowCount()>0){
                 return (array("success" => true,"id"=>$id));
             }else{
                 return (array("success" => false, "message" => "Could not add movie to database"));
