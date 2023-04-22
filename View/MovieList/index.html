@@ -242,7 +242,7 @@
           datas.forEach(async (data, index) => {
             let imagebannerObj = data.listImage;
             let filteredMovies = imagebannerObj.filter(function (movie) {
-              return movie.type === "2" && movie.ImagePath;
+              return movie.type === "1" && movie.ImagePath;
             });
 
             let time = await toHHMM(data.Time);
@@ -312,7 +312,7 @@
           datas.forEach(async (data, index) => {
             let imagebannerObj = data.listImage;
             let filteredMovies = imagebannerObj.filter(function (movie) {
-              return movie.type === "2" && movie.ImagePath;
+              return movie.type === "1" && movie.ImagePath;
             });
 
             let genrehtml = await cuttingGenre(data);
@@ -382,7 +382,7 @@
             datas.forEach(async (data, index) => {
               let imagebannerObj = data.listImage;
               let filteredMovies = imagebannerObj.filter(function (movie) {
-                return movie.type === "2" && movie.ImagePath;
+                return movie.type === "1" && movie.ImagePath;
               });
               let genrehtml = await cuttingGenre(data);
               let time = await toHHMM(data.Time);

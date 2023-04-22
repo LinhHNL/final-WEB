@@ -316,7 +316,7 @@
         datas.forEach(async (data, index) => {
           let imagebannerObj = data.listImage;
           let filteredMovies = imagebannerObj.filter(function (movie) {
-            return movie.type === "2" && movie.ImagePath;
+            return movie.type === "1" && movie.ImagePath;
           });
           function toHHMM(minutes) {
             var hours = Math.floor(minutes / 60);
@@ -655,7 +655,7 @@
           datas.forEach(async (data, index) => {
             let imagebannerObj = data.listImage;
             let filteredMovies = imagebannerObj.filter(function (movie) {
-              return movie.type === "2" && movie.ImagePath;
+              return movie.type === "1" && movie.ImagePath;
             });
             function toHHMM(minutes) {
               var hours = Math.floor(minutes / 60);
@@ -685,7 +685,7 @@
                       <img src="../../images/timer.svg" alt="" />
                       ${timerender}
                     </div>
-                    <a href="./View/Detail/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
+                    <a href="../Detail/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
                     <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
                     </a>
                     <a href="../Order/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
@@ -737,7 +737,7 @@
           datas.forEach(async (data, index) => {
             let imagebannerObj = data.listImage;
             let filteredMovies = imagebannerObj.filter(function (movie) {
-              return movie.type === "2" && movie.ImagePath;
+              return movie.type === "1" && movie.ImagePath;
             });
             function toHHMM(minutes) {
               var hours = Math.floor(minutes / 60);

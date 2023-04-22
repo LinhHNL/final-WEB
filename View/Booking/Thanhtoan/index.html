@@ -83,14 +83,14 @@
               >
             </li>
             <li
-            class="nav-item d-flex align-items-center ms-auto visually-hidden"
-            id="user-account"
-          >
-            <a class="nav-link" href="../../Account/ThongTinCaNhan/"></a>
-          </li>
-          <li class="nav-item visually-hidden" id="signout">
-            <a class="nav-link" href="#">Đăng xuất</a>
-          </li>
+              class="nav-item d-flex align-items-center ms-auto visually-hidden"
+              id="user-account"
+            >
+              <a class="nav-link" href="../../Account/ThongTinCaNhan/"></a>
+            </li>
+            <li class="nav-item visually-hidden" id="signout">
+              <a class="nav-link" href="#">Đăng xuất</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -142,7 +142,10 @@
                   class="col-lg-6 col-md-6 col-xs-12 d-flex justify-content-center pt-5 pb-5"
                 >
                   <div class="method" id="method-momo">
-                    <img src="/images/momo.jpg" style="margin-top: 20px" />
+                    <img
+                      src="../../../images/momo.jpg"
+                      style="margin-top: 20px"
+                    />
                     <p style="font-size: 14px; color: white; margin-top: 10px">
                       Thanh toán với MoMo
                     </p>
@@ -323,8 +326,8 @@
 
       import { XORDecrypt } from "../../Util/EncryptXOR.js";
       $(document).ready(function () {
-                // Navbar for logged in
-                if (sessionStorage.getItem("Email")) {
+        // Navbar for logged in
+        if (sessionStorage.getItem("Email")) {
           let email = XORDecrypt(window.sessionStorage.getItem("Email"));
           getCustomerByEmail("../../..", email).then((res) => {
             let data = JSON.parse(res.user);
