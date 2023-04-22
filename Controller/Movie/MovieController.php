@@ -94,8 +94,9 @@ class MovieController{
         return array("success"=>(new MovieModel())->addGenreForMovie(new DetailMovieGenre($MovieID,$GenreID)));
     }
     public function addImageOfMovie($data){
-         $ImagePath = $data['file'];
          $MovieID = $data['MovieID'];
+         $ImagePath = $data['file'];
+
          $type = $data['type'];
          $base64 = str_replace('data:application/octet-stream;base64,', '', $ImagePath);
          $file = base64_decode($base64);
