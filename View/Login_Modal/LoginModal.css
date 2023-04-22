@@ -41,3 +41,11 @@
   color: #000;
 }
 
+#back-home {
+  color: #ff3cac;
+  text-decoration: none;
+}
+
+#back-home:hover {
+  text-decoration: underline;
+}
