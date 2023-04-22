@@ -65,6 +65,25 @@ const getCustomerByEmail = async (url, email) => {
   return datatorender;
 };
 
+const getUserByEmail = async (url, email) => {
+  const urls = `${url}/Controller/User/ajax.php?action=getUserByEmail&email=${email}`;
+  const data = await fetch(urls, {
+    method: "GET",
+  });
+  const datatorender = await data.json();
+  return datatorender;
+};
+
+const getUserById = async (url, id) => {
+  const urls = `${url}/Controller/User/ajax.php?action=getUserById&id=${id}`;
+  const data = await fetch(urls, {
+    method: "GET",
+  });
+  const datatorender = await data.json();
+  return datatorender;
+};
+
+
 const updateManager = async (
   url = "../..",
   id,
@@ -124,4 +143,6 @@ export {
   addManager,
   deleteManager,
   getCustomerByEmail,
+  getUserById,
+  getUserByEmail
 };

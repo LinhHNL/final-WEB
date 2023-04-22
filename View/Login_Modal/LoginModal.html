@@ -165,8 +165,8 @@
                     // Lưu session Storage accountID
 
                     window.sessionStorage.setItem(
-                      "accountID",
-                      data.manager.account_id
+                      "Email",
+                      XOREncrypt(data.manager.Email)
                     );
                     window.location.href = "../AdminPage/UserControl";
                   }
