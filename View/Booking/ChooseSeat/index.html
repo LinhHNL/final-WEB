@@ -526,10 +526,11 @@
               stateid = 1;
               price += 1;
             }
-            if (stateid == 3) {
+            else if (stateid == 3) {
               stateid = 2;
               price += 2;
             }
+            else return;
 
             let ShowTimeID = sessionStorage.getItem("ShowTimeID");
             let pricing = await getShowTimeByID("../../.././", ShowTimeID);
