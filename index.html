@@ -63,16 +63,31 @@
               <a class="nav-link" href="./View/Order/index.html">LỊCH CHIẾU</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">ƯU ĐÃI</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">THÔNG TIN</a>
+              <a
+                class="nav-link"
+                href="./View/Account/ThongTinCaNhan/index.html"
+                >THÔNG TIN</a
+              >
             </li>
             <li class="nav-item" id="login-accout">
-              <a class="nav-link" href="#">Đăng nhập</a>
+              <a class="nav-link" href="./View/Login_Modal/LoginModal.html"
+                >Đăng nhập</a
+              >
             </li>
             <li class="nav-item" id="create-accout">
-              <a class="nav-link" href="#">Đăng ký</a>
+              <a class="nav-link" href="./View/Signup_Modal/index.html"
+                >Đăng ký</a
+              >
+            </li>
+            <li class="nav-item d-flex align-items-center ms-auto visually-hidden" id="user-account">
+              <a class="nav-link" href="./View/Account/ThongTinCaNhan/"
+                ></a
+              >
+            </li>
+            <li class="nav-item visually-hidden" id="signout">
+              <a class="nav-link" href="#"
+                >Đăng xuất</a
+              >
             </li>
           </ul>
         </div>
@@ -274,7 +289,27 @@
       } from "./View/API/MovieAPI.js";
       import { getAllGenre } from "./View/API/GenreAPI.js";
       import { getPromotionsEvent } from "./View/API/PromotionAPI.js";
+      import { getAllFormatsByMovieId } from "./View/API/FormatAPI.js";
+      import {XORDecrypt} from "./View/Util/EncryptXOR.js";
+      import {getCustomerByEmail} from "./View/API/UserAPI.js";
       $(document).ready(function () {
+        if (sessionStorage.getItem('Email')) {
+          let email = XORDecrypt(window.sessionStorage.getItem('Email'));
+          getCustomerByEmail(".", email).then(res => {
+            let data = JSON.parse(res.user);
+            let name = data.customer.FullName;
+            $('#create-accout').addClass('visually-hidden');
+            $('#login-accout').addClass('visually-hidden');
+            $('#user-account').removeClass('visually-hidden').find('a').text(name);
+            $('#signout').removeClass('visually-hidden');       
+          });  
+        }
+
+        $('#signout a').click(() => {
+          sessionStorage.removeItem("Email");
+          window.location.href = ".";
+        })
+
         $(".navbar-toggler").click(function () {
           var color = $(".navbar").css("background-color");
           if (color == "rgba(0, 0, 0, 0.01)") {
@@ -301,7 +336,7 @@
             let storehtml = "";
 
             data["ListActor"].flat().forEach((element) => {
-              storehtml += `<span>${element.NameActor}</span>`;
+              storehtml += `<span>${element.NameActor}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>`;
             });
             return storehtml;
           };
@@ -387,6 +422,7 @@
           }
         });
         // Gọi phim đang chiếu
+
         getPremierMovie(".").then((datas) => {
           const cuttingGenre = (data) => {
             let storehtml = "";
@@ -404,7 +440,6 @@
           };
           datas.forEach(async (data, index) => {
             const timetoadd = await toHHMM(data.Time);
-
             let genrehtml = await cuttingGenre(data);
             let htmls = "";
             htmls +=
@@ -685,6 +720,26 @@
           }
         };
         takeAllGenre();
+        let modalTrailer = $("#modal-trailer");
+
+        $(".play-btn").click(function () {
+          modalTrailer.modal("show");
+        });
+
+        $("#modal-trailer .close").click(function () {
+          modalTrailer.modal("hide");
+        });
+
+        let video = document.querySelector("#modal-trailer video");
+
+        modalTrailer.on("show.bs.modal", function (e) {
+          video.play();
+        });
+
+        modalTrailer.on("hide.bs.modal", function (e) {
+          video.pause();
+          video.currentTime = 0;
+        });
       });
     </script>
   </body>

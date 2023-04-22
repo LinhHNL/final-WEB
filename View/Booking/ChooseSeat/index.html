@@ -37,7 +37,7 @@
     <!-- Nav -->
     <nav class="navbar navbar-expand-md fixed-top">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="../../../index.html">
           <div class="logo">5CT</div>
         </a>
         <button
@@ -56,22 +56,34 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto d-flex w-100">
             <li class="nav-item">
-              <a class="nav-link" href="#">PHIM</a>
+              <a class="nav-link" href="../../MovieList/index.html">PHIM</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">LỊCH CHIẾU</a>
+              <a class="nav-link" href="../../Detail/index.html">LỊCH CHIẾU</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">ƯU ĐÃI</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">THÔNG TIN</a>
+              <a class="nav-link" href="../../Account/ThongTinCaNhan/index.html"
+                >THÔNG TIN</a
+              >
             </li>
             <li class="nav-item" id="login-accout">
-              <a class="nav-link" href="#">Đăng nhập</a>
+              <a class="nav-link" href="../../Login_Modal/LoginModal.html"
+                >Đăng nhập</a
+              >
             </li>
             <li class="nav-item" id="create-accout">
-              <a class="nav-link" href="#">Đăng ký</a>
+              <a class="nav-link" href="../../Signup_Modal/index.html"
+                >Đăng ký</a
+              >
+            </li>
+            <li
+              class="nav-item d-flex align-items-center ms-auto visually-hidden"
+              id="user-account"
+            >
+              <a class="nav-link" href="../../Account/ThongTinCaNhan/"></a>
+            </li>
+            <li class="nav-item visually-hidden" id="signout">
+              <a class="nav-link" href="#">Đăng xuất</a>
             </li>
           </ul>
         </div>
@@ -80,7 +92,7 @@
     <!-- Select Number -->
     <div class="select-container" style="margin-top: 10%; margin-left: 5%">
       <div class="select-label">SỐ GHẾ</div>
-      <select class="form-select">
+      <select class="form-select select-container-info">
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -178,35 +190,35 @@
     <div class="bottom-bar">
       <div class="bottom-bar-item">
         <div class="title">NGÀY</div>
-        <div class="content">20.4</div>
+        <div class="content date-content">20.4</div>
       </div>
       <div class="bottom-bar-item">
         <div class="title">GIỜ</div>
-        <div class="content">22:30</div>
+        <div class="content hour-content">22:30</div>
       </div>
       <div class="bottom-bar-item">
         <div class="title">RẠP</div>
-        <div class="content">Nam Sài Gòn</div>
+        <div class="content theater-content">Nam Sài Gòn</div>
       </div>
       <div class="bottom-bar-item">
         <div class="title">PHÒNG</div>
-        <div class="content">Screen 2</div>
+        <div class="content room-content">Screen 2</div>
       </div>
       <div class="bottom-bar-item">
         <div class="title">GHẾ</div>
-        <div class="content">I2, K3</div>
+        <div class="content seat-content"></div>
       </div>
       <div class="bottom-bar-item">
         <div class="title">GIÁ VÉ</div>
-        <div class="content">120,000 ₫</div>
+        <div class="content ticket-content">0 ₫</div>
       </div>
       <div class="bottom-bar-item">
         <div class="title">COMBO</div>
-        <div class="content">0 ₫</div>
+        <div class="content combo-content">0 ₫</div>
       </div>
       <a href="../ComboFoodDrink/index.html" style="text-decoration: none">
         <button class="btn-main">CHỌN COMBO</button>
-        <div class="total">120,000 ₫</div>
+        <div class="total total-content">0 ₫</div>
       </a>
     </div>
     <!--  -->
@@ -280,9 +292,38 @@
         postLocalStorage,
         setLocalStorage,
       } from "../../Util/LocalstorageInterFace.js";
-      import { getSeatByRoomID } from "../../API/SeatAPI.js";
+      import { getShowTimeById } from "../../API/ShowTimeAPI.js";
+      import { getSeatByRoomID, getseatByID } from "../../API/SeatAPI.js";
       import { getAllTicketsByShowTimeId } from "../../API/TicketAPI.js";
+      import { getCustomerByEmail } from "../../API/UserAPI.js";
       $(document).ready(function () {
+        // Navbar for logged in
+        if (sessionStorage.getItem("Email")) {
+          let email = XORDecrypt(window.sessionStorage.getItem("Email"));
+          getCustomerByEmail("../../..", email).then((res) => {
+            let data = JSON.parse(res.user);
+            let name = data.customer.FullName;
+            $("#create-accout").addClass("visually-hidden");
+            $("#login-accout").addClass("visually-hidden");
+            $("#user-account")
+              .removeClass("visually-hidden")
+              .find("a")
+              .text(name);
+            $("#signout").removeClass("visually-hidden");
+          });
+        } else {
+          window.location.href = "../../Login_Modal/LoginModal.html";
+        }
+
+        $("#signout a").click(() => {
+          sessionStorage.removeItem("Email");
+          window.location.href = ".";
+        });
+
+        $(".select-container-info").change(function () {
+          var selectedOption = $(this).val();
+          sessionStorage.setItem("SelectedTicketNum", selectedOption);
+        });
         $(".navbar-toggler").click(function () {
           var color = $(".navbar").css("background-color");
           if (color == "rgba(0, 0, 0, 0.01)") {
@@ -373,19 +414,29 @@
               if (fullSeats.length == 0) {
                 if (seattoadd) {
                   if (seattoadd.Type == 2) {
-                    $(row).append(new Seat(charRow, i, 3).getHTML());
+                    $(row).append(
+                      new Seat(charRow, i, 3, seattoadd.SeatID).getHTML()
+                    );
                     continue;
                   } else {
-                    $(row).append(new Seat(charRow, i, 0).getHTML());
+                    $(row).append(
+                      new Seat(charRow, i, 0, seattoadd.SeatID).getHTML()
+                    );
                   }
                 }
               } else {
-                if (seattoadd & (fullSeats.SeatID != seattoadd.SeatID)) {
-                  if (seattoadd.Type == 2) {
-                    $(row).append(new Seat(charRow, i, 3).getHTML());
-                    continue;
-                  } else {
-                    $(row).append(new Seat(charRow, i, 0).getHTML());
+                if (seattoadd) {
+                  if (fullSeats.SeatID != seattoadd.SeatID) {
+                    if (seattoadd.Type == 2) {
+                      $(row).append(
+                        new Seat(charRow, i, 3, seattoadd.SeatID).getHTML()
+                      );
+                      continue;
+                    } else {
+                      $(row).append(
+                        new Seat(charRow, i, 0, seattoadd.SeatID).getHTML()
+                      );
+                    }
                   }
                 } else {
                   $(row).append('<div class="empty"></div>');
@@ -395,32 +446,67 @@
 
             $(".seats-container").append(row);
           }
+          renderInformation();
+          function toVndCurrencyFormat(number) {
+            const currencyFormat = new Intl.NumberFormat("vi-VN", {
+              style: "currency",
+              currency: "VND",
+              minimumFractionDigits: 0,
+            });
+
+            return currencyFormat.format(number);
+          }
+          async function renderInformation() {
+            $(".date-content").text(sessionStorage.getItem("DayChoosing"));
+            $(".room-content").text(sessionStorage.getItem("RoomIDChoosing"));
+            $(".hour-content").text(sessionStorage.getItem("TimeChoosing"));
+            $(".theater-content").text(sessionStorage.getItem("TheaterName"));
+          }
           let bookingNumber = 0;
           let arrtemptransaction = [];
-          $(".seat").click(function () {
+          let price = 0;
+          $(".seat").click(async function () {
             let row = $(this).attr("row");
             let col = $(this).attr("col");
             let stateid = $(this).attr("stateId");
+            let idSeat = $(this).attr("seatID");
+
             function numberToChar(number) {
               return String.fromCharCode(parseInt(number) + "A".charCodeAt(0));
             }
             if (stateid == 0) {
               stateid = 1;
+              price += 1;
             }
             if (stateid == 3) {
               stateid = 2;
+              price += 2;
             }
             const selectedValue = $(".form-select option:selected").val();
             if (selectedValue > bookingNumber) {
+              let ShowTimeID = sessionStorage.getItem("ShowTimeID");
+              let pricing = await getShowTimeById("../../.././", ShowTimeID);
+              let pricetocal = pricing["Showtime"].Price;
+              let seatIndentify = await getseatByID("../../../.", idSeat);
               selectSeat(row, col);
               arrtemptransaction = [
                 ...arrtemptransaction,
-                { Name: numberToChar(row), Number: col, Type: stateid },
+                seatIndentify["Seat"],
               ];
               sessionStorage.setItem(
                 "ChoosingSeat",
                 JSON.stringify(arrtemptransaction)
               );
+              // Cập nhật thông tin Seat
+              let seatdata = $(".seat-content").text();
+              seatdata += seatIndentify["Seat"].SeatName + " ";
+              $(".seat-content").text(seatdata);
+              // Cập nhật thông tin giá
+              console.log(pricing["Showtime"]);
+              let pricetorender = toVndCurrencyFormat(pricetocal * price);
+              $(".ticket-content").text(pricetorender);
+              $(".total-content").text(pricetorender);
+              sessionStorage.setItem("Pricing", pricetocal * price);
               bookingNumber++;
             }
           });
@@ -434,10 +520,11 @@
       }
 
       class Seat {
-        constructor(row, col, state) {
+        constructor(row, col, state, seatID) {
           this.row = row;
           this.col = col;
           this.state = state;
+          this.seatID = seatID;
         }
 
         getHTML() {
@@ -462,7 +549,7 @@
               break;
           }
           return (
-            `<div class="seat ${stateName}" stateId=${stateId} row=${this.row} col=${this.col}><svg class="width="25" height="18" viewBox="0 0 25 18" fill="#343434" xmlns="http://www.w3.org/2000/svg">` +
+            `<div class="seat ${stateName}" seatID="${this.seatID}" stateId=${stateId} row=${this.row} col=${this.col}><svg class="width="25" height="18" viewBox="0 0 25 18" fill="#343434" xmlns="http://www.w3.org/2000/svg">` +
             '<path d="M3.75 4.66875V2.25C3.75 1.0125 4.875 0 6.25 0H18.75C20.125 0 21.25 1.0125 21.25 2.25V4.68C19.8 5.14125 18.75 6.37875 18.75 7.84125V10.125H6.25V7.83C6.25 6.37875 5.2 5.13 3.75 4.66875ZM22.5 5.625C21.125 5.625 20 6.6375 20 7.875V11.25H5V7.875C5 6.6375 3.8875 5.625 2.5 5.625C1.1125 5.625 0 6.6375 0 7.875V13.5C0 14.7375 1.125 15.75 2.5 15.75V18H5V15.75H20V18H22.5V15.75C23.875 15.75 25 14.7375 25 13.5V7.875C25 6.6375 23.875 5.625 22.5 5.625Z" />' +
             "</svg>" +
             '<div class="seat-tooltip">' +

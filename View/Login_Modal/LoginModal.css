@@ -1,8 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@700&display=swap");
+
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: "Montserrat", sans-serif;
 }
+
+.modal-container {
+  background-color: #14181D;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
 .modal_body_container_Login {
   position: absolute;
   top: 0;
@@ -10,17 +21,11 @@
   left: 0;
   right: 0;
   z-index: 5;
+  background-image: url('../../images/bg_login.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-.modal_body_container_Login::before {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #000000;
-  opacity: 0.7;
-  content: "";
-}
+
 .form-group {
   display: flex;
   margin-bottom: 20px;

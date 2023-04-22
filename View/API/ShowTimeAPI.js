@@ -71,7 +71,6 @@ const getAllShowtimeByMovieID = async (
   const datatorender = await data.json();
   return datatorender;
 };
-
 const updateShowTime = async (
   url = "../..",
   Price,
@@ -147,7 +146,7 @@ const getShowTimeByDateAndTheater = async (
   return datatorender;
 };
 export {
-  getShowTimeByID,
+  getShowTimeById,
   getAllShowTimesByDate,
   getShowTimeByDateAndGenre,
   getShowTimeByMovieandTheater,

@@ -2,6 +2,7 @@
 
 require_once(__DIR__.'/../entity/Promotion.php');
 require_once(__DIR__.'/../entity/Movie.php');
+require_once(__DIR__.'/../entity/Theater.php');
 require_once(__DIR__.'/../System/Database.php');
 class StatisticModel{
     private $conn;
@@ -48,15 +49,15 @@ class StatisticModel{
             $per_page = 10;
             $offset = ($page -1)* $per_page;
             $sql = "SELECT SUM(TotalPrice) AS MonthlyRevenue, DATE_FORMAT(BookingTime, '%Y-%m') AS Month
-                    FROM booking";
+            FROM booking";
                   
-            if($year!=null && $month!=null){
-                  $sql.= "WHERE YEAR(BookingTime) = :year AND MONTH(BookingTime) = :month";
-            }
-            $sql.="GROUP BY DATE_FORMAT(BookingTime, '%Y-%m')
-            ORDER BY DATE_FORMAT(BookingTime, '%Y-%m') Desc
-             Limit :offset,:per_page";
-            
+    if($year!=null && $month!=null){
+        $sql.= " WHERE YEAR(BookingTime) = :year AND MONTH(BookingTime) = :month ";
+    }
+    $sql.=" GROUP BY DATE_FORMAT(BookingTime, '%Y-%m')
+            ORDER BY DATE_FORMAT(BookingTime, '%Y-%m') DESC
+            LIMIT :offset,:per_page";
+    
             $stmt = $this->conn->prepare($sql);
             if($year!=null && $month!=null){
             $stmt->bindParam(":year", $year, PDO::PARAM_INT);
@@ -82,16 +83,16 @@ class StatisticModel{
     public function getRevenueForYear($year=null,$page =1 ) {
         try {
             $sql = "SELECT SUM(TotalPrice) AS YearlyRevenue, YEAR(BookingTime) AS Year
-                    FROM booking";
+                    FROM booking ";
                       $per_page = 10;
                       $offset = ($page -1)* $per_page;
                 if($year!=null){
-                    $sql.=   "WHERE YEAR(BookingTime) = :year";
+                    $sql.=   " WHERE YEAR(BookingTime) = :year ";
 
                 }              
-                $sql.= "GROUP BY YEAR(BookingTime)
+                $sql.= " GROUP BY YEAR(BookingTime)
                          ORDER BY YearlyRevenue Desc 
-                         Limit :offset,:per_page";
+                         Limit :offset,:per_page ";
             $stmt = $this->conn->prepare($sql);
             if($year!=null){
                 $stmt->bindParam(":year", $year, PDO::PARAM_INT);
@@ -169,10 +170,7 @@ class StatisticModel{
                     $groupBy = 'YEAR(b.BookingTime)';
                     $dateFormat = '%Y';
                     break;
-                case 'quarter':
-                    $groupBy = 'QUARTER(b.BookingTime), YEAR(b.BookingTime)';
-                    $dateFormat = '%Y-%m';
-                    break;
+               
                 default:
                     return array("success" => false, "error" => "Invalid timeframe");
             }
@@ -194,7 +192,6 @@ class StatisticModel{
             $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
             $stmt->bindParam(':date', $date);
             $stmt->bindParam(':dateFormat', $dateFormat);
-            $stmt->bindParam(':groupVar', $groupVar);
             $stmt->execute();
     
             $list = array();
@@ -223,30 +220,59 @@ class StatisticModel{
     }
     
   
-    public function getTopHighestGrossingThearts(){
-        try{
-            $sql = "SELECT SUM(IF(seat.type = 1, showtime.Price, showtime.Price * 2)) AS TotalRevenue , theater.*
-            FROM ticket
-            JOIN detailticket ON ticket.TicketID = detailticket.TicketID
-            JOIN seat ON ticket.SeatID = seat.SeatID
-            JOIN showtime ON ticket.ShowTimeID = showtime.ShowTimeID
-            JOIN room ON room.RoomID = showtime.RoomID
-            JOIN theater on theater.TheaterID = room.TheaterID
-            GROUP BY (theater.TheaterID) , 
-            ORDER BY TotalRevenue DESC";
-             $stmt = $this->conn->prepare($sql);
-             $stmt ->execute();
-             $list = array();
-             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $Theater['theater'] = new Theater( $row['TheaterName'], $row['Address'], $row['Phone'], $row['NumberOfRooms'],$row['TheaterID']);
-                $Theater['TotalRevenue'] = $row['TotalRevenue'];
-                $list = $Theater;
+    public function getTopHighestGrossingTheater($page, $date, $timeframe) {
+        try {
+            $perPage = 10;
+            $offset = ($page - 1) * $perPage;
+    
+            switch ($timeframe) {
+                case 'day':
+                    $groupBy = 'DATE(b.BookingTime)';
+                    $dateFormat = '%Y-%m-%d';
+                    break;
+                case 'month':
+                    $groupBy = 'MONTH(b.BookingTime), YEAR(b.BookingTime)';
+                    $dateFormat = '%Y-%m';
+                    break;
+                case 'year':
+                    $groupBy = 'YEAR(b.BookingTime)';
+                    $dateFormat = '%Y';
+                    break;
+                default:
+                    return array("success" => false, "error" => "Invalid timeframe");
             }
-            return array("success"=>true,"list"=>$list);
-        }catch(Exception $e){
-            return array("success" => false, "error" =>$e->getMessage());
-            
+          
+            $sql = "SELECT SUM(booking.TotalPrice) as Total, theater.*, DATE_FORMAT(booking.BookingTime, :dateFormat) as Timeframe
+                FROM booking
+                JOIN detailticket on detailticket.BookingID = booking.BookingID
+                JOIN ticket on ticket.TicketID = detailticket.TicketID 
+                JOIN showtime on showtime.ShowtimeID = ticket.ShowTimeID
+                JOIN room on room.RoomID = showtime.RoomID
+                JOIN theater on theater.TheaterID = room.TheaterID
+                WHERE DATE_FORMAT(booking.BookingTime, :dateFormat) = :date
+                GROUP BY theater.TheaterName, Timeframe
+                ORDER BY Total DESC
+                LIMIT :perPage OFFSET :offset";
+         
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':perPage', $perPage, PDO::PARAM_INT);
+            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+            $stmt->bindParam(':date', $date);
+            $stmt->bindParam(':dateFormat', $dateFormat);
+            $stmt->execute();
+    
+            $list = array();
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $temp['theater'] = new Theater( $row['TheaterName'], $row['Address'], $row['Phone'], $row['NumberOfRooms'],$row['TheaterID']);
+                $temp['TotalRevenue'] = $row['Total'];
+                $temp['Timeframe'] = $timeframe;
+                $list[] = $temp;
+            }
+            return array("success" => true, "list" => $list);
+        } catch (Exception $e) {
+            return array("success" => false, "error" => $e->getMessage());
         }
     }
+    
 }
 ?>

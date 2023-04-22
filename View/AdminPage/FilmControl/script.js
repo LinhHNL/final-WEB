@@ -21,7 +21,7 @@ let table = $("#table-content").DataTable({
     lengthMenu: "Số kết quả / Trang _MENU_",
     zeroRecords: "Không tìm thấy dữ liệu",
     info: "Hiển thị trang _PAGE_ trên _PAGES_",
-    infoEmpty: "Không tìm thấy dữ liệu",
+    infoEmpty: "Đang tìm kiếm dữ liệu",
     infoFiltered: "(filtered from _MAX_ total records)",
     paginate: {
       first: "Trang đầu",

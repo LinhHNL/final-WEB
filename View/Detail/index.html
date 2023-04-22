@@ -37,7 +37,7 @@
     <!-- Nav -->
     <nav class="navbar navbar-expand-md fixed-top">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="../../index.html">
           <div class="logo">5CT</div>
         </a>
         <button
@@ -56,22 +56,34 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto d-flex w-100">
             <li class="nav-item">
-              <a class="nav-link nav-current" href="#">PHIM</a>
+              <a class="nav-link nav-current" href="../MovieList/index.html"
+                >PHIM</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">LỊCH CHIẾU</a>
+              <a class="nav-link" href="../Order/index.html">LỊCH CHIẾU</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">ƯU ĐÃI</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">THÔNG TIN</a>
+              <a class="nav-link" href="../Account/ThongTinCaNhan/index.html"
+                >THÔNG TIN</a
+              >
             </li>
             <li class="nav-item" id="login-accout">
-              <a class="nav-link" href="#">Đăng nhập</a>
+              <a class="nav-link" href="../Login_Modal/LoginModal.html"
+                >Đăng nhập</a
+              >
             </li>
             <li class="nav-item" id="create-accout">
-              <a class="nav-link" href="#">Đăng ký</a>
+              <a class="nav-link" href="../Signup_Modal/index.html">Đăng ký</a>
+            </li>
+            <li
+              class="nav-item d-flex align-items-center ms-auto visually-hidden"
+              id="user-account"
+            >
+              <a class="nav-link" href="../Account/ThongTinCaNhan/"></a>
+            </li>
+            <li class="nav-item visually-hidden" id="signout">
+              <a class="nav-link" href="#">Đăng xuất</a>
             </li>
           </ul>
         </div>
@@ -247,7 +259,32 @@
         getByGenreID,
       } from "../API/MovieAPI.js";
       import { getAllGenre } from "../API/GenreAPI.js";
+      import { XORDecrypt } from "../Util/EncryptXOR.js";
+      import { getCustomerByEmail } from "../API/UserAPI.js";
       $(document).ready(function () {
+        // Navbar for logged in
+        if (sessionStorage.getItem("Email")) {
+          let email = XORDecrypt(window.sessionStorage.getItem("Email"));
+          getCustomerByEmail("../..", email).then((res) => {
+            let data = JSON.parse(res.user);
+            let name = data.customer.FullName;
+            $("#create-accout").addClass("visually-hidden");
+            $("#login-accout").addClass("visually-hidden");
+            $("#user-account")
+              .removeClass("visually-hidden")
+              .find("a")
+              .text(name);
+            $("#signout").removeClass("visually-hidden");
+          });
+        } else {
+          window.location.href = "../Login_Modal/LoginModal.html";
+        }
+
+        $("#signout a").click(() => {
+          sessionStorage.removeItem("Email");
+          window.location.href = ".";
+        });
+
         $(".navbar-toggler").click(function () {
           var color = $(".navbar").css("background-color");
           if (color == "rgba(0, 0, 0, 0.01)") {
@@ -272,6 +309,12 @@
           return storehtml;
         };
         datas.forEach(async (data, index) => {
+          function toHHMM(minutes) {
+            var hours = Math.floor(minutes / 60);
+            var mins = minutes % 60;
+            return hours + "h" + " " + mins + "m";
+          }
+          let timerender = await toHHMM(data.Time);
           let genrehtml = await cuttingGenre(data);
           let htmls = "";
           htmls +=
@@ -292,12 +335,17 @@
                     </div>
                     <div class="duration">
                       <img src="../../images/timer.svg" alt="" />
-                      ${data.Time}
+                      ${timerender}
                     </div>
                     <a href="./index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
                     <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
                     </a>
-                    <button class="btn-main">Đặt vé</button>
+                    <a href="../Order/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
+                      <button class="btn-main btn-book">
+                      ĐẶT VÉ
+                      <img src="../../images/Arrow_right_long.svg" alt="" />
+                    </button>
+                    </a>
                   </div>
                   <img class="poster" src="../../${data.listImage[0]}" alt="" />
                 </div>
@@ -436,7 +484,13 @@
       }
       // Thêm dữ liệu vào Movie
       async function addIntoMovieInfo(data) {
+        function toHHMM(minutes) {
+          var hours = Math.floor(minutes / 60);
+          var mins = minutes % 60;
+          return hours + "h" + " " + mins + "m";
+        }
         const datatoadd = data["movie"];
+        let timerender = await toHHMM(datatoadd.Time);
         const htmls = `<div class="rating">
           <div class="rating-star">
             <img src="../../images/Star.svg" alt="" />
@@ -448,16 +502,17 @@
           ${datatoadd.MovieName}
         </div>
         <div class="movie-info">
-          <span class="duration">${datatoadd.Time}</span>
+          <span class="duration">${timerender}</span>
           <span class="dot">●</span>
           <span class="premier-date">${datatoadd.Premiere}</span>
         </div>
 
         <div class="button-container">
-          <button class="btn-main btn-book">
+          <a href="../Order/index.html" style="text-decoration:None;display:block;width:100%">
+            <button class="btn-main btn-book">
             ĐẶT VÉ
             <img src="../../images/Arrow_right_long.svg" alt="" />
-          </button>
+          </button></a>
         </div>`;
         $(".movie-content").append(htmls);
       }
@@ -521,10 +576,11 @@
         const cuttingActor = (data) => {
           let storehtml = "";
           data["ListActor"].flat().forEach((element) => {
-            storehtml += `${element.NameActor}`;
+            storehtml += `${element.NameActor}&nbsp&nbsp&nbsp&nbsp`;
           });
           return storehtml;
         };
+
         const htmls =
           `<div class="about-kind">
                   <ul>
@@ -586,6 +642,12 @@
             return storehtml;
           };
           datas.forEach(async (data, index) => {
+            function toHHMM(minutes) {
+              var hours = Math.floor(minutes / 60);
+              var mins = minutes % 60;
+              return hours + "h" + " " + mins + "m";
+            }
+            let timerender = await toHHMM(data.Time);
             let genrehtml = await cuttingGenre(data);
             let htmls = "";
             htmls +=
@@ -606,12 +668,17 @@
                     </div>
                     <div class="duration">
                       <img src="../../images/timer.svg" alt="" />
-                      ${data.Time}
+                      ${timerender}
                     </div>
                     <a href="./View/Detail/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
                     <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
                     </a>
-                    <button class="btn-main">Đặt vé</button>
+                    <a href="../Order/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
+                      <button class="btn-main btn-book">
+                      ĐẶT VÉ
+                      <img src="../../images/Arrow_right_long.svg" alt="" />
+                    </button>
+                    </a>
                   </div>
                   <img class="poster" src="../../${data.listImage[0]}" alt="" />
                 </div>
@@ -653,6 +720,12 @@
             return storehtml;
           };
           datas.forEach(async (data, index) => {
+            function toHHMM(minutes) {
+              var hours = Math.floor(minutes / 60);
+              var mins = minutes % 60;
+              return hours + "h" + " " + mins + "m";
+            }
+            let timerender = await toHHMM(data.Time);
             let genrehtml = await cuttingGenre(data);
             let htmls = "";
             htmls +=
@@ -673,12 +746,17 @@
                     </div>
                     <div class="duration">
                       <img src="../../images/timer.svg" alt="" />
-                      ${data.Time}
+                      ${timerender}
                     </div>
-                    <a href="./View/Detail/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
+                    <a href="./index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
                     <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
                     </a>
-                    <button class="btn-main">Đặt vé</button>
+                    <a href="../Order/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
+                      <button class="btn-main btn-book">
+                      ĐẶT VÉ
+                      <img src="../../images/Arrow_right_long.svg" alt="" />
+                    </button>
+                    </a>
                   </div>
                   <img class="poster" src="../../${data.listImage[0].ImagePath}" alt="" />
                 </div>

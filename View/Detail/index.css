@@ -44,7 +44,6 @@ html {
 .btn-main {
   color: white;
   background-image: linear-gradient(90deg, #784ba0 0%, #ff3cac 100%);
-  display: flex;
   justify-content: center;
   align-items: center;
   border: 0px;
@@ -749,7 +748,7 @@ html {
   .btn-book {
     border-radius: 10px;
   }
-  
+
   .about-line p {
     text-align: center;
   }
@@ -772,7 +771,6 @@ html {
     margin-left: 0;
     margin-right: 0;
   }
-
 }
 
 @media only screen and (max-width: 575px) {

@@ -18,4 +18,17 @@ const getPromotionsEvent = async (url, page = "1") => {
   const datatorender = await data.json();
   return datatorender;
 };
-export { getPromotionsVoucher, getPromotionsEvent };
+const calculateTotalPrice = async (url, code, totalPrice) => {
+  const urls = `${url}/Controller/Booking/ajax.php`;
+  const data = await fetch(urls, {
+    method: "POST",
+    body: JSON.stringify({
+      action: "caluateTotalPriceUsingCode",
+      code: code,
+      TotalPrice: totalPrice,
+    }),
+  });
+  const datatorender = await data.json();
+  return datatorender;
+};
+export { getPromotionsVoucher, getPromotionsEvent, calculateTotalPrice };
