@@ -122,6 +122,7 @@ svg.active {
   align-items: center;
   border: 0px;
   margin: 0 12.5px;
+  max-height: 37px;
 }
 .btn-main.content-type-normal {
   font-family: "Montserrat";
@@ -172,6 +173,7 @@ svg.active {
 .search-place {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 .input-place {
   max-width: 45%;
@@ -181,7 +183,7 @@ svg.active {
   background: #101521;
   border: 1px solid #303030;
   border-radius: 10px;
-  color: white;
+
 }
 .input-place input:focus {
   background: #101521;
@@ -412,26 +414,40 @@ input[type="text"],
 input[type="date"],
 input[type="email"],
 input[type="password"],
+input[type="file"],
+input[type="datetime-local"], .selectize-control, .selectize-input,
 .modal select {
-  color: white;
+  /* color: white;
   background-color: black;
-  border: none;
+  border: none; */
   box-sizing: border-box;
   margin-top: 10px;
   border-radius: 10px;
   height: 36px;
+  background-color: #20232d;
+  color: #9a9fae;
+  border: solid 1px #303030;
+}
+.selectize-control {
+  padding: 0;
+}
+.selectize-input {
+  background-color: transparent;
+  padding: 0;
+  border: none;
 }
 
 input[type="text"]:focus,
 input[type="date"]:focus,
 input[type="email"]:focus,
-input[type="password"]:focus {
+input[type="password"]:focus,
+input[type="file"]:focus,
+input[type="datetime-local"]:focus {
   box-sizing: border-box !important;
   color: white;
-  background: black;
   border: solid 1px transparent;
   border-radius: 10px;
-  background-image: linear-gradient(black, black),
+  background-image: linear-gradient(#20232d, #20232d),
     linear-gradient(90deg, #784ba0 0.25%, #784ba0 0.26%, #ff3cac 100.12%);
   background-origin: border-box;
   background-clip: padding-box, border-box;

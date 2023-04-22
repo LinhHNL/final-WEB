@@ -20,14 +20,14 @@ const getDetailMenuByID = async (url, id = "1") => {
 };
 const addMenu = async (
   url = "../..",
-  Name, ImageURL, Price ,status 
+  Name, file , Price ,status 
 ) => {
   const urls = `${url}/Controller/Menu/ajax.php`;
   const data = await fetch(urls, {
     method: "POST",
     body: JSON.stringify({
       Name:Name,
-      ImageURL:ImageURL,
+      file:file,
       Price:Price,
       status:status,
     }),
@@ -35,4 +35,26 @@ const addMenu = async (
   const datatorender = await data.json();
   return datatorender;
 };
-export { getAllMenu, getDetailMenuByID ,addMenu};
+const updateMenu = async (
+  url = "../..",
+  Name, 
+  ImageURL, 
+  Price, 
+  status, 
+  ItemID
+) => {
+  const urls = `${url}/Controller/Menu/ajax.php`;
+  const data = await fetch(urls, {
+    method: "PUT",
+    body: JSON.stringify({
+      Name:Name,
+      ImageURL:ImageURL,
+      Price:Price,
+      status:status,
+      ItemID:ItemID
+    }),
+  });
+  const datatorender = await data.json();
+  return datatorender;
+};
+export { getAllMenu, getDetailMenuByID ,addMenu, updateMenu};

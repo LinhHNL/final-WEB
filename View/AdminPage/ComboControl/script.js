@@ -1,4 +1,8 @@
-import { getAllMenu, addMenu } from "../../API/MenuAPI.js";
+import {
+  getAllMenu,
+  addMenu,
+  updateMenu,
+} from "../../API/MenuAPI.js";
 let allData = [];
 let currentData = [];
 let table = $("#table-content").DataTable({
@@ -23,12 +27,12 @@ let table = $("#table-content").DataTable({
 });
 $("#table-content_filter").hide();
 $(document).ready(() => {
-  // table.on("select", function (e, dt, type, indexes) {
-  //   if (type === "row") {
-  //     var data = table.rows(indexes).data();
-  //     fillEditData(data[0][0]);
-  //   }
-  // });
+  table.on("select", function (e, dt, type, indexes) {
+    if (type === "row") {
+      var data = table.rows(indexes).data();
+      fillEditData(data[0][0]);
+    }
+  });
   $(".item-choosing-block").click(function () {
     $(".item-choosing-block .divider-mini").remove();
     $(this).append("<div class=divider-mini></div>");
@@ -37,89 +41,104 @@ $(document).ready(() => {
   $("#btn-search").click(() => {
     let query = $(".input-place input").val().trim().toUpperCase();
     currentData = allData.filter(
-      (element) => element.ItemID.search(query) != -1
+      (element) =>
+        element.ItemID.search(query) != -1
     );
     $(".item-choosing-block .divider-mini").remove();
     $(".search-result").parent().append("<div class=divider-mini></div>");
     showData();
   });
   $("#btn-add").click(() => {
-    let ItemID = $("#ModalAddUser #ItemID").val().trim();
     let Name = $("#ModalAddUser #Name").val().trim();
     let Price = $("#ModalAddUser #Price").val().trim();
     let status = $("#ModalAddUser #status").val();
-    let imageFiles = $("#ModalAddUser #image")[0].files;
+    let imageFiles = $("#ModalAddUser #image")[0].files[0];
     if (!imageFiles) return;
     $("#ModalAddUser #image")[0]
-      .files.convertAllToBase64(/\.(png|jpeg|jpg|gif)$/i)
-      .then(function (res) {
-        listImage.push(
-          ...res.map((e) => {
-            return { file: e.result, type: 2 };
-          })
-        );
-        console.log(listImage);
-        // addMenu(
-        //   "../../..",
-        //   Name,
-        //   listImage,
-        //   Price,
-        //   status
-        // ).then((res) => {
-        //   if (res.success == false)
-        //     $("#ModalAddUser .message")
-        //       .text("Thêm thất bại")
-        //       .removeClass("success");
-        //   else
-        //     $("#ModalAddUser .message")
-        //       .text("Thêm thành công")
-        //       .addClass("success");
-        // });
+      .files[0].convertToBase64()
+      .then((res) => {
+        addMenu(
+          "../../..",
+          Name,
+          res.result,
+          Price,
+          status,
+        ).then((res) => {
+          if (res.success == false)
+            $("#ModalAddUser .message")
+              .text("Thêm thất bại")
+              .removeClass("success");
+          else
+            $("#ModalAddUser .message")
+              .text("Thêm thành công")
+              .addClass("success");
+          $(".all-combo").trigger("click");
+        });
       });
-  });
+  })
+  $("#btn-edit").click(() => {
+    let ItemID = $("#ModalEditUser #ItemID").val().trim();
+    let Name = $("#ModalEditUser #Name").val().trim();
+    let Price = $("#ModalEditUser #Price").val().trim();
+    let status = $("#ModalEditUser #status").val();
+    let ImageURL= $("#ModalEditUser #image").val().trim();
+    updateMenu(
+      "../../..",
+      Name, ImageURL, Price, status, ItemID
+    ).then((res) => {
+      if (res.success == false)
+        $("#ModalEditUser .message")
+          .text("Sửa thất bại")
+          .removeClass("success");
+      else
+        $("#ModalEditUser .message")
+          .text("Sửa thành công")
+          .addClass("success");
+      $(".all-combo").trigger("click");
+    });
+  })
   loadAllMenu().then(() => showData());
 });
 async function loadAllMenu() {
   currentData = [];
-
   let page = 1;
   let data;
   do {
     data = await getAllMenu("../../..", page);
     currentData.push(...data.menus);
+    console.log(currentData);
     page++;
   } while (data.menus.length != 0);
   page = 1;
   allData = [...currentData];
-}
-function toVndCurrencyFormat(number) {
-  const currencyFormat = new Intl.NumberFormat("vi-VN", {
-    style: "currency",
-    currency: "VND",
-    minimumFractionDigits: 0,
-  });
-
-  return currencyFormat.format(number);
 }
 function showData() {
   table.clear().draw();
   let data = currentData;
   let numRow = data.length;
   for (let i = 0; i < numRow; i++) {
-    //   let genreList = [];
-    //   data[i].ListGenre.forEach((genre) => {
-    //     genreList.push(genre.GenreName);
-    //   });
+    
     table.row
       .add([
         data[i].ItemID,
         data[i].Name,
-        toVndCurrencyFormat(data[i].Price),
+        data[i].Price,
         data[i].ImageURL,
-        data[i].status,
+        data[i].status
       ])
       .draw();
   }
+}
+function fillEditData(id) {
+  let editModal = $("#ModalEditUser");
+  let data = currentData.find((e) => e.ItemID === id);
+  console.log(data);
+  editModal.find("#ItemID").val(data.ItemID);
+  editModal.find("#Name").val(data.Name);
+  editModal.find("#Price").val(data.Price);
+  editModal.find("#image").val(data.ImageURL);
+  editModal.find("#status").val(data.status);
+  editModal.modal("show");
 }
 File.prototype.convertToBase64 = function () {
   return new Promise(

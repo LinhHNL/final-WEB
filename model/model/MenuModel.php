@@ -137,7 +137,7 @@ public function updateMenu(Menu $Menu) {
         
             $newId = "I" . ($lastId + 1);
             return $newId;
-        }
+        } 
 
 }
 

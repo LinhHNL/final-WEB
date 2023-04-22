@@ -4,10 +4,9 @@
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
 }
-
 html {
   height: 100%;
-  background-color: #14181D;
+  background-color: #14181d;
 }
 
 .sidebar-container {
@@ -16,7 +15,7 @@ html {
   width: 78px;
   left: 0px;
   top: 0px;
-  background-color: #14181D;
+  background-color: #14181d;
   border: 1px solid #303030;
   overflow: hidden;
   display: flex;
@@ -44,10 +43,10 @@ html {
 }
 .sidebar-container:hover {
   width: 300px;
-  cursor: pointer;  
+  cursor: pointer;
 }
 
-.sidebar-container:hover .item-description   {
+.sidebar-container:hover .item-description {
   display: block;
 }
 
@@ -61,7 +60,6 @@ html {
   margin-left: 12px;
   height: fit-content;
   width: 30px;
-  
 }
 .item-description {
   font-family: "Montserrat";
@@ -124,6 +122,7 @@ svg.active {
   align-items: center;
   border: 0px;
   margin: 0 12.5px;
+  max-height: 37px;
 }
 .btn-main.content-type-normal {
   font-family: "Montserrat";
@@ -184,7 +183,7 @@ svg.active {
   background: #101521;
   border: 1px solid #303030;
   border-radius: 10px;
-  color: white;
+
 }
 .input-place input:focus {
   background: #101521;
@@ -253,7 +252,6 @@ svg.active {
   color: rgba(246, 245, 246, 0.9) !important;
 }
 
-
 .table-place tr td:first-child {
   color: #ff3cac !important;
   border-color: #343434 !important;
@@ -271,14 +269,14 @@ svg.active {
 .table-place tbody tr td {
   max-width: 100px;
   overflow: hidden;
-  vertical-align: middle  ;
+  vertical-align: middle;
   text-overflow: ellipsis;
   white-space: nowrap;
   text-align: center;
 }
 
 .table-place th {
-  text-align: center !important ;
+  text-align: center !important   ;
   height: fit-content;
 }
 
@@ -286,12 +284,12 @@ svg.active {
   background-color: #fff !important;
 }
 
-
 .rating {
   font-size: 16px;
   font-weight: 500;
   display: flex;
   flex-direction: row;
+  line-height: 20px;
   align-items: center;
   color: #fbc300;
   margin-bottom: 16px;
@@ -325,7 +323,8 @@ svg.active {
   margin: 0 8px;
 }
 
-.forward-place, .back-place {
+.forward-place,
+.back-place {
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -355,20 +354,18 @@ p {
   font-weight: 400;
   font-size: 16px;
   color: white;
-}   
-
-#table-content_length select, .search-place select {
-  width: fit-content;
+}
+.select-place {
+  max-width: 85px;
   max-height: 40px;
   color: white !important;
   background-color: #101521 !important;
   border: 1px solid #303030;
   border-radius: 10px;
 }
-#table-content_length select option, .search-place select option{
+.select-place option {
   background: #101521;
 }
-
 .data-heading {
   display: flex;
   justify-content: space-between;
@@ -415,59 +412,42 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 input[type="text"],
 input[type="date"],
-input[type="file"], 
+input[type="email"],
+input[type="password"],
+input[type="file"],
+input[type="datetime-local"], .selectize-control, .selectize-input,
 .modal select {
-  color: white;
+  /* color: white;
   background-color: black;
-  border: none;
+  border: none; */
   box-sizing: border-box;
   margin-top: 10px;
   border-radius: 10px;
   height: 36px;
+  background-color: #20232d;
+  color: #9a9fae;
+  border: solid 1px #303030;
 }
-
-.modal .selectize-control {
-  color: white;
-  background-color: black;
-  border: none;
-  box-sizing: border-box;
-  margin-top: 10px;
-  border-radius: 10px;
-  height: 36px;
+.selectize-control {
   padding: 0;
 }
-
-.modal .selectize-input {
-  color: white;
-  background-color: black;
+.selectize-input {
+  background-color: transparent;
+  padding: 0;
   border: none;
-  box-sizing: border-box;
-  border-radius: 10px;
-  height: 36px;
-}
-
-.modal .selectize-input .item {
-  background-color: #784ba0  !important;
-  background-image: none !important;
-  border: none !important;
-}
-
-.modal .selectize-dropdown {
-  background-color: black;
-  border: solid 1px #343434;
-  color: white;
-  border-radius: 10px;
 }
 
 input[type="text"]:focus,
 input[type="date"]:focus,
-.modal select:focus {
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="file"]:focus,
+input[type="datetime-local"]:focus {
   box-sizing: border-box !important;
   color: white;
-  background: black;
   border: solid 1px transparent;
   border-radius: 10px;
-  background-image: linear-gradient(black, black),
+  background-image: linear-gradient(#20232d, #20232d),
     linear-gradient(90deg, #784ba0 0.25%, #784ba0 0.26%, #ff3cac 100.12%);
   background-origin: border-box;
   background-clip: padding-box, border-box;
@@ -477,11 +457,11 @@ input[type="date"]:focus,
 input[type="search"] {
   border-radius: 10px !important;
   padding-left: 35px;
-} 
+}
 
 input[type="search"]:focus {
   box-shadow: none;
-} 
+}
 
 .form-title {
   color: #9a9fae;
@@ -504,20 +484,29 @@ a {
   text-decoration: none !important;
 }
 
-#poster {
-  background-color: black;
-  border: black;
-  color: white  ;
-}
-
 .page-link {
   background-color: transparent !important;
-  color: white !important; 
+  color: white !important;
   border: none;
 }
 
-#table-content_length label, #table-content_info {
+#table-content_length label,
+#table-content_info {
   color: white;
+}
+
+#table-content_length select,
+.search-place select {
+  width: fit-content;
+  max-height: 40px;
+  color: white !important;
+  background-color: #101521 !important;
+  border: 1px solid #303030;
+  border-radius: 10px;
+}
+#table-content_length select option,
+.search-place select option {
+  background: #101521;
 }
 
 .message {
@@ -538,5 +527,9 @@ input:disabled {
 }
 
 .dataTables_paginate {
- color: white  !important;
+  color: white !important;
+}
+
+select:disabled {
+  color: black
 }

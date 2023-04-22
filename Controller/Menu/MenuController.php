@@ -44,7 +44,6 @@ class MenuController {
 
         $Menu = new Menu($Name, $ImageURL, $Price, $status, $ItemID);
         return (new MenuModel())->updateMenu($Menu);
-
     }
 }
 
