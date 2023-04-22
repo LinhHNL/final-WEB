@@ -26,7 +26,7 @@ class MenuModel {
     // Phương thức thêm mới một Menu
     public function addMenu(Menu $Menu){
         try{
-            $stmt =$this->conn->prepare("INSERT INTO menu (ItemID, Name,  Price, ImageURL,status) VALUES (:ItemID, :Name, :Price, :ImageURL, :status)");
+            $stmt =$this->conn->prepare("INSERT INTO menu (ItemID, Name,  Price, ImageURL,status) VALUES (:ItemID, :Name, :Price, :ImageURL,:status)");
             $ItemID = $this->createNewID();
             $Name = $Menu->get_Name();
             $Price = $Menu->get_Price();
