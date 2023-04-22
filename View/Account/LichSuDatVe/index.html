@@ -51,6 +51,12 @@
       type="text/javascript"
       src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
     ></script>
+    <link
+    href="https://cdn.datatables.net/v/dt/dt-1.13.4/sl-1.6.2/datatables.min.css"
+    rel="stylesheet"
+  />
+
+  <script src="https://cdn.datatables.net/v/dt/dt-1.13.4/sl-1.6.2/datatables.min.js"></script>
     <title>Document</title>
   </head>
 
@@ -82,7 +88,7 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../../Detail/index.html">LỊCH CHIẾU</a>
+              <a class="nav-link" href="../../Order/index.html">LỊCH CHIẾU</a>
             </li>
 
             <li class="nav-item">
@@ -100,6 +106,15 @@
                 >Đăng ký</a
               >
             </li>
+            <li
+              class="nav-item d-flex align-items-center ms-auto visually-hidden"
+              id="user-account"
+            >
+              <a class="nav-link" href="../ThongTinCaNhan/"></a>
+            </li>
+            <li class="nav-item visually-hidden" id="signout">
+              <a class="nav-link" href="#">Đăng xuất</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -107,100 +122,11 @@
     <div class="body-container">
       <div class="header-container">
         <div class="title-place">
-          <h1 class="title-heading">Lịch sử đặt vé</h1>
-        </div>
-      </div>
-      <div class="divider-container"></div>
-      <div class="search-place">
-        <div class="input-group rounded input-place" style="margin-bottom: 0">
-          <input
-            type="search"
-            class="form-control rounded"
-            placeholder="Search"
-            aria-label="Search"
-            aria-describedby="search-addon"
-          />
-        </div>
-        <div class="dropdown dropdown-choosing">
-          <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Tên rạp
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        <div class="dropdown dropdown-choosing">
-          <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Giờ chiếu
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-        <div class="dropdown dropdown-choosing">
-          <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Ngày chiếu
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
+          <h1 class="title-heading">Lịch sử giao dịch</h1>
         </div>
 
-        <button class="btn-main content-type-normal">Tìm kiếm</button>
       </div>
       <div class="divider-container"></div>
-      <div class="transition-place">
-        <div class="item-choosing-block">
-          <p class="all-ticket" style="margin-bottom: 12px !important">
-            Tất cả vé
-          </p>
-          <div class="divider-mini"></div>
-        </div>
-      </div>
-      <div class="divider-container"></div>
-      <div class="data-heading">
-        <p class="heading-result">Hiển thị 11 - 20 của 64 kết quả tìm kiểm</p>
-        <div class="choosing-block">
-          <p class="display-text">Số kết quả / Trang</p>
-          <select
-            class="form-select select-place"
-            aria-label="Default select example"
-          >
-            <option selected value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-            <option value="50">50</option>
-          </select>
-        </div>
-      </div>
-
       <div class="datagrid-place">
         <table
           id="table-content"
@@ -209,145 +135,16 @@
         >
           <thead>
             <tr>
-              <th>STT</th>
-              <th>Tên phim</th>
-              <th>Đối tượng</th>
-              <th>Tên rạp</th>
-              <th>Giờ chiếu</th>
-              <th>Ngày chiếu</th>
-              <th>Combo</th>
-              <th>Các ghế</th>
+              <th>ID</th>
+              <th>Số vé đặt</th>
               <th>Tổng tiền</th>
+              <th>Thời gian giao dịch</th>
+              <th>Voucher</th>
+              <th>Trạng thái</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Người kiến</td>
-              <td>Trên 18 tuổi</td>
-              <td>Nam Sài Gòn</td>
-              <td>18h50</td>
-              <td>15/08/2003</td>
-              <td>Vé + Nước + Bắp</td>
-              <td>A1,A2</td>
-              <td>159.000.000 VNĐ</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Người kiến</td>
-              <td>Trên 18 tuổi</td>
-              <td>Nam Sài Gòn</td>
-              <td>18h50</td>
-              <td>15/08/2003</td>
-              <td>Vé + Nước + Bắp</td>
-              <td>A1,A2</td>
-              <td>159.000.000 VNĐ</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Người kiến</td>
-              <td>Trên 18 tuổi</td>
-              <td>Nam Sài Gòn</td>
-              <td>18h50</td>
-              <td>15/08/2003</td>
-              <td>Vé + Nước + Bắp</td>
-              <td>A1,A2</td>
-              <td>159.000.000 VNĐ</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Người kiến</td>
-              <td>Trên 18 tuổi</td>
-              <td>Nam Sài Gòn</td>
-              <td>18h50</td>
-              <td>15/08/2003</td>
-              <td>Vé + Nước + Bắp</td>
-              <td>A1,A2</td>
-              <td>159.000.000 VNĐ</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Người kiến</td>
-              <td>Trên 18 tuổi</td>
-              <td>Nam Sài Gòn</td>
-              <td>18h50</td>
-              <td>15/08/2003</td>
-              <td>Vé + Nước + Bắp</td>
-              <td>A1,A2</td>
-              <td>159.000.000 VNĐ</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Người kiến</td>
-              <td>Trên 18 tuổi</td>
-              <td>Nam Sài Gòn</td>
-              <td>18h50</td>
-              <td>15/08/2003</td>
-              <td>Vé + Nước + Bắp</td>
-              <td>A1,A2</td>
-              <td>159.000.000 VNĐ</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Người kiến</td>
-              <td>Trên 18 tuổi</td>
-              <td>Nam Sài Gòn</td>
-              <td>18h50</td>
-              <td>15/08/2003</td>
-              <td>Vé + Nước + Bắp</td>
-              <td>A1,A2</td>
-              <td>159.000.000 VNĐ</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Người kiến</td>
-              <td>Trên 18 tuổi</td>
-              <td>Nam Sài Gòn</td>
-              <td>18h50</td>
-              <td>15/08/2003</td>
-              <td>Vé + Nước + Bắp</td>
-              <td>A1,A2</td>
-              <td>159.000.000 VNĐ</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Người kiến</td>
-              <td>Trên 18 tuổi</td>
-              <td>Nam Sài Gòn</td>
-              <td>18h50</td>
-              <td>15/08/2003</td>
-              <td>Vé + Nước + Bắp</td>
-              <td>A1,A2</td>
-              <td>159.000.000 VNĐ</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Người kiến</td>
-              <td>Trên 18 tuổi</td>
-              <td>Nam Sài Gòn</td>
-              <td>18h50</td>
-              <td>15/08/2003</td>
-              <td>Vé + Nước + Bắp</td>
-              <td>A1,A2</td>
-              <td>159.000.000 VNĐ</td>
-            </tr>
-          </tbody>
+          <tbody></tbody>
         </table>
-      </div>
-      <div class="change-table-place">
-        <div class="back-place">
-          <span class="back-btn"> <i class="fa fa-angle-left"></i> </span>
-          <p class="back-description">Trang Trước</p>
-        </div>
-        <input type="text" class="value-place" value="1" />
-        <p style="color: white; margin-right: 6px">/</p>
-        <p class="text-place">7</p>
-        <div class="forward-place">
-          <p class="forward-description">Trang sau</p>
-          <span class="forward-btn">
-            <i class="fa fa-angle-right" aria-hidden="true"></i>
-          </span>
-        </div>
       </div>
     </div>
     <!-- Footer -->
@@ -415,5 +212,6 @@
         </div>
       </div>
     </div>
+    <script src="script.js" type="module"></script>
   </body>
 </html>

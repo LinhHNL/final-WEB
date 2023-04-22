@@ -80,10 +80,10 @@ class AccountModel {
             $stmt->bindParam(':id', $id);
             $stmt->execute();
             header('Content-Type: application/json');
-            return (array("success"=>true));
+            return json_encode(array("success"=>true));
         }catch(Exception $e){
             header('Content-Type: application/json');
-            return (array("success"=>false,"error"=>$e->getMessage()));
+            return json_encode(array("success"=>false,"error"=>$e->getMessage()));
         }
     }
     

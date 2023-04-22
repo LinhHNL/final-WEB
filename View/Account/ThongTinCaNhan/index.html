@@ -99,6 +99,15 @@
                 >Đăng ký</a
               >
             </li>
+            <li
+              class="nav-item d-flex align-items-center ms-auto visually-hidden"
+              id="user-account"
+            >
+              <a class="nav-link" href="#"></a>
+            </li>
+            <li class="nav-item visually-hidden" id="signout">
+              <a class="nav-link" href="#">Đăng xuất</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -236,23 +245,14 @@
               <div class="container-fluid">
                 <div class="row mb-2">
                   <div class="col-12">
-                    <span class="form-title"> Nhập tên đăng nhập </span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      aria-label="Producer_name"
-                      aria-describedby="addon-wrapping"
-                    />
-                  </div>
-                </div>
-                <div class="row mb-2">
-                  <div class="col-12">
                     <span class="form-title"> Nhập mật khẩu cũ </span>
                     <input
-                      type="text"
+                      type="password"
                       class="form-control"
                       aria-label="Producer_name"
                       aria-describedby="addon-wrapping"
+                      id="password-old"
+
                     />
                   </div>
                 </div>
@@ -260,10 +260,11 @@
                   <div class="col-12">
                     <span class="form-title"> Nhập mật khẩu mới </span>
                     <input
-                      type="text"
+                      type="password"
                       class="form-control"
                       aria-label="Producer_name"
                       aria-describedby="addon-wrapping"
+                      id="password-new"
                     />
                   </div>
                 </div>
@@ -271,13 +272,15 @@
                   <div class="col-12">
                     <span class="form-title"> Xác nhận mật khẩu mới </span>
                     <input
-                      type="text"
+                      type="password"
                       class="form-control"
                       aria-label="Producer_name"
                       aria-describedby="addon-wrapping"
+                      id="password-new-confirm"
                     />
                   </div>
                 </div>
+                <div class="message text-danger text-center"></div>
               </div>
             </div>
             <div class="row">
@@ -292,8 +295,8 @@
               >
                 <button
                   type="button"
-                  class="btn mt-2 text-white btn-primary"
-                  id="btn_EditUser"
+                  class="btn mt-2 text-white btn-main"
+                  id="btn-change-password"
                   style="border-radius: 10px"
                 >
                   Đổi mật khẩu
@@ -306,8 +309,54 @@
       </div>
     </div>
     <script type="module">
-      import { getCustomerByEmail } from "../../API/UserAPI.js";
+      import { getCustomerByEmail, changePassword } from "../../API/UserAPI.js";
       import { XORDecrypt } from "../../Util/EncryptXOR.js";
+      let accountID;
+      $(document).ready(function () {
+        if (sessionStorage.getItem("Email")) {
+          let email = XORDecrypt(window.sessionStorage.getItem("Email"));
+          getCustomerByEmail("../../..", email).then((res) => {
+            let data = JSON.parse(res.user);
+            let name = data.customer.FullName;
+            accountID = data.customer.account_id;
+            $("#create-accout").addClass("visually-hidden");
+            $("#login-accout").addClass("visually-hidden");
+            $("#user-account")
+              .removeClass("visually-hidden")
+              .find("a")
+              .text(name);
+            $("#signout").removeClass("visually-hidden");
+          });
+        }
+        else {
+          window.location.href = "../../Login_Modal/LoginModal.html";
+        }
+
+        $("#signout a").click(() => {
+          sessionStorage.removeItem("Email");
+          window.location.href = ".";
+        });
+
+        $('#btn-change-password').click(() => {
+          let oldPass = $('#password-old').val();
+          let newPass = $('#password-new').val();
+          let newPassConfirm = $('#password-new-confirm').val();
+          if (newPass !== newPassConfirm) {
+            $('.message').text('Mật khẩu xác nhận không khớp').show(1).delay(3000).hide(1);
+            return;
+          }
+          changePassword("../../..", accountID, newPass, oldPass).then(res => {
+            
+            if (res.success) 
+              $('.message').text('Đổi mật khẩu thành công').addClass('text-success').removeClass('text-danger');
+            else  
+              $('.message').text('Mật khẩu cũ không đúng').addClass('text-danger').removeClass('text-success');
+
+          })
+
+        })
+      });
+
       (async function TakeUserInformation() {
         const EmailUser = sessionStorage.getItem("Email");
         let UserInfo = XORDecrypt(EmailUser);

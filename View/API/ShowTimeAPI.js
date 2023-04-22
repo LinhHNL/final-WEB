@@ -1,6 +1,16 @@
-const getShowTimeById = async (url, ShowtimeID = 1, date = 16) => {
+const getShowTimeByID = async (url, id=1) => {
   const data = await fetch(
-    `${url}/Controller/Showtime/ajax.php?action=getShowTimeById&id=${ShowtimeID}`,
+    `${url}/Controller/Showtime/ajax.php?action=getShowTimeById&id=${id}`,
+    {
+      method: "GET",
+    }
+  );
+  const datatorender = await data.json();
+  return datatorender;
+};
+const getAllShowTime = async (url, page=1) => {
+  const data = await fetch(
+    `${url}/Controller/Showtime/ajax.php?action=getAllShowTime&page=${page}`,
     {
       method: "GET",
     }
@@ -136,7 +146,7 @@ const getShowTimeByDateAndTheater = async (
   return datatorender;
 };
 export {
-  getShowTimeById,
+  getShowTimeByID,
   getAllShowTimesByDate,
   getShowTimeByDateAndGenre,
   getShowTimeByMovieandTheater,
@@ -145,6 +155,7 @@ export {
   addShowTime,
   removeShowTime,
   getShowTimeByDateAndTheater,
+  getAllShowTime,
 };
 //   $movieid = $_GET['movieid'];
 //   $date = $_GET['date'];

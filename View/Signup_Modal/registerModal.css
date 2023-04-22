@@ -10,17 +10,11 @@
   left: 0;
   right: 0;
   z-index: 5;
-}
-.modal_body_container_Logout::before {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #000000;
-  opacity: 0.7;
-  content: "";
-}
+  background-image: url('../../images/bg_login.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+} 
+
 .form-group {
   display: flex;
   margin-bottom: 20px;
