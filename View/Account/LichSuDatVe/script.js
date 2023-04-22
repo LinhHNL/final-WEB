@@ -1,10 +1,9 @@
-import {XORDecrypt} from "../../Util/EncryptXOR.js";
-import {getCustomerByEmail} from "../../API/UserAPI.js";
-import {getAllBookingsByCustomerID} from "../../API/BookingAPI.js";
+import { XORDecrypt } from "../../Util/EncryptXOR.js";
+import { getCustomerByEmail } from "../../API/UserAPI.js";
+import { getAllBookingsByCustomerID } from "../../API/BookingAPI.js";
 
 let currentData = [];
 let table = $("#table-content").DataTable({
-
   searching: false,
   language: {
     lengthMenu: "Số kết quả / Trang _MENU_",
@@ -25,29 +24,36 @@ $("#table-content_filter").hide();
 let id;
 
 $(document).ready(function () {
-  if (sessionStorage.getItem('Email')) {
-    let email = XORDecrypt(window.sessionStorage.getItem('Email'));
-    getCustomerByEmail("../../..", email).then(res => {
+  if (sessionStorage.getItem("Email")) {
+    let email = XORDecrypt(window.sessionStorage.getItem("Email"));
+    getCustomerByEmail("../../..", email).then((res) => {
       let data = JSON.parse(res.user);
       id = data.customer.CustomerID;
       let name = data.customer.FullName;
-      $('#create-accout').addClass('visually-hidden');
-      $('#login-accout').addClass('visually-hidden');
-      $('#user-account').removeClass('visually-hidden').find('a').text(name);
-      $('#signout').removeClass('visually-hidden');       
-      loadAllBooking(id).then(() => showData()); 
-    });  
-  }
-  else {
+      $("#create-accout").addClass("visually-hidden");
+      $("#login-accout").addClass("visually-hidden");
+      $("#user-account").removeClass("visually-hidden").find("a").text(name);
+      $("#signout").removeClass("visually-hidden");
+      loadAllBooking(id).then(() => showData());
+    });
+  } else {
     window.location.href = "../../Login_Modal/LoginModal.html";
   }
 
-  $('#signout a').click(() => {
+  $("#signout a").click(() => {
     sessionStorage.removeItem("Email");
     window.location.href = ".";
-  })
-})
+  });
+});
+function toVndCurrencyFormat(number) {
+  const currencyFormat = new Intl.NumberFormat("vi-VN", {
+    style: "currency",
+    currency: "VND",
+    minimumFractionDigits: 0,
+  });
 
+  return currencyFormat.format(number);
+}
 
 function showData() {
   table.clear().draw();
@@ -59,10 +65,10 @@ function showData() {
       .add([
         data[i].booking.BookingID,
         data[i].booking.NumberOfTickets,
-        data[i].booking.TotalPrice,
+        toVndCurrencyFormat(data[i].booking.TotalPrice),
         data[i].booking.BookingTime,
         data[i].booking.Voucher,
-        data[i].status === 1 ? "Đã xác nhận" : "Chưa xác nhận",
+        data[i].booking.status === 1 ? "Đã xác nhận" : "Chưa xác nhận",
       ])
       .draw();
   }
@@ -77,5 +83,4 @@ async function loadAllBooking(id) {
     currentData.push(...data);
     page++;
   } while (data.length != 0);
-
 }

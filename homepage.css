@@ -52,6 +52,31 @@ html {
   color: white;
 }
 
+
+#modal-trailer .modal-dialog {
+  max-width: 75%;
+  max-height: 75%;
+  margin: 30px auto;
+}
+
+#modal-trailer .modal-body {
+  position: relative;
+  padding: 0px;
+}
+#modal-trailer .close {
+  position: absolute;
+  right: -30px;
+  top: 0;
+  z-index: 999;
+  font-size: 2rem;
+  font-weight: normal;
+  color: #fff;
+  background-color: transparent;
+  border: none;
+  opacity: 1;
+}
+
+
 #movie-slide {
   height: 820px;
 }

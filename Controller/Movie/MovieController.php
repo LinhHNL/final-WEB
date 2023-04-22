@@ -12,7 +12,8 @@ class MovieController{
         foreach($moives as $Movie ){
             $movieID = $Movie->get_MovieID();
             // return $moives;
-            $Movie->set_rating((new RatingModel())->getAverageRating($movieID));
+            $number_rating = (new RatingModel())->getAverageRating($movieID);
+            $Movie->set_rating($number_rating);
             $images = (new MovieImageModel())->getMoiveImageID($movieID);
             $obj = json_decode($images);
             $imagePaths = array();
@@ -93,8 +94,9 @@ class MovieController{
         return array("success"=>(new MovieModel())->addGenreForMovie(new DetailMovieGenre($MovieID,$GenreID)));
     }
     public function addImageOfMovie($data){
-         $ImagePath = $data['file'];
          $MovieID = $data['MovieID'];
+         $ImagePath = $data['file'];
+
          $type = $data['type'];
          $base64 = str_replace('data:application/octet-stream;base64,', '', $ImagePath);
          $file = base64_decode($base64);

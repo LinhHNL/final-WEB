@@ -140,11 +140,13 @@ public function getAllRatingByMovie($id,$page){
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
     
-        if ($result) {
+        if ($result["AvgRating"]!=0) {
             $avgRating = $result["AvgRating"];
             return $avgRating;
         } else {
-            return 0;
+
+            $avgRating = 0.0;
+            return $avgRating;
         }
     }
     
