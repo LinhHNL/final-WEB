@@ -369,10 +369,11 @@
         let UserInfo = XORDecrypt(EmailUser);
         let UserData = await getCustomerByEmail("../../../.", UserInfo);
         let UserDataRender = JSON.parse(UserData["user"]).customer;
+        console.log(UserDataRender);
         $(".name-display").text(UserDataRender.FullName);
         $(".email-display").text(UserInfo);
         $(".user-display").text(UserInfo);
-        $(".phone-display").text(UserDataRender.phone);
+        $(".phone-display").text(UserDataRender.Phone);
       })();
     </script>
   </body>

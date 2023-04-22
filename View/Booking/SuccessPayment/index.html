@@ -123,11 +123,9 @@
               </div>
             </div>
             <div class="row mb-4">
-              <div class="col-12 d-flex justify-content-center info">
-                Thông tin chuyển tiền Momo:0764884258 (Cú pháp chuyển
-                tiền:5CT_[Mã Hóa Đơn]) <br />
-                Để Xem Mã Hóa Đơn Thì Bạn Vui Lòng Vào Phần Kiểm Tra Đặt Vé
-              </div>
+              <div
+                class="col-12 d-flex justify-content-center info money-info"
+              ></div>
             </div>
             <div class="row">
               <a
@@ -211,6 +209,10 @@
       import { XORDecrypt } from "../../Util/EncryptXOR.js";
       import { getCustomerByEmail } from "../../API/UserAPI.js";
       $(document).ready(() => {
+        let billid = sessionStorage.getItem("BillID");
+        $(".money-info")
+          .text(`Thông tin chuyển tiền Momo:0764884258 (Cú pháp chuyển
+                tiền:5CT_${billid})`);
         // Navbar for logged in
         if (sessionStorage.getItem("Email")) {
           let email = XORDecrypt(window.sessionStorage.getItem("Email"));

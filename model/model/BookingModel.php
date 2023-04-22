@@ -65,7 +65,7 @@ class BookingModel {
         FROM Booking
         where customer_id =:id
         
-        ORDER BY Booking.BookingTime DESC
+        ORDER BY CAST(RIGHT(BookingID, LENGTH(BookingID) - 2) AS UNSIGNED) DESC
         LIMIT 
     :perPage OFFSET :offset");
         $stmt->bindParam(':perPage', $perPage, PDO::PARAM_INT);
@@ -95,7 +95,7 @@ class BookingModel {
             status
         FROM Booking
         
-        ORDER BY Booking.BookingTime DESC
+        ORDER BY CAST(RIGHT(BookingID, LENGTH(BookingID) - 2) AS UNSIGNED) DESC
 LIMIT 
     :perPage OFFSET :offset");
     

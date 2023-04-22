@@ -316,7 +316,7 @@
         datas.forEach(async (data, index) => {
           let imagebannerObj = data.listImage;
           let filteredMovies = imagebannerObj.filter(function (movie) {
-            return movie.type === "1" && movie.ImagePath;
+            return movie.type == "1" && movie.ImagePath;
           });
           function toHHMM(minutes) {
             var hours = Math.floor(minutes / 60);
@@ -655,7 +655,7 @@
           datas.forEach(async (data, index) => {
             let imagebannerObj = data.listImage;
             let filteredMovies = imagebannerObj.filter(function (movie) {
-              return movie.type === "1" && movie.ImagePath;
+              return movie.type == "1" && movie.ImagePath;
             });
             function toHHMM(minutes) {
               var hours = Math.floor(minutes / 60);
@@ -737,7 +737,7 @@
           datas.forEach(async (data, index) => {
             let imagebannerObj = data.listImage;
             let filteredMovies = imagebannerObj.filter(function (movie) {
-              return movie.type === "1" && movie.ImagePath;
+              return movie.type == "1" && movie.ImagePath;
             });
             function toHHMM(minutes) {
               var hours = Math.floor(minutes / 60);

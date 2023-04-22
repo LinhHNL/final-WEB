@@ -491,6 +491,7 @@
             sessionStorage.removeItem("movieid");
             sessionStorage.removeItem("TotalPrice");
             sessionStorage.removeItem("PriceMenu");
+            sessionStorage.setItem("BillID", resulttoadd.id);
             window.location.href = "../SuccessPayment/index.html";
           }
         });
