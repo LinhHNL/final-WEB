@@ -146,7 +146,7 @@ const getShowTimeByDateAndTheater = async (
   return datatorender;
 };
 export {
-  getShowTimeById,
+  getShowTimeByID,
   getAllShowTimesByDate,
   getShowTimeByDateAndGenre,
   getShowTimeByMovieandTheater,
