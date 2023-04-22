@@ -296,19 +296,19 @@
             <div style="margin-top: 20px">
               <div>
                 <a href="#" class="btn-footer">
-                  <img src="/images/email-multiple-outline.png" />
+                  <img src="../../../images/email-multiple-outline.png" />
                   hoidap@5ct.vn
                 </a>
               </div>
               <div>
                 <a href="#" class="btn-footer">
-                  <img src="/images/phone.png" /> 1900 1008
+                  <img src="../../../images/phone.png" /> 1900 1008
                 </a>
               </div>
               <div class="footer-icon">
-                <a href="#"> <img src="/images/facebook.png" /> </a>
-                <a href="#"> <img src="/images/twitter.png" /> </a>
-                <a href="#"> <img src="/images/google-plus.png" /> </a>
+                <a href="#"> <img src="../../../images/facebook.png" /> </a>
+                <a href="#"> <img src="../../../images/twitter.png" /> </a>
+                <a href="#"> <img src="../../../images/google-plus.png" /> </a>
               </div>
             </div>
           </div>
@@ -323,7 +323,7 @@
       } from "../../API/PromotionAPI.js";
       import { AddBooking } from "../../API/BookingAPI.js";
       import { getCustomerByEmail } from "../../API/UserAPI.js";
-
+      import { getMovieByID } from "../../API/MovieAPI.js";
       import { XORDecrypt } from "../../Util/EncryptXOR.js";
       $(document).ready(function () {
         // Navbar for logged in
@@ -380,7 +380,10 @@
           let pricetorender = sessionStorage.getItem("Pricing");
           let PriceTotal = sessionStorage.getItem("TotalPrice");
           let menuprice = sessionStorage.getItem("PriceMenu");
-          $(".movie-content").text(sessionStorage.getItem("FilmName"));
+          let movieid = sessionStorage.getItem("movieid");
+          let dataMovie = await getMovieByID("../../../.", movieid);
+          dataMovie = dataMovie["movie"];
+          $(".movie-content").text(dataMovie.MovieName);
           $(".menu-content").text(toVndCurrencyFormat(menuprice));
           $(".price-ticket").text(toVndCurrencyFormat(pricetorender));
           $(".all-price-content").text(toVndCurrencyFormat(PriceTotal));

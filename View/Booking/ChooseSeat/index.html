@@ -267,19 +267,19 @@
             <div style="margin-top: 20px">
               <div>
                 <a href="#" class="btn-footer">
-                  <img src="/images/email-multiple-outline.png" />
+                  <img src="../../../images/email-multiple-outline.png" />
                   hoidap@5ct.vn
                 </a>
               </div>
               <div>
                 <a href="#" class="btn-footer">
-                  <img src="/images/phone.png" /> 1900 1008
+                  <img src="../../../images/phone.png" /> 1900 1008
                 </a>
               </div>
               <div class="footer-icon">
-                <a href="#"> <img src="/images/facebook.png" /> </a>
-                <a href="#"> <img src="/images/twitter.png" /> </a>
-                <a href="#"> <img src="/images/google-plus.png" /> </a>
+                <a href="#"> <img src="../../../images/facebook.png" /> </a>
+                <a href="#"> <img src="../../../images/twitter.png" /> </a>
+                <a href="#"> <img src="../../../images/google-plus.png" /> </a>
               </div>
             </div>
           </div>
@@ -452,7 +452,7 @@
               style: "currency",
               currency: "VND",
               minimumFractionDigits: 0,
-            }); 
+            });
 
             return currencyFormat.format(number);
           }
@@ -466,7 +466,6 @@
           let arrtemptransaction = [];
           let price = 0;
 
-
           $(".seat").click(async function () {
             let row = $(this).attr("row");
             let col = $(this).attr("col");
@@ -476,7 +475,7 @@
             function numberToChar(number) {
               return String.fromCharCode(parseInt(number) + "A".charCodeAt(0));
             }
-            console.log(arrtemptransaction)
+            console.log(arrtemptransaction);
 
             if (stateid == 1) {
               unselectSeat(row, col);
@@ -484,19 +483,24 @@
               let pricing = await getShowTimeByID("../../.././", ShowTimeID);
               let pricetocal = pricing["Showtime"].Price;
               let seatIndentify = await getseatByID("../../../.", idSeat);
-                console.log(seatIndentify.Seat)
-              arrtemptransaction = arrtemptransaction.filter(e => e.SeatID !== seatIndentify.Seat.SeatID);
+              console.log(seatIndentify.Seat);
+              arrtemptransaction = arrtemptransaction.filter(
+                (e) => e.SeatID !== seatIndentify.Seat.SeatID
+              );
               sessionStorage.setItem(
                 "ChoosingSeat",
                 JSON.stringify(arrtemptransaction)
               );
               // Cập nhật thông tin Seat
               let seatdata = $(".seat-content").text();
-              let seatList = seatdata.split(" ").filter(e => e !== seatIndentify.Seat.SeatID)
+              let seatList = seatdata
+                .split(" ")
+                .filter((e) => e !== seatIndentify.Seat.SeatName);
+              console.log(seatIndentify.Seat);
               seatdata = seatList.join(" ");
               $(".seat-content").text(seatdata);
               // Cập nhật thông tin giá
-              if (seatIndentify.Seat.Type === '2') price -= 2;
+              if (seatIndentify.Seat.Type === "2") price -= 2;
               else price -= 1;
               let pricetorender = toVndCurrencyFormat(pricetocal * price);
               $(".ticket-content").text(pricetorender);
@@ -519,30 +523,27 @@
               price += 2;
             }
 
-              let ShowTimeID = sessionStorage.getItem("ShowTimeID");
-              let pricing = await getShowTimeByID("../../.././", ShowTimeID);
-              let pricetocal = pricing["Showtime"].Price;
-              let seatIndentify = await getseatByID("../../../.", idSeat);
-              selectSeat(row, col);
-              arrtemptransaction = [
-                ...arrtemptransaction,
-                seatIndentify["Seat"],
-              ];
-              sessionStorage.setItem(
-                "ChoosingSeat",
-                JSON.stringify(arrtemptransaction)
-              );
-              // Cập nhật thông tin Seat
-              let seatdata = $(".seat-content").text();
-              seatdata += seatIndentify["Seat"].SeatName + " ";
-              $(".seat-content").text(seatdata);
-              // Cập nhật thông tin giá
-              console.log(pricing["Showtime"]);
-              let pricetorender = toVndCurrencyFormat(pricetocal * price);
-              $(".ticket-content").text(pricetorender);
-              $(".total-content").text(pricetorender);
-              sessionStorage.setItem("Pricing", pricetocal * price);
-              bookingNumber++;
+            let ShowTimeID = sessionStorage.getItem("ShowTimeID");
+            let pricing = await getShowTimeByID("../../.././", ShowTimeID);
+            let pricetocal = pricing["Showtime"].Price;
+            let seatIndentify = await getseatByID("../../../.", idSeat);
+            selectSeat(row, col);
+            arrtemptransaction = [...arrtemptransaction, seatIndentify["Seat"]];
+            sessionStorage.setItem(
+              "ChoosingSeat",
+              JSON.stringify(arrtemptransaction)
+            );
+            // Cập nhật thông tin Seat
+            let seatdata = $(".seat-content").text();
+            seatdata += seatIndentify["Seat"].SeatName + " ";
+            $(".seat-content").text(seatdata);
+            // Cập nhật thông tin giá
+            console.log(pricing["Showtime"]);
+            let pricetorender = toVndCurrencyFormat(pricetocal * price);
+            $(".ticket-content").text(pricetorender);
+            $(".total-content").text(pricetorender);
+            sessionStorage.setItem("Pricing", pricetocal * price);
+            bookingNumber++;
           });
         })();
       });
@@ -550,16 +551,14 @@
       function selectSeat(row, col) {
         let seat = $(`.seat[row=${row}][col=${col}]`);
         if (seat.hasClass("booked") || seat.hasClass("selected")) return;
-        seat.addClass("selecting").removeClass('available').attr('stateid', 1);
+        seat.addClass("selecting").removeClass("available").attr("stateid", 1);
       }
 
       function unselectSeat(row, col) {
         let seat = $(`.seat[row=${row}][col=${col}]`);
-        seat.removeClass("selecting").addClass('available');
-        if (seat.hasClass('couple'))
-          seat.attr('stateid', 3);
-        else
-          seat.attr('stateid', 0);
+        seat.removeClass("selecting").addClass("available");
+        if (seat.hasClass("couple")) seat.attr("stateid", 3);
+        else seat.attr("stateid", 0);
       }
 
       class Seat {

@@ -5,6 +5,8 @@ import {
   getRevenueForYear,
 } from "../../API/StatisticAPI.js";
 import { getAllBooking } from "../../API/BookingAPI.js";
+import { getUserByEmail } from "../../API/UserAPI.js";
+import { XORDecrypt } from "../../Util/EncryptXOR.js";
 let allData = [];
 let currentData = [];
 let table = $("#table-content").DataTable({
@@ -29,10 +31,27 @@ let table = $("#table-content").DataTable({
 });
 $("#table-content_filter").hide();
 $(document).ready(() => {
-    $(".item-choosing-block").click(function () {
-        $(".item-choosing-block .divider-mini").remove();
-        $(this).append("<div class=divider-mini></div>");
-    });
+  let authFlag = true;
+  if (sessionStorage.getItem('Email')) {
+    let email = XORDecrypt(sessionStorage.getItem('Email'));
+    getUserByEmail("../../..", email).then(res => {
+      if (res.role !== '2') authFlag = false;
+    })
+  }
+  else authFlag = false;
+
+  if (!authFlag) {
+    window.location.href = "../../Login_Modal/LoginModal.html";
+  }
+
+  $('.logout-container').click(() => {
+    sessionStorage.removeItem('Email');
+    window.location.href = "../../../";
+  })
+  $(".item-choosing-block").click(function () {
+    $(".item-choosing-block .divider-mini").remove();
+    $(this).append("<div class=divider-mini></div>");
+  });
 
   $(".Statistic-month").click(() =>
     LoadRevenueForMonth().then(() => showDataMonth())
