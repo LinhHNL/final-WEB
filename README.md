@@ -47,11 +47,10 @@ Cấu trúc chương trình của trang web được tổ chức như sau:
 - Sau khi dùng xong, tắt chương trình ở IDE và Stop Apache, MySQL
 ## Usage
 ### Demo account:
-- Admin(username/pass): admin1/123
-- Customer(username/pass): user1/123
+- Admin(username/pass): admin/123456
 - Demo Voucher: GIAMSOC50PHANTRAM
 
-### Video Demo : <a href="">Link Video Demo</a>
+### Video Demo : <a href="https://www.youtube.com/watch?v=O0tcT08E4J0">Link Video Demo</a>
 
 ### Demo Customer:
 
