@@ -39,11 +39,12 @@ $(document).ready(() => {
   else authFlag = false;
 
   if (!authFlag) {
-    window.location.href = "../../../Login_Modal/LoginModal.html";
+    window.location.href = "../../Login_Modal/LoginModal.html";
   }
 
   $('.logout-container').click(() => {
-    
+    sessionStorage.removeItem('Email');
+    window.location.href = "../../../";
   })
 
   table.on("select", function (e, dt, type, indexes) {
