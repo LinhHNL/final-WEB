@@ -283,6 +283,11 @@ html {
   position: relative;
 }
 
+.event .movie-card .card-img {
+  aspect-ratio: 1 / 1;
+
+}
+
 .movie-card .poster {
   max-height: 100%;
   max-width: 100%;
