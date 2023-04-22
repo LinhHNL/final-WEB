@@ -47,7 +47,7 @@ class BookingModel {
         return array("booking"=>null);
     }
     $ListTicket = (new TicketModel())->getAllTicketByBookingID($bookingid);
-    $ListMenu = (new MenuDetailModel())->getMenuDetailByBookingID($booking);
+    $ListMenu = (new MenuDetailModel())->getMenuDetailByBookingID($bookingid);
     return array("booking"=>$booking, "menu"=>$ListMenu,"ticket"=>$ListTicket);
     }
 
