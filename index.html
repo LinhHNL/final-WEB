@@ -279,6 +279,37 @@
         </div>
       </div>
     </div>
+    <!-- Modal trailer -->
+    <div
+      class="modal fade"
+      id="modal-trailer"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="modal-trailer"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <!-- 16:9 aspect ratio -->
+            <div class="ratio ratio-16x9">
+              <video class="embed-responsive-item" controls>
+                <source src="../..../../images/" type="" />
+                <source src="../../images/trailer.mp4" type="video/mp4" />
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <script type="module">
       import {
         getHotMovieAPI,
@@ -394,7 +425,7 @@
                ${data.story}
               </div>
               <div class="button-container">
-                <button class="btn-main btn-trailer">
+                <button class="btn-main btn-trailer" data-trailerurl=${data.URLTrailer} onclick="showTrailer(this)" >
                   TRAILER
                   <img src="./images/play.svg" alt="" />
                 </button>
@@ -423,6 +454,9 @@
             });
           }
         });
+
+
+
         // Gọi phim đang chiếu
 
         getPremierMovie(".").then((datas) => {
@@ -468,10 +502,11 @@
                     <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
                     </a>
                     <a href="./View/Order/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
-                      <button class="btn-main btn-book" style="display:block">
+                      <button class="btn-main btn-book m-auto" style="display:block">
                       ĐẶT VÉ
-                      <img src="../../images/Arrow_right_long.svg" alt="" />
                     </button>
+                  </a>
+
                   </div>
                   <img class="poster" src="${data.listImage[0]}" alt="" />
                 </div>
@@ -488,6 +523,8 @@
             });
           });
         });
+
+
         // Gọi phim chuẩn bị chiếu
         getUpcomingMovie(".").then((datas) => {
           console.log(datas);
@@ -554,6 +591,7 @@
             $(".row.g-3.movie-upcoming-container").append(htmls);
           });
         });
+
         // Lấy toàn bộ Genre
         async function changingBtnOnClickGetAll(GenreID) {
           const movieContainer = $(".row.g-3.movie-premier-container");
@@ -758,6 +796,9 @@
           video.pause();
           video.currentTime = 0;
         });
+        function showTrailer(btn) {
+          console.log($(btn).data('trailerurl'))
+        }
       });
     </script>
   </body>
