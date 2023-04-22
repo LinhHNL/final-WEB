@@ -113,45 +113,37 @@ async function loadAllMenu() {
   allData = [...currentData];
 }
 function showData() {
-  table.clear().draw();
-  let data = currentData;
-  let numRow = data.length;
-  for (let i = 0; i < numRow; i++) {
-    
-    table.row
-      .add([
-        data[i].ItemID,
-        data[i].Name,
-        data[i].Price,
-        data[i].ImageURL,
-        data[i].status
-      ])
-      .draw();
+    table.clear().draw();
+    let data = currentData;
+    let numRow = data.length;
+    for (let i = 0; i < numRow; i++) {
+    //   let genreList = [];
+    //   data[i].ListGenre.forEach((genre) => {
+    //     genreList.push(genre.GenreName);
+    //   });
+      table.row
+        .add([
+          data[i].ItemID,
+          data[i].Name,
+          data[i].Price,
+          data[i].ImageURL,
+          data[i].status
+        ])
+        .draw();
+    }
   }
-}
-function fillEditData(id) {
-  let editModal = $("#ModalEditUser");
-  let data = currentData.find((e) => e.ItemID === id);
-  console.log(data);
-  editModal.find("#ItemID").val(data.ItemID);
-  editModal.find("#Name").val(data.Name);
-  editModal.find("#Price").val(data.Price);
-  editModal.find("#image").val(data.ImageURL);
-  editModal.find("#status").val(data.status);
-  editModal.modal("show");
-}
-File.prototype.convertToBase64 = function () {
-  return new Promise(
-    function (resolve, reject) {
-      var reader = new FileReader();
-      reader.onloadend = function (e) {
-        resolve({
-          fileName: this.name,
-          result: e.target.result,
-          error: e.target.error,
-        });
-      };
-      reader.readAsDataURL(this);
-    }.bind(this)
-  );
-};
+  File.prototype.convertToBase64 = function () {
+    return new Promise(
+      function (resolve, reject) {
+        var reader = new FileReader();
+        reader.onloadend = function (e) {
+          resolve({
+            fileName: this.name,
+            result: e.target.result,
+            error: e.target.error,
+          });
+        };
+        reader.readAsDataURL(this);
+      }.bind(this)
+    );
+  };

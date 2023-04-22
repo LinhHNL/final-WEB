@@ -308,12 +308,14 @@
       </div>
     </div>
     <script>
-        function showTrailer(btn) {
-          let url = $(btn).data('trailerurl').replace("https://youtu.be", "https://youtube.com/embed");
-          let modal = $('#modal-trailer');
-          modal.find('iframe').attr('src', url);
-          $('#modal-trailer').modal('show');
-        }
+      function showTrailer(btn) {
+        let url = $(btn)
+          .data("trailerurl")
+          .replace("https://youtu.be", "https://youtube.com/embed");
+        let modal = $("#modal-trailer");
+        modal.find("iframe").attr("src", url);
+        $("#modal-trailer").modal("show");
+      }
     </script>
     <script type="module">
       import {
@@ -479,7 +481,10 @@
             return storehtml;
           };
           datas.forEach(async (data, index) => {
-            console.log(data);
+            let imagebannerObj = data.listImage;
+            let filteredMovies = imagebannerObj.filter(function (movie) {
+              return movie.type === "2" && movie.ImagePath;
+            });
             const timetoadd = await toHHMM(data.Time);
             let genrehtml = await cuttingGenre(data);
             let htmls = "";
@@ -513,7 +518,7 @@
                   </a>
 
                   </div>
-                  <img class="poster" src="${data.listImage[0]}" alt="" />
+                  <img class="poster" src="${filteredMovies[0].ImagePath}" alt="" />
                 </div>
 
                 <div class="movie-genre">
@@ -552,7 +557,10 @@
             let genrehtml = await cuttingGenre(data);
             let htmls = "";
             const timetoadd = await toHHMM(data.Time);
-
+            let imagebannerObj = data.listImage;
+            let filteredMovies = imagebannerObj.filter(function (movie) {
+              return movie.type === "2" && movie.ImagePath;
+            });
             htmls +=
               `<div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
                 <div class="card-img">
@@ -575,12 +583,12 @@
                     </div>
                     <button class="btn-outline">Chi tiết</button>
                     <a href="./View/Order/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
-                      <button class="btn-main btn-book" style="display:block">
+                      <button class="btn-main btn-book m-auto" style="display:block">
                       ĐẶT VÉ
                     </button>
                     </a>
                   </div>
-                  <img class="poster" src="${data.listImage[0]}" alt="" />
+                  <img class="poster" src="${filteredMovies[0].ImagePath}" alt="" />
                 </div>
 
                 <div class="movie-genre">
@@ -622,6 +630,10 @@
               const timetoadd = await toHHMM(data.Time);
               let genrehtml = await cuttingGenre(data);
               let htmls = "";
+              let imagebannerObj = data.listImage;
+              let filteredMovies = imagebannerObj.filter(function (movie) {
+                return movie.type === "2" && movie.ImagePath;
+              });
               htmls +=
                 `<div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
                 <div class="card-img">
@@ -646,12 +658,11 @@
                     <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
                     </a>
                     <a href="./View/Order/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
-                      <button class="btn-main btn-book" style="display:block">
+                      <button class="btn-main btn-book m-auto" style="display:block">
                       ĐẶT VÉ
-                      <img src="../../images/Arrow_right_long.svg" alt="" />
                     </button>
                   </div>
-                  <img class="poster" src="${data.listImage[0]}" alt="" />
+                  <img class="poster" src="${filteredMovies[0].ImagePath}" alt="" />
                 </div>
 
                 <div class="movie-genre">
@@ -694,6 +705,10 @@
               const timetoadd = await toHHMM(data.Time);
               let genrehtml = await cuttingGenre(data);
               let htmls = "";
+              let imagebannerObj = data.listImage;
+              let filteredMovies = imagebannerObj.filter(function (movie) {
+                return movie.type === "2" && movie.ImagePath;
+              });
               htmls +=
                 `<div class="movie-card col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
                 <div class="card-img">
@@ -718,12 +733,11 @@
                     <button class="btn-outline" id=${data.MovieID}>Chi tiết</button>
                     </a>
                     <a href="./View/Order/index.html" style="text-decoration:None;display:block;width:100%;text-align:center">
-                      <button class="btn-main btn-book" style="display:block">
+                      <button class="btn-main btn-book m-auto" style="display:block">
                       ĐẶT VÉ
-                      <img src="../../images/Arrow_right_long.svg" alt="" />
                     </button>
                   </div>
-                  <img class="poster" src="${data.listImage[0].ImagePath}" alt="" />
+                  <img class="poster" src="${filteredMovies[0].ImagePath}" alt="" />
                 </div>
 
                 <div class="movie-genre">
@@ -787,7 +801,7 @@
         let iframe = $("#modal-trailer iframe");
 
         modalTrailer.on("hide.bs.modal", function (e) {
-          iframe.attr('src', '');
+          iframe.attr("src", "");
         });
       });
     </script>

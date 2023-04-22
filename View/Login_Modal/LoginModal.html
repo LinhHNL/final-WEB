@@ -146,35 +146,40 @@
               .delay(3000)
               .hide(1);
           } else {
-            LoginAPI("../..", email, password).then((res) => {
-              if (res.success == true) {
-                if (res.role === "1") {
-                  let data = JSON.parse(res.user);
-                  // Lưu session Storage accountID và name
-                  let email = res;
-                  console.log(data);
-                  window.sessionStorage.setItem(
-                    "Email",
-                    XOREncrypt(data.customer.Email)
-                  );
-                  window.location.href = "../../index.html";
-                } else {
-                  let data = JSON.parse(res.user);
-                  // Lưu session Storage accountID
+            LoginAPI("../..", email, password)
+              .then((res) => {
+                console.log(res);
+                if (res.success == true) {
+                  if (res.role === "1") {
+                    let data = JSON.parse(res.user);
+                    // Lưu session Storage accountID và name
+                    let email = res;
+                    console.log(data);
+                    window.sessionStorage.setItem(
+                      "Email",
+                      XOREncrypt(data.customer.Email)
+                    );
+                    window.location.href = "../../index.html";
+                  } else {
+                    let data = JSON.parse(res.user);
+                    // Lưu session Storage accountID
 
-                  window.sessionStorage.setItem(
-                    "accountID",
-                    data.manager.account_id
-                  );
-                  window.location.href = "../AdminPage/UserControl";
-                }
-              } else
-                $(".message")
-                  .text("Tên đăng nhập hoặc mật khẩu không đúng")
-                  .show(3000)
-                  .delay(3000)
-                  .hide(1);
-            });
+                    window.sessionStorage.setItem(
+                      "accountID",
+                      data.manager.account_id
+                    );
+                    window.location.href = "../AdminPage/UserControl";
+                  }
+                } else
+                  $(".message")
+                    .text("Tên đăng nhập hoặc mật khẩu không đúng")
+                    .show(3000)
+                    .delay(3000)
+                    .hide(1);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
           }
         });
       });
