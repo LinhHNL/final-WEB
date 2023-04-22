@@ -292,7 +292,7 @@
         postLocalStorage,
         setLocalStorage,
       } from "../../Util/LocalstorageInterFace.js";
-      import { getShowTimeById } from "../../API/ShowTimeAPI.js";
+      import { getShowTimeByID } from "../../API/ShowTimeAPI.js";
       import { getSeatByRoomID, getseatByID } from "../../API/SeatAPI.js";
       import { getAllTicketsByShowTimeId } from "../../API/TicketAPI.js";
       import { getCustomerByEmail } from "../../API/UserAPI.js";
@@ -452,7 +452,7 @@
               style: "currency",
               currency: "VND",
               minimumFractionDigits: 0,
-            });
+            }); 
 
             return currencyFormat.format(number);
           }
@@ -465,6 +465,8 @@
           let bookingNumber = 0;
           let arrtemptransaction = [];
           let price = 0;
+
+
           $(".seat").click(async function () {
             let row = $(this).attr("row");
             let col = $(this).attr("col");
@@ -474,6 +476,40 @@
             function numberToChar(number) {
               return String.fromCharCode(parseInt(number) + "A".charCodeAt(0));
             }
+            console.log(arrtemptransaction)
+
+            if (stateid == 1) {
+              unselectSeat(row, col);
+              let ShowTimeID = sessionStorage.getItem("ShowTimeID");
+              let pricing = await getShowTimeByID("../../.././", ShowTimeID);
+              let pricetocal = pricing["Showtime"].Price;
+              let seatIndentify = await getseatByID("../../../.", idSeat);
+                console.log(seatIndentify.Seat)
+              arrtemptransaction = arrtemptransaction.filter(e => e.SeatID !== seatIndentify.Seat.SeatID);
+              sessionStorage.setItem(
+                "ChoosingSeat",
+                JSON.stringify(arrtemptransaction)
+              );
+              // Cập nhật thông tin Seat
+              let seatdata = $(".seat-content").text();
+              let seatList = seatdata.split(" ").filter(e => e !== seatIndentify.Seat.SeatID)
+              seatdata = seatList.join(" ");
+              $(".seat-content").text(seatdata);
+              // Cập nhật thông tin giá
+              if (seatIndentify.Seat.Type === '2') price -= 2;
+              else price -= 1;
+              let pricetorender = toVndCurrencyFormat(pricetocal * price);
+              $(".ticket-content").text(pricetorender);
+              $(".total-content").text(pricetorender);
+              sessionStorage.setItem("Pricing", pricetocal * price);
+              bookingNumber--;
+              return;
+            }
+            const selectedValue = $(".form-select option:selected").val();
+            if (selectedValue <= bookingNumber) {
+              return;
+            }
+
             if (stateid == 0) {
               stateid = 1;
               price += 1;
@@ -482,10 +518,9 @@
               stateid = 2;
               price += 2;
             }
-            const selectedValue = $(".form-select option:selected").val();
-            if (selectedValue > bookingNumber) {
+
               let ShowTimeID = sessionStorage.getItem("ShowTimeID");
-              let pricing = await getShowTimeById("../../.././", ShowTimeID);
+              let pricing = await getShowTimeByID("../../.././", ShowTimeID);
               let pricetocal = pricing["Showtime"].Price;
               let seatIndentify = await getseatByID("../../../.", idSeat);
               selectSeat(row, col);
@@ -508,7 +543,6 @@
               $(".total-content").text(pricetorender);
               sessionStorage.setItem("Pricing", pricetocal * price);
               bookingNumber++;
-            }
           });
         })();
       });
@@ -516,7 +550,16 @@
       function selectSeat(row, col) {
         let seat = $(`.seat[row=${row}][col=${col}]`);
         if (seat.hasClass("booked") || seat.hasClass("selected")) return;
-        seat.addClass("selecting");
+        seat.addClass("selecting").removeClass('available').attr('stateid', 1);
+      }
+
+      function unselectSeat(row, col) {
+        let seat = $(`.seat[row=${row}][col=${col}]`);
+        seat.removeClass("selecting").addClass('available');
+        if (seat.hasClass('couple'))
+          seat.attr('stateid', 3);
+        else
+          seat.attr('stateid', 0);
       }
 
       class Seat {
